@@ -1,0 +1,906 @@
+
+3DCONVERSIONMODE  1
+3DDWFPREC         2
+3DSELECTIONMODE   1
+3DOSMODE          15
+
+ACADLSPASDOC      0
+ACADPREFIX        "C:\Users\namatv\appdata\roaming\autodesk\autocad mechanical ..." (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ACADVER           "19.0s (LMS Tech)"                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ACTPATH           ""
+ACTRECORDERSTATE  0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ACTRECPATH        "C:\Users\namatv\appdata\roaming\autodesk\autocad mechanical ..."
+ACTUI             6
+AFLAGS            16
+ANGBASE           0
+ANGDIR            0
+ANNOALLVISIBLE    1
+ANNOAUTOSCALE     -4
+ANNOTATIVEDWG     0
+APBOX             0
+APERTURE          10
+AREA              0.0000                               (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ATTDIA            0
+ATTIPE            0
+ATTMODE           1
+ATTMULTI          1
+ATTREQ            1
+AUDITCTL          0
+AUNITS            0
+AUPREC            0
+AUTODWFPUBLISH    0
+AUTOMATICPUB      0
+AUTOSNAP          55
+ACMPROFILE        0
+AEC3DDWFEDGE      ÑOÑÑÑ{Ñ|                                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+AECEIPINPROGRESS  ÑOÑÑÑ{Ñ|                                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+AECFORCEDEFAULTMODELVIEW ÑOÑÑÑ{Ñ|
+AECFORCEDISPLAYBYSIZEDISABLED ÑOÑÑÑ{Ñ|
+AECFORCEEXPLODETOSOLID ÑOÑÑÑ{Ñ|
+AECOBJECTISOLATEMODE ÑOÑÑÑ{Ñ|                                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+AMCR2SEG          1
+AMDIMLAYOUTOSNAP  0
+AMDIMTOLOVERRIDERETAIN 1
+AMIPEEXITONENTER  1
+AMPOWERDIMEDITOR  1
+ANNOMONITOR       -2
+APPAUTOLOAD       14
+APPFRAMERESOURCES "pack://application:,,,/AcWindows;component/AppFrame/AcAppFra..." (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+APPLYGLOBALOPACITIES 0
+ARRAYASSOCIATIVITY 1
+ARRAYCREATION     0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ARRAYEDITSTATE    ÑOÑÑÑ{Ñ|                                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ARRAYTYPE         0
+AUTOCOMPLETEDELAY 0.3000
+AUTOCOMPLETEMODE  15
+AUTOLOAD          1
+AUTOLOADPATH      "."
+
+BACKGROUNDPLOT    2
+BACKZ             0.0000                               (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+BACTIONBARMODE    1
+BACTIONCOLOR      "7"
+BCONSTATUSMODE    0
+BDEPENDENCYHIGHLIGHT 1
+BGRIPOBJCOLOR     "141"
+BGRIPOBJSIZE      8
+BINDTYPE          0
+BLOCKEDITLOCK     0
+BLOCKEDITOR       0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+BPARAMETERCOLOR   "170"
+BPARAMETERFONT    "Simplex.shx"
+BPARAMETERSIZE    12
+BTMARKDISPLAY     1
+BVMODE            0
+BLOCKTESTWINDOW   0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+BPTEXTHORIZONTAL  1
+
+CAMERADISPLAY     0
+CAMERAHEIGHT      0.0000
+CANNOSCALE        "1:1"
+CANNOSCALEVALUE   1.000000000                          (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CAPTURETHUMBNAILS 1
+CDATE             20170104.10215311                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CDYNDISPLAYMODE   0
+CECOLOR           "ÑPÑOÑRÑLÑOÑ_"
+CELTSCALE         1.0000
+CELTYPE           "ÑPÑOÑRÑLÑOÑ_"
+CELWEIGHT         -1
+CENTERMT          0
+CETRANSPARENCY    ÑPÑÄÑRÑ|ÑÄÑê
+CHAMFERA          0.0000
+CHAMFERB          0.0000
+CHAMFERC          0.0000
+CHAMFERD          0
+CHAMMODE          0
+CIPMODE           0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CIRCLERAD         0.0000
+CLAYER            "0"
+CMATERIAL         "ByLayer"
+CMDACTIVE         1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CMDDIA            1
+CMDECHO           1
+CMDINPUTHISTORYMAX 20
+CMDNAMES          "SETVAR"                             (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CMLEADERSTYLE     "Standard"
+CMLJUST           0
+CMLSCALE          20.0000
+CMLSTYLE          "STANDARD"
+COMPASS           0
+CONSTRAINTBARMODE 4095
+CONSTRAINTNAMEFORMAT 2
+CONSTRAINTRELAX   0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CONSTRAINTSOLVEMODE 1
+COORDS            1
+COPYMODE          0
+CPLOTSTYLE        "ÑPÑÄÑWÑrÑuÑÑÑÖ"                            (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CPROFILE          "<<VANILLA>>"                        (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CROSSINGAREACOLOR 100
+CSHADOW           ÑOÑÑÑqÑÇÑpÑÉÑçÑrÑpÑuÑ}ÑpÑë Ñy ÑÅÑÇÑyÑ~ÑyÑ}ÑpÑuÑ}ÑpÑë ÑÑÑuÑ~Ñé
+CTAB              "Model"
+CTABLESTYLE       "Standard"
+CURSORSIZE        5
+CVIEWDETAILSTYLE  "Metric50"
+CVIEWSECTIONSTYLE "Metric50"
+CVPORT            2
+CACHEMAXFILES     256
+CACHEMAXTOTALSIZE 1024
+CALCINPUT         1
+CBARTRANSPARENCY  50
+CCONSTRAINTFORM   0
+CLASSICKEYS       0
+CLEANSCREENSTATE  0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CLIPROMPTLINES    3
+CLIPROMPTUPDATE   0
+CONSTRAINTBARDISPLAY 3
+CONSTRAINTCURSORDISPLAY 1
+CONSTRAINTINFER   0
+CONTENTEXPLORERSTATE 0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+CULLINGOBJ        1
+CULLINGOBJSELECTION 0
+
+
+DATALINKNOTIFY    2
+DATE              2457758.43270528                     (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DBLCLKEDIT        ÑBÑ{Ñ|
+DBMOD             5                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DCTCUST           "C:\Users\namatv\appdata\roaming\autodesk\autocad mechanical ..."
+DCTMAIN           "rus"
+DEFAULTGIZMO      0
+DEFAULTLIGHTING   1
+DEFAULTLIGHTINGTYPE 1
+DEFLPLSTYLE       "ÑPÑÄÑWÑrÑuÑÑÑÖ"                            (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DEFPLSTYLE        "ÑPÑÄÑWÑrÑuÑÑÑÖ"                            (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DELOBJ            3
+DEMANDLOAD        3
+DGNFRAME          0
+DGNIMPORTMAX      10000000
+DGNMAPPINGPATH    "C:\Users\namatv\appdata\roaming\autodesk\autocad mechanical ..." (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DGNOSNAP          1
+DIASTAT           1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DIMADEC           0
+DIMALT            ÑOÑÑÑ{Ñ|
+DIMALTD           3
+DIMALTF           0.0394
+DIMALTRND         0.0000
+DIMALTTD          3
+DIMALTTZ          0
+DIMALTU           2
+DIMALTZ           0
+DIMANNO           0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DIMAPOST          ""
+DIMARCSYM         0
+DIMASO            ÑBÑ{Ñ|
+DIMASSOC          2
+DIMASZ            2.5000
+DIMATFIT          3
+DIMAUNIT          0
+DIMAZIN           0
+DIMBLK            ""
+DIMBLK1           ""
+DIMBLK2           ""
+DIMCEN            2.5000
+DIMCLRD           0
+DIMCLRE           0
+DIMCLRT           0
+DIMDEC            2
+DIMDLE            0.0000
+DIMDLI            3.7500
+DIMDSEP           ","
+
+DIMEXE            1.2500
+DIMEXO            0.6250
+DIMFIT            3
+DIMFRAC           0
+DIMFXL            1.0000
+DIMFXLON          ÑOÑÑÑ{Ñ|
+DIMGAP            0.6250
+DIMJOGANG         45
+DIMJUST           0
+DIMLDRBLK         ""
+DIMLFAC           1.0000
+DIMLIM            ÑOÑÑÑ{Ñ|
+DIMLTEX1          ""
+DIMLTEX2          ""
+DIMLTYPE          ""
+DIMLUNIT          2
+DIMLWD            -2
+DIMLWE            -2
+DIMPOST           ""
+DIMRND            0.0000
+DIMSAH            ÑOÑÑÑ{Ñ|
+DIMSCALE          1.0000
+DIMSD1            ÑOÑÑÑ{Ñ|
+DIMSD2            ÑOÑÑÑ{Ñ|
+DIMSE1            ÑOÑÑÑ{Ñ|
+DIMSE2            ÑOÑÑÑ{Ñ|
+DIMSHO            ÑBÑ{Ñ|
+DIMSOXD           ÑOÑÑÑ{Ñ|
+DIMSTYLE          "ISO-25"                             (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DIMTAD            1
+DIMTDEC           2
+DIMTFAC           1.0000
+DIMTFILL          0
+DIMTFILLCLR       0
+DIMTIH            ÑOÑÑÑ{Ñ|
+DIMTIX            ÑOÑÑÑ{Ñ|
+DIMTM             0.0000
+DIMTMOVE          0
+DIMTOFL           ÑBÑ{Ñ|
+DIMTOH            ÑOÑÑÑ{Ñ|
+DIMTOL            ÑOÑÑÑ{Ñ|
+DIMTOLJ           0
+DIMTP             0.0000
+DIMTSZ            0.0000
+DIMTVP            0.0000
+DIMTXSTY          "Standard"
+DIMTXT            2.5000
+DIMTXTDIRECTION   ÑOÑÑÑ{Ñ|
+DIMTZIN           8
+
+DIMUNIT           2
+DIMUPT            ÑOÑÑÑ{Ñ|
+DIMZIN            8
+DISPSILH          0
+DISTANCE          0.0000                               (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DIVMESHBOXHEIGHT  3
+DIVMESHBOXLENGTH  3
+DIVMESHBOXWIDTH   3
+DIVMESHCONEAXIS   8
+DIVMESHCONEBASE   3
+DIVMESHCONEHEIGHT 3
+DIVMESHCYLAXIS    8
+DIVMESHCYLBASE    3
+DIVMESHCYLHEIGHT  3
+DIVMESHPYRBASE    3
+DIVMESHPYRHEIGHT  3
+DIVMESHPYRLENGTH  3
+DIVMESHSPHEREAXIS 12
+DIVMESHSPHEREHEIGHT 6
+DIVMESHTORUSPATH  8
+DIVMESHTORUSSECTION 8
+DIVMESHWEDGEBASE  3
+DIVMESHWEDGEHEIGHT 3
+DIVMESHWEDGELENGTH 4
+DIVMESHWEDGESLOPE 3
+DIVMESHWEDGEWIDTH 3
+DONUTID           0.5000
+DONUTOD           1.0000
+DRAGMODE          2
+DRAGP1            5000
+DRAGP2            10
+DRAGVS            ""
+DRAWORDERCTL      3
+DTEXTED           2
+DWFFRAME          2
+DWFOSNAP          1
+DWGCHECK          1
+DWGCODEPAGE       "ANSI_1251"                          (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DWGNAME           "ÑXÑuÑÇÑÑÑuÑw1.dwg"                        (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DWGPREFIX         "D:\home\_namatv\"                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DWGTITLED         0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DXEVAL            12
+DYNCONSTRAINTMODE 1
+DYNDIGRIP         31
+DYNDIVIS          1
+DYNMODE           -3
+DYNPICOORDS       0
+DYNPIFORMAT       0
+DYNPIVIS          1
+
+DYNPROMPT         1
+DYNTOOLTIPS       1
+DEFAULTINDEX      0
+DGNIMPORTMODE     0
+DGNIMPORTUNITCONVERSION 0
+DIGITIZER         0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+DIMCONSTRAINTICON 3
+DISPLAYVIEWCUBEIN2D ÑBÑ{Ñ|
+DYNCONSTRAINTDISPLAY 1
+DYNINFOTIPS       1
+
+EDGEMODE          0
+ELEVATION         0.0000
+ENTERPRISEMENU    "."                                  (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+EXPERT            0
+EXPLMODE          1
+EXTMAX            -1.0000E+20,-1.0000E+20,-1.0000E+20  (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+EXTMIN            1.0000E+20,1.0000E+20,1.0000E+20     (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+EXTNAMES          1
+ERHIGHLIGHT       1
+EXPORTEPLOTFORMAT 2
+EXPORTMODELSPACE  0
+EXPORTPAGESETUP   0
+EXPORTPAPERSPACE  0
+
+FACETERDEVNORMAL  40
+FACETERDEVSURFACE 0.0010
+FACETERGRIDRATIO  0.0000
+FACETERMAXEDGELENGTH 0.0000
+FACETERMAXGRID    4096
+FACETERMESHTYPE   0
+FACETERMINUGRID   0
+FACETERMINVGRID   0
+FACETERPRIMITIVEMODE 1
+FACETERSMOOTHLEV  1
+FACETRATIO        0
+FACETRES          0.5000
+FIELDDISPLAY      1
+FIELDEVAL         31
+FILEDIA           1
+FILLETRAD         0.0000
+FILLMODE          1
+FONTALT           "simplex.shx"
+FONTMAP           "C:\Users\namatv\appdata\roaming\autodesk\autocad mechanical ..."
+FRONTZ            0.0000                               (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+FULLOPEN          1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+FULLPLOTPATH      1
+FBXIMPORTLOG      1
+FILLETRAD3D       1.0000
+FRAME             3
+FRAMESELECTION    1
+
+GEOLATLONGFORMAT  0
+GEOMARKERVISIBILITY 1
+GFANG             0
+GFCLR1            "5"
+GFCLR2            "2"
+GFCLRLUM          1.000000000
+GFCLRSTATE        0
+GFNAME            1
+GFSHIFT           0
+GRIDDISPLAY       3
+GRIDMAJOR         5
+GRIDMODE          1
+GRIDSTYLE         0
+GRIDUNIT          10.0000,10.0000
+GRIPBLOCK         0
+GRIPCOLOR         150
+GRIPCONTOUR       251
+GRIPDYNCOLOR      140
+GRIPHOT           12
+GRIPHOVER         11
+GRIPOBJLIMIT      100
+GRIPS             2
+GRIPSIZE          5
+GRIPSUBOBJMODE    1
+GRIPTIPS          1
+GTAUTO            1
+GTDEFAULT         0
+GTLOCATION        1
+
+GLOBALOPACITY     0
+GRIPMULTIFUNCTIONAL 3
+GROUPDISPLAYMODE  2
+
+HALOGAP           0
+HANDLES           1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+HIDEPRECISION     0
+HIDETEXT          ÑBÑ{Ñ|
+HIDEXREFSCALES    1
+HIGHLIGHT         1
+HPANG             0
+HPANNOTATIVE      0
+HPASSOC           1
+HPBOUND           1
+HPBOUNDRETAIN     0
+HPDOUBLE          0
+HPDRAWORDER       3
+HPGAPTOL          0.0000
+HPINHERIT         0
+HPISLANDDETECTION 1
+HPISLANDDETECTIONMODE 1
+HPMAXLINES        1000000
+HPNAME            "ANGLE"
+HPOBJWARNING      10000
+HPORIGIN          0.0000,0.0000
+HPORIGINMODE      0
+HPORIGINSTOREASDEFAULT 0
+HPQUICKPREVTIMEOUT 2
+HPSCALE           1.0000
+HPSEPARATE        0
+HPSPACE           1.0000
+HYPERLINKBASE     ""
+
+HATCHBOUNDSET     0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+HATCHCREATION     0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+HATCHTYPE         0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+HELPPREFIX        "D:\PRG\Autodesk\AutoCAD Mechanical 2013 Help\Russian\Help\in..."
+HPBACKGROUNDCOLOR "ÑNÑuÑÑ"
+HPCOLOR           "ÑÇÑpÑqÑÄÑÑÑpÑÑÑé ÑÉ ÑÑÑuÑ{ÑÖÑãÑyÑ}"
+HPDLGMODE         2
+HPLASTPATTERN     "ANSI31"                             (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+HPLAYER           "ÑÇÑpÑqÑÄÑÑÑpÑÑÑé ÑÉ ÑÑÑuÑ{ÑÖÑãÑyÑ}"
+HPMAXAREAS        100
+HPQUICKPREVIEW    ÑBÑ{Ñ|
+HPRELATIVEPS      ÑOÑÑÑ{Ñ|                                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+HPTRANSPARENCY    "ÑÇÑpÑqÑÄÑÑÑpÑÑÑé ÑÉ ÑÑÑuÑ{ÑÖÑãÑyÑ}"
+
+IMAGEHLT          0
+IMPLIEDFACE       1
+INDEXCTL          0
+INETLOCATION      "http://www.autodesk.com"
+INPUTHISTORYMODE  15
+INSBASE           0.0000,0.0000,0.0000
+INSNAME           ""
+INSUNITS          4
+INSUNITSDEFSOURCE 4
+INSUNITSDEFTARGET 4
+INTELLIGENTUPDATE 20
+INTERFERECOLOR    "1"
+INTERFEREOBJVS    "ÑQÑuÑpÑ|ÑyÑÉÑÑÑyÑâÑ~ÑçÑz"
+INTERFEREVPVS     "ÑKÑpÑÇÑ{ÑpÑÉ"
+INTERSECTIONCOLOR 257
+INTERSECTIONDISPLAY ÑOÑÑÑ{Ñ|
+ISAVEBAK          1
+ISAVEPERCENT      50
+ISOLINES          4
+IMAGEFRAME        1
+
+LARGEOBJECTSUPPORT 0
+LASTANGLE         0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+LASTPOINT         0.0000,0.0000,0.0000
+LASTPROMPT        "LASTANGLE         0                                    (ÑÑÑÄÑ|Ñé..." (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+LATITUDE          37.7950
+LAYERDLGMODE      1
+LAYEREVAL         0
+LAYEREVALCTL      1
+LAYERFILTERALERT  2
+LAYERNOTIFY       0
+LAYLOCKFADECTL    50
+LAYOUTREGENCTL    2
+LEGACYCTRLPICK    2
+LENSLENGTH        50.0000
+LIGHTGLYPHDISPLAY 1
+LIGHTINGUNITS     2
+LIGHTSINBLOCKS    1
+LIMCHECK          0
+LIMMAX            420.0000,297.0000
+LIMMIN            0.0000,0.0000
+LINEARBRIGHTNESS  0
+LINEARCONTRAST    0
+LOCALE            "RUS"                                (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+LOCALROOTPREFIX   "C:\Users\namatv\AppData\Local\Autodesk\AutoCAD Mechanical 20..." (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+LOCKUI            0
+LOFTANG1          90
+LOFTANG2          90
+LOFTMAG1          0.0000
+LOFTMAG2          0.0000
+LOFTNORMALS       1
+LOFTPARAM         7
+LOGEXPBRIGHTNESS  65.0
+LOGEXPCONTRAST    50.0
+LOGEXPDAYLIGHT    2
+LOGEXPMIDTONES    1.00
+LOGEXPPHYSICALSCALE 1500.000
+LOGFILEMODE       0
+LOGFILENAME       "C:\Users\namatv\appdata\local\autodesk\autocad mechanical 20..." (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+LOGFILEPATH       "C:\Users\namatv\appdata\local\autodesk\autocad mechanical 20..."
+LOGINNAME         "namatv"                             (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+LONGITUDE         -122.3940
+LTSCALE           1.0000
+LUNITS            2
+LUPREC            4
+LWDEFAULT         25
+LWDISPLAY         ÑOÑÑÑ{Ñ|
+LWUNITS           1
+
+LAYOUTCREATEVIEWPORT ÑOÑÑÑ{Ñ|
+LISPENABLED       1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+
+MAXACTVP          64
+MAXSORT           1000
+MBUTTONPAN        1
+MEASUREINIT       1
+MEASUREMENT       1
+MENUBAR           1
+MENUCTL           1
+MENUECHO          0
+MENUNAME          "C:\Users\namatv\appdata\roaming\autodesk\autocad mechanical ..." (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+MIRRTEXT          0
+MLEADERSCALE      1.0000
+MODEMACRO         ""
+MSLTSCALE         1
+MSOLESCALE        1.0000
+MTEXTCOLUMN       2
+MTEXTED           "d:\prg\notepad++\notepad++.exe"
+MTEXTFIXED        2
+MTEXTTOOLBAR      2
+MTJIGSTRING       "abc"
+MYDOCUMENTSPREFIX "D:\home\_namatv"                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+MAXTOUCHES        0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+MESHTYPE          1
+MIRRHATCH         0
+
+NAVSWHEELMODE     2
+NAVSWHEELOPACITYBIG 50
+NAVSWHEELOPACITYMINI 50
+NAVSWHEELSIZEBIG  1
+NAVSWHEELSIZEMINI 1
+NAVVCUBEDISPLAY   3
+NAVVCUBELOCATION  0
+NAVVCUBEOPACITY   50
+NAVVCUBEORIENT    1
+NAVVCUBESIZE      4
+NOMUTT            0
+NORTHDIRECTION    0
+NAVBARDISPLAY     0
+NOPREVIEWGRIP     ÑBÑ{Ñ|
+NOPREVIEWHIGHLIGHT ÑBÑ{Ñ|
+
+OBSCUREDCOLOR     257
+OBSCUREDLTYPE     0
+OFFSETDIST        -1.0000
+OFFSETGAPTYPE     0
+OLEFRAME          2
+OLEHIDE           0
+OLEQUALITY        3
+OLESTARTUP        0
+OPENPARTIAL       1
+ORTHOMODE         0
+OSMODE            39
+OSNAPCOORD        2
+OSNAPHATCH        0
+OSNAPZ            0
+OSOPTIONS         3
+OBJECTISOLATIONMODE 0
+ONLINEAUTOSAVEPATH ""                                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ONLINEDOCMODE     1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ONLINEDOCUMENTS   1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ONLINEFOLDER      "."                                  (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ONLINESETTINGSSYNC 0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ONLINESYNCPROVIDER ""                                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ONLINESYNCTIME    5
+ONLINEUSERNAME    ""                                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+
+
+PAPERUPDATE       0
+PDFFRAME          1
+PDMODE            0
+PDSIZE            0.0000
+PEDITACCEPT       0
+PELLIPSE          0
+PERIMETER         0.0000                               (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+PERSPECTIVE       0
+PERSPECTIVECLIP   5.0000
+PFACEVMAX         4                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+PICKADD           2
+PICKAUTO          1
+PICKBOX           5
+PICKDRAG          2
+PICKFIRST         1
+PICKSTYLE         1
+PLATFORM          "Microsoft Windows NT Version 6.1 (x86)" (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+PLINECONVERTMODE  0
+PLINEGEN          0
+PLINETYPE         2
+PLINEWID          0.0000
+PLOTOFFSET        0
+PLOTROTMODE       2
+PLQUIET           0
+POLARADDANG       ""
+POLARANG          57
+POLARDIST         0.0000
+POLARMODE         0
+POLYSIDES         4
+POPUPS            1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+PREVIEWEFFECT     2
+PREVIEWFACEEFFECT 1
+PREVIEWFILTER     7
+PREVIEWTYPE       0
+PROJECTNAME       ""
+PROJMODE          1
+PROXYGRAPHICS     1
+PROXYNOTICE       1
+PROXYSHOW         1
+PSLTSCALE         1
+PSOLHEIGHT        80.0000
+PSOLWIDTH         5.0000
+PSPROLOG          ""
+PSQUALITY         75
+PSTYLEMODE        1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+PSTYLEPOLICY      1
+PSVPSCALE         0.00000000
+
+PUBLISHALLSHEETS  1
+PUBLISHCOLLATE    1
+PUBLISHHATCH      1
+PUCSBASE          ""
+PALETTEICONSTATE  0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+PALETTEOPAQUE     0
+PARAMETERCOPYMODE 1
+PDFOSNAP          1
+PLINEREVERSEWIDTHS 0
+PLOTTRANSPARENCYOVERRIDE 1
+POINTCLOUDAUTOUPDATE 1
+POINTCLOUDBOUNDARY 1
+POINTCLOUDCLIPFRAME 2
+POINTCLOUDDENSITY 15
+POINTCLOUDLOCK    0
+POINTCLOUDPOINTMAX 1500000
+POINTCLOUDRTDENSITY 5
+PREVIEWCREATIONTRANSPARENCY 60
+PREVIEWDELAY      0
+PROPERTYPREVIEW   ÑBÑ{Ñ|
+PROPOBJLIMIT      25000
+PROPPREVTIMEOUT   1
+
+QPLOCATION        0
+QPMODE            -1
+QTEXTMODE         0
+QVDRAWINGPIN      0
+QVLAYOUTPIN       0
+
+RASTERDPI         300
+RASTERPERCENT     20
+RASTERTHRESHOLD   20
+RECOVERYMODE      2
+REFEDITNAME       ""                                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+REGENMODE         1
+REMEMBERFOLDERS   1
+RENDERQUALITY     1
+RENDERUSERLIGHTS  1
+REPORTERROR       1
+ROAMABLEROOTPREFIX "C:\Users\namatv\AppData\Roaming\Autodesk\AutoCAD Mechanical ..." (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ROLLOVERTIPS      1
+RTDISPLAY         1
+REBUILD2DCV       6
+REBUILD2DDEGREE   3
+REBUILD2DOPTION   1
+REBUILDDEGREEU    3
+REBUILDDEGREEV    3
+REBUILDOPTIONS    1
+REBUILDU          6
+REBUILDV          6
+RECOVERAUTO       0
+RIBBONBGLOAD      1
+RIBBONCONTEXTSELECT 1
+RIBBONCONTEXTSELLIM 2500
+RIBBONDOCKEDHEIGHT 100
+RIBBONICONRESIZE  1
+RIBBONSELECTMODE  1
+RIBBONSTATE       0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+ROLLOVEROPACITY   0
+
+SAVEFIDELITY      1
+SAVEFILE          "C:\Users\namatv\appdata\local\temp\ÑXÑuÑÇÑÑÑuÑw1_1_1_1097.sv$" (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+SAVEFILEPATH      "C:\Users\namatv\appdata\local\temp\"
+SAVENAME          ""                                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+SAVETIME          10
+SCREENBOXES       0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+SCREENMODE        3                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+SCREENSIZE        1798.0000,769.0000                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+SELECTIONANNODISPLAY 1
+SELECTIONAREA     1
+SELECTIONAREAOPACITY 25
+SELECTIONPREVIEW  3
+SETBYLAYERMODE    255
+SHADEDGE          3
+SHADEDIF          70
+SHADOWPLANELOCATION 0.0000
+SHORTCUTMENU      11
+SHORTCUTMENUDURATION 250
+SHOWHIST          1
+SHOWLAYERUSAGE    0
+SHOWMOTIONPIN     1
+SHPNAME           ""
+SIGWARN           1
+SKETCHINC         1.0000
+SKPOLY            0
+SKYSTATUS         0
+SMOOTHMESHGRID    3
+SMOOTHMESHMAXFACE 1000000
+SMOOTHMESHMAXLEV  4
+SNAPANG           0
+SNAPBASE          0.0000,0.0000
+SNAPISOPAIR       0
+SNAPMODE          0
+SNAPSTYL          0
+SNAPTYPE          0
+SNAPUNIT          10.0000,10.0000
+SOLIDCHECK        1
+SOLIDHIST         0
+SORTENTS          127
+SPLFRAME          0
+SPLINESEGS        8
+SPLINETYPE        6
+SSFOUND           ""                                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+SSLOCATE          1
+SSMAUTOOPEN       1
+SSMPOLLTIME       60
+SSMSHEETSTATUS    2
+
+STANDARDSVIOLATION 2
+STATUSBAR         1
+STEPSIZE          6.0000
+STEPSPERSEC       2.0000
+SUBOBJSELECTIONMODE 0
+SUNSTATUS         0
+SURFTAB1          6
+SURFTAB2          6
+SURFTYPE          6
+SURFU             6
+SURFV             6
+SYSCODEPAGE       "ANSI_1251"                          (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+SELECTIONCYCLING  -2
+SELECTIONPREVIEWLIMIT 2000
+SELECTSIMILARMODE 130
+SHOWPAGESETUPFORNEWLAYOUTS ÑOÑÑÑ{Ñ|
+SKTOLERANCE       0.5000
+SMOOTHMESHCONVERT 0
+SMSTATE           0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+SNAPGRIDLEGACY    0
+SPLDEGREE         3
+SPLKNOTS          0
+SPLMETHOD         0
+SPLPERIODIC       1
+STARTUP           0
+SUPPRESSALERTS    ÑOÑÑÑ{Ñ|
+SURFACEASSOCIATIVITY 1
+SURFACEASSOCIATIVITYDRAG 1
+SURFACEAUTOTRIM   0
+SURFACEMODELINGMODE 0
+SURFOFFSETCONNECT 0
+SURFTRIMAUTOEXTEND 1
+SURFTRIMPROJECTION 0
+
+TABLEINDICATOR    1
+TABLETOOLBAR      2
+TABMODE           0
+TARGET            0.0000,0.0000,0.0000                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TDCREATE          2457758.39149791                     (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TDINDWG           0.06270905                           (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TDUCREATE         2457758.30816457                     (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TDUPDATE          2457758.39149791                     (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TDUSRTIMER        0.06270815                           (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TDUUPDATE         2457758.30816457                     (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TEMPPREFIX        "C:\Users\namatv\appdata\local\temp\" (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TEXTED            2
+TEXTEVAL          0
+TEXTFILL          1
+TEXTOUTPUTFILEFORMAT 0
+TEXTQLTY          50
+TEXTSIZE          2.5000
+TEXTSTYLE         "Standard"
+THICKNESS         0.0000
+THUMBSAVE         1
+THUMBSIZE         3
+TILEMODE          1
+TIMEZONE          -8000
+TOOLTIPMERGE      0
+TRACKPATH         0
+TREEDEPTH         3020
+TREEMAX           10000000
+TRIMMODE          1
+TSPACEFAC         1.0000
+TSPACETYPE        1
+TSTACKALIGN       1
+TSTACKSIZE        70
+TBSHOWSHORTCUTS   "yes"
+TEMPOVERRIDES     1
+TEXTEDITOR        0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+TOOLTIPS          1
+TOOLTIPSIZE       0
+TOOLTIPTRANSPARENCY 0
+TRANSPARENCYDISPLAY 0
+TRAYICONS         1
+TRAYNOTIFY        1
+TRAYTIMEOUT       0
+
+
+UCSAXISANG        90
+UCSBASE           ""
+UCSDETECT         1
+UCSFOLLOW         0
+UCSICON           3
+UCSNAME           ""                                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+UCSORG            0.0000,0.0000,0.0000                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+UCSORTHO          1
+UCSVIEW           1
+UCSVP             1
+UCSXDIR           1.0000,0.0000,0.0000                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+UCSYDIR           0.0000,1.0000,0.0000                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+UNDOCTL           53                                   (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+UNDOMARKS         0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+UNITMODE          0
+UPDATETHUMBNAIL   15
+UCS2DDISPLAYSETTING ÑBÑ{Ñ|
+UCS3DPARADISPLAYSETTING ÑBÑ{Ñ|
+UCS3DPERPDISPLAYSETTING ÑBÑ{Ñ|
+UCSSELECTMODE     1
+UOSNAP            1
+
+VIEWCTR           2823.9836,1184.3778,0.0000           (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWDIR           0.0000,0.0000,1.0000                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWMODE          0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWSIZE          2138.3532                            (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWTWIST         0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VISRETAIN         1
+VPLAYEROVERRIDES  0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VPLAYEROVERRIDESMODE 1
+VPMAXIMIZEDSTATE  0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VPROTATEASSOC     1
+VSBACKGROUNDS     1
+VSEDGECOLOR       "ÑPÑOÑOÑAÑ[ÑEÑKÑSÑT"
+VSEDGEJITTER      -2
+VSEDGELEX         -6
+VSEDGEOVERHANG    -6
+VSEDGES           1
+VSEDGESMOOTH      1
+VSFACECOLORMODE   0
+VSFACEHIGHLIGHT   -30
+VSFACEOPACITY     -60
+VSFACESTYLE       0
+VSHALOGAP         0
+VSHIDEPRECISION   0
+VSINTERSECTIONCOLOR "7"
+VSINTERSECTIONEDGES 0
+VSINTERSECTIONLTYPE 1
+VSISOONTOP        0
+VSLIGHTINGQUALITY 1
+VSMATERIALMODE    0
+VSMAX             16081.4101,6783.6173,0.0000          (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VSMIN             -10720.9400,-4528.6808,0.0000        (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VSMONOCOLOR       "RGB:255,255,255"
+VSOBSCUREDCOLOR   "ÑPÑOÑOÑAÑ[ÑEÑKÑSÑT"
+VSOBSCUREDEDGES   1
+VSOBSCUREDLTYPE   1
+VSOCCLUDEDCOLOR   "ÑPÑOÑOÑAÑ[ÑEÑKÑSÑT"
+VSOCCLUDEDEDGES   1
+VSOCCLUDEDLTYPE   1
+VSSHADOWS         0
+VSSILHEDGES       0
+VSSILHWIDTH       5
+VTDURATION        750
+VTENABLE          3
+VTFPS             7
+VIEWBACKSTATUS    ÑOÑÑÑ{Ñ|
+VIEWCREATION      0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWDETAILCREATION 0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+
+VIEWDETAILEDITOR  0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWEDITOR        0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWFWDSTATUS     ÑOÑÑÑ{Ñ|
+VIEWSECTIONCREATION 0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWSECTIONEDITOR 0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWSKETCHMODE    ÑOÑÑÑ{Ñ|                                 (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+VIEWUPDATEAUTO    1
+VPCONTROL         ÑBÑ{Ñ|
+VSACURVATUREHIGH  1.0000
+VSACURVATURELOW   -1.0000
+VSACURVATURETYPE  0
+VSADRAFTANGLEHIGH 3.0000
+VSADRAFTANGLELOW  -3.0000
+VSAZEBRACOLOR1    "RGB:255,255,255"
+VSAZEBRACOLOR2    "RGB:0,0,0"
+VSAZEBRADIRECTION 90
+VSAZEBRASIZE      45
+VSAZEBRATYPE      1
+
+WHIPARC           0
+WINDOWAREACOLOR   150
+WMFBKGND          ÑOÑÑÑ{Ñ|
+WMFFOREGND        ÑOÑÑÑ{Ñ|
+WORLDUCS          1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+WORLDVIEW         1
+WRITESTAT         1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+WBDEFAULTBROWSER  2                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+WBHELPONLINE      0                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+WBHELPTYPE        1                                    (ÑÑÑÄÑ|ÑéÑ{ÑÄ ÑâÑÑÑuÑ~ÑyÑu)
+WIPEOUTFRAME      1
+WORKSPACELABEL    0
+WSAUTOSAVE        0
+WSCURRENT         "ÑKÑ|ÑpÑÉÑÉÑyÑâÑuÑÉÑ{ÑyÑz AutoCAD"
+
+XCLIPFRAME        2
+XDWGFADECTL       50
+XEDIT             1
+XFADECTL          70
+XLOADCTL          2
+XLOADPATH         "C:\Users\namatv\appdata\local\temp\"
+XREFCTL           0
+XREFNOTIFY        2
+XREFTYPE          0
+
+ZOOMFACTOR        60
+ZOOMWHEEL         0

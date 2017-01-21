@@ -1,0 +1,25 @@
+ENDBLK (DXF)
+ 
+The following group codes apply to endblk objects.
+Endblk group codes
+| Group code | Description                                                                 |
+|------------+-----------------------------------------------------------------------------|
+|          0 | Entity type (ENDBLK)                                                        |
+|------------+-----------------------------------------------------------------------------|
+|          5 | Handle                                                                      |
+|------------+-----------------------------------------------------------------------------|
+|        102 | Start of application-defined group “{application_name”.                     |
+|            | For example, “{ACAD_REACTORS” indicates the start of the AutoCAD persistent |
+|            | reactors group (optional) application-defined codes Codes and values within |
+|            | the 102 groups are application defined (optional)                           |
+|------------+-----------------------------------------------------------------------------|
+|        102 | End of group, “}” (optional)                                                |
+|------------+-----------------------------------------------------------------------------|
+|        330 | Soft-pointer ID/handle to owner object                                      |
+|------------+-----------------------------------------------------------------------------|
+|        100 | Subclass marker (AcDbEntity)                                                |
+|------------+-----------------------------------------------------------------------------|
+|          8 | Layer name                                                                  |
+|------------+-----------------------------------------------------------------------------|
+|        100 | Subclass marker (AcDbBlockEnd)                                              |
+

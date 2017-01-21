@@ -1,0 +1,96 @@
+MTEXT (DXF)
+ 
+The following group codes apply to mtext entities.
+
+Mtext group codes
+| Group code | Description                                                                                                 |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|        100 | Subclass marker (AcDbMText)                                                                                 |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         10 | Insertion point                                                                                             |
+|            | DXF: X value; APP: 3D point                                                                                 |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|     20, 30 | DXF: Y and Z values of insertion point                                                                      |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         40 | Nominal (initial) text height                                                                               |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         41 | Reference rectangle width                                                                                   |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         71 | Attachment point:                                                                                           |
+|            | 1 = Top left; 2 = Top center; 3 = Top right                                                                 |
+|            | 4 = Middle left; 5 = Middle center; 6 = Middle right                                                        |
+|            | 7 = Bottom left; 8 = Bottom center; 9 = Bottom right                                                        |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         72 | Drawing direction:                                                                                          |
+|            | 1 = Left to right                                                                                           |
+|            | 3 = Top to bottom                                                                                           |
+|            | 5 = By style (the flow direction is inherited from the associated text style)                               |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|          1 | Text string. If the text string is less than 250 characters, all characters appear in group 1.              |
+|            | If the text string is greater than 250 characters, the string is divided into 250-character chunks,         |
+|            | which appear in one or more group 3 codes. If group 3 codes are used,                                       |
+|            | the last group is a group 1 and has fewer than 250 characters                                               |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|          3 | Additional text (always in 250-character chunks) (optional)                                                 |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|          7 | Text style name (STANDARD if not provided) (optional)                                                       |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|        210 | Extrusion direction (optional; default = 0, 0, 1)                                                           |
+|            | DXF: X value; APP: 3D vector                                                                                |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|   220, 230 | DXF: Y and Z values of extrusion direction (optional)                                                       |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         11 | X-axis direction vector (in WCS)                                                                            |
+|            | DXF: X value; APP: 3D vector                                                                                |
+|            | A group code 50 (rotation angle in radians) passed as DXF input is converted to the equivalent              |
+|            | direction vector (if both a code 50 and codes 11, 21, 31 are passed, the last one wins).                    |
+|            | This is provided as a convenience for conversions from text objects                                         |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|     21, 31 | DXF: Y and Z values of X-axis direction vector (in WCS)                                                     |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         42 | Horizontal width of the characters that make up the mtext entity.                                           |
+|            | This value will always be equal to or less than the value of group code 41 (read-only, ignored if supplied) |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         43 | Vertical height of the mtext entity (read-only, ignored if supplied)                                        |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         50 | Rotation angle in radians                                                                                   |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         73 | Mtext line spacing style (optional):                                                                        |
+|            | 1 = At least (taller characters will override)                                                              |
+|            | 2 = Exact (taller characters will not override)                                                             |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         44 | Mtext line spacing factor (optional):                                                                       |
+|            | Percentage of default (3-on-5) line spacing to be applied. Valid values range from 0.25 to 4.00             |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         90 | Background fill setting:                                                                                    |
+|            | 0 = Background fill off                                                                                     |
+|            | 1 = Use background fill color                                                                               |
+|            | 2 = Use drawing window color as background fill color                                                       |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|  420 - 429 | Background color (if RGB color)                                                                             |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|  430 - 439 | Background color (if color name)                                                                            |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         45 | Fill box scale (optional):                                                                                  |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|            | Determines how much border there is around the text.                                                        |
+|         63 | Background fill color (optional):                                                                           |
+|            | Color to use for background fill when group code 90 is 1.                                                   |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|        441 | Transparency of background fill color (not implemented)                                                     |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         75 | Column type                                                                                                 |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         76 | Column count                                                                                                |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         78 | Column Flow Reversed                                                                                        |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         79 | Column Autoheight                                                                                           |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         48 | Column width                                                                                                |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         49 | Column gutter                                                                                               |
+|------------+-------------------------------------------------------------------------------------------------------------|
+|         50 | Column heights; this code is followed by a column count (Int16), and then the number of column heights      |
+
+Xdata with the "DCO15" application ID may follow an mtext entity. This contains information related to the dbConnect feature.
