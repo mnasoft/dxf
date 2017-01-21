@@ -1,5 +1,7 @@
 ;;;; line-weights.lisp
 
+;;;; http://help.autodesk.com/view/ACD/2017/RUS/
+
 (defparameter *line-weight-enum*
   '(("kLnWt000" 0)
     ("kLnWt005" 5)
