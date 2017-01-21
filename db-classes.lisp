@@ -410,7 +410,7 @@
    (line-weight       :accessor line-weight       :initarg :line-weight         :initform 0.25           :documentation "Код 370. Значение из перечисления весов линии")
    (plot-style-name   :accessor plot-style-name   :initarg :plot-style-name     :initform 0.25           :documentation "Код 390. Hard-pointer ID/handle of PlotStyleName object")
    (material-id       :accessor material-id       :initarg :plot-style-name     :initform nil            :documentation "Код 347. Идентификатор/дескриптор жесткого указателя на объект материала"))
-  
+ 
   (:documentation "
 LAYER (DXF)
 
@@ -451,31 +451,3 @@ LAYER (DXF)
 Слои, зависимые от внешних ссылок, выводятся при выполнении команды СОХРАНИТЬКАК. Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
 " ))
 
-enum LineWeight {
-kLnWt000          =   0,
-kLnWt005          =   5,
-kLnWt009          =   9,
-kLnWt013          =  13,
-kLnWt015          =  15,
-kLnWt018          =  18,
-kLnWt020          =  20,
-kLnWt025          =  25,
-kLnWt030          =  30,
-kLnWt035          =  35,
-kLnWt040          =  40,
-kLnWt050          =  50,
-kLnWt053          =  53,
-kLnWt060          =  60,
-kLnWt070          =  70,
-kLnWt080          =  80,
-kLnWt090          =  90,
-kLnWt100          = 100,
-kLnWt106          = 106,
-kLnWt120          = 120,
-kLnWt140          = 140,
-kLnWt158          = 158,
-kLnWt200          = 200,
-kLnWt211          = 211,
-kLnWtByLayer      = -1,
-kLnWtByBlock      = -2,
-kLnWtByLwDefault  = -3 };
