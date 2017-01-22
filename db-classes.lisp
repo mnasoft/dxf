@@ -63,7 +63,8 @@
 (defclass Db-Entity (Db-Object)
   ((layer      :accessor layer :initarg :layer :initform "0" :documentation "Код 8. Имя слоя")
    (color      :accessor color :initarg :color :initform 256 :documentation "Код 62. 16-битный цвет")
-   (true-color :accessor true-color :initarg :color :initform "0" :documentation "Код 420. 32-битный цвет")))
+   (true-color :accessor true-color :initarg :color :initform "0" :documentation "Код 420. 32-битный цвет"))
+  (:documentation "См. dbmain.h"))
 
 (defmethod dxf-out-text ((x Db-Entity) stream) (format stream "   0~%~A~%" "Entity"))
 
@@ -89,7 +90,9 @@
   ((start-point :accessor start-point :initarg :start-point :initform (vector 0 0 0 ) :documentation "Код 10. Начальная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (end-point   :accessor end-point   :initarg :end-point   :initform (vector 0 0 0 ) :documentation "Код 11. Конечная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (thickness   :accessor thickness   :initarg :thickness   :initform 0               :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
-   (normal      :accessor normal      :initarg :normal      :initform (vector 0 0 1)  :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")))
+   (normal      :accessor normal      :initarg :normal      :initform (vector 0 0 1)  :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор"))
+  (:documentation "См. ./dbents.h:class AcDbLine: public AcDbCurve")
+  )
 
 (defmethod dxf-out-text ((x Db-Line) stream) (format stream "   0~%~A~%" "LINE"))
 
@@ -137,7 +140,8 @@
   ((position-point    :accessor position-point    :initarg :position-point    :initform (vector 0 0 0) :documentation "Код 10. Положение точки")
    (thickness    :accessor thickness    :initarg :thickness    :initform 0              :documentation "Код 39. Высота выдавливания")
    (normal       :accessor normal       :initarg :normal       :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания")
-   (ecs-rotation :accessor ecs-rotation :initarg :ecs-rotation :initform 0              :documentation "Код 50. Поворот системы координат объекта")))
+   (ecs-rotation :accessor ecs-rotation :initarg :ecs-rotation :initform 0              :documentation "Код 50. Поворот системы координат объекта"))
+  (:documentation "См. ./dbents.h:class AcDbPoint: public AcDbEntity"))
 
 (defmethod dxf-out-text ((x Db-Point) stream) (format stream "   0~%~A~%" "POINT"))
 
@@ -180,7 +184,8 @@
 
 (defclass Db-Ray (Db-Entity)
   ((base-point   :accessor base-point   :initarg :base-point   :initform (vector 0 0 0) :documentation "Код 10. Базовая точка")
-   (unit-dir     :accessor unit-dir     :initarg :unit-dir     :initform (vector 1 0 0) :documentation "Код 11. Едининчный вектор в МСК, задающий направление")))
+   (unit-dir     :accessor unit-dir     :initarg :unit-dir     :initform (vector 1 0 0) :documentation "Код 11. Едининчный вектор в МСК, задающий направление"))
+  (:documentation "См. ./dbray.h:class AcDbRay: public AcDbCurve"))
 
 (defmethod dxf-out-text ((x Db-Ray) stream) (format stream "   0~%~A~%" "RAY"))
 
@@ -201,7 +206,8 @@
   ((center    :accessor center     :initarg :center    :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
    (radius    :accessor radius     :initarg :radius    :initform 1              :documentation "Код 40. Радиус")
    (thickness :accessor thickness  :initarg :thickness :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
-   (normal    :accessor normal     :initarg :normal    :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")))
+   (normal    :accessor normal     :initarg :normal    :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор"))
+  (:documentation "См. ./dbents.h:class AcDbCircle: public AcDbCurve"))
 
 (defmethod dxf-out-text ((x Db-Circle) stream) (format stream "   0~%~A~%" "CIRCLE"))
 
@@ -248,7 +254,8 @@
    (thickness   :accessor thickness   :initarg :thickness   :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
    (normal      :accessor normal      :initarg :normal      :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
    (start-angle :accessor start-angle :initarg :start-angle :initform 0              :documentation "Код 50. Начальный угол")
-   (end-angle   :accessor end-angle   :initarg :end-angle   :initform (* -1 pi)       :documentation "Код 51. Конечный угол")))
+   (end-angle   :accessor end-angle   :initarg :end-angle   :initform (* -1 pi)      :documentation "Код 51. Конечный угол"))
+  (:documentation "./dbents.h:class AcDbArc: public AcDbCurve"))
 
 (defmethod dxf-out-text ((x Db-Arc) stream) (format stream "   0~%~A~%" "ARC"))
 
@@ -312,7 +319,9 @@
    (hor-justification :accessor hor-justification :initarg :hor-justification   :initform 0              :documentation "Код  72. Horizontal text justification type (optional, default = 0) integer codes (not bit-coded). 0 = Left; 1= Center; 2 = Right; 3 = Aligned (if vertical alignment = 0); 4 = Middle (if vertical alignment = 0); 5 = Fit (if vertical alignment = 0). See the Group 72 and 73 integer codes table for clarification")
    (alignment-point   :accessor alignment-Point   :initarg :alignment-Point     :initform (vector 0 0 0) :documentation "Код  11. Second alignment point (in OCS) (optional). DXF: X value; APP: 3D point. This value is meaningful only if the value of a 72 or 73 group is nonzero (if the justification is anything other than baseline/left)")
    (normal            :accessor normal            :initarg :normal              :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
-   (ver-justification :accessor ver-justification :initarg :ver-justification   :initform 0              :documentation "Код  73. Vertical text justification type (optional, default = 0): integer codes (not bit-coded): 0 = Baseline; 1 = Bottom; 2 = Middle; 3 = Top. See the Group 72 and 73 integer codes table for clarification")))
+   (ver-justification :accessor ver-justification :initarg :ver-justification   :initform 0              :documentation "Код  73. Vertical text justification type (optional, default = 0): integer codes (not bit-coded): 0 = Baseline; 1 = Bottom; 2 = Middle; 3 = Top. See the Group 72 and 73 integer codes table for clarification"))
+  (:documentation "См. ./dbents.h:class AcDbText: public AcDbEntity")
+  )
 
 (defmethod dxf-out-text ((x Db-Text) stream) (format stream "   0~%~A~%" "TEXT"))
 
@@ -395,8 +404,8 @@
   ((table-name        :accessor table-name        :initarg :table-name          :initform "Undefined"    :documentation "Имя таблицы")
    (is-dependent      :accessor is-dependent      :initarg :is-dependent        :initform nil            :documentation "Является-ли имя таблицы зависимым")
    (is-resolved       :accessor is-resolved       :initarg :is-resolved         :initform t              :documentation "Вычислено-ли имя таблицы")
-   (is-renamable      :accessor is-renamable      :initarg :is-renamable        :initform t              :documentation "Допускается-ли переименовывать таблицу")
-  ))
+   (is-renamable      :accessor is-renamable      :initarg :is-renamable        :initform t              :documentation "Допускается-ли переименовывать таблицу"))
+  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord"))
 
 (defclass Db-Layer-TableRecord (Db-Symbol-Table-Record)
 ;;;;"AcDbLayerTableRecord"
@@ -410,8 +419,7 @@
    (line-weight       :accessor line-weight       :initarg :line-weight         :initform 0.25           :documentation "Код 370. Значение из перечисления весов линии")
    (plot-style-name   :accessor plot-style-name   :initarg :plot-style-name     :initform 0.25           :documentation "Код 390. Hard-pointer ID/handle of PlotStyleName object")
    (material-id       :accessor material-id       :initarg :plot-style-name     :initform nil            :documentation "Код 347. Идентификатор/дескриптор жесткого указателя на объект материала"))
- 
-  (:documentation "
+  (:documentation "./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
 LAYER (DXF)
 
 К записям таблицы обозначений LAYER применяются следующие групповые коды.
@@ -448,6 +456,7 @@ LAYER (DXF)
 |           347 | Идентификатор/дескриптор жесткого указателя на объект материала                                       |
 |---------------+-------------------------------------------------------------------------------------------------------|
 
-Слои, зависимые от внешних ссылок, выводятся при выполнении команды СОХРАНИТЬКАК. Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
+Слои, зависимые от внешних ссылок, выводятся при выполнении команды СОХРАНИТЬКАК. 
+Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
 " ))
 
