@@ -1,6 +1,7 @@
 ;;;; db-classes.lisp
 
 (in-package #:dxf)
+;;;; http://help.autodesk.com/view/ACD/2017/RUS/
 
 ;;;;AcRxObject
 ;;;;  AcDbObject
@@ -20,12 +21,18 @@
 ;;;;        AcDbPolyFaceMeshVertex
 ;;;;        AcDbFaceRecord
 ;;;;      AcDbCurve
-;;;;        AcDb2dPolyline
-;;;;        AcDb3dPolyline
-;;;;        AcDbArc +
-;;;;        AcDbCircle +
-;;;;        AcDbLine +
-;;;;      AcDbPoint +
+;;;;        AcDb2dPolyline                  ./dbents.h:class AcDb2dPolyline: public AcDbCurve 
+;;;;        AcDb3dPolyline                  ./dbents.h:class AcDb3dPolyline: public AcDbCurve 
+;;;;        AcDbArc                +        ./dbents.h:class AcDbArc: public AcDbCurve 
+;;;;        AcDbCircle             +        ./dbents.h:class AcDbCircle: public AcDbCurve 
+;;;;        AcDbLine               +        ./dbents.h:class AcDbLine: public AcDbCurve 
+;;;;        AcDbRay                -        ./dbray.h:class AcDbRay: public AcDbCurve 
+;;;;        AcDbXline              -        ./dbxline.h:class AcDbXline: public AcDbCurve
+;;;;        AcDbPolyline                    ./dbpl.h:class AcDbPolyline : public AcDbCurve
+;;;;        AcDbSpline                      ./dbspline.h:class AcDbSpline: public AcDbCurve
+;;;;        AcDbEllipse                     ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
+;;;;        AcDbLeader                      ./dblead.h:class AcDbLeader: public  AcDbCurve  
+;;;;      AcDbPoint                +        ./dbents.h:class AcDbPoint: public AcDbEntity
 ;;;;      AcDbFace
 ;;;;      AcDbPolyFaceMesh
 ;;;;      AcDbPolygonMesh
@@ -33,6 +40,47 @@
 ;;;;      AcDbSolid
 ;;;;      AcDbShape
 ;;;;      AcDbViewport
+
+
+;;;;    ./AcCamera.h:class CAMERADLLIMPEXP AcDbCamera: public AcDbEntity
+;;;;    ./AcDbGeoPositionMarker.h:class ACDB_PORT AcDbGeoPositionMarker : public AcDbEntity
+;;;;    ./AcDbPointCloudEx.h:class ACDB_PORT AcDbPointCloudEx : public AcDbEntity
+;;;;    ./dbcurve.h:class ADESK_NO_VTABLE AcDbCurve: public AcDbEntity
+;;;;    ./dbdim.h:class ADESK_NO_VTABLE AcDbDimension: public AcDbEntity
+;;;;    ./dbents.h:class AcDbText: public AcDbEntity
+;;;;    ./dbents.h:class AcDbBlockReference: public AcDbEntity
+;;;;    ./dbents.h:class AcDbBlockBegin: public AcDbEntity
+;;;;    ./dbents.h:class AcDbBlockEnd: public AcDbEntity
+;;;;    ./dbents.h:class AcDbSequenceEnd: public AcDbEntity
+;;;;    ./dbents.h:class AcDbVertex: public AcDbEntity
+;;;;    ./dbents.h:class AcDbPoint: public AcDbEntity
+;;;;    ./dbents.h:class AcDbFace: public AcDbEntity
+;;;;    ./dbents.h:class AcDbPolyFaceMesh: public AcDbEntity
+;;;;    ./dbents.h:class AcDbPolygonMesh: public AcDbEntity
+;;;;    ./dbents.h:class AcDbSolid: public AcDbEntity
+;;;;    ./dbents.h:class AcDbTrace: public AcDbEntity
+;;;;    ./dbents.h:class AcDbShape: public AcDbEntity
+;;;;    ./dbents.h:class AcDbViewport: public AcDbEntity
+;;;;    ./dbframe.h:class ADESK_NO_VTABLE AcDbFrame: public AcDbEntity
+;;;;    ./dbhatch.h:class AcDbHatch: public AcDbEntity
+;;;;    ./dbimage.h:class AcDbImage: public AcDbEntity
+;;;;    ./dbmleader.h:class AcDbMLeader : public AcDbEntity
+;;;;    ./dbsurf.h:class AcDbSurface: public AcDbEntity
+;;;;    ./dbLight.h:class LIGHTDLLIMPEXP AcDbLight : public AcDbEntity
+;;;;    ./dbMPolygon.h:class AcDbMPolygon : public AcDbEntity {
+;;;;    ./dbproxy.h:class ADESK_NO_VTABLE AcDbProxyEntity : public AcDbEntity
+;;;;    ./DbSection.h:class AcDbSection : public AcDbEntity
+;;;;    ./dbSubD.h:class ACDB_PORT AcDbSubDMesh: public AcDbEntity
+;;;;    ./dbunderlayref.h:class ADESK_NO_VTABLE AcDbUnderlayReference: public AcDbEntity
+;;;;    ./dbViewBorder.h:class ACSYNERGY_PORT AcDbViewBorder : public AcDbEntity
+;;;;    ./dbViewSymbol.h:class ACSYNERGY_PORT AcDbViewSymbol : public AcDbEntity
+;;;;    
+;;;;    ./dbbody.h:class AcDbBody: public  AcDbEntity
+;;;;    ./dbfcf.h:class AcDbFcf: public  AcDbEntity
+;;;;    ./dbmline.h:class AcDbMline: public  AcDbEntity
+;;;;    ./dbmtext.h:class AcDbMText: public  AcDbEntity
+;;;;    ./dbregion.h:class AcDbRegion: public  AcDbEntity
+;;;;    ./dbsol3d.h:class AcDb3dSolid: public  AcDbEntity
 
 (defparameter *radian-to-degree* (/ 180 pi))
 
@@ -61,7 +109,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass Db-Entity (Db-Object)
-  ((layer      :accessor layer :initarg :layer :initform "0" :documentation "Код 8. Имя слоя")
+  ((class-marker    :reader class-marker    :initform "ENTITY"     :allocation :class )
+   (subclass-marker :reader subclass-marker :initform "AcDbEntity" :allocation :class )
+   (layer      :accessor layer :initarg :layer :initform "0" :documentation "Код 8. Имя слоя")
    (color      :accessor color :initarg :color :initform 256 :documentation "Код 62. 16-битный цвет")
    (true-color :accessor true-color :initarg :color :initform "0" :documentation "Код 420. 32-битный цвет"))
   (:documentation "См. dbmain.h"))
@@ -69,7 +119,7 @@
 (defmethod dxf-out-text ((x Db-Entity) stream) (format stream "   0~%~A~%" "Entity"))
 
 (defmethod dxf-out-text :after ((x Db-Entity) stream)
-  (format stream "100~%~A~%" "AcDbEntity")
+  (format stream "100~%~A~%" (subclass-marker x))
   (format stream "   8~%~A~%" (layer x)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -80,21 +130,54 @@
 (defmethod dxf-out-binary :after ((x Db-Entity) stream)
   (let ((la  (layer x))
 	(cl (color x)))
-    (dxf-out-b-string 100 "AcDbEntity" stream)
+    (dxf-out-b-string 100 (subclass-marker x) stream)
     (dxf-out-b-string 8 la stream)
     (unless (= 256 cl) (dxf-out-b-int16 62  cl stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Line (Db-Entity)
-  ((start-point :accessor start-point :initarg :start-point :initform (vector 0 0 0 ) :documentation "Код 10. Начальная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
+(defclass Db-Curve (Db-Entity)
+  ((subclass-marker :reader subclass-marker :initarg :subclass-marker :initform "Curve" :allocation :class))
+  )
+
+(defclass Db-Line (Db-Curve)
+  ((class-marker    :reader class-marker    :initform "LINE"     :allocation :class)
+   (subclass-marker :reader subclass-marker :initform "AcDbLine" :allocation :class)
+   (start-point :accessor start-point :initarg :start-point :initform (vector 0 0 0 ) :documentation "Код 10. Начальная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (end-point   :accessor end-point   :initarg :end-point   :initform (vector 0 0 0 ) :documentation "Код 11. Конечная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (thickness   :accessor thickness   :initarg :thickness   :initform 0               :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
    (normal      :accessor normal      :initarg :normal      :initform (vector 0 0 1)  :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор"))
-  (:documentation "См. ./dbents.h:class AcDbLine: public AcDbCurve")
-  )
+  (:documentation "См. ./dbents.h:class AcDbLine: public AcDbCurve
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66
 
-(defmethod dxf-out-text ((x Db-Line) stream) (format stream "   0~%~A~%" "LINE"))
+LINE (DXF)
+К объектам линии применяются следующие групповые коды.
+Групповые коды линии
+|---------------+---------------------------------------------------------------------------|
+| Групповой код | Описание                                                                  |
+|---------------+---------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbLine)                                               |
+|---------------+---------------------------------------------------------------------------|
+|            39 | Толщина (необязательно; значение по умолчанию = 0)                        |
+|---------------+---------------------------------------------------------------------------|
+|            10 | Начальная точка (в МСК)                                                   |
+|               | Файл DXF: значение X; приложение: 3D-точка                                |
+|---------------+---------------------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z для начальной точки (в МСК)                      |
+|---------------+---------------------------------------------------------------------------|
+|            11 | Конечная точка (в МСК)                                                    |
+|               | Файл DXF: значение X; приложение: 3D-точка                                |
+|---------------+---------------------------------------------------------------------------|
+|        21, 31 | Файл DXF: значения Y и Z конечной точки (в МСК)                           |
+|---------------+---------------------------------------------------------------------------|
+|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1) |
+|               | Файл DXF: значение X; приложение: 3D-вектор                               |
+|---------------+---------------------------------------------------------------------------|
+|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
+|---------------+---------------------------------------------------------------------------|"))
+
+(defmethod dxf-out-text ((x Db-Line) stream) (format stream "   0~%~A~%" (class-marker x)))
 
 (defmethod dxf-out-text  :after ((x Db-Line) stream)
   (let ((th (thickness x))
@@ -116,7 +199,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x Db-Line) stream)
-  (dxf-out-b-string 0 "LINE" stream))
+  (dxf-out-b-string 0 (class-marker x) stream))
 
 (defmethod dxf-out-binary :after ((x Db-Line) stream)
   (let ((th (thickness x))
@@ -125,7 +208,7 @@
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (dxf-out-b-string 100 "AcDbLine" stream)
+    (dxf-out-b-string 100 (subclass-marker x) stream)
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 p-s stream)
     (dxf-out-b-point-3d 11 p-e stream)
@@ -137,13 +220,40 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass Db-Point (Db-Entity)
-  ((position-point    :accessor position-point    :initarg :position-point    :initform (vector 0 0 0) :documentation "Код 10. Положение точки")
+  ((class-marker    :reader class-marker    :initform "POINT"     :allocation :class)
+   (subclass-marker :reader subclass-marker :initform "AcDbPoint" :allocation :class)
+   (position-point    :accessor position-point    :initarg :position-point    :initform (vector 0 0 0) :documentation "Код 10. Положение точки")
    (thickness    :accessor thickness    :initarg :thickness    :initform 0              :documentation "Код 39. Высота выдавливания")
    (normal       :accessor normal       :initarg :normal       :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания")
    (ecs-rotation :accessor ecs-rotation :initarg :ecs-rotation :initform 0              :documentation "Код 50. Поворот системы координат объекта"))
-  (:documentation "См. ./dbents.h:class AcDbPoint: public AcDbEntity"))
+  (:documentation "См. ./dbents.h:class AcDbPoint: public AcDbEntity
+		  http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317
+		  http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317
 
-(defmethod dxf-out-text ((x Db-Point) stream) (format stream "   0~%~A~%" "POINT"))
+POINT (DXF)
+К точечным объектам применяются следующие групповые коды.
+Групповые коды точки 
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+| Групповой код | Описание                                                                                                                                  |
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbPoint)                                                                                                              |
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+|            10 | Местоположение точки (в МСК)                                                                                                              |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                                                                |
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z для местоположения точки (в МСК)                                                                                 |
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+|            39 | Толщина (необязательно; значение по умолчанию = 0)                                                                                        |
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1)                                                                 |
+|               | Файл DXF: значение X; приложение: 3D-вектор                                                                                               |
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)                                                                     |
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+|            50 | Угол оси X для ПСК, используемый при построении точки (необязательно, по умолчанию = 0); используется, если параметр PDMODE не равен нулю |
+|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|"))
+
+(defmethod dxf-out-text ((x Db-Point) stream) (format stream "   0~%~A~%" (class-marker x)))
 
 (defmethod dxf-out-text  :after ((x Db-Point) stream)
   (let ((x (svref (position-point x) 0))
@@ -154,7 +264,7 @@
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(ecs (ecs-rotation x)))
-    (format stream " 100~%~A~%" "AcDbPoint")
+    (format stream " 100~%~A~%" (subclass-marker x))
     (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x y z)
     (unless (= th 0) (format stream "  39~%~A~%" th))
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" x-n y-n z-n))
@@ -173,7 +283,7 @@
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (dxf-out-b-string 100 "AcDbPoint" stream)
+    (dxf-out-b-string 100 (subclass-marker x) stream)
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 pos stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))
@@ -182,15 +292,39 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Ray (Db-Entity)
-  ((base-point   :accessor base-point   :initarg :base-point   :initform (vector 0 0 0) :documentation "Код 10. Базовая точка")
+(defclass Db-Ray (Db-Curve)
+  ((class-marker    :reader class-marker    :initform "RAY"     :allocation :class)
+   (subclass-marker :reader subclass-marker :initform "AcDbRay" :allocation :class)
+   (base-point   :accessor base-point   :initarg :base-point   :initform (vector 0 0 0) :documentation "Код 10. Базовая точка")
    (unit-dir     :accessor unit-dir     :initarg :unit-dir     :initform (vector 1 0 0) :documentation "Код 11. Едининчный вектор в МСК, задающий направление"))
-  (:documentation "См. ./dbray.h:class AcDbRay: public AcDbCurve"))
+  (:documentation "См. ./dbray.h:class AcDbRay: public AcDbCurve
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-638B9F01-5D86-408E-A2DE-FA5D6ADBD415
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-638B9F01-5D86-408E-A2DE-FA5D6ADBD415
 
-(defmethod dxf-out-text ((x Db-Ray) stream) (format stream "   0~%~A~%" "RAY"))
+RAY (DXF)
+К объектам луча применяются следующие групповые коды.
+Групповые коды луча 
+|---------------+--------------------------------------------------------------|
+| Групповой код | Описание                                                     |
+|---------------+--------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbRay)                                   |
+|---------------+--------------------------------------------------------------|
+|            10 | Начальная точка (в МСК)                                      |
+|               | Файл DXF: значение X; приложение: 3D-точка                   |
+|---------------+--------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z для начальной точки (в МСК)         |
+|---------------+--------------------------------------------------------------|
+|            11 | Вектор единичного направления (в МСК)                        |
+|               | Файл DXF: значение X; приложение: 3D-вектор                  |
+|---------------+--------------------------------------------------------------|
+|        21, 31 | Файл DXF: значения Y и Z вектора направления единицы (в МСК) |
+|---------------+--------------------------------------------------------------|
+"))
+
+(defmethod dxf-out-text ((x Db-Ray) stream) (format stream "   0~%~A~%" (class-marker x)))
 
 (defmethod dxf-out-text  :after ((x Db-Ray) stream)
-  (format stream "100~%~A~%" "AcDbRay")
+  (format stream "100~%~A~%" (subclass-marker x))
   (let ((x-b-p (svref (base-point x) 0))
 	(y-b-p (svref (base-point x) 1))
 	(z-b-p (svref (base-point x) 2))
@@ -201,15 +335,86 @@
     (format stream "  11~%~A~%  21~%~A~%  31~%~A~%" x-u-d y-u-d z-u-d)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defclass Db-Xline (Db-Curve)
+  ((class-marker    :reader class-marker    :initform "XLINE"     :allocation :class)
+   (subclass-marker :reader subclass-marker :initform "AcDbXline" :allocation :class)
+   (base-point :accessor base-point :initarg :base-point :initform (vector 0 0 0) :documentation "Код 10. Первая точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
+   (unit-dir   :accessor unit-dir   :initarg :unit-dir   :initform (vector 1 0 0) :documentation "Код 40. Вектор единичного направления (в МСК). Файл DXF: значение X; приложение: 3D-вектор"))
+  (:documentation "См. ./dbxline.h:class AcDbXline: public AcDbCurve
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A
 
-(defclass Db-Circle (Db-Entity)
-  ((center    :accessor center     :initarg :center    :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
+XLINE (DXF)
+К объектам XLINE применяются следующие групповые коды.
+Групповые коды XLINE
+|---------------+--------------------------------------------------------------|
+| Групповой код | Описание                                                     |
+|---------------+--------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbXline)                                 |
+|---------------+--------------------------------------------------------------|
+|            10 | Первая точка (в МСК)                                         |
+|               | Файл DXF: значение X; приложение: 3D-точка                   |
+|---------------+--------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z первой точки (в МСК)                |
+|---------------+--------------------------------------------------------------|
+|            11 | Вектор единичного направления (в МСК)                        |
+|               | Файл DXF: значение X; приложение: 3D-вектор                  |
+|---------------+--------------------------------------------------------------|
+|        21, 31 | Файл DXF: значения Y и Z вектора направления единицы (в МСК) |
+|---------------+--------------------------------------------------------------|"))
+
+(defmethod dxf-out-text ((x Db-Xline) stream) (format stream "   0~%~A~%" (class-marker x)))
+
+(defmethod dxf-out-text  :after ((x Db-Xline) stream)
+  (format stream "100~%~A~%" (subclass-marker x))
+  (let ((x-b-p (svref (base-point x) 0))
+	(y-b-p (svref (base-point x) 1))
+	(z-b-p (svref (base-point x) 2))
+	(x-u-d (svref (unit-dir x) 0))
+	(y-u-d (svref (unit-dir x) 1))
+	(z-u-d (svref (unit-dir x) 2)))
+    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x-b-p y-b-p z-b-p)
+    (format stream "  11~%~A~%  21~%~A~%  31~%~A~%" x-u-d y-u-d z-u-d)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defclass Db-Circle (Db-Curve)
+  ((class-marker    :reader class-marker    :initform "CIRCLE"     :allocation :class)
+   (subclass-marker :reader subclass-marker :initform "AcDbCircle" :allocation :class)
+   (center    :accessor center     :initarg :center    :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
    (radius    :accessor radius     :initarg :radius    :initform 1              :documentation "Код 40. Радиус")
    (thickness :accessor thickness  :initarg :thickness :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
    (normal    :accessor normal     :initarg :normal    :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор"))
-  (:documentation "См. ./dbents.h:class AcDbCircle: public AcDbCurve"))
+  (:documentation "См. ./dbents.h:class AcDbCircle: public AcDbCurve
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18
 
-(defmethod dxf-out-text ((x Db-Circle) stream) (format stream "   0~%~A~%" "CIRCLE"))
+CIRCLE (DXF)
+К объектам CIRCLE применяются следующие групповые коды.
+Групповые коды CIRCLE 
+|---------------+---------------------------------------------------------------------------|
+| Групповой код | Описание                                                                  |
+|---------------+---------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbCircle)                                             |
+|---------------+---------------------------------------------------------------------------|
+|            39 | Толщина (необязательно; значение по умолчанию = 0)                        |
+|---------------+---------------------------------------------------------------------------|
+|            10 | Центральная точка (в ОСК)                                                 |
+|               | Файл DXF: значение X; приложение: 3D-точка                                |
+|---------------+---------------------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z для центральной точки (в ОСК)                    |
+|---------------+---------------------------------------------------------------------------|
+|            40 | Радиус                                                                    |
+|---------------+---------------------------------------------------------------------------|
+|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1) |
+|               | Файл DXF: значение X; приложение: 3D-вектор                               |
+|---------------+---------------------------------------------------------------------------|
+|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
+|               | Понятия, связанные с данным                                               |
+|---------------+---------------------------------------------------------------------------|
+"))
+
+(defmethod dxf-out-text ((x Db-Circle) stream) (format stream "   0~%~A~%" (class-marker x)))
 
 (defmethod dxf-out-text  :after ((x Db-Circle) stream)
   (let ((x-c (svref (center x) 0))
@@ -220,7 +425,7 @@
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (format stream " 100~%~A~%" "AcDbCircle")
+    (format stream " 100~%~A~%" (subclass-marker x))
     (unless (= (thickness x) 0) (format stream "  39~%~A~%" th))
     (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x-c y-c z-c)
     (format stream "  40~%~A~%" r)
@@ -229,7 +434,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x Db-Circle) stream)
-  (dxf-out-b-string 0 "CIRCLE" stream))
+  (dxf-out-b-string 0 (class-marker x) stream))
 
 (defmethod dxf-out-binary :after ((x Db-Circle) stream)
   (let ((th (thickness x))
@@ -240,7 +445,7 @@
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	)
-    (dxf-out-b-string 100 "AcDbCircle" stream)
+    (dxf-out-b-string 100 (subclass-marker x) stream)
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 p-c stream)
     (dxf-out-b-double 40 rad stream)
@@ -248,16 +453,49 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Arc (Db-Entity)
-  ((center      :accessor center      :initarg :center      :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
+(defclass Db-Arc (Db-Curve)
+  ((class-marker    :reader class-marker    :initform "ARC"     :allocation :class)
+   (subclass-marker :reader subclass-marker :initform "AcDbArc" :allocation :class)
+   (center      :accessor center      :initarg :center      :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
    (radius      :accessor radius      :initarg :radius      :initform 1              :documentation "Код 40. Радиус")
    (thickness   :accessor thickness   :initarg :thickness   :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
    (normal      :accessor normal      :initarg :normal      :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
    (start-angle :accessor start-angle :initarg :start-angle :initform 0              :documentation "Код 50. Начальный угол")
    (end-angle   :accessor end-angle   :initarg :end-angle   :initform (* -1 pi)      :documentation "Код 51. Конечный угол"))
-  (:documentation "./dbents.h:class AcDbArc: public AcDbCurve"))
+  (:documentation "./dbents.h:class AcDbArc: public AcDbCurve
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-0B14D8F1-0EBA-44BF-9108-57D8CE614BC8
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-0B14D8F1-0EBA-44BF-9108-57D8CE614BC8
 
-(defmethod dxf-out-text ((x Db-Arc) stream) (format stream "   0~%~A~%" "ARC"))
+ARC (DXF)
+К объектам дуги применяются следующие групповые коды.
+Групповые коды дуги 
+|---------------+---------------------------------------------------------------------------|
+| Групповой код | Описание                                                                  |
+|---------------+---------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbCircle)                                             |
+|---------------+---------------------------------------------------------------------------|
+|            39 | Толщина (необязательно; значение по умолчанию = 0)                        |
+|---------------+---------------------------------------------------------------------------|
+|            10 | Центральная точка (в ОСК)                                                 |
+|               | Файл DXF: значение X; приложение: 3D-точка                                |
+|---------------+---------------------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z для центральной точки (в ОСК)                    |
+|---------------+---------------------------------------------------------------------------|
+|            40 | Радиус                                                                    |
+|---------------+---------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbArc)                                                |
+|---------------+---------------------------------------------------------------------------|
+|            50 | Начальный угол                                                            |
+|---------------+---------------------------------------------------------------------------|
+|            51 | Конечный угол                                                             |
+|---------------+---------------------------------------------------------------------------|
+|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1) |
+|               | Файл DXF: значение X; приложение: 3D-вектор                               |
+|---------------+---------------------------------------------------------------------------|
+|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
+|---------------+---------------------------------------------------------------------------|"))
+
+(defmethod dxf-out-text ((x Db-Arc) stream) (format stream "   0~%~A~%" (class-marker x)))
 
 (defmethod dxf-out-text :after ((x Db-Arc) stream)
   (let ((x-c (svref (center x) 0))
@@ -274,7 +512,7 @@
     (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x-c y-c z-c)
     (unless (= (thickness x) 0) (format stream "  39~%~A~%" th))
     (format stream "  40~%~A~%" r)
-    (format stream " 100~%~A~%" "AcDbArc")
+    (format stream " 100~%~A~%" (subclass-marker x))
     (format stream "  50~%~A~%" s-a)
     (format stream "  51~%~A~%" e-a)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" x-n y-n z-n))))
@@ -282,32 +520,39 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x Db-Arc) stream)
-  (dxf-out-b-string 0 "ARC" stream))
+  (dxf-out-b-string 0 (class-marker x) stream)
+  )
 
 (defmethod dxf-out-binary :after ((x Db-Arc) stream)
-  (let ((th (thickness x))
-        (p-c (center x))
+  (let (
+	(th (thickness x))
+	(p-c (center x))
 	(rad (radius x))
 	(nrm (normal x))
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(s-a (* *radian-to-degree* (start-angle x)))
-	(e-a (* *radian-to-degree* (end-angle x))))
+	(e-a (* *radian-to-degree* (end-angle x)))
+	)
     (dxf-out-b-string 100 "AcDbCircle" stream)
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 p-c stream)
     (dxf-out-b-double 40 rad stream)
-    (dxf-out-b-string 100 "AcDbArc" stream)
+    (dxf-out-b-string 100 (subclass-marker x) stream)
     (dxf-out-b-double 50 s-a stream)
     (dxf-out-b-double 51 e-a stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))))
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))
+    ))
 
+;;(dxf-out-binary *a-0* *o*)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass Db-Text (Db-Entity)
-  ((thickness         :accessor thickness         :initarg :thickness           :initform 0              :documentation "Код  39. Thickness (optional; default = 0)")
+  ((class-marker    :reader class-marker    :initform "TEXT"     :allocation :class)
+   (subclass-marker :reader subclass-marker :initform "AcDbText" :allocation :class)
+   (thickness         :accessor thickness         :initarg :thickness           :initform 0              :documentation "Код  39. Thickness (optional; default = 0)")
    (position-point    :accessor position-point    :initarg :position-point      :initform (vector 0 0 0) :documentation "Код  10. First alignment point (in OCS) DXF: X value; APP: 3D point")
    (height            :accessor height            :initarg :height              :initform 3.5            :documentation "Код  40. Text height")
    (text-string       :accessor text-string       :initarg :text-string         :initform ""             :documentation "Код   1. Default value (the string itself)")
@@ -320,10 +565,93 @@
    (alignment-point   :accessor alignment-Point   :initarg :alignment-Point     :initform (vector 0 0 0) :documentation "Код  11. Second alignment point (in OCS) (optional). DXF: X value; APP: 3D point. This value is meaningful only if the value of a 72 or 73 group is nonzero (if the justification is anything other than baseline/left)")
    (normal            :accessor normal            :initarg :normal              :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
    (ver-justification :accessor ver-justification :initarg :ver-justification   :initform 0              :documentation "Код  73. Vertical text justification type (optional, default = 0): integer codes (not bit-coded): 0 = Baseline; 1 = Bottom; 2 = Middle; 3 = Top. See the Group 72 and 73 integer codes table for clarification"))
-  (:documentation "См. ./dbents.h:class AcDbText: public AcDbEntity")
-  )
+  (:documentation "См. ./dbents.h:class AcDbText: public AcDbEntity
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-62E5383D-8A14-47B4-BFC4-35824CAE8363
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-62E5383D-8A14-47B4-BFC4-35824CAE8363
 
-(defmethod dxf-out-text ((x Db-Text) stream) (format stream "   0~%~A~%" "TEXT"))
+TEXT (DXF)
+К объектам текста применяются следующие групповые коды.
+Групповые коды текста
+| Групповой код | Описание                                                                                                                                          |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbText)                                                                                                                       |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            39 | Толщина (необязательно; значение по умолчанию = 0)                                                                                                |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            10 | Первая точка выравнивания (в ОСК)                                                                                                                 |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                                                                        |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z первой точки выравнивания (в ОСК)                                                                                        |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            40 | Высота текста                                                                                                                                     |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|             1 | Значение по умолчанию (сама строка)                                                                                                               |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            50 | Поворот текста (необязательно; значение по умолчанию = 0)                                                                                         |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            41 | Относительный масштабный коэффициент по оси X: ширина (необязательно; значение по умолчанию = 1)                                                  |
+|               | Это значение также корректируется при использовании вписываемого текста                                                                           |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            51 | Угол наклона (необязательно; значение по умолчанию = 0)                                                                                           |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|             7 | Имя стиля текста (необязательно, значение по умолчанию = STANDARD)                                                                                |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            71 | Флаги создания текста (необязательно, значение по умолчанию = 0):                                                                                 |
+|               | 2 = текст в обратном направлении (зеркально отражен по X)                                                                                         |
+|               | 4 = текст перевернут (зеркально отражен по Y)                                                                                                     |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            72 | Тип выравнивания текста по горизонтали (необязательно, значение по умолчанию = 0); целочисленные коды (не битовые):                               |
+|               | 0 = слева                                                                                                                                         |
+|               | 1 = по центру                                                                                                                                     |
+|               | 2 = справа                                                                                                                                        |
+|               | 3 = параллельно (если выравнивание по вертикали = 0)                                                                                              |
+|               | 4 = посередине (если выравнивание по вертикали = 0)                                                                                               |
+|               | 5 = вписать (если выравнивание по вертикали = 0)                                                                                                  |
+|               | Подробности см. в таблице целочисленных групповых кодов 72 и 73                                                                                   |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            11 | Вторая точка выравнивания (в ОСК) (необязательно)                                                                                                 |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                                                                        |
+|               | Это значение имеет смысл, только если значение групп 72 или 73 не равно нулю (если выравнивание не является выравниванием по базовой линии/слева) |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|        21, 31 | Файл DXF: значения Y и Z второй точки выравнивания (в ОСК) (необязательно)                                                                        |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1)                                                                         |
+|               | Файл DXF: значение X; приложение: 3D-вектор                                                                                                       |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)                                                                             |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbText)                                                                                                                       |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+|            73 | Тип выравнивания текста по вертикали (необязательно, значение по умолчанию = 0); целочисленные коды (не битовые):                                 |
+|               | 0 = по базовой линии                                                                                                                              |
+|               | 1 = снизу                                                                                                                                         |
+|               | 2 = посередине                                                                                                                                    |
+|               | 3 = сверху                                                                                                                                        |
+|               | Подробности см. в таблице целочисленных групповых кодов 72 и 73                                                                                   |
+|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
+
+В следующей таблице подробно описываются групповые коды 72 (выравнивание по горизонтали) и 73 (выравнивание по вертикали). 
+Целочисленные групповые коды 72 и 73 
+|----------------------+----------+----------+----------+--------------+----------+-----------|
+| Группа с кодом 73    | Группа с | Группа с | Группа с | Группа с     | Группа с | Группа с  |
+|                      | кодом 72 | кодом 72 | кодом 72 | кодом 72     | кодом 72 | кодом 72  |
+|                      | 0        | 1        | 2        | 3            | 4        | 5         |
+|----------------------+----------+----------+----------+--------------+----------+-----------|
+| 3 (сверху)           | ВЛ       | ВЦ       | ВП       |              |          |           |
+|----------------------+----------+----------+----------+--------------+----------+-----------|
+| 2 (посередине)       | СЛ       | СЦ       | СП       |              |          |           |
+|----------------------+----------+----------+----------+--------------+----------+-----------|
+| 1 (снизу)            | НЛ       | НЦ       | НП       |              |          |           |
+|----------------------+----------+----------+----------+--------------+----------+-----------|
+| 0 (по базовой линии) | Левая    | Центр    | Справа   | Параллельный | Середина | По ширине |
+|----------------------+----------+----------+----------+--------------+----------+-----------|
+Если значения групп с кодом 72 и (или) 73 не равны нулю, то значения первой точки выравнивания игнорируются, 
+и приложением AutoCAD рассчитываются новые значения на основе второй точки выравнивания и длины и высоты 
+самой текстовой строки (после применения стиля текста). Если значения групп с кодами 72 и 73 равны нулю или 
+отсутствуют, то вторая точка выравнивания является нерелевантной. 
+"))
+
+(defmethod dxf-out-text ((x Db-Text) stream) (format stream "   0~%~A~%" (class-marker x)))
 
 (defmethod dxf-out-text :after ((x Db-Text) stream)
   (let ((th (thickness x))
@@ -343,7 +671,7 @@
 	(z-n (svref (normal x) 2))
 	(v-j (ver-justification x)))
     (unless (= th 0) (format stream "  39~%~A~%" th))
-    (format stream " 100~%~A~%" "AcDbText")
+    (format stream " 100~%~A~%" (subclass-marker x))
     (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" (svref p-p 0) (svref p-p 1) (svref p-p 2))
     (format stream "  40~%~A~%" h)
     (format stream "  1~%~A~%" t-s)
@@ -361,7 +689,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x Db-Text) stream)
-  (dxf-out-b-string 0 "TEXT" stream))
+  (dxf-out-b-string 0 (class-marker x) stream))
 
 (defmethod dxf-out-binary :after ((x Db-Text) stream)
   (let ((th (thickness x))
@@ -383,7 +711,7 @@
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(v-j (ver-justification x)))
-    (dxf-out-b-string 100 "AcDbText" stream)
+    (dxf-out-b-string 100 (subclass-marker x) stream)
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 p-p stream)
     (dxf-out-b-double 40 h stream)
@@ -396,67 +724,115 @@
     (unless (= h-j 0) (dxf-out-b-int16 72 h-j stream))
     (when   (or (/= h-j 0) (/= v-j 0)) (dxf-out-b-point-3d 11 a-p stream))
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))
-    (dxf-out-b-string 100 "AcDbText" stream)
+    (dxf-out-b-string 100 (class-marker x) stream)
     (unless (= v-j 0) (dxf-out-b-int16 73 v-j stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defclass Db-Symbol-Table-Record ()
-  ((table-name        :accessor table-name        :initarg :table-name          :initform "Undefined"    :documentation "Имя таблицы")
-   (is-dependent      :accessor is-dependent      :initarg :is-dependent        :initform nil            :documentation "Является-ли имя таблицы зависимым")
-   (is-resolved       :accessor is-resolved       :initarg :is-resolved         :initform t              :documentation "Вычислено-ли имя таблицы")
-   (is-renamable      :accessor is-renamable      :initarg :is-renamable        :initform t              :documentation "Допускается-ли переименовывать таблицу"))
-  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord"))
 
-(defclass Db-Layer-TableRecord (Db-Symbol-Table-Record)
-;;;;"AcDbLayerTableRecord"
-  ((is-frozen         :accessor is-frozen         :initarg :is-frozen           :initform nil            :documentation "Код  70. 1 = Layer is frozen; otherwise layer is thawed")
-   (is-vp-frozen      :accessor is-vp-frozen      :initarg :is-vp-frozen        :initform nil            :documentation "Код  70. 2 = Layer is frozen by default in new viewports")
-   (is-locked         :accessor is-locked         :initarg :is-locked           :initform nil            :documentation "Код  70. 4 = Layer is locked")
-   (is-hidden         :accessor is-hidden         :initarg :is-hidden           :initform nil            :documentation "Код  70. 4 = Layer is locked")   
-   (color             :accessor color             :initarg :color               :initform ""             :documentation "Код  62. Номер цвета (если значение отрицательное, слой отключен)")
-   (line-type-id      :accessor line-type-id      :initarg :line-type-id        :initform nil            :documentation "Код   6. Имя типа линий")
-   (is-plottable      :accessor is-plottable      :initarg :is-plottable        :initform t              :documentation "Код 290. Флаг печати. Если задано значение 0, этот слой не выводится на печать")
-   (line-weight       :accessor line-weight       :initarg :line-weight         :initform 0.25           :documentation "Код 370. Значение из перечисления весов линии")
-   (plot-style-name   :accessor plot-style-name   :initarg :plot-style-name     :initform 0.25           :documentation "Код 390. Hard-pointer ID/handle of PlotStyleName object")
-   (material-id       :accessor material-id       :initarg :plot-style-name     :initform nil            :documentation "Код 347. Идентификатор/дескриптор жесткого указателя на объект материала"))
-  (:documentation "./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
-LAYER (DXF)
+(defclass Db-Ellipse (Db-Curve)
+  ((class-marker    :reader class-marker    :initform "ELLIPSE"     :allocation :class)
+   (subclass-marker :reader subclass-marker :initform "AcDbEllipse" :allocation :class)
+   (center       :accessor center       :initarg :center       :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
+   (major-axis   :accessor major-axis   :initarg :major-axis   :initform (vector 1 0 0) :documentation "Код 11. Конечная точка главной оси относительно центральной точки (в МСК) (mapcar #'+ center major-axis)")
+   (unit-normal  :accessor unit-normal  :initarg :unit-normal  :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
+   (radius-ratio :accessor radius-ratio :initarg :radius-ratio :initform 0.5d0          :documentation "Код 40. Соотношение малой и главной осей")
+   (start-param  :accessor start-param  :initarg :start-param  :initform 0              :documentation "Код 41. Начальный параметр")
+   (end-param    :accessor end-param    :initarg :end-param    :initform (* 2 pi)       :documentation "Код 42. Конечный параметр"))
+  (:documentation "См. ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-107CB04F-AD4D-4D2F-8EC9-AC90888063AB
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-107CB04F-AD4D-4D2F-8EC9-AC90888063AB
 
-К записям таблицы обозначений LAYER применяются следующие групповые коды.
+ELLIPSE (DXF)
+К объектам эллипса применяются следующие групповые коды.
+Групповые коды эллипса
+|---------------+------------------------------------------------------------------------------------------------|
+| Групповой код | Описание                                                                                       |
+|---------------+------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbEllipse)                                                                 |
+|---------------+------------------------------------------------------------------------------------------------|
+|            10 | Центральная точка (в МСК)                                                                      |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                     |
+|---------------+------------------------------------------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z для центральной точки (в МСК)                                         |
+|---------------+------------------------------------------------------------------------------------------------|
+|            11 | Конечная точка главной оси относительно центральной точки (в МСК)                              |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                     |
+|---------------+------------------------------------------------------------------------------------------------|
+|        21, 31 | Файл DXF: значения Y и Z для конечной точки главной оси относительно центральной точки (в МСК) |
+|---------------+------------------------------------------------------------------------------------------------|
+|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1)                      |
+|               | Файл DXF: значение X; приложение: 3D-вектор                                                    |
+|---------------+------------------------------------------------------------------------------------------------|
+|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)                          |
+|---------------+------------------------------------------------------------------------------------------------|
+|            40 | Соотношение малой и главной осей                                                               |
+|---------------+------------------------------------------------------------------------------------------------|
+|            41 | Начальный параметр (значение для полного эллипса — 0,0)                                        |
+|---------------+------------------------------------------------------------------------------------------------|
+|            42 | Конечный параметр (значение для полного эллипса — 2 пи)                                        |
+|---------------+------------------------------------------------------------------------------------------------|"))
 
-Групповые коды LAYER
-|---------------+-------------------------------------------------------------------------------------------------------|
-| Групповой код | Описание                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbLayerTableRecord)                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             2 | Имя слоя                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            70 | Стандартные флаги (битовые кодовые значения):                                                         |
-|               | 1 = слой заморожен; в противном случае слой разморожен                                                |
-|               | 2 = слой заморожен по умолчанию на новых видовых экранах                                              |
-|               | 4 = слой заблокирован                                                                                 |
-|               | 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки                       |
-|               | 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается            |
-|               | 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,          |
-|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.       |
-|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, |
-|               | записывающих файлы DXF)                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            62 | Номер цвета (если значение отрицательное, слой отключен)                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             6 | Имя типа линий                                                                                        |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           290 | Флаг печати. Если задано значение 0, этот слой не выводится на печать                                 |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           370 | Значение перечня веса линий                                                                           |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           390 | Идентификатор/дескриптор жесткого указателя на объект PlotStyleName                                   |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           347 | Идентификатор/дескриптор жесткого указателя на объект материала                                       |
-|---------------+-------------------------------------------------------------------------------------------------------|
+(defmethod dxf-out-text ((x Db-Ellipse) stream) (format stream "   0~%~A~%" (class-marker x)))
 
-Слои, зависимые от внешних ссылок, выводятся при выполнении команды СОХРАНИТЬКАК. 
-Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
-" ))
+(defmethod dxf-out-text :after ((x Db-Ellipse) stream)
+  (let ((c-x (svref (center x) 0))
+	(c-y (svref (center x) 1))
+	(c-z (svref (center x) 2))
+	(ma-x (svref (major-axis x) 0))
+	(ma-y (svref (major-axis x) 1))
+	(ma-z (svref (major-axis x) 2))
+        (ma-e-x (+ (svref (center x) 0) (svref (major-axis x) 0)))
+	(ma-e-y (+ (svref (center x) 1) (svref (major-axis x) 1)))
+	(ma-e-z (+ (svref (center x) 2) (svref (major-axis x) 2)))
+	(u-n-x (svref (unit-normal x) 0))
+	(u-n-y (svref (unit-normal x) 1))
+	(u-n-z (svref (unit-normal x) 2))
+	(r-r (radius-ratio x))
+	(s-p (start-param x))
+	(e-p (end-param   x)))
+    (format stream " 100~%~A~%" (subclass-marker x))
+    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" c-x c-y c-z)
+    (format stream "  11~%~A~%  21~%~A~%  31~%~A~%" ma-e-x ma-e-y ma-e-z)
+    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" u-n-x u-n-x u-n-x))
+    (format stream "  40~%~A~%" r-r)
+    (format stream "  41~%~A~%" s-p)
+    (format stream "  42~%~A~%" e-p)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod dxf-out-binary ((x Db-Ellipse) stream)
+  (dxf-out-b-string 0 (class-marker x) stream))
+
+(defmethod dxf-out-binary :after ((x Db-Ellipse) stream)
+  (let ((p-c   (center x))
+	(p-ma  (map 'vector #'+ (center x) (major-axis x)))
+	(u-n   (unit-normal x))
+	(u-n-x (svref (unit-normal x) 0))
+	(u-n-y (svref (unit-normal x) 1))
+	(u-n-z (svref (unit-normal x) 2))
+	(r-r (radius-ratio x))
+	(s-p (start-param x))
+	(e-p (end-param   x)))
+    (dxf-out-b-string 100 (subclass-marker x) stream)
+    (dxf-out-b-point-3d 10 p-c stream)
+    (dxf-out-b-point-3d 11 p-ma stream)
+    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf-out-b-point-3d 210 u-n stream))
+    (dxf-out-b-double 40 r-r stream)
+    (dxf-out-b-double 41 s-p stream)
+    (dxf-out-b-double 42 e-p stream)
+    ))
+
+
+
+(let ((ln (make-instance 'Db-Line))
+      (cv (make-instance 'Db-Curve))
+      (el (make-instance 'Db-Ellipse))
+      )
+  (values
+   (subclass-marker ln)
+   (subclass-marker cv)
+   (dxf-out-text el t)
+   ))
+
+
 

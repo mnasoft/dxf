@@ -13,7 +13,8 @@
 	       (:file "code-by-value-range")
 	       (:file "dxf")	       
 	       (:file "header-section-group-codes")
-	       (:file "db-classes")	       
+	       (:file "db-classes")
+	       (:file "db-symbol-table-record-classes")
 	       ))
 
 
