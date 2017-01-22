@@ -6,43 +6,24 @@
 
 (progn
   (defparameter *o* (open "~/12345.dxf" :direction :output :element-type 'unsigned-byte :if-exists :supersede))
-  
   (defparameter *model-space*
-    (list  (make-instance 'db-point)
-	   (make-instance 'db-point :position-point (vector 35 45 15) :ecs-rotation (/ pi 6) :layer "point" :color 6 :normal (vector 0 1 0))
-	   (make-instance 'db-line )
-	   (make-instance 'db-line :start-point (vector 10. 30. 50.0) :end-point (vector 20. 40. 10.0) :layer "cool" :color 3)
-	   (make-instance 'db-circle)
-	   (make-instance 'db-circle :center (vector 51 65 0) :radius 48.6 :color 75)
-	   (make-instance 'db-arc)
-	   (make-instance 'db-arc :center (vector 25 15 0) :radius 18.6 :color 70 :start-angle (* 1.9999 pi) :end-angle (* 3.999 pi))
-	   (make-instance 'db-text
-			  :position-point (vector 30 20 0)
-			  :rotation (* *degree-to-radian* 120)
-			  :text-string "This is the TEXT string!"
-			  :width-factor 1/3
-			  :oblique (* *degree-to-radian* 15))
-	   (make-instance 'Db-Ellipse)
-    (make-instance 'Db-Ellipse
-		   :center (vector 15 25 0) :color 3 :layer "Ellipses"
-		   :major-axis (vector 25 10 0) :radius-ratio 0.25
-		   :start-param (* *degree-to-radian* 120)
-		   :end-param (* *degree-to-radian* 390))))
-  
-  (dxf-out-b-header *o*)
-
-  (dxf-out-b-string 0 *section* *o*)
-
-  (dxf-out-b-string 2 *entities* *o*)
-
-
+    (list
+;;;; (make-instance 'db-point)
+;;;;	   (make-instance 'db-point :position-point (vector 35 45 15) :ecs-rotation (/ pi 6) :layer "Points" :color 6 :normal (vector 0 1 0))
+;;;;	   (make-instance 'db-line )
+;;;;	   (make-instance 'db-line :start-point (vector 10. 30. 50.0) :end-point (vector 20. 40. 10.0) :layer "Lines" :color 3)
+;;;;   (make-instance 'db-circle)
+;;;; (make-instance 'db-circle :center (vector 51 65 0) :radius 48.6 :color 75 :layer "Circles" :color 2)
+;;;;	   (make-instance 'db-arc)
+;;;;	   (make-instance 'db-arc :center (vector 25 15 0) :radius 18.6 :color 70 :start-angle (* 1.9999 pi) :end-angle (* 3.999 pi))
+;;;;	   (make-instance 'db-text :position-point (vector 30 20 0) :rotation (* *degree-to-radian* 120) :text-string "This is the TEXT string!" :width-factor 1/3 :oblique (* *degree-to-radian* 15))
+;;;;	   (make-instance 'Db-Ellipse)
+     (make-instance 'Db-Ellipse :center (vector 10 20 0) :color 3 :layer "Ellipses" :major-axis (vector 2 0 0) :radius-ratio 0.5D0 :start-param (* *degree-to-radian* 120) :end-param (* *degree-to-radian* 390))
+     ))
+  (dxf-out-b-header *o*) (dxf-out-b-string 0 *section* *o*) (dxf-out-b-string 2 *entities* *o*)
   (mapc #'(lambda (el) (dxf-out-binary el *o*)) *model-space* )
-  
-
   (dxf-out-b-string 0 *endsec* *o*)
-  
   (dxf-out-b-string 0 *eof* *o*)
-  
   (close *o*))
 
 (progn ;;;;Db-Ray
