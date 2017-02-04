@@ -2,13 +2,35 @@
 
 (in-package #:dxf)
 
+(defparameter *h-vars-list-min*
+  '(("ACADVER"  1 "AC1027")
+    ("HANDSEED" 5 "61"))
+  "Мининмальный файл заголовка")
+
 (defclass Db-Header ()
-  (
-   (header-vars
-    :accessor header-vars
-    :initarg :header-vars
-    :initform (vector 0 0 0 )
-    :documentation "")))
+  ((header-vars :accessor header-vars :initarg :header-vars :initform *h-vars-list-min*
+		:documentation "
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
+")))
+
+(defmethod dxf-out-text :before ((x Db-Header) stream)
+	   (format stream "~A~%~A~%~A~%~A~%" (dxf-code 0) "SECTION" (dxf-code 2) "HEADER"))
+
+(defmethod dxf-out-text ((x Db-Header) stream)
+  (mapc #'(lambda (el)
+	    (format stream "~A~%~A~%~A~%~A~%"
+		    (dxf-code 9)
+		    (concatenate 'string "$" (first el))
+		    (dxf-code (second el))
+		    (third el)
+		    ))
+	(header-vars x)))
+
+(defmethod dxf-out-text :after ((x Db-Header) stream)
+  (format stream "~A~%ENDSEC~%" (dxf-code 0)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *h-vars* (make-hash-table :test 'equal))
 
