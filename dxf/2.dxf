@@ -32,8 +32,6 @@ AcDbSymbolTable
 VPORT
   5
 29
-330
-28
 100
 AcDbSymbolTableRecord
 100
@@ -78,10 +76,6 @@ AcDbViewportTableRecord
 0.0
  37
 0.0
- 40
-2141.132757422042
- 41
-2.21021377672209
  42
 50.0
  43
@@ -96,22 +90,8 @@ AcDbViewportTableRecord
      0
  72
   1000
- 73
-     1
- 74
-     3
- 75
-     0
- 76
-     1
- 77
-     0
- 78
-     0
 281
      0
- 65
-     1
 110
 0.0
 120
@@ -152,10 +132,6 @@ AcDbViewportTableRecord
    250
 421
   3355443
-1001
-ACAD_NAV_VCDISPLAY
-1070
-     3
   0
 ENDTAB
   0
