@@ -1,5 +1,5 @@
 ;;;; package.lisp
 
 (defpackage #:dxf
-  (:use #:cl))
+  (:use #:cl #:mnas-string))
 

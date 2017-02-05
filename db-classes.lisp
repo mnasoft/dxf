@@ -109,18 +109,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass Db-Entity (Db-Object)
-  ((class-marker    :reader class-marker    :initform "ENTITY"     :allocation :class )
-   (subclass-marker :reader subclass-marker :initform "AcDbEntity" :allocation :class )
-   (layer      :accessor layer :initarg :layer :initform "0" :documentation "Код 8. Имя слоя")
-   (color      :accessor color :initarg :color :initform 256 :documentation "Код 62. 16-битный цвет")
-   (true-color :accessor true-color :initarg :color :initform "0" :documentation "Код 420. 32-битный цвет"))
+  ((class-marker      :reader   class-marker      :initform "ENTITY"          :allocation :class )
+   (subclass-marker   :reader   subclass-marker   :initform "AcDbEntity"      :allocation :class )
+   (entity-layer      :accessor entity-layer      :initarg :entity-layer      :initform "0" :documentation "Код 8. Имя слоя")
+   (entity-color      :accessor entity-color      :initarg :entity-color      :initform 256 :documentation "Код 62. 16-битный цвет")
+   (entity-true-color :accessor entity-true-color :initarg :entity-true-color :initform nil :documentation "Код 420. 32-битный цвет"))
   (:documentation "См. dbmain.h"))
 
-(defmethod dxf-out-text ((x Db-Entity) stream) (format stream "   0~%~A~%" "Entity"))
+(defmethod dxf-out-text ((x Db-Entity) stream) (format stream "~A~%~A~%" (dxf-code 0) "Entity"))
 
 (defmethod dxf-out-text :after ((x Db-Entity) stream)
-  (format stream "100~%~A~%" (subclass-marker x))
-  (format stream "   8~%~A~%" (layer x)))
+  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+  (format stream "~A~%~A~%" (dxf-code   8) (entity-layer x)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -128,8 +128,8 @@
   (dxf-out-b-string 0 "ENTITY" stream))
 
 (defmethod dxf-out-binary :after ((x Db-Entity) stream)
-  (let ((la  (layer x))
-	(cl (color x)))
+  (let ((la (entity-layer x))
+	(cl (entity-color x)))
     (dxf-out-b-string 100 (subclass-marker x) stream)
     (dxf-out-b-string 8 la stream)
     (unless (= 256 cl) (dxf-out-b-int16 62  cl stream))))
@@ -190,11 +190,11 @@ LINE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (format stream "100~%~A~%" "AcDbLine")
-    (unless (= th 0) (format stream "  39~%~A~%" th))
-    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x-s y-s z-s )
-    (format stream "  11~%~A~%  21~%~A~%  31~%~A~%" x-e y-e z-e )
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" x-n y-n z-n))))
+    (format stream "~A~%~A~%" (dxf-code 100) "AcDbLine")
+    (unless (= th 0) (format stream "~A~%~A~%" (dxf-code 39) th))
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-s (dxf-code 20) y-s (dxf-code 30) z-s)
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) x-e (dxf-code 21) y-e (dxf-code 31) z-e)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) x-n (dxf-code 220) y-n (dxf-code 230) z-n))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -264,11 +264,11 @@ POINT (DXF)
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(ecs (ecs-rotation x)))
-    (format stream " 100~%~A~%" (subclass-marker x))
-    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x y z)
-    (unless (= th 0) (format stream "  39~%~A~%" th))
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" x-n y-n z-n))
-    (unless (= ecs 0) (format stream "  50~%~A~%" ecs))))
+    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x (dxf-code 20) y (dxf-code 30) z)
+    (unless (= th 0) (format stream "~A~%~A~%" (dxf-code 39) th))
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) x-n (dxf-code 220) y-n (dxf-code 230) z-n))
+    (unless (= ecs 0) (format stream "~A~%~A~%" (dxf-code 50) ecs))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -321,18 +321,18 @@ RAY (DXF)
 |---------------+--------------------------------------------------------------|
 "))
 
-(defmethod dxf-out-text ((x Db-Ray) stream) (format stream "   0~%~A~%" (class-marker x)))
+(defmethod dxf-out-text ((x Db-Ray) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
 
 (defmethod dxf-out-text  :after ((x Db-Ray) stream)
-  (format stream "100~%~A~%" (subclass-marker x))
+  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
   (let ((x-b-p (svref (base-point x) 0))
 	(y-b-p (svref (base-point x) 1))
 	(z-b-p (svref (base-point x) 2))
 	(x-u-d (svref (unit-dir x) 0))
 	(y-u-d (svref (unit-dir x) 1))
 	(z-u-d (svref (unit-dir x) 2)))
-    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x-b-p y-b-p z-b-p)
-    (format stream "  11~%~A~%  21~%~A~%  31~%~A~%" x-u-d y-u-d z-u-d)))
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-b-p (dxf-code 20) y-b-p (dxf-code 30) z-b-p)
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) x-u-d (dxf-code 21) y-u-d (dxf-code 31) z-u-d)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defclass Db-Xline (Db-Curve)
@@ -363,20 +363,19 @@ XLINE (DXF)
 |        21, 31 | Файл DXF: значения Y и Z вектора направления единицы (в МСК) |
 |---------------+--------------------------------------------------------------|"))
 
-(defmethod dxf-out-text ((x Db-Xline) stream) (format stream "   0~%~A~%" (class-marker x)))
+(defmethod dxf-out-text ((x Db-Xline) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
 
 (defmethod dxf-out-text  :after ((x Db-Xline) stream)
-  (format stream "100~%~A~%" (subclass-marker x))
+  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
   (let ((x-b-p (svref (base-point x) 0))
 	(y-b-p (svref (base-point x) 1))
 	(z-b-p (svref (base-point x) 2))
 	(x-u-d (svref (unit-dir x) 0))
 	(y-u-d (svref (unit-dir x) 1))
 	(z-u-d (svref (unit-dir x) 2)))
-    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x-b-p y-b-p z-b-p)
-    (format stream "  11~%~A~%  21~%~A~%  31~%~A~%" x-u-d y-u-d z-u-d)))
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-b-p (dxf-code 20) y-b-p (dxf-code 30) z-b-p)
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) x-u-d (dxf-code 21) y-u-d (dxf-code 31) z-u-d)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defclass Db-Circle (Db-Curve)
   ((class-marker    :reader class-marker    :initform "CIRCLE"     :allocation :class)
@@ -414,7 +413,7 @@ CIRCLE (DXF)
 |---------------+---------------------------------------------------------------------------|
 "))
 
-(defmethod dxf-out-text ((x Db-Circle) stream) (format stream "   0~%~A~%" (class-marker x)))
+(defmethod dxf-out-text ((x Db-Circle) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
 
 (defmethod dxf-out-text  :after ((x Db-Circle) stream)
   (let ((x-c (svref (center x) 0))
@@ -425,11 +424,11 @@ CIRCLE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (format stream " 100~%~A~%" (subclass-marker x))
-    (unless (= (thickness x) 0) (format stream "  39~%~A~%" th))
-    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x-c y-c z-c)
-    (format stream "  40~%~A~%" r)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" x-n y-n z-n))))
+    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+    (unless (= (thickness x) 0) (format stream "~A~%~A~%" (dxf-code 39) th))
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-c (dxf-code 20) y-c (dxf-code 30) z-c)
+    (format stream "~A~%~A~%" (dxf-code 40) r)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) x-n (dxf-code 220) y-n (dxf-code 230) z-n))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -495,7 +494,7 @@ ARC (DXF)
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
 |---------------+---------------------------------------------------------------------------|"))
 
-(defmethod dxf-out-text ((x Db-Arc) stream) (format stream "   0~%~A~%" (class-marker x)))
+(defmethod dxf-out-text ((x Db-Arc) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
 
 (defmethod dxf-out-text :after ((x Db-Arc) stream)
   (let ((x-c (svref (center x) 0))
@@ -508,14 +507,14 @@ ARC (DXF)
 	(z-n (svref (normal x) 2))
 	(s-a (* *radian-to-degree* (start-angle x)))
 	(e-a (* *radian-to-degree* (end-angle x))))
-    (format stream " 100~%~A~%" "AcDbCircle")
-    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" x-c y-c z-c)
-    (unless (= (thickness x) 0) (format stream "  39~%~A~%" th))
-    (format stream "  40~%~A~%" r)
-    (format stream " 100~%~A~%" (subclass-marker x))
-    (format stream "  50~%~A~%" s-a)
-    (format stream "  51~%~A~%" e-a)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" x-n y-n z-n))))
+    (format stream "~A~%~A~%" (dxf-code 100) "AcDbCircle")
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-c (dxf-code 20) y-c (dxf-code 30) z-c)
+    (unless (= (thickness x) 0) (format stream "~A~%~A~%" (dxf-code 39) th))
+    (format stream "~A~%~A~%" (dxf-code 40) r)
+    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+    (format stream "~A~%~A~%" (dxf-code 50) s-a)
+    (format stream "~A~%~A~%" (dxf-code 51) e-a)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) x-n (dxf-code 220) y-n (dxf-code 230) z-n))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -651,7 +650,7 @@ TEXT (DXF)
 отсутствуют, то вторая точка выравнивания является нерелевантной. 
 "))
 
-(defmethod dxf-out-text ((x Db-Text) stream) (format stream "   0~%~A~%" (class-marker x)))
+(defmethod dxf-out-text ((x Db-Text) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
 
 (defmethod dxf-out-text :after ((x Db-Text) stream)
   (let ((th (thickness x))
@@ -670,21 +669,21 @@ TEXT (DXF)
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(v-j (ver-justification x)))
-    (unless (= th 0) (format stream "  39~%~A~%" th))
-    (format stream " 100~%~A~%" (subclass-marker x))
-    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" (svref p-p 0) (svref p-p 1) (svref p-p 2))
-    (format stream "  40~%~A~%" h)
-    (format stream "  1~%~A~%" t-s)
-    (format stream "  50~%~A~%" (* *radian-to-degree* rot))
-    (unless (= w-f 1) (format stream "  41~%~A~%" w-f))
-    (unless (= ob 0) (format stream "  51~%~A~%" (* *radian-to-degree* ob)))
-    (format stream "  7~%~A~%" st)
-    (unless (= mir 0) (format stream "  71~%~A~%" mir))
-    (unless (= h-j 0) (format stream "  72~%~A~%" h-j))
-    (when   (or (/= h-j 0) (/= v-j 0)) (format stream " 11~%~A~% 21~%~A~% 31~%~A~%" a-p-x a-p-y a-p-z))
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" x-n y-n z-n))
-    (format stream " 100~%~A~%" "AcDbText")
-    (unless (= v-j 0) (format stream "  73~%~A~%" v-j))))
+    (unless (= th 0) (format stream "~A~%~A~%" (dxf-code 39) th))
+    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) (svref p-p 0) (dxf-code 20) (svref p-p 1) (dxf-code 30) (svref p-p 2))
+    (format stream "~A~%~A~%" (dxf-code 40) h)
+    (format stream "~A~%~A~%" (dxf-code 1) t-s)
+    (format stream "~A~%~A~%" (dxf-code 50) (* *radian-to-degree* rot))
+    (unless (= w-f 1) (format stream "~A~%~A~%" (dxf-code 41) w-f))
+    (unless (= ob 0) (format stream "~A~%~A~%" (dxf-code 51) (* *radian-to-degree* ob)))
+    (format stream "~A~%~A~%" (dxf-code 7) st)
+    (unless (= mir 0) (format stream "~A~%~A~%" (dxf-code 71) mir))
+    (unless (= h-j 0) (format stream "~A~%~A~%" (dxf-code 72) h-j))
+    (when   (or (/= h-j 0) (/= v-j 0)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) a-p-x (dxf-code 21) a-p-y (dxf-code 31) a-p-z))
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) x-n (dxf-code 220) y-n (dxf-code 230) z-n))
+    (format stream "~A~%~A~%" (dxf-code 100) "AcDbText")
+    (unless (= v-j 0) (format stream "~A~%~A~%" (dxf-code 73) v-j))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -772,7 +771,7 @@ ELLIPSE (DXF)
 |            42 | Конечный параметр (значение для полного эллипса — 2 пи)                                        |
 |---------------+------------------------------------------------------------------------------------------------|"))
 
-(defmethod dxf-out-text ((x Db-Ellipse) stream) (format stream "   0~%~A~%" (class-marker x)))
+(defmethod dxf-out-text ((x Db-Ellipse) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
 
 (defmethod dxf-out-text :after ((x Db-Ellipse) stream)
   (let ((c-x (svref (center x) 0))
@@ -790,13 +789,13 @@ ELLIPSE (DXF)
 	(r-r (radius-ratio x))
 	(s-p (start-param x))
 	(e-p (end-param   x)))
-    (format stream " 100~%~A~%" (subclass-marker x))
-    (format stream "  10~%~A~%  20~%~A~%  30~%~A~%" c-x c-y c-z)
-    (format stream "  11~%~A~%  21~%~A~%  31~%~A~%" ma-e-x ma-e-y ma-e-z)
-    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (format stream " 210~%~A~% 220~%~A~% 230~%~A~%" u-n-x u-n-y u-n-z))
-    (format stream "  40~%~A~%" r-r)
-    (format stream "  41~%~A~%" s-p)
-    (format stream "  42~%~A~%" e-p)))
+    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) c-x (dxf-code 20) c-y (dxf-code 30) c-z)
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) ma-e-x (dxf-code 21) ma-e-y (dxf-code 31) ma-e-z)
+    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) u-n-x (dxf-code 220) u-n-y (dxf-code 230) u-n-z))
+    (format stream "~A~%~A~%" (dxf-code 40) r-r)
+    (format stream "~A~%~A~%" (dxf-code 41) s-p)
+    (format stream "~A~%~A~%" (dxf-code 42) e-p)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -819,20 +818,12 @@ ELLIPSE (DXF)
     (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf-out-b-point-3d 210 u-n stream))
     (dxf-out-b-double 40 r-r stream)
     (dxf-out-b-double 41 s-p stream)
-    (dxf-out-b-double 42 e-p stream)
-    ))
-
-
+    (dxf-out-b-double 42 e-p stream)))
 
 (let ((ln (make-instance 'Db-Line))
       (cv (make-instance 'Db-Curve))
-      (el (make-instance 'Db-Ellipse))
-      )
+      (el (make-instance 'Db-Ellipse)))
   (values
    (subclass-marker ln)
    (subclass-marker cv)
-   (dxf-out-text el t)
-   ))
-
-
-
+   (dxf-out-text el t)))
