@@ -15,12 +15,10 @@
   (:documentation "./dbsymtb.h:class AcDbRegAppTableRecord: public  AcDbSymbolTableRecord
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-6E3140E9-E560-4C77-904E-480382F0553E
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-6E3140E9-E560-4C77-904E-480382F0553E
-
 ==================================================
 APPID (DXF)
 К записям таблицы обозначений APPID применяются следующие групповые коды.
-
- Групповые коды APPID 
+Групповые коды APPID 
 |---------------+-------------------------------------------------------------------------------------------------------------------------------|
 | Групповой код | Описание                                                                                                                      |
 |---------------+-------------------------------------------------------------------------------------------------------------------------------|
@@ -49,14 +47,14 @@ APPID (DXF)
    (block-tr-dc-version        :accessor block-tr-dc-version          :initarg :block-tr-dc-version        :initform nil                 :documentation "Код 1070. Номер версии Центра управления Adesk")
    (block-tr-insert-units      :accessor block-tr-insert-units        :initarg :block-tr-insert-units      :initform 0                   :documentation "Код 1070. Номер версии Центра управления Adesk")
    (block-tr-xdata-end         :accessor block-tr-xdata-end           :initarg :block-tr-xdata-end         :initform "}"                 :documentation "Код 1002. Конец расширенных данных, \"}\""))
-  (:documentation "find . -name "*.h" | xargs grep \"class AcDbBlockTableRecord\"
-  /run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/dbsymtb.h:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
-  http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
-  http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
+  (:documentation "find . -name \"*.h\" | xargs grep \"class AcDbBlockTableRecord\"
+/run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/dbsymtb.h:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
 ====================================================================================================
-  BLOCK_RECORD (DXF)
-  К записям таблицы обозначений BLOCK_RECORD применяются следующие групповые коды.
-  Групповые коды BLOCK_RECORD
+BLOCK_RECORD (DXF)
+К записям таблицы обозначений BLOCK_RECORD применяются следующие групповые коды.
+Групповые коды BLOCK_RECORD
 |---------------+---------------------------------------------------------------------------------------------|
 | Групповой код | Описание                                                                                    |
 |---------------+---------------------------------------------------------------------------------------------|
@@ -183,18 +181,14 @@ APPID (DXF)
    (dimstyle-tr-dimblk2   :accessor dimstyle-tr-dimblk2   :initarg :dimstyle-tr-dimblk2   :initform nil :documentation "Код  344. DIMBLK2 (дескриптор связанного элемента BLOCK)")
    (dimstyle-tr-dimlwd    :accessor dimstyle-tr-dimlwd    :initarg :dimstyle-tr-dimlwd    :initform nil :documentation "Код  371. DIMLWD (значение перечисления веса линий)")
    (dimstyle-tr-dimlwe    :accessor dimstyle-tr-dimlwe    :initarg :dimstyle-tr-dimlwe    :initform nil :documentation "Код  372. DIMLWE (значение перечня веса линий)"))
-  (:documentation "find . -name "*.h" | xargs grep \"class AcDbBlockTableRecord\"
-  /run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/dbsymtb.h:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
-  http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
-  http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
+  (:documentation "find . -name \"*.h\" | xargs grep \"class AcDbBlockTableRecord\"
+/run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/dbsymtb.h:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
 ====================================================================================================  
-
 DIMSTYLE (DXF)
-
 К записям таблицы обозначений DIMSTYLE применяются следующие групповые коды.
-
 Групповые коды DIMSTYLE
-
 |---------------+-------------------------------------------------------------------------------------------------------|
 | Групповой код | Описание                                                                                              |
 |---------------+-------------------------------------------------------------------------------------------------------|
@@ -359,15 +353,13 @@ DIMSTYLE (DXF)
    (layer-tr-plot-style :accessor layer-tr-plot-style :initarg :layer-tr-plot-style :initform nil            :documentation "Код 390. Идентификатор/дескриптор жесткого указателя на объект PlotStyleName")
    (layer-tr-material   :accessor layer-tr-material   :initarg :layer-tr-material   :initform nil            :documentation "Код 347. Идентификатор/дескриптор жесткого указателя на объект материала"))
   (:documentation "
-   http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
-   http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
-   ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
-   ==================================================
-   LAYER (DXF)
-
-   К записям таблицы обозначений LAYER применяются следующие групповые коды.
-
-   Групповые коды LAYER
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
+./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
+====================================================================================================
+LAYER (DXF)
+К записям таблицы обозначений LAYER применяются следующие групповые коды.
+Групповые коды LAYER
 |---------------+-------------------------------------------------------------------------------------------------------|
 | Групповой код | Описание                                                                                              |
 |               |                                                                                                       |
@@ -399,7 +391,6 @@ DIMSTYLE (DXF)
 |---------------+-------------------------------------------------------------------------------------------------------|
 |           347 | Идентификатор/дескриптор жесткого указателя на объект материала                                       |
 |---------------+-------------------------------------------------------------------------------------------------------|
-
 Слои, зависимые от внешних ссылок, выводятся при выполнении команды СОХРАНИТЬКАК. 
 Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
 " ))
@@ -423,9 +414,7 @@ http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-F57A316C-94A2-416C-8280-19
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
 ====================================================================================================
 LTYPE (DXF)
-
 К записям таблицы обозначений LTYPE применяются следующие групповые коды.
-
 Групповые коды LTYPE
 |---------------+------------------------------------------------------------------------------------------------------------------------------------|
 | Групповой код | Описание                                                                                                                           |
@@ -474,8 +463,8 @@ LTYPE (DXF)
 |---------------+------------------------------------------------------------------------------------------------------------------------------------|
 |             9 | Строка текста (по одной для каждого элемента, если код 74 = 2)                                                                     |
 |---------------+------------------------------------------------------------------------------------------------------------------------------------|
-
-Групповые коды 74, 75, 340, 46, 50, 44, 45 и 9 не возвращаются посредством функций tblsearch или tblnext . Следует использовать tblobjname для извлечения этих значений из приложения.
+Групповые коды 74, 75, 340, 46, 50, 44, 45 и 9 не возвращаются посредством функций tblsearch или tblnext. 
+Следует использовать tblobjname для извлечения этих значений из приложения.
 "))
 
 (defclass Db-TextStyle-TableRecord (Db-Symbol-Table-Record)
@@ -494,11 +483,8 @@ http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-F57A316C-94A2-416C-8280-19
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
 ====================================================================================================
 STYLE (DXF)
-
 К записям таблицы обозначений STYLE применяются следующие коды групп.
-
 Групповые коды STYLE
-
 |---------------+-------------------------------------------------------------------------------------------------------------------|
 | Групповой код | Описание                                                                                                          |
 |---------------+-------------------------------------------------------------------------------------------------------------------|
@@ -536,32 +522,21 @@ STYLE (DXF)
 |---------------+-------------------------------------------------------------------------------------------------------------------|
 "))
 
-====================================================================================================
-
-"
-100 Subclass marker (AcDbUCSTableRecord)
-2 UCS name
-70 Standard flag values (bit-coded values): 16 = If set, table entry is externally dependent on an xref 32 = If both this bit and bit 16 are set, the externally dependent xref has been successfully resolved 64 = If set, the table entry was referenced by at least one entity in the drawing the last time the drawing was edited. (This flag is for the benefit of AutoCAD commands. It can be ignored by most programs that read DXF files and need not be set by programs that write DXF files)
-10 Origin (in WCS) DXF: X value; APP: 3D point
-20, 30 DXF: Y and Z values of origin (in WCS)
-11 X-axis direction (in WCS) DXF: X value; APP: 3D vector
-21, 31 DXF: Y and Z values of X-axis direction (in WCS)
-12 Y-axis direction (in WCS) DXF: X value; APP: 3D vector
-22, 32 DXF: Y and Z values of Y-axis direction (in WCS)
-79 Always 0
-146 Elevation
-346 ID/handle of base UCS if this is an orthographic. This code is not present if the 79 code is 0. If this code is not present and 79 code is non-zero, then base UCS is assumed to be WORLD
-71 Orthographic type (optional; always appears in pairs with the 13, 23, 33 codes): 1 = Top; 2 = Bottom 3 = Front; 4 = Back 5 = Left; 6 = Right
-13 Origin for this orthographic type relative to this UCS DXF: X value of origin point; APP: 3D point
-23, 33 DXF: Y and Z values of origin point 
-
-----------------------------------------------------------------------------------------------------
+(defclass db-ucs-tablerecord (db-symbol-table-record)
+  ((ucs-tr-origin           :accessor ucs-tr-origin           :initarg :ucs-tr-origin           :initform (vector 0 0 0) :documentation "Код   10. Начало координат (в МСК)")
+   (ucs-tr-x-axis-direction :accessor ucs-tr-x-axis-direction :initarg :ucs-tr-x-axis-direction :initform (vector 1 0 0) :documentation "Код   11. Направление оси X (в МСК)")
+   (ucs-tr-y-axis-direction :accessor ucs-tr-y-axis-direction :initarg :ucs-tr-y-axis-direction :initform (vector 0 1 0) :documentation "Код   12. Направление оси Y (в МСК)")
+   (ucs-tr-always-flag      :accessor ucs-tr-always-flag      :initarg :ucs-tr-always-flag      :initform (vector 0 1 0) :documentation "Код   79. Всегда равно 0")
+   (ucs-tr-elevation        :accessor ucs-tr-elevation        :initarg :ucs-tr-elevation        :initform 0.0            :documentation "Код  146. Уровень")
+   (ucs-tr-base             :accessor ucs-tr-base             :initarg :ucs-tr-base             :initform nil            :documentation "Код  346. Идентификатор/дескриптор базовой ПСК при работе с ортогональным изображением. Этот код отсутствует, если код 79 равен 0. Если этот код отсутствует, а код 79 не равен нулю, под базовой ПСК подразумевается МСК")
+   (ucs-tr-ortho-type       :accessor ucs-tr-ortho-type       :initarg :ucs-tr-ortho-type       :initform nil            :documentation "Код   71. Тип ортогонального изображения (необязательно; всегда отображается в паре с кодами 13, 23, 33): 1 = сверху; 2 = снизу; 3 = спереди; 4 = сзади; 5 = слева; 6 = справа")
+   (ucs-tr-ortho-origin     :accessor ucs-tr-ortho-origin     :initarg :ucs-tr-ortho-origin     :initform nil            :documentation "Код   13. Начало координат данного типа ортогонального изображения относительно данной ПСК"))
+  (:documentation "./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
+==================================================================================================== 
 UCS (DXF)
-
 К записям таблицы обозначений ПСК применяются следующие групповые коды.
-
 Групповые коды ПСК
-
+|---------------+-------------------------------------------------------------------------------------------------------------|
 | Групповой код | Описание                                                                                                    |
 |---------------+-------------------------------------------------------------------------------------------------------------|
 |           100 | Маркер подкласса (AcDbUCSTableRecord)                                                                       |
@@ -613,51 +588,39 @@ UCS (DXF)
 |---------------+-------------------------------------------------------------------------------------------------------------|
 |        23, 33 | Файл DXF: значения Y и Z для точки начала координат                                                         |
 |---------------+-------------------------------------------------------------------------------------------------------------|
+Каждая пара 71/13,23,33 определяет начало координат ПСК для определенного 
+типа ортогонального изображения относительно данной ПСК. Например, если 
+присутствует следующая пара, то вызов команды ПСК/СЛЕВА при заданном 
+параметре UCSBASE для данной ПСК вызовет создание начала координат 
+новой ПСК в точке (1,2,3).
+71: 5 13: 1.0 23: 2.0 33: 3.0
+Если эта пара отсутствует, то вызов команды ПСК/СЛЕВА приведет к созданию
+начала координат новой ПСК в точке начала координат данной ПКС."))
 
+(defclass db-view-tablerecord (db-symbol-table-record)
+  ((view-tr-height          :accessor view-tr-height         :initarg :view-tr-height         :initform 0              :documentation "Код  40. Высота вида (в РСК)")
+   (view-tr-center-point    :accessor view-tr-center-point   :initarg :view-tr-center-point   :initform (vector 0 0)   :documentation "Код  10. Центральная точка вида (в РСК).  2D-точка")
+   (view-tr-width           :accessor view-tr-width          :initarg :view-tr-width          :initform 420.0          :documentation "Код  41. Ширина вида (в РСК)")
+   (view-tr-direction       :accessor view-tr-direction      :initarg :view-tr-direction      :initform (vector 0 0 1) :documentation "Код  11. Направление взгляда из целевой точки (в МСК). 3D-вектор")
+   (view-tr-target-point    :accessor view-tr-target-point   :initarg :view-tr-target-point   :initform (vector 0 0 0) :documentation "Код  12. Целевая точка (в МСК)")
+   (view-tr-lens-length     :accessor view-tr-lens-length    :initarg :view-tr-lens-length    :initform 0              :documentation "Код  42. Фокусное расстояние")
+   (view-tr-fcp-offset      :accessor view-tr-fcp-offset     :initarg :view-tr-fcp-offset     :initform 100.0          :documentation "Код  43. Передняя плоскость подрезки (смещение от целевой точки)")
+   (view-tr-bcp-offset      :accessor view-tr-bcp-offset     :initarg :view-tr-bcp-offset     :initform 100.0          :documentation "Код  44. Задняя плоскость подрезки (смещение от целевой точки)") 
+   (view-tr-twist-angle     :accessor view-tr-twist-angle    :initarg :view-tr-twist-angle    :initform 100.0          :documentation "Код  50. Угол закручивания") 
+   (view-tr-view-mode       :accessor view-tr-view-mode      :initarg :view-tr-view-mode      :initform 0              :documentation "Код  71. Режим просмотра (см. системную переменную VIEWMODE)")
+   (view-tr-render-mode     :accessor view-tr-render-mode    :initarg :view-tr-render-mode    :initform 0              :documentation "Код 281. Режим визуализации: 0 = оптимизированное 2D (классическое 2D); 1 = каркас; 2 = скрытие линий; 3 = плоское; 4 = по Гуро; 5 = плоское с каркасом; 6 = по Гуро с каркасом; Все режимы визуализации кроме \"Оптимизированное 2D\" задействуют новую систему 3D-графики; Эти значения непосредственно соответствуют команде РЕЖИМРАСКР и перечню AcDbAbstractViewTableRecord::RenderMode")
+   (view-tr-ucs-associated  :accessor view-tr-ucs-associated :initarg :view-tr-ucs-associated :initform 0              :documentation "Код  72. 1, если имеется ПСК, связанная с этим видом; 0 в противном случае")
+   (view-tr-plottable       :accessor view-tr-plottable      :initarg :view-tr-plottable      :initform 0              :documentation "Код  73. 1, если данные с камеры выводятся на печать")
+   (view-tr-background      :accessor view-tr-background     :initarg :view-tr-background     :initform nil            :documentation "Код 332. Идентификатор/дескриптор символьного указателя на объект фона (необязательно)")
+   (view-tr-live-section    :accessor view-tr-live-section   :initarg :view-tr-live-section   :initform nil            :documentation "Код 334. Идентификатор/дескриптор символьного указателя на объект псевдоразреза (необязательно)")
+   (view-tr-visual-style    :accessor view-tr-visual-style   :initarg :view-tr-visual-style   :initform nil            :documentation "Код 348. Идентификатор/дескриптор жесткого указателя на объект визуального стиля (необязательно)")
+   (view-tr-sun             :accessor view-tr-sun            :initarg :view-tr-sun            :initform 0              :documentation "Код 361. Идентификатор солнца с жестким правом владения. Следующие коды отображаются только в том случае, если для кода 72 установлено значение 1. С их помощью определяется ПСК, связанная с этим видом. Эта ПСК становится текущей ПСК каждый раз при восстановлении этого вида (если значение кода 72 равно 0, ПСК не изменяется)."))
+  (:documentation "./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
 
-Каждая пара 71/13,23,33 определяет начало координат ПСК для определенного типа ортогонального изображения относительно данной ПСК. Например, если присутствует следующая пара, то вызов команды ПСК/СЛЕВА при заданном параметре UCSBASE для данной ПСК вызовет создание начала координат новой ПСК в точке (1,2,3).
-
-71: 5
-13: 1.0
-23: 2.0
-33: 3.0
-
-Если эта пара отсутствует, то вызов команды ПСК/СЛЕВА приведет к созданию начала координат новой ПСК в точке начала координат данной ПКС."
-
-
-====================================================================================================
-"
-100 Subclass marker (AcDbViewTableRecord) 
-2 Name of view 
-70 Standard flag values (bit-coded values): 1 = If set, this is a paper space view 16 = If set, table entry is externally dependent on an xref 32 = If both this bit and bit 16 are set, the externally dependent xref has been successfully resolved 64 = If set, the table entry was referenced by at least one entity in the drawing the last time the drawing was edited. (This flag is for the benefit of AutoCAD commands. It can be ignored by most programs that read DXF files and does not need to be set by programs that write DXF files) 
-40 View height (in DCS) 
-10 View center point (in DCS) DXF: X value; APP: 2D point 
-20 DXF: Y value of view center point (in DCS) 
-41 View width (in DCS) 
-11 View direction from target (in WCS) DXF: X value; APP: 3D vector
-21, 31 DXF: Y and Z values of view direction from target (in WCS) 
-12 Target point (in WCS) DXF: X value; APP: 3D point 
-22, 32 DXF: Y and Z values of target point (in WCS) 
-42 Lens length 
-43 Front clipping plane (offset from target point) 
-44 Back clipping plane (offset from target point) 
-50 Twist angle
-71 View mode (see VIEWMODE system variable) 
-281 Render mode: 0 = 2D Optimized (classic 2D) 1 = Wireframe 2 = Hidden line 3 = Flat shaded 4 = Gouraud shaded 5 = Flat shaded with wireframe 6 = Gouraud shaded with wireframe All rendering modes other than 2D Optimized engage the new 3D graphics pipeline. These values directly correspond to the SHADEMODE command and the AcDbAbstractViewTableRecord::RenderMode enum 
-72 1 if there is a UCS associated to this view; 0 otherwise 
-73 1 if the camera is plottable 
-332 Soft-pointer ID/handle to background object (optional) 
-334 Soft-pointer ID/handle to live section object (optional) 
-348 Hard-pointer ID/handle to visual style object (optional) 
-361 Sun hard ownership ID 
-----------------------------------------------------------------------------------------------------
-
+==================================================================================================== 
 VIEW (DXF)
-
 К записям таблицы обозначений VIEW применяются следующие коды групп.
-
 Групповые коды VIEW
-
 |---------------+-----------------------------------------------------------------------------------------------------------------|
 | Групповой код | Описание                                                                                                        |
 |               |                                                                                                                 |
@@ -712,7 +675,7 @@ VIEW (DXF)
 |               | 4 = по Гуро                                                                                                     |
 |               | 5 = плоское с каркасом                                                                                          |
 |               | 6 = по Гуро с каркасом                                                                                          |
-|               | Все режимы визуализации кроме "Оптимизированное 2D" задействуют новую систему 3D-графики.                       |
+|               | Все режимы визуализации кроме \"Оптимизированное 2D\" задействуют новую систему 3D-графики.                     |
 |               | Эти значения непосредственно соответствуют команде РЕЖИМРАСКР и перечню AcDbAbstractViewTableRecord::RenderMode |
 |---------------+-----------------------------------------------------------------------------------------------------------------|
 |            72 | 1, если имеется ПСК, связанная с этим видом; 0 в противном случае                                               |
@@ -730,70 +693,58 @@ VIEW (DXF)
 |               | С их помощью определяется ПСК, связанная с этим видом. Эта ПСК становится текущей ПСК                           |
 |               | каждый раз при восстановлении этого вида (если значение кода 72 равно 0, ПСК не изменяется).                    |
 |---------------+-----------------------------------------------------------------------------------------------------------------|
-"
+"))
 
+(defclass db-vport-tablerecord (db-symbol-table-record) 
+  (
+;  (vport-name  :accessor vport-name  :initarg :vport-name  :initform "*Active" :documentation "Код 2. Имя видового экрана")
+;  (vport-flags :accessor vport-flags :initarg :vport-flags :initform 0		:documentation "Код 70. Стандартные значения флагов (кодовые битовые значения): 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки; 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается; 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз, на запись таблицы ссылался хотя бы один объект на чертеже. Этот флаг нужен для команд AutoCAD. Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, записывающих файлы DXF")
+   (vport-tr-lower-left-corner    :accessor vport-tr-lower-left-corner    :initarg :vport-tr-lower-left-corner    :initform (vector 0.0 0.0)        :documentation "Код  10. Левый нижний угол видового экрана. Файл DXF: значение X; приложение: 2D-точка ")
+   (vport-tr-upper-right-corner   :accessor vport-tr-upper-right-corner   :initarg :vport-tr-upper-right-corner   :initform (vector 1.0 1.0)        :documentation "Код  11. Правый верхний угол видового экрана. Файл DXF: значение X; приложение: 2D-точка ") 
+   (vport-tr-view-center-point    :accessor vport-tr-view-center-point    :initarg :vport-tr-view-center-point    :initform (vector 420.0 297.0)    :documentation "Код  12. Центральная точка вида (в РСК). Файл DXF: значение X; приложение: 2D-точка ") 
+   (vport-tr-snap-base-point      :accessor vport-tr-snap-base-point      :initarg :vport-tr-snap-base-point      :initform (vector 0.0 0.0)        :documentation "Код  13. Базовая точка привязки (в РСК). Файл DXF: значение X; приложение: 2D-точка") 
+   (vport-tr-snap-spacing         :accessor vport-tr-snap-spacing         :initarg :vport-tr-snap-spacing         :initform (vector 10.0 10.0)      :documentation "Код  14. Шаг привязки по оси X и Y. Файл DXF: значение X; приложение: 2D-точка ") 
+   (vport-tr-grid-spacing         :accessor vport-tr-grid-spacing         :initarg :vport-tr-grid-spacing         :initform (vector 10.0 10.0)      :documentation "Код  15. Шаг сетки по осям X и Y. Файл DXF: значение X; приложение: 2D-точка") 
+   (vport-tr-view-direction       :accessor vport-tr-view-direction       :initarg :vport-tr-view-direction       :initform (vector 0.0 0.0 1.0)    :documentation "Код  16. Направление взгляда из целевой точки (в МСК). Файл DXF: значение X; приложение: 3D-точка") 
+   (vport-tr-view-target-point    :accessor vport-tr-view-target-point    :initarg :vport-tr-view-target-point    :initform (vector 0.0 0.0 0.0)    :documentation "Код  17. Целевая точка вида (в МСК). Файл DXF: значение X; приложение: 3D-точка ") 
+   (vport-tr-lens-length          :accessor vport-tr-lens-length          :initarg :vport-tr-lens-length          :initform 50.0                    :documentation "Код  42. Фокусное расстояние") 
+   (vport-tr-front-clipping-plane :accessor vport-tr-front-clipping-plane :initarg :vport-tr-front-clipping-plane :initform 0.0                     :documentation "Код  43. Передняя плоскость подрезки (смещение от целевой точки)") 
+   (vport-tr-back-clipping-plane  :accessor vport-tr-back-clipping-plane  :initarg :vport-tr-back-clipping-plane  :initform 0.0                     :documentation "Код  44. Задняя плоскость подрезки (смещение от целевой точки)") 
+   (vport-tr-view-height          :accessor vport-tr-view-height          :initarg :vport-tr-view-height          :initform 594.0                   :documentation "Код  45. Высота вида") 
+   (vport-tr-snap-rotation-angle  :accessor vport-tr-snap-rotation-angle  :initarg :vport-tr-snap-rotation-angle  :initform 0.0                     :documentation "Код  50. Угол поворота привязки") 
+   (vport-tr-view-twist-angle     :accessor vport-tr-view-twist-angle     :initarg :vport-tr-view-twist-angle     :initform 0.0                     :documentation "Код  51. Угол закручивания вида") 
+   (vport-tr-circle-sides         :accessor vport-tr-circle-sides         :initarg :vport-tr-circle-sides         :initform 0.0                     :documentation "Код  72. Стороны круга")
+   (vport-tr-frozen-layer-id      :accessor vport-tr-frozen-layer-id      :initarg :vport-tr-frozen-layer-id      :initform nil                     :documentation "Код 331 или 441. Идентификатор/дескриптор символьного или жесткого указателя на объекты замороженного слоя; повторяется для каждого замороженного слоя")
+   (vport-tr-bit-flags            :accessor vport-tr-bit-flags            :initarg :vport-tr-bit-flags            :initform 0.0                     :documentation "Код  70. Флаги битов и режим перспективной проекции") 
+   (vport-tr-plot-style-sheet     :accessor vport-tr-plot-style-sheet     :initarg :vport-tr-plot-style-sheet     :initform 0.0                     :documentation "Код   1. Таблица стилей печати")
+   (vport-tr-render-mode          :accessor vport-tr-render-mode          :initarg :vport-tr-render-mode          :initform 0                       :documentation "Код 281. Режим визуализации: 0 = оптимизированное 2D (классическое 2D); 1 = каркас; 2 = скрытие линий; 3 = плоское; 4 = по Гуро; 5 = плоское с каркасом; 6 = по Гуро с каркасом. Все режимы визуализации, кроме 'Оптимизированное 2D',задействуют новую систему 3D-графики. Эти значения непосредственно соответствуют команде РЕЖИМРАСКР и перечню AcDbAbstractViewTableRecord::RenderMode") 
+   (vport-tr-view-mode            :accessor vport-tr-view-mode            :initarg :vport-tr-view-mode            :initform 0                       :documentation "Код  71. Режим просмотра (см. системную переменную VIEWMODE)") 
+   (vport-tr-ucsicon-setting      :accessor vport-tr-ucsicon-setting      :initarg :vport-tr-ucsicon-setting      :initform 3                       :documentation "Код  74. Параметр ЗНАКПСК")
+   (vport-tr-ucs-origin           :accessor vport-tr-ucs-origin           :initarg :vport-tr-ucs-origin           :initform (vector 0.0 0.0 0.0)    :documentation "Код 110. Начало координат ПСК. Файл DXF: значение X; приложение: 3D-точка")
+   (vport-tr-ucs-x-axis           :accessor vport-tr-ucs-origin           :initarg :vport-tr-ucs-origin           :initform (vector 1.0 0.0 0.0)    :documentation "Код 111. Ось X ПСК. Файл DXF: значение X; приложение: 3D-вектор") 
+   (vport-tr-ucs-y-axis           :accessor vport-tr-ucs-origin           :initarg :vport-tr-ucs-origin           :initform (vector 0.0 1.0 0.0)    :documentation "Код 112. Ось Y ПСК. Файл DXF: значение X; приложение: 3D-вектор") 
+   (vport-tr-ucs-id-name          :accessor vport-tr-ucs-id-name          :initarg :vport-tr-ucs-id-name          :initform nil                     :documentation "Код 345. Идентификатор/дескриптор AcDbUCSTableRecord, если ПСК является именованной ПСК. Если значение отсутствует, то ПСК является неименованной") 
+   (vport-tr-ucs-id-base          :accessor vport-tr-ucs-id-base          :initarg :vport-tr-ucs-id-base          :initform nil                     :documentation "Код 346. Идентификатор/дескриптор AcDbUCSTableRecord базовой ПСК, если ПСК является ортогональной (код 79 не равен нулю). Если значение отсутствует, а код 79 не равен нулю, под базовой ПСК подразумевается МСК") 
+   (vport-tr-ucs-ortho-type       :accessor vport-tr-ucs-ortho-type       :initarg :vport-tr-ucs-ortho-type       :initform 0                       :documentation "Код  79. Ортогональный тип ПСК: 0 = ПСК не ортогональна; 1 = сверху; 2 = снизу; 3 = спереди; 4 = сзади; 5 = слева; 6 = справа") 
+   (vport-tr-elevation            :accessor vport-tr-elevation            :initarg :vport-tr-elevation            :initform 0.0                     :documentation "Код 146. Уровень") 
+   (vport-tr-shade-plot-setting   :accessor vport-tr-shade-plot-setting   :initarg :vport-tr-shade-plot-setting   :initform nil                     :documentation "Код 170. Тонирование печати")
+   (vport-tr-major-grid-lines     :accessor vport-tr-major-grid-lines     :initarg :vport-tr-major-grid-lines     :initform 5                       :documentation "Код  61. Основные линии сетки")
+   (vport-tr-background-id        :accessor vport-tr-background-id        :initarg :vport-tr-background-id        :initform nil                     :documentation "Код 332. Идентификатор/дескриптор символьного указателя на объект фона (необязательно)")
+   (vport-tr-shade-plot-id        :accessor vport-tr-shade-plot-id        :initarg :vport-tr-shade-plot-id        :initform nil                     :documentation "Код 333. Идентификатор/дескриптор символьного указателя на объект режима печати оттенков (необязательно)")
+   (vport-tr-visual-style-id      :accessor vport-tr-visual-style-id      :initarg :vport-tr-visual-style-id      :initform "2A"                    :documentation "Код 348. Идентификатор/дескриптор жесткого указателя на объект визуального стиля (необязательно)")
+   (vport-tr-lighting-on-flag     :accessor vport-tr-lighting-on-flag     :initarg :vport-tr-lighting-on-flag     :initform 1                       :documentation "Код 292. Флаг включения освещения по умолчанию")
+   (vport-tr-lighting-type        :accessor vport-tr-lighting-type        :initarg :vport-tr-lighting-type        :initform 1                       :documentation "Код 282. Тип освещения по умолчанию: 0 = один удаленный источник света; 1 = два удаленных источника света")
+   (vport-tr-brightness           :accessor vport-tr-brightness           :initarg :vport-tr-brightness           :initform 0.0                     :documentation "Код 141. Яркость")
+   (vport-tr-contrast             :accessor vport-tr-contrast             :initarg :vport-tr-contrast             :initform 0.0                     :documentation "Код 142. Контрастность")
+   (vport-tr-ambient-color        :accessor vport-tr-contrast             :initarg :vport-tr-contrast             :initform (vector 250 3355443 0)  :documentation "Код 63, 421, 431. Рассеиваемый цвет (выводится, только если цвет не черный)")
+   )
+  (:documentation "./dbents.h:class AcDbViewport: public AcDbEntity
 ====================================================================================================
-
-"
-100 Subclass marker (AcDbViewportTableRecord) 
-2 Viewport name 
-70 Standard flag values (bit-coded values): 16 = If set, table entry is externally dependent on an xref 32 = If both this bit and bit 16 are set, the externally dependent xref has been successfully resolved 64 = If set, the table entry was referenced by at least one entity in the drawing the last time the drawing was edited. (This flag is for the benefit of AutoCAD commands. It can be ignored by most programs that read DXF files and does not need to be set by programs that write DXF files) 
-10 Lower-left corner of viewport DXF: X value; APP: 2D point 
-20 DXF: Y value of lower-left corner of viewport 
-11 Upper-right corner of viewport DXF: X value; APP: 2D point
-21 DXF: Y value of upper-right corner of viewport 
-12 View center point (in DCS) DXF: X value; APP: 2D point 
-22 DXF: Y value of view center point (in DCS) 
-13 Snap base point (in DCS) DXF: X value; APP: 2D point 
-23 DXF: Y value of snap base point (in DCS) 
-14 Snap spacing X and Y DXF: X value; APP: 2D point 
-24 DXF: Y value of snap spacing X and Y 
-15 Grid spacing X and Y DXF: X value; APP: 2D point 
-25 DXF: Y value of grid spacing X and Y 
-16 View direction from target point (in WCS) DXF: X value; APP: 3D point 
-26, 36 DXF: Y and Z values of view direction from target point (in WCS) 
-17 View target point (in WCS) DXF: X value; APP: 3D point 
-27, 37 DXF: Y and Z values of view target point (in WCS) 
-42 Lens length 
-43 Front clipping plane (offset from target point) 
-44 Back clipping plane (offset from target point) 
-45 View height 
-50 Snap rotation angle 
-51 View twist angle 
-72 Circle sides 
-331 or 441 Soft or hard-pointer ID/handle to frozen layer objects; repeats for each frozen layers 
-70 Bit flags and perspective mode 
-1 Plot style sheet 
-281 Render mode: 0 = 2D Optimized (classic 2D) 1 = Wireframe 2 = Hidden line 3 = Flat shaded 4 = Gouraud shaded 5 = Flat shaded with wireframe 6 = Gouraud shaded with wireframe All rendering modes other than 2D Optimized engage the new 3D graphics pipeline. These values directly correspond to the SHADEMODE command and the AcDbAbstractViewTableRecord::RenderMode enum 
-71 View mode (see VIEWMODE system variable) 
-74 UCSICON setting 
-110 UCS origin DXF: X value; APP: 3D point 
-120, 130 DXF: Y and Z values of UCS origin 
-111 UCS X-axis DXF: X value; APP: 3D vector 
-121, 131 DXF: Y and Z values of UCS X-axis 
-112 UCS Y-axis DXF: X value; APP: 3D vector 
-122, 132 DXF: Y and Z values of UCS Y-axis 
-345 ID/handle of AcDbUCSTableRecord if UCS is a named UCS. If not present, then UCS is unnamed 
-346 ID/handle of AcDbUCSTableRecord of base UCS if UCS is orthographic (79 code is non-zero). If not present and 79 code is non-zero, then base UCS is taken to be WORLD 
-79 Orthographic type of UCS 0 = UCS is not orthographic 1 = Top 2 = Bottom 3 = Front 4 = Back 5 = Left 6 = Right 
-146 Elevation 
-170 Shade plot setting 
-61 Major grid lines 
-332 Soft-pointer ID/handle to background object (optional) 
-333 Soft-pointer ID/handle to shade plot object (optional) 
-348 Hard-pointer ID/handle to visual style object (optional) 
-292 Default Lighting On flag 
-282 Default Lighting type 0 = One distant light 1 = Two distant lights 
-141 Brightness 
-142 Contrast 
-63, 421, 431 Ambient color (only output when non-black) 
-----------------------------------------------------------------------------------------------------
 VPORT (DXF)
-
-К записям таблицы обозначений VPORT применяются следующие групповые коды. Таблица VPORT является уникальной: она может содержать несколько записей с одним и тем же именем (что указывает на конфигурацию с несколькими видовыми экранами). Все записи, связанные с конфигурацией активного видового экрана, имеют имя *ACTIVE. В первой такой записи описывается текущий видовой экран.
-
+К записям таблицы обозначений VPORT применяются следующие групповые коды. Таблица VPORT является уникальной: она может содержать
+несколько записей с одним и тем же именем (что указывает на конфигурацию с несколькими видовыми экранами). Все записи, связанные
+с конфигурацией активного видового экрана, имеют имя *ACTIVE. В первой такой записи описывается текущий видовой экран.
 Групповые коды VPORT
-
 | Групповой код | Описание                                                                                                         |
 |---------------+------------------------------------------------------------------------------------------------------------------|
 |           100 | Маркер подкласса (AcDbViewportTableRecord)                                                                       |
@@ -878,7 +829,7 @@ VPORT (DXF)
 |               | 4 = по Гуро                                                                                                      |
 |               | 5 = плоское с каркасом                                                                                           |
 |               | 6 = по Гуро с каркасом                                                                                           |
-|               | Все режимы визуализации, кроме "Оптимизированное 2D", задействуют новую систему 3D-графики.                      |
+|               | Все режимы визуализации, кроме \"Оптимизированное 2D\", задействуют новую систему 3D-графики.                    |
 |               | Эти значения непосредственно соответствуют команде РЕЖИМРАСКР и перечню AcDbAbstractViewTableRecord::RenderMode  |
 |---------------+------------------------------------------------------------------------------------------------------------------|
 |            71 | Режим просмотра (см. системную переменную VIEWMODE)                                                              |
@@ -940,3 +891,25 @@ VPORT (DXF)
 |  63, 421, 431 | Рассеиваемый цвет (выводится, только если цвет не черный)                                                        |
 |---------------+------------------------------------------------------------------------------------------------------------------|
 "
+ )
+)
+
+
+
+
+  
+
+
+;;;; db-tables.lisp"
+
+(in-package #:dxf)
+
+(defclass db-table-header-vport ()
+  ((header-vars :accessor header-vars :initarg :header-vars :initform *h-vars-list-min*
+		:documentation "
+./dbents.h:class AcDbViewport: public AcDbEntity
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A66D0ACA-3F43-4B2E-A0C2-2B490C1E5268
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A66D0ACA-3F43-4B2E-A0C2-2B490C1E5268
+")))
+
+
