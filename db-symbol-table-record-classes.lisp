@@ -893,23 +893,5 @@ VPORT (DXF)
 "
  )
 )
-
-
-
-
   
-
-
-;;;; db-tables.lisp"
-
-(in-package #:dxf)
-
-(defclass db-table-header-vport ()
-  ((header-vars :accessor header-vars :initarg :header-vars :initform *h-vars-list-min*
-		:documentation "
-./dbents.h:class AcDbViewport: public AcDbEntity
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A66D0ACA-3F43-4B2E-A0C2-2B490C1E5268
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A66D0ACA-3F43-4B2E-A0C2-2B490C1E5268
-")))
-
 
