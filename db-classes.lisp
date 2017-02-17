@@ -116,10 +116,22 @@
    (entity-true-color :accessor entity-true-color :initarg :entity-true-color :initform nil :documentation "Код 420. 32-битный цвет"))
   (:documentation "См. dbmain.h"))
 
-(defmethod dxf-out-text ((x Db-Entity) stream) (format stream "~A~%~A~%" (dxf-code 0) "Entity"))
+(defmethod class-tag ((x Db-Entity) stream))
+
+(defmethod class-tag :after ((x Db-Entity) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
+
+(defmethod subclass ((x Db-Entity) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) "Entity"))
+
+(defmethod subclass :after ((x Db-Entity) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x)))
+
+(defmethod dxf-out-text ((x Db-Entity) stream)
+    (subclass x stream))
 
 (defmethod dxf-out-text :after ((x Db-Entity) stream)
-  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+  (subclass x stream) ;;;;  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
   (format stream "~A~%~A~%" (dxf-code   8) (entity-layer x)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -253,19 +265,30 @@ POINT (DXF)
 |            50 | Угол оси X для ПСК, используемый при построении точки (необязательно, по умолчанию = 0); используется, если параметр PDMODE не равен нулю |
 |---------------+-------------------------------------------------------------------------------------------------------------------------------------------|"))
 
-(defmethod dxf-out-text ((x Db-Point) stream) (format stream "   0~%~A~%" (class-marker x)))
+(defmethod subclass ((x Db-Point) stream))
+
+(defmethod subclass :after ((x Db-Point) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x)))
+
+(defmethod class-tag ((x Db-Point) stream))
+
+(defmethod class-tag :after ((x Db-Point) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
+
+(defmethod dxf-out-text ((x Db-Point) stream)
+  (format stream "   0~%~A~%" (class-marker x)))
 
 (defmethod dxf-out-text  :after ((x Db-Point) stream)
-  (let ((x (svref (position-point x) 0))
-	(y (svref (position-point x) 1))
-	(z (svref (position-point x) 2))
+  (let ((x-p (svref (position-point x) 0))
+	(y-p (svref (position-point x) 1))
+	(z-p (svref (position-point x) 2))
 	(th (thickness x))
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(ecs (ecs-rotation x)))
-    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
-    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x (dxf-code 20) y (dxf-code 30) z)
+    (subclass x stream) ;;;;    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+    (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-p (dxf-code 20) y-p (dxf-code 30) z-p)
     (unless (= th 0) (format stream "~A~%~A~%" (dxf-code 39) th))
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) x-n (dxf-code 220) y-n (dxf-code 230) z-n))
     (unless (= ecs 0) (format stream "~A~%~A~%" (dxf-code 50) ecs))))

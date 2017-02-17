@@ -15,7 +15,9 @@
 	       (:file "header-section-group-codes")
 	       (:file "header-section-group-codes-list")
 	       (:file "db-classes")
-;	       (:file "db-symbol-table-record-classes")
+	       (:file "db-symbol-table-record-classes")
+	       (:file "test-color")
+	       
 ;	       (:file "test")
 	       ))
 

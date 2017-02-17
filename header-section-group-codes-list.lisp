@@ -32,14 +32,6 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *h-vars* (make-hash-table :test 'equal))
-
-(mapc #'(lambda (el)
-	  (setf (gethash (first el) *h-vars*) (list (second el) (third el))))
-      *h-vars-list*)
-      
-
-
 (defparameter *h-vars-list*
   '(
     ( "ACADMAINTVER" 70 nil)
@@ -256,3 +248,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     ( "WORLDVIEW" 70 1)
     ( "XCLIPFRAME" 290 2)
     ( "XEDIT" 290 1)))
+
+(defparameter *h-vars* (make-hash-table :test 'equal))
+
+(mapc #'(lambda (el) (setf (gethash (first el) *h-vars*) (list (second el) (third el)))) *h-vars-list*)
