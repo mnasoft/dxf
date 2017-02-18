@@ -2,6 +2,55 @@
 
 (in-package #:dxf)
 
+(defun dxf-out-t-string (code string stream &key (max-octet-length 2048))
+    (if (and (stringp string)
+	     (<= (length (babel:string-to-octets string)) max-octet-length))
+	(format stream "~A~%~A~%" (dxf-code code) string)
+	(break "dxf-t-string: code=~A; ~A~%" code string)))
+;;;;
+
+(defun dxf-out-t-double (code x stream)
+  (if  (numberp x)
+       (format stream "~A~%~,12F~%" (dxf-code code) x)
+       (break "dxf-out-t-double: (numberp x) : code=~A x=~A" code x)))
+
+;;;;
+
+(defun dxf-out-t-point-2d (code point-2d stream)
+  (dxf-out-t-double (+ 0 code) (svref point-2d 0) stream)
+  (dxf-out-t-double (+ 10 code) (svref point-2d 1) stream))
+
+(defun dxf-out-t-point-3d (code point-3d stream)
+  (dxf-out-t-double (+ 0 code) (svref point-3d 0) stream)
+  (dxf-out-t-double (+ 10 code) (svref point-3d 1) stream)
+  (dxf-out-t-double (+ 20 code) (svref point-3d 2) stream))
+
+;;;;
+
+(defun dxf-out-t-hex (code hex stream)
+  (if  (and (integerp hex) (< (integer-length hex) 128))
+       (format stream "~A~%~X~%" (dxf-code code) hex)))
+
+;;;;
+
+(defun dxf-out-t-int16 (code int16 stream)
+  (if  (and (integerp int16) (< (integer-length int16) 16))
+       (format stream "~A~%~D~%" (dxf-code code) int16)))
+
+(defun dxf-out-t-int32 (code int32 stream)
+  (if  (and (integerp int32) (< (integer-length int32) 32))
+       (format stream "~A~%~D~%" (dxf-code code) int32)))
+
+(defun dxf-out-t-int64 (code int64 stream)
+  (if  (and (integerp int64) (< (integer-length int64)  64))
+       (format stream "~A~%~D~%" (dxf-code code) int64)))
+
+(defun dxf-out-t-int128 (code int128 stream)
+  (if  (and (integerp int128) (< (integer-length int128) 128))
+       (format stream "~A~%~D~%" (dxf-code code) int128)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  
 (defun dxf-out-b-string (code string stream &key (max-octet-length 2048))
   (if (and (stringp string)
 	   (<= (length (babel:string-to-octets string)) max-octet-length))
@@ -11,6 +60,8 @@
 	(write-sequence (babel:string-to-octets (concatenate 'string string (format nil "~C" #\NUL))) stream))
       (break "dxf-b-string: code=~A; ~A~%" code string)))
 
+;;;;
+
 (defun dxf-out-b-double (code x stream)
   (if  (numberp x)
        (progn
@@ -18,8 +69,26 @@
 	 (write-sequence *byte-aray-2* stream)
 	 (put-u8 (ie3fp:encode-ieee-double (coerce x 'double-float)))
 	 (write-sequence *byte-aray-8* stream))
-       (break "dxf-out-b-double: (numberp x) : code=~A x=~A" code x)
-       ))
+       (break "dxf-out-b-double: (numberp x) : code=~A x=~A" code x)))
+
+;;;;
+
+(defun dxf-out-b-point-2d (code point-2d stream)
+  (dxf-out-b-double (+ 0 code) (svref point-2d 0) stream)
+  (dxf-out-b-double (+ 10 code) (svref point-2d 1) stream))
+
+(defun dxf-out-b-point-3d (code point-3d stream)
+  (dxf-out-b-double (+ 0 code) (svref point-3d 0) stream)
+  (dxf-out-b-double (+ 10 code) (svref point-3d 1) stream)
+  (dxf-out-b-double (+ 20 code) (svref point-3d 2) stream))
+
+;;;;
+
+(defun dxf-out-b-hex (code hex stream)
+  (if  (and (integerp hex) (< (integer-length hex) 128))
+       (dxf-out-b-string code (format nil "~X" hex) stream)))
+
+;;;;
 
 (defun dxf-out-b-int16 (code int16 stream)
   (if  (and (integerp int16) (< (integer-length int16) 16))

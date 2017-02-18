@@ -21,7 +21,7 @@
    (make-instance 'Db-Ray :base-point (vector 51 65 0) :unit-dir (vector 1 0 0))
    ))
 
-(progn
+(defun test-bin ()
   (defparameter *o* (open (concatenate 'string *dxf-path* "12345-bin.dxf" )  :direction :output :element-type 'unsigned-byte :if-exists :supersede))
   (dxf-out-b-header *o*) (dxf-out-b-string 0 *section* *o*) (dxf-out-b-string 2 *entities* *o*)
   (mapc #'(lambda (el) (dxf-out-binary el *o*)) *model-space* )
@@ -29,15 +29,24 @@
   (dxf-out-b-string 0 *eof* *o*)
   (close *o*))
 
+(test-bin)
 
-(progn 
+
+(defun test-txt ()
   (defparameter *o* (open (concatenate 'string *dxf-path* "12345-txt.dxf" )  :direction :output :if-exists :supersede))
+  (dxf-out-t-header *o*) (dxf-out-t-string 0 *section* *o*) (dxf-out-t-string 2 *entities* *o*)
   (mapc #'(lambda (el) (dxf-out-text el *o*)) *model-space* )
+  (dxf-out-t-string 0 *endsec* *o*)
+  (dxf-out-t-string 0 *eof* *o*)
   (close *o*))
+
+(test-txt)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Тестирование для секции заголовка
 (let ((h (make-instance 'Db-Header))) (header-vars h) (dxf-out-text h t))
+
+
 
 
 
