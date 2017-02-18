@@ -1,161 +1,86 @@
 ;;;; db-classes.lisp
 
 (in-package #:dxf)
-;;;; http://help.autodesk.com/view/ACD/2017/RUS/
-
-;;;;AcRxObject
-;;;;  AcDbObject
-;;;;     AcDbEntity
-;;;;      AcDbText -
-;;;;        AcDbAttribute
-;;;;        AcDbAttributeDefinition
-;;;;      AcDbBlockBegin
-;;;;      AcDbBlockEnd
-;;;;      AcDbSequenceEnd
-;;;;      AcDbBlockReference
-;;;;        AcDbMInsertBlock
-;;;;      AcDbVertex
-;;;;        AcDb2dVertex
-;;;;        AcDb3dPolylineVertex
-;;;;        AcDbPolygonMeshVertex
-;;;;        AcDbPolyFaceMeshVertex
-;;;;        AcDbFaceRecord
-;;;;      AcDbCurve
-;;;;        AcDb2dPolyline                  ./dbents.h:class AcDb2dPolyline: public AcDbCurve 
-;;;;        AcDb3dPolyline                  ./dbents.h:class AcDb3dPolyline: public AcDbCurve 
-;;;;        AcDbArc                +        ./dbents.h:class AcDbArc: public AcDbCurve 
-;;;;        AcDbCircle             +        ./dbents.h:class AcDbCircle: public AcDbCurve 
-;;;;        AcDbLine               +        ./dbents.h:class AcDbLine: public AcDbCurve 
-;;;;        AcDbRay                -        ./dbray.h:class AcDbRay: public AcDbCurve 
-;;;;        AcDbXline              -        ./dbxline.h:class AcDbXline: public AcDbCurve
-;;;;        AcDbPolyline                    ./dbpl.h:class AcDbPolyline : public AcDbCurve
-;;;;        AcDbSpline                      ./dbspline.h:class AcDbSpline: public AcDbCurve
-;;;;        AcDbEllipse                     ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
-;;;;        AcDbLeader                      ./dblead.h:class AcDbLeader: public  AcDbCurve  
-;;;;      AcDbPoint                +        ./dbents.h:class AcDbPoint: public AcDbEntity
-;;;;      AcDbFace
-;;;;      AcDbPolyFaceMesh
-;;;;      AcDbPolygonMesh
-;;;;      AcDbTrace
-;;;;      AcDbSolid
-;;;;      AcDbShape
-;;;;      AcDbViewport
-
-
-;;;;    ./AcCamera.h:class CAMERADLLIMPEXP AcDbCamera: public AcDbEntity
-;;;;    ./AcDbGeoPositionMarker.h:class ACDB_PORT AcDbGeoPositionMarker : public AcDbEntity
-;;;;    ./AcDbPointCloudEx.h:class ACDB_PORT AcDbPointCloudEx : public AcDbEntity
-;;;;    ./dbcurve.h:class ADESK_NO_VTABLE AcDbCurve: public AcDbEntity
-;;;;    ./dbdim.h:class ADESK_NO_VTABLE AcDbDimension: public AcDbEntity
-;;;;    ./dbents.h:class AcDbText: public AcDbEntity
-;;;;    ./dbents.h:class AcDbBlockReference: public AcDbEntity
-;;;;    ./dbents.h:class AcDbBlockBegin: public AcDbEntity
-;;;;    ./dbents.h:class AcDbBlockEnd: public AcDbEntity
-;;;;    ./dbents.h:class AcDbSequenceEnd: public AcDbEntity
-;;;;    ./dbents.h:class AcDbVertex: public AcDbEntity
-;;;;    ./dbents.h:class AcDbPoint: public AcDbEntity
-;;;;    ./dbents.h:class AcDbFace: public AcDbEntity
-;;;;    ./dbents.h:class AcDbPolyFaceMesh: public AcDbEntity
-;;;;    ./dbents.h:class AcDbPolygonMesh: public AcDbEntity
-;;;;    ./dbents.h:class AcDbSolid: public AcDbEntity
-;;;;    ./dbents.h:class AcDbTrace: public AcDbEntity
-;;;;    ./dbents.h:class AcDbShape: public AcDbEntity
-;;;;    ./dbents.h:class AcDbViewport: public AcDbEntity
-;;;;    ./dbframe.h:class ADESK_NO_VTABLE AcDbFrame: public AcDbEntity
-;;;;    ./dbhatch.h:class AcDbHatch: public AcDbEntity
-;;;;    ./dbimage.h:class AcDbImage: public AcDbEntity
-;;;;    ./dbmleader.h:class AcDbMLeader : public AcDbEntity
-;;;;    ./dbsurf.h:class AcDbSurface: public AcDbEntity
-;;;;    ./dbLight.h:class LIGHTDLLIMPEXP AcDbLight : public AcDbEntity
-;;;;    ./dbMPolygon.h:class AcDbMPolygon : public AcDbEntity {
-;;;;    ./dbproxy.h:class ADESK_NO_VTABLE AcDbProxyEntity : public AcDbEntity
-;;;;    ./DbSection.h:class AcDbSection : public AcDbEntity
-;;;;    ./dbSubD.h:class ACDB_PORT AcDbSubDMesh: public AcDbEntity
-;;;;    ./dbunderlayref.h:class ADESK_NO_VTABLE AcDbUnderlayReference: public AcDbEntity
-;;;;    ./dbViewBorder.h:class ACSYNERGY_PORT AcDbViewBorder : public AcDbEntity
-;;;;    ./dbViewSymbol.h:class ACSYNERGY_PORT AcDbViewSymbol : public AcDbEntity
-;;;;    
-;;;;    ./dbbody.h:class AcDbBody: public  AcDbEntity
-;;;;    ./dbfcf.h:class AcDbFcf: public  AcDbEntity
-;;;;    ./dbmline.h:class AcDbMline: public  AcDbEntity
-;;;;    ./dbmtext.h:class AcDbMText: public  AcDbEntity
-;;;;    ./dbregion.h:class AcDbRegion: public  AcDbEntity
-;;;;    ./dbsol3d.h:class AcDb3dSolid: public  AcDbEntity
 
 (defparameter *radian-to-degree* (/ 180 pi))
 
 (defparameter *degree-to-radian* (/ pi 180))
 
-(defclass Ge-Point-3d ()
+(defclass ge-point-3d ()
     ((point-3d :accessor point-3d :initarg :point-3d :initform (vector 0 0 0))))
 
-(defmethod write-dxf-binary (code (point-3d Ge-Point-3d) stream)
+(defmethod write-dxf-binary (code (point-3d ge-point-3d) stream)
   (dxf-out-binary-double (+ 00 code) (svref (point-3d point-3d) 0) stream)
   (dxf-out-binary-double (+ 10 code) (svref (point-3d point-3d) 1) stream)
   (dxf-out-binary-double (+ 20 code) (svref (point-3d point-3d) 2) stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Rx-Object ()
+(defclass rx-object ()
   ((name :accessor name :initarg :name :initform "")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Object ()
-  ((object-id :accessor object-id :initarg :object-id :initform nil :documentation "")
-   (owner-id :accessor owner-id :initarg :owner-id :initform nil :documentation "")
-   (db-handle :accessor db-handle :initarg :db-handle :initform "0" :documentation "Код 5. Дескриптор")))
-
+(defclass db-object ()
+  ((object-id        :accessor object-id     :initarg :object-id     :initform nil :documentation "")
+   (object-owner     :accessor object-owner  :initarg :object-owner  :initform nil :documentation "")
+   (object-handle    :accessor object-handle :initarg :object-handle :initform nil :documentation "Код 5. Дескриптор")
+   (next-handle      :accessor next-handle   :initarg :next-handle   :initform 1   :allocation :class)))
+   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Entity (Db-Object)
-  ((class-marker      :reader   class-marker      :initform "ENTITY"          :allocation :class )
-   (subclass-marker   :reader   subclass-marker   :initform "AcDbEntity"      :allocation :class )
-   (entity-layer      :accessor entity-layer      :initarg :entity-layer      :initform "0" :documentation "Код 8. Имя слоя")
-   (entity-color      :accessor entity-color      :initarg :entity-color      :initform 256 :documentation "Код 62. 16-битный цвет")
+(defparameter *db-entity-class-marker* "ENTITY")
+
+(defparameter *db-entity-subclass-marker* "AcDbEntity")
+
+(defclass db-entity (db-object)
+  ((entity-layer      :accessor entity-layer      :initarg :entity-layer      :initform "0" :documentation "Код   8. Имя слоя")
+   (entity-color      :accessor entity-color      :initarg :entity-color      :initform 256 :documentation "Код  62. 16-битный цвет")
    (entity-true-color :accessor entity-true-color :initarg :entity-true-color :initform nil :documentation "Код 420. 32-битный цвет"))
   (:documentation "См. dbmain.h"))
 
-(defmethod class-tag ((x Db-Entity) stream))
+(defmethod dxf-out-text ((x db-entity) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) *db-entity-class-marker*))
 
-(defmethod class-tag :after ((x Db-Entity) stream)
-  (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
-
-(defmethod subclass ((x Db-Entity) stream)
-  (format stream "~A~%~A~%" (dxf-code 0) "Entity"))
-
-(defmethod subclass :after ((x Db-Entity) stream)
-  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x)))
-
-(defmethod dxf-out-text ((x Db-Entity) stream)
-    (subclass x stream))
-
-(defmethod dxf-out-text :after ((x Db-Entity) stream)
-  (subclass x stream) ;;;;  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
-  (format stream "~A~%~A~%" (dxf-code   8) (entity-layer x)))
+(defmethod dxf-out-text :after ((x db-entity) stream)
+  (let (
+	(hdl (object-handle x))
+	(la  (entity-layer  x))
+	(cl  (entity-color  x))
+	)
+    (format stream "~A~%~A~%" (dxf-code 100) *db-entity-class-marker*)
+    (when hdl (format stream "~A~%~X~%" (dxf-code   5) hdl))
+    (format stream "~A~%~A~%" (dxf-code   8) la)
+    (unless (= 256 cl) (format stream "~A~%~A~%" (dxf-code  62) cl))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Db-Entity) stream)
-  (dxf-out-b-string 0 "ENTITY" stream))
+(defmethod dxf-out-binary ((x db-entity) stream)
+  (dxf-out-b-string 0 *db-entity-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x Db-Entity) stream)
+(defmethod dxf-out-binary :after ((x db-entity) stream)
   (let ((la (entity-layer x))
 	(cl (entity-color x)))
-    (dxf-out-b-string 100 (subclass-marker x) stream)
+    (dxf-out-b-string 100 *db-entity-subclass-marker* stream)
     (dxf-out-b-string 8 la stream)
     (unless (= 256 cl) (dxf-out-b-int16 62  cl stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Curve (Db-Entity)
-  ((subclass-marker :reader subclass-marker :initarg :subclass-marker :initform "Curve" :allocation :class))
-  )
+(defparameter *db-curve-class-marker* "CURVE")
 
-(defclass Db-Line (Db-Curve)
-  ((class-marker    :reader class-marker    :initform "LINE"     :allocation :class)
-   (subclass-marker :reader subclass-marker :initform "AcDbLine" :allocation :class)
-   (start-point :accessor start-point :initarg :start-point :initform (vector 0 0 0 ) :documentation "Код 10. Начальная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
+(defparameter *db-curve-subclass-marker* "AcDbCurve")
+
+(defclass db-curve (db-entity) ())
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defparameter *db-line-class-marker* "LINE")
+
+(defparameter *db-line-subclass-marker* "AcDbLine")
+
+(defclass db-line (db-curve)
+  ((start-point :accessor start-point :initarg :start-point :initform (vector 0 0 0 ) :documentation "Код 10. Начальная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (end-point   :accessor end-point   :initarg :end-point   :initform (vector 0 0 0 ) :documentation "Код 11. Конечная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (thickness   :accessor thickness   :initarg :thickness   :initform 0               :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
    (normal      :accessor normal      :initarg :normal      :initform (vector 0 0 1)  :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор"))
@@ -189,9 +114,10 @@ LINE (DXF)
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
 |---------------+---------------------------------------------------------------------------|"))
 
-(defmethod dxf-out-text ((x Db-Line) stream) (format stream "   0~%~A~%" (class-marker x)))
+(defmethod dxf-out-text ((x db-line) stream)
+  (format stream "~A~%~A~%" (dxf-code   0) *db-line-class-marker*))
 
-(defmethod dxf-out-text  :after ((x Db-Line) stream)
+(defmethod dxf-out-text  :after ((x db-line) stream)
   (let ((th (thickness x))
 	(x-s (svref (start-point x) 0))
 	(y-s (svref (start-point x) 1))
@@ -202,7 +128,7 @@ LINE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (format stream "~A~%~A~%" (dxf-code 100) "AcDbLine")
+    (format stream "~A~%~A~%" (dxf-code 100) *db-line-subclass-marker*)
     (unless (= th 0) (format stream "~A~%~A~%" (dxf-code 39) th))
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-s (dxf-code 20) y-s (dxf-code 30) z-s)
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) x-e (dxf-code 21) y-e (dxf-code 31) z-e)
@@ -210,17 +136,17 @@ LINE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Db-Line) stream)
-  (dxf-out-b-string 0 (class-marker x) stream))
+(defmethod dxf-out-binary ((x db-line) stream)
+  (dxf-out-b-string 0 *db-line-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x Db-Line) stream)
+(defmethod dxf-out-binary :after ((x db-line) stream)
   (let ((th (thickness x))
         (p-s (start-point x))
 	(p-e (end-point x))
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (dxf-out-b-string 100 (subclass-marker x) stream)
+    (dxf-out-b-string 100 *db-line-subclass-marker* stream)
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 p-s stream)
     (dxf-out-b-point-3d 11 p-e stream)
@@ -231,13 +157,15 @@ LINE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Point (Db-Entity)
-  ((class-marker    :reader class-marker    :initform "POINT"     :allocation :class)
-   (subclass-marker :reader subclass-marker :initform "AcDbPoint" :allocation :class)
-   (position-point    :accessor position-point    :initarg :position-point    :initform (vector 0 0 0) :documentation "Код 10. Положение точки")
-   (thickness    :accessor thickness    :initarg :thickness    :initform 0              :documentation "Код 39. Высота выдавливания")
-   (normal       :accessor normal       :initarg :normal       :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания")
-   (ecs-rotation :accessor ecs-rotation :initarg :ecs-rotation :initform 0              :documentation "Код 50. Поворот системы координат объекта"))
+(defparameter *db-point-class-marker* "POINT")
+
+(defparameter *db-point-subclass-marker* "AcDbPoint")
+
+(defclass db-point (db-entity)
+  ((position-point    :accessor position-point    :initarg :position-point :initform (vector 0 0 0) :documentation "Код  10. Положение точки")
+   (thickness         :accessor thickness         :initarg :thickness      :initform 0              :documentation "Код  39. Высота выдавливания")
+   (normal            :accessor normal            :initarg :normal         :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания")
+   (ecs-rotation      :accessor ecs-rotation      :initarg :ecs-rotation   :initform 0              :documentation "Код  50. Поворот системы координат объекта"))
   (:documentation "См. ./dbents.h:class AcDbPoint: public AcDbEntity
 		  http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317
 		  http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317
@@ -265,20 +193,11 @@ POINT (DXF)
 |            50 | Угол оси X для ПСК, используемый при построении точки (необязательно, по умолчанию = 0); используется, если параметр PDMODE не равен нулю |
 |---------------+-------------------------------------------------------------------------------------------------------------------------------------------|"))
 
-(defmethod subclass ((x Db-Point) stream))
+(defmethod dxf-out-text ((x db-point) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) *db-point-class-marker*))
 
-(defmethod subclass :after ((x Db-Point) stream)
-  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x)))
-
-(defmethod class-tag ((x Db-Point) stream))
-
-(defmethod class-tag :after ((x Db-Point) stream)
-  (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
-
-(defmethod dxf-out-text ((x Db-Point) stream)
-  (format stream "   0~%~A~%" (class-marker x)))
-
-(defmethod dxf-out-text  :after ((x Db-Point) stream)
+(defmethod dxf-out-text :after ((x db-point) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) *db-point-subclass-marker*)
   (let ((x-p (svref (position-point x) 0))
 	(y-p (svref (position-point x) 1))
 	(z-p (svref (position-point x) 2))
@@ -287,7 +206,6 @@ POINT (DXF)
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(ecs (ecs-rotation x)))
-    (subclass x stream) ;;;;    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-p (dxf-code 20) y-p (dxf-code 30) z-p)
     (unless (= th 0) (format stream "~A~%~A~%" (dxf-code 39) th))
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) x-n (dxf-code 220) y-n (dxf-code 230) z-n))
@@ -295,10 +213,10 @@ POINT (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Db-Point) stream)
-  (dxf-out-b-string 0 "POINT" stream))
+(defmethod dxf-out-binary ((x db-point) stream)
+  (dxf-out-b-string 0 *db-point-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x Db-Point) stream)
+(defmethod dxf-out-binary :after ((x db-point) stream)
   (let ((th  (thickness x))
         (pos (position-point x))
 	(ecs (ecs-rotation x))
@@ -306,7 +224,7 @@ POINT (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (dxf-out-b-string 100 (subclass-marker x) stream)
+    (dxf-out-b-string 100 *db-point-subclass-marker* stream)
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 pos stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))
@@ -315,10 +233,12 @@ POINT (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Ray (Db-Curve)
-  ((class-marker    :reader class-marker    :initform "RAY"     :allocation :class)
-   (subclass-marker :reader subclass-marker :initform "AcDbRay" :allocation :class)
-   (base-point   :accessor base-point   :initarg :base-point   :initform (vector 0 0 0) :documentation "Код 10. Базовая точка")
+(defparameter *db-ray-class-marker* "RAY")
+
+(defparameter *db-ray-subclass-marker* "AcDbRay")
+
+(defclass db-ray (db-curve)
+  ((base-point   :accessor base-point   :initarg :base-point   :initform (vector 0 0 0) :documentation "Код 10. Базовая точка")
    (unit-dir     :accessor unit-dir     :initarg :unit-dir     :initform (vector 1 0 0) :documentation "Код 11. Едининчный вектор в МСК, задающий направление"))
   (:documentation "См. ./dbray.h:class AcDbRay: public AcDbCurve
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-638B9F01-5D86-408E-A2DE-FA5D6ADBD415
@@ -344,10 +264,11 @@ RAY (DXF)
 |---------------+--------------------------------------------------------------|
 "))
 
-(defmethod dxf-out-text ((x Db-Ray) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
+(defmethod dxf-out-text ((x db-ray) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) *db-ray-class-marker*))
 
-(defmethod dxf-out-text  :after ((x Db-Ray) stream)
-  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+(defmethod dxf-out-text  :after ((x db-ray) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) *db-ray-subclass-marker*)
   (let ((x-b-p (svref (base-point x) 0))
 	(y-b-p (svref (base-point x) 1))
 	(z-b-p (svref (base-point x) 2))
@@ -357,11 +278,16 @@ RAY (DXF)
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-b-p (dxf-code 20) y-b-p (dxf-code 30) z-b-p)
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) x-u-d (dxf-code 21) y-u-d (dxf-code 31) z-u-d)))
 
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defclass Db-Xline (Db-Curve)
-  ((class-marker    :reader class-marker    :initform "XLINE"     :allocation :class)
-   (subclass-marker :reader subclass-marker :initform "AcDbXline" :allocation :class)
-   (base-point :accessor base-point :initarg :base-point :initform (vector 0 0 0) :documentation "Код 10. Первая точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
+
+(defparameter *db-xline-class-marker* "XLINE")
+
+(defparameter *db-xline-subclass-marker* "AcDbXline")
+
+(defclass db-xline (db-curve)
+  ((base-point :accessor base-point :initarg :base-point :initform (vector 0 0 0) :documentation "Код 10. Первая точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
    (unit-dir   :accessor unit-dir   :initarg :unit-dir   :initform (vector 1 0 0) :documentation "Код 40. Вектор единичного направления (в МСК). Файл DXF: значение X; приложение: 3D-вектор"))
   (:documentation "См. ./dbxline.h:class AcDbXline: public AcDbCurve
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A
@@ -386,10 +312,11 @@ XLINE (DXF)
 |        21, 31 | Файл DXF: значения Y и Z вектора направления единицы (в МСК) |
 |---------------+--------------------------------------------------------------|"))
 
-(defmethod dxf-out-text ((x Db-Xline) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
+(defmethod dxf-out-text ((x db-xline) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) *db-xline-class-marker*))
 
-(defmethod dxf-out-text  :after ((x Db-Xline) stream)
-  (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
+(defmethod dxf-out-text  :after ((x db-xline) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) *db-xline-subclass-marker*)
   (let ((x-b-p (svref (base-point x) 0))
 	(y-b-p (svref (base-point x) 1))
 	(z-b-p (svref (base-point x) 2))
@@ -400,10 +327,12 @@ XLINE (DXF)
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) x-u-d (dxf-code 21) y-u-d (dxf-code 31) z-u-d)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Circle (Db-Curve)
-  ((class-marker    :reader class-marker    :initform "CIRCLE"     :allocation :class)
-   (subclass-marker :reader subclass-marker :initform "AcDbCircle" :allocation :class)
-   (center    :accessor center     :initarg :center    :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
+(defparameter *db-circle-class-marker* "CIRCLE")
+
+(defparameter *db-circle-subclass-marker* "AcDbCircle")
+
+(defclass db-circle (db-curve)
+  ((center    :accessor center     :initarg :center    :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
    (radius    :accessor radius     :initarg :radius    :initform 1              :documentation "Код 40. Радиус")
    (thickness :accessor thickness  :initarg :thickness :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
    (normal    :accessor normal     :initarg :normal    :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор"))
@@ -436,9 +365,11 @@ CIRCLE (DXF)
 |---------------+---------------------------------------------------------------------------|
 "))
 
-(defmethod dxf-out-text ((x Db-Circle) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
+(defmethod dxf-out-text ((x db-circle) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) *db-circle-class-marker*))
 
-(defmethod dxf-out-text  :after ((x Db-Circle) stream)
+(defmethod dxf-out-text  :after ((x db-circle) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) *db-circle-subclass-marker*)
   (let ((x-c (svref (center x) 0))
 	(y-c (svref (center x) 1))
 	(z-c (svref (center x) 2))
@@ -447,7 +378,6 @@ CIRCLE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
     (unless (= (thickness x) 0) (format stream "~A~%~A~%" (dxf-code 39) th))
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-c (dxf-code 20) y-c (dxf-code 30) z-c)
     (format stream "~A~%~A~%" (dxf-code 40) r)
@@ -455,19 +385,18 @@ CIRCLE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Db-Circle) stream)
-  (dxf-out-b-string 0 (class-marker x) stream))
+(defmethod dxf-out-binary ((x db-circle) stream)
+  (dxf-out-b-string 0 *db-circle-class-marker*  stream))
 
-(defmethod dxf-out-binary :after ((x Db-Circle) stream)
+(defmethod dxf-out-binary :after ((x db-circle) stream)
+  (dxf-out-b-string 100 *db-circle-subclass-marker* stream)
   (let ((th (thickness x))
         (p-c (center x))
 	(rad (radius x))
 	(nrm (normal x))
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
-	(z-n (svref (normal x) 2))
-	)
-    (dxf-out-b-string 100 (subclass-marker x) stream)
+	(z-n (svref (normal x) 2)))
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 p-c stream)
     (dxf-out-b-double 40 rad stream)
@@ -475,10 +404,12 @@ CIRCLE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Arc (Db-Curve)
-  ((class-marker    :reader class-marker    :initform "ARC"     :allocation :class)
-   (subclass-marker :reader subclass-marker :initform "AcDbArc" :allocation :class)
-   (center      :accessor center      :initarg :center      :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
+(defparameter *db-arc-class-marker* "ARC")
+
+(defparameter *db-arc-subclass-marker* "AcDbArc")
+
+(defclass db-arc (db-curve)
+  ((center      :accessor center      :initarg :center      :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
    (radius      :accessor radius      :initarg :radius      :initform 1              :documentation "Код 40. Радиус")
    (thickness   :accessor thickness   :initarg :thickness   :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
    (normal      :accessor normal      :initarg :normal      :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
@@ -517,9 +448,11 @@ ARC (DXF)
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
 |---------------+---------------------------------------------------------------------------|"))
 
-(defmethod dxf-out-text ((x Db-Arc) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
+(defmethod dxf-out-text ((x db-arc) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) *db-arc-class-marker*))
 
-(defmethod dxf-out-text :after ((x Db-Arc) stream)
+(defmethod dxf-out-text :after ((x db-arc) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) *db-circle-subclass-marker*)
   (let ((x-c (svref (center x) 0))
 	(y-c (svref (center x) 1))
 	(z-c (svref (center x) 2))
@@ -530,24 +463,21 @@ ARC (DXF)
 	(z-n (svref (normal x) 2))
 	(s-a (* *radian-to-degree* (start-angle x)))
 	(e-a (* *radian-to-degree* (end-angle x))))
-    (format stream "~A~%~A~%" (dxf-code 100) "AcDbCircle")
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) x-c (dxf-code 20) y-c (dxf-code 30) z-c)
     (unless (= (thickness x) 0) (format stream "~A~%~A~%" (dxf-code 39) th))
     (format stream "~A~%~A~%" (dxf-code 40) r)
-    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
     (format stream "~A~%~A~%" (dxf-code 50) s-a)
     (format stream "~A~%~A~%" (dxf-code 51) e-a)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) x-n (dxf-code 220) y-n (dxf-code 230) z-n))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Db-Arc) stream)
-  (dxf-out-b-string 0 (class-marker x) stream)
-  )
+(defmethod dxf-out-binary ((x db-arc) stream)
+  (dxf-out-b-string 0 *db-arc-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x Db-Arc) stream)
-  (let (
-	(th (thickness x))
+(defmethod dxf-out-binary :after ((x db-arc) stream)
+  (dxf-out-b-string 100 *db-circle-subclass-marker* stream)
+  (let ((th (thickness x))
 	(p-c (center x))
 	(rad (radius x))
 	(nrm (normal x))
@@ -555,13 +485,11 @@ ARC (DXF)
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(s-a (* *radian-to-degree* (start-angle x)))
-	(e-a (* *radian-to-degree* (end-angle x)))
-	)
-    (dxf-out-b-string 100 "AcDbCircle" stream)
+	(e-a (* *radian-to-degree* (end-angle x))))
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 p-c stream)
     (dxf-out-b-double 40 rad stream)
-    (dxf-out-b-string 100 (subclass-marker x) stream)
+    (dxf-out-b-string 100 *db-arc-subclass-marker* stream)
     (dxf-out-b-double 50 s-a stream)
     (dxf-out-b-double 51 e-a stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))
@@ -571,10 +499,12 @@ ARC (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Text (Db-Entity)
-  ((class-marker    :reader class-marker    :initform "TEXT"     :allocation :class)
-   (subclass-marker :reader subclass-marker :initform "AcDbText" :allocation :class)
-   (thickness         :accessor thickness         :initarg :thickness           :initform 0              :documentation "Код  39. Thickness (optional; default = 0)")
+(defparameter *db-text-class-marker* "TEXT")
+
+(defparameter *db-text-subclass-marker* "AcDbText")
+
+(defclass db-text (db-entity)
+  ((thickness         :accessor thickness         :initarg :thickness           :initform 0              :documentation "Код  39. Thickness (optional; default = 0)")
    (position-point    :accessor position-point    :initarg :position-point      :initform (vector 0 0 0) :documentation "Код  10. First alignment point (in OCS) DXF: X value; APP: 3D point")
    (height            :accessor height            :initarg :height              :initform 3.5            :documentation "Код  40. Text height")
    (text-string       :accessor text-string       :initarg :text-string         :initform ""             :documentation "Код   1. Default value (the string itself)")
@@ -673,9 +603,11 @@ TEXT (DXF)
 отсутствуют, то вторая точка выравнивания является нерелевантной. 
 "))
 
-(defmethod dxf-out-text ((x Db-Text) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
+(defmethod dxf-out-text ((x db-text) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) *db-text-class-marker*))
 
-(defmethod dxf-out-text :after ((x Db-Text) stream)
+(defmethod dxf-out-text :after ((x db-text) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) *db-text-subclass-marker*)
   (let ((th (thickness x))
 	(p-p (position-point x))
 	(h   (height x))
@@ -686,14 +618,16 @@ TEXT (DXF)
 	(st  (text-style x))
 	(mir (mirror-in-xy x))
 	(h-j  (hor-justification x))
-	(a-p (alignment-point x)) (a-p-x (svref (normal x) 0)) (a-p-y (svref (normal x) 1)) (a-p-z (svref (normal x) 2))
-	(nrm (normal x))
+	;(a-p (alignment-point x))
+	(a-p-x (svref (normal x) 0))
+	(a-p-y (svref (normal x) 1))
+	(a-p-z (svref (normal x) 2))
+	;(nrm (normal x))
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(v-j (ver-justification x)))
     (unless (= th 0) (format stream "~A~%~A~%" (dxf-code 39) th))
-    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) (svref p-p 0) (dxf-code 20) (svref p-p 1) (dxf-code 30) (svref p-p 2))
     (format stream "~A~%~A~%" (dxf-code 40) h)
     (format stream "~A~%~A~%" (dxf-code 1) t-s)
@@ -710,10 +644,11 @@ TEXT (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Db-Text) stream)
-  (dxf-out-b-string 0 (class-marker x) stream))
+(defmethod dxf-out-binary ((x db-text) stream)
+  (dxf-out-b-string 0 *db-text-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x Db-Text) stream)
+(defmethod dxf-out-binary :after ((x db-text) stream)
+  (dxf-out-b-string 100 *db-text-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-p (position-point x))
 	(h   (height x))
@@ -725,15 +660,14 @@ TEXT (DXF)
 	(mir (mirror-in-xy x))
 	(h-j  (hor-justification x))
 	(a-p (alignment-point x))
-	(a-p-x (svref (normal x) 0))
-	(a-p-y (svref (normal x) 1))
-	(a-p-z (svref (normal x) 2))
+	;(a-p-x (svref (normal x) 0))
+	;(a-p-y (svref (normal x) 1))
+	;(a-p-z (svref (normal x) 2))
 	(nrm (normal x))
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(v-j (ver-justification x)))
-    (dxf-out-b-string 100 (subclass-marker x) stream)
     (unless (= th 0) (dxf-out-b-double 39 th stream))
     (dxf-out-b-point-3d 10 p-p stream)
     (dxf-out-b-double 40 h stream)
@@ -751,10 +685,12 @@ TEXT (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass Db-Ellipse (Db-Curve)
-  ((class-marker    :reader class-marker    :initform "ELLIPSE"     :allocation :class)
-   (subclass-marker :reader subclass-marker :initform "AcDbEllipse" :allocation :class)
-   (center       :accessor center       :initarg :center       :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
+(defparameter *db-ellipse-class-marker* "ELLIPSE")
+
+(defparameter *db-ellipse-subclass-marker* "AcDbEllipse")
+
+(defclass db-ellipse (db-curve)
+  ((center       :accessor center       :initarg :center       :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
    (major-axis   :accessor major-axis   :initarg :major-axis   :initform (vector 1 0 0) :documentation "Код 11. Конечная точка главной оси относительно центральной точки (в МСК) (mapcar #'+ center major-axis)")
    (unit-normal  :accessor unit-normal  :initarg :unit-normal  :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
    (radius-ratio :accessor radius-ratio :initarg :radius-ratio :initform 0.5d0          :documentation "Код 40. Соотношение малой и главной осей")
@@ -794,9 +730,11 @@ ELLIPSE (DXF)
 |            42 | Конечный параметр (значение для полного эллипса — 2 пи)                                        |
 |---------------+------------------------------------------------------------------------------------------------|"))
 
-(defmethod dxf-out-text ((x Db-Ellipse) stream) (format stream "~A~%~A~%" (dxf-code 0) (class-marker x)))
+(defmethod dxf-out-text ((x db-ellipse) stream)
+  (format stream "~A~%~A~%" (dxf-code 0) *db-ellipse-class-marker*))
 
-(defmethod dxf-out-text :after ((x Db-Ellipse) stream)
+(defmethod dxf-out-text :after ((x db-ellipse) stream)
+  (format stream "~A~%~A~%" (dxf-code 100) *db-ellipse-subclass-marker*)
   (let ((c-x (svref (center x) 0))
 	(c-y (svref (center x) 1))
 	(c-z (svref (center x) 2))
@@ -812,7 +750,6 @@ ELLIPSE (DXF)
 	(r-r (radius-ratio x))
 	(s-p (start-param x))
 	(e-p (end-param   x)))
-    (format stream "~A~%~A~%" (dxf-code 100) (subclass-marker x))
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 10) c-x (dxf-code 20) c-y (dxf-code 30) c-z)
     (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 11) ma-e-x (dxf-code 21) ma-e-y (dxf-code 31) ma-e-z)
     (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (format stream "~A~%~A~%~A~%~A~%~A~%~A~%" (dxf-code 210) u-n-x (dxf-code 220) u-n-y (dxf-code 230) u-n-z))
@@ -822,10 +759,11 @@ ELLIPSE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Db-Ellipse) stream)
-  (dxf-out-b-string 0 (class-marker x) stream))
+(defmethod dxf-out-binary ((x db-ellipse) stream)
+  (dxf-out-b-string 0 *db-ellipse-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x Db-Ellipse) stream)
+(defmethod dxf-out-binary :after ((x db-ellipse) stream)
+  (dxf-out-b-string 100 *db-ellipse-subclass-marker* stream)
   (let ((p-c   (center x))
 	(p-ma  (map 'vector #'+ (center x) (major-axis x)))
 	(u-n   (unit-normal x))
@@ -835,7 +773,6 @@ ELLIPSE (DXF)
 	(r-r (radius-ratio x))
 	(s-p (start-param x))
 	(e-p (end-param   x)))
-    (dxf-out-b-string 100 (subclass-marker x) stream)
     (dxf-out-b-point-3d 10 p-c stream)
     (dxf-out-b-point-3d 11 p-ma stream)
     (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf-out-b-point-3d 210 u-n stream))
@@ -843,10 +780,85 @@ ELLIPSE (DXF)
     (dxf-out-b-double 41 s-p stream)
     (dxf-out-b-double 42 e-p stream)))
 
-(let ((ln (make-instance 'Db-Line))
-      (cv (make-instance 'Db-Curve))
-      (el (make-instance 'Db-Ellipse)))
-  (values
-   (subclass-marker ln)
-   (subclass-marker cv)
-   (dxf-out-text el t)))
+;====================================================================================================
+
+;;;; http://help.autodesk.com/view/ACD/2017/RUS/
+
+;;;;AcRxObject
+;;;;  AcDbObject
+;;;;     AcDbEntity
+;;;;      AcDbText -
+;;;;        AcDbAttribute
+;;;;        AcDbAttributeDefinition
+;;;;      AcDbBlockBegin
+;;;;      AcDbBlockEnd
+;;;;      AcDbSequenceEnd
+;;;;      AcDbBlockReference
+;;;;        AcDbMInsertBlock
+;;;;      AcDbVertex
+;;;;        AcDb2dVertex
+;;;;        AcDb3dPolylineVertex
+;;;;        AcDbPolygonMeshVertex
+;;;;        AcDbPolyFaceMeshVertex
+;;;;        AcDbFaceRecord
+;;;;      AcDbCurve
+;;;;        AcDb2dPolyline                  ./dbents.h:class AcDb2dPolyline: public AcDbCurve 
+;;;;        AcDb3dPolyline                  ./dbents.h:class AcDb3dPolyline: public AcDbCurve 
+;;;;        AcDbArc                +        ./dbents.h:class AcDbArc: public AcDbCurve 
+;;;;        AcDbCircle             +        ./dbents.h:class AcDbCircle: public AcDbCurve 
+;;;;        AcDbLine               +        ./dbents.h:class AcDbLine: public AcDbCurve 
+;;;;        AcDbRay                -        ./dbray.h:class AcDbRay: public AcDbCurve 
+;;;;        AcDbXline              -        ./dbxline.h:class AcDbXline: public AcDbCurve
+;;;;        AcDbPolyline                    ./dbpl.h:class AcDbPolyline : public AcDbCurve
+;;;;        AcDbSpline                      ./dbspline.h:class AcDbSpline: public AcDbCurve
+;;;;        AcDbEllipse                     ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
+;;;;        AcDbLeader                      ./dblead.h:class AcDbLeader: public  AcDbCurve  
+;;;;      AcDbPoint                +        ./dbents.h:class AcDbPoint: public AcDbEntity
+;;;;      AcDbFace
+;;;;      AcDbPolyFaceMesh
+;;;;      AcDbPolygonMesh
+;;;;      AcDbTrace
+;;;;      AcDbSolid
+;;;;      AcDbShape
+;;;;      AcDbViewport
+
+
+;;;;    ./AcCamera.h:class CAMERADLLIMPEXP AcDbCamera: public AcDbEntity
+;;;;    ./AcDbGeoPositionMarker.h:class ACDB_PORT AcDbGeoPositionMarker : public AcDbEntity
+;;;;    ./AcDbPointCloudEx.h:class ACDB_PORT AcDbPointCloudEx : public AcDbEntity
+;;;;    ./dbcurve.h:class ADESK_NO_VTABLE AcDbCurve: public AcDbEntity
+;;;;    ./dbdim.h:class ADESK_NO_VTABLE AcDbDimension: public AcDbEntity
+;;;;    ./dbents.h:class AcDbText: public AcDbEntity
+;;;;    ./dbents.h:class AcDbBlockReference: public AcDbEntity
+;;;;    ./dbents.h:class AcDbBlockBegin: public AcDbEntity
+;;;;    ./dbents.h:class AcDbBlockEnd: public AcDbEntity
+;;;;    ./dbents.h:class AcDbSequenceEnd: public AcDbEntity
+;;;;    ./dbents.h:class AcDbVertex: public AcDbEntity
+;;;;    ./dbents.h:class AcDbPoint: public AcDbEntity
+;;;;    ./dbents.h:class AcDbFace: public AcDbEntity
+;;;;    ./dbents.h:class AcDbPolyFaceMesh: public AcDbEntity
+;;;;    ./dbents.h:class AcDbPolygonMesh: public AcDbEntity
+;;;;    ./dbents.h:class AcDbSolid: public AcDbEntity
+;;;;    ./dbents.h:class AcDbTrace: public AcDbEntity
+;;;;    ./dbents.h:class AcDbShape: public AcDbEntity
+;;;;    ./dbents.h:class AcDbViewport: public AcDbEntity
+;;;;    ./dbframe.h:class ADESK_NO_VTABLE AcDbFrame: public AcDbEntity
+;;;;    ./dbhatch.h:class AcDbHatch: public AcDbEntity
+;;;;    ./dbimage.h:class AcDbImage: public AcDbEntity
+;;;;    ./dbmleader.h:class AcDbMLeader : public AcDbEntity
+;;;;    ./dbsurf.h:class AcDbSurface: public AcDbEntity
+;;;;    ./dbLight.h:class LIGHTDLLIMPEXP AcDbLight : public AcDbEntity
+;;;;    ./dbMPolygon.h:class AcDbMPolygon : public AcDbEntity {
+;;;;    ./dbproxy.h:class ADESK_NO_VTABLE AcDbProxyEntity : public AcDbEntity
+;;;;    ./DbSection.h:class AcDbSection : public AcDbEntity
+;;;;    ./dbSubD.h:class ACDB_PORT AcDbSubDMesh: public AcDbEntity
+;;;;    ./dbunderlayref.h:class ADESK_NO_VTABLE AcDbUnderlayReference: public AcDbEntity
+;;;;    ./dbViewBorder.h:class ACSYNERGY_PORT AcDbViewBorder : public AcDbEntity
+;;;;    ./dbViewSymbol.h:class ACSYNERGY_PORT AcDbViewSymbol : public AcDbEntity
+;;;;    
+;;;;    ./dbbody.h:class AcDbBody: public  AcDbEntity
+;;;;    ./dbfcf.h:class AcDbFcf: public  AcDbEntity
+;;;;    ./dbmline.h:class AcDbMline: public  AcDbEntity
+;;;;    ./dbmtext.h:class AcDbMText: public  AcDbEntity
+;;;;    ./dbregion.h:class AcDbRegion: public  AcDbEntity
+;;;;    ./dbsol3d.h:class AcDb3dSolid: public  AcDbEntity
