@@ -5,12 +5,31 @@
 ;;;;/run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defclass Db-Symbol-Table-Record ()
+
+(defparameter *db-symbol-class-marker* "SYMBOL")
+
+(defparameter *db-symbol-subclass-marker* "AcDbSymbolTableRecord")
+
+(defclass db-symbol-table-record ( db-object )
   ((symbol-table-name :accessor symbol-table-name  :initarg :symbol-table-name :initform "Undefined"    :documentation "Код   2. Имя таблицы")
    (symbol-table-flag :accessor symbol-table-flag  :initarg :symbol-table-flag :initform 0              :documentation "Код  70. Стандартные флаги"))
   (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord"))
 
-(defclass Db-RegApp-TableRecord (Db-Symbol-Table-Record)
+(defmethod dxf-out-text ((x db-symbol-table-record) stream)
+  (dxf-out-t-string 0 *db-symbol-class-marker* stream))
+
+(defmethod dxf-out-text :after ((x db-symbol-table-record) stream)
+  (dxf-out-t-string 100 *db-symbol-subclass-marker* stream)
+  (let ((st-flag (symbol-table-flag x))
+	(st-name (symbol-table-name x)))
+    (dxf-out-t-int16 70 st-flag stream)
+    (dxf-out-t-string 2 st-name stream)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defclass db-regapp-tablerecord (db-symbol-table-record)
   ()
   (:documentation "./dbsymtb.h:class AcDbRegAppTableRecord: public  AcDbSymbolTableRecord
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-6E3140E9-E560-4C77-904E-480382F0553E
@@ -36,17 +55,97 @@ APPID (DXF)
 |---------------+-------------------------------------------------------------------------------------------------------------------------------|
 "))
 
-(defclass Db-Block-TableRecord (Db-Symbol-Table-Record)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+'((0 "TABLE")
+  (2 "BLOCK_RECORD")
+  (5 #x1)
+  (330 #x0)
+  (100 "AcDbSymbolTable")
+  (70 1))
+
+'((0 "BLOCK_RECORD")
+  (5 #x1F)
+  (102 "{ACAD_XDICTIONARY")
+  (360 #x1CE)
+  (102 "}")
+  (330 1)
+  (100 "AcDbSymbolTableRecord")
+  (100 "AcDbBlockTableRecord")
+  (2 "*Model_Space")
+  (340 #x22)
+  (70 0)
+  (280 1)
+  (281 0))
+
+'((0 "BLOCK_RECORD")
+  (5 #xD2)
+  (330 #x1)
+  (100 "AcDbSymbolTableRecord")
+  (100 "AcDbBlockTableRecord")
+  (2 "*Paper_Space")
+  (340 #xD3)
+  (70 0)
+  (280 1)
+  (281 0))
+
+'((0 "BLOCK_RECORD")
+  (100 "AcDbSymbolTableRecord")
+  (100 "AcDbBlockTableRecord")
+
+  (0 "ENDTAB")
+
+
+  0 TABLE
+  2 BLOCK_RECORD
+  5 1
+330 0
+100 AcDbSymbolTable
+  70 1
+  
+  0 BLOCK_RECORD
+  5 1F
+102 {ACAD_XDICTIONARY
+360 1CE
+102 }
+
+  0 ENDTAB
+
+(defparameter *m-s* (make-instance
+		   'db-block-tablerecord
+		   :object-handle #x1F :object-owner #x1 :symbol-table-flag 0
+		   :symbol-table-name "*Model_Space" :block-tr-layout #x22 :block-tr-explodability 1 :block-tr-scalability  0))
+ 
+
+(defparameter *p-s* (make-instance
+		   'db-block-tablerecord
+		   :object-handle #xD6 :object-owner #x1 :symbol-table-flag 0
+		   :symbol-table-name "*Paper_Space" :block-tr-layout #xD3 :block-tr-explodability 1 :block-tr-scalability  0))
+
+(defparameter *p-s-0* (make-instance
+		   'db-block-tablerecord
+		   :object-handle   #xD2 :object-owner #x1 :symbol-table-flag 0
+		   :symbol-table-name "*Paper_Space0" :block-tr-layout #xD7 :block-tr-explodability 1 :block-tr-scalability  0))
+
+(dxf-out-text *p-s-0* t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defparameter *db-block-class-marker* "BLOCK_RECORD")
+
+(defparameter *db-block-subclass-marker* "AcDbBlockTableRecord")
+
+(defclass db-block-tablerecord (db-symbol-table-record)
   ((block-tr-layout            :accessor block-tr-layout              :initarg :block-tr-layout            :initform nil                 :documentation "Код  340. Идентификатор/дескриптор жесткого указателя на связанный объект LAYOUT")
    (block-tr-explodability     :accessor block-tr-explodability       :initarg :block-tr-explodability     :initform 0                   :documentation "Код  280. Расчленяемость блока")
    (block-tr-scalability       :accessor block-tr-scalability         :initarg :block-tr-scalability       :initform 1                   :documentation "Код  281. Масштабируемость блока")
    (block-tr-bitmap            :accessor block-tr-bitmap              :initarg :block-tr-bitmap            :initform nil                 :documentation "Код  310. Файл DXF: двоичные данные предварительного просмотра растрового изображения (необязательно)")
-   (block-tr-xdata-app-name    :accessor block-tr-xdata-app-name      :initarg :block-tr-xdata-app-name    :initform "ACAD"              :documentation "Код 1001. Имя приложения расширенных данных, \"ACAD\" (необязательно)")
-   (block-tr-xdata-string-data :accessor block-tr-xdata-string-data   :initarg :block-tr-xdata-string-data :initform "DesignCenter Data" :documentation "Код 1000. Данные строк расширенных данных, \"DesignCenter Data\" (необязательно)")
-   (block-tr-xdata-begin       :accessor block-tr-xdata-begin         :initarg :block-tr-xdata-begin       :initform "{"                 :documentation "Код 1002. Начало расширенных данных, \"{\" (необязательно)")
+   (block-tr-xdata-app-name    :accessor block-tr-xdata-app-name      :initarg :block-tr-xdata-app-name    :initform nil                 :documentation "Код 1001. Имя приложения расширенных данных, \"ACAD\" (необязательно)")
+   (block-tr-xdata-string-data :accessor block-tr-xdata-string-data   :initarg :block-tr-xdata-string-data :initform nil                 :documentation "Код 1000. Данные строк расширенных данных, \"DesignCenter Data\" (необязательно)")
+   (block-tr-xdata-begin       :accessor block-tr-xdata-begin         :initarg :block-tr-xdata-begin       :initform nil                 :documentation "Код 1002. Начало расширенных данных, \"{\" (необязательно)")
    (block-tr-dc-version        :accessor block-tr-dc-version          :initarg :block-tr-dc-version        :initform nil                 :documentation "Код 1070. Номер версии Центра управления Adesk")
-   (block-tr-insert-units      :accessor block-tr-insert-units        :initarg :block-tr-insert-units      :initform 0                   :documentation "Код 1070. Номер версии Центра управления Adesk")
-   (block-tr-xdata-end         :accessor block-tr-xdata-end           :initarg :block-tr-xdata-end         :initform "}"                 :documentation "Код 1002. Конец расширенных данных, \"}\""))
+   (block-tr-insert-units      :accessor block-tr-insert-units        :initarg :block-tr-insert-units      :initform nil                 :documentation "Код 1070. Номер версии Центра управления Adesk")
+   (block-tr-xdata-end         :accessor block-tr-xdata-end           :initarg :block-tr-xdata-end         :initform nil                 :documentation "Код 1002. Конец расширенных данных, \"}\""))
   (:documentation "find . -name \"*.h\" | xargs grep \"class AcDbBlockTableRecord\"
 /run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/dbsymtb.h:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
@@ -110,6 +209,24 @@ BLOCK_RECORD (DXF)
 |          1002 | Конец расширенных данных, \"}\"                                                             |
 |---------------+---------------------------------------------------------------------------------------------|
 "))
+
+(defmethod dxf-out-text ((x db-block-tablerecord) stream)
+  (dxf-out-t-string 0 *db-block-class-marker* stream))
+
+(defmethod dxf-out-text :after ((x db-block-tablerecord) stream)
+  (dxf-out-t-string 100 *db-block-subclass-marker* stream)
+  (let ((lay (block-tr-layout x))
+	(e-ty (block-tr-explodability x))
+	(s-ty (block-tr-scalability x))
+	(b-p  (block-tr-bitmap x)))
+    (when lay (dxf-out-t-hex 340 lay stream))
+    (dxf-out-t-int16 280 e-ty stream)
+    (dxf-out-t-int16 281 s-ty stream)
+    (when b-p (dxf-out-t-hex 310 b-p stream))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass db-dimstyle-tablerecord (Db-Symbol-Table-Record)
   ((dimstyle-tr-dimpost   :accessor dimstyle-tr-dimpost   :initarg :dimstyle-tr-dimpost   :initform nil :documentation "Код  3. DIMPOST")
@@ -894,4 +1011,414 @@ VPORT (DXF)
  )
 )
   
+"
+  0 SECTION
+2 TABLES
 
+  0 TABLE
+  2 VPORT
+  5 8
+330 0
+100 AcDbSymbolTable
+ 70 1
+  0 VPORT
+  5 EA
+330 8
+100 AcDbSymbolTableRecord
+100 AcDbViewportTableRecord
+  2 *Active
+ 70 0
+ 10 0.0
+ 20 0.0
+ 11 1.0
+ 21 1.0
+ 12 2685.447085661157
+ 22 1184.377785330838
+ 13 0.0
+ 23 0.0
+ 14 10.0
+ 24 10.0
+ 15 10.0
+ 25 10.0
+ 16 0.0
+ 26 0.0
+ 36 1.0
+ 17 0.0
+ 27 0.0
+ 37 0.0
+ 40 2141.132757422042
+ 41 2.21021377672209
+ 42 50.0
+ 43 0.0
+ 44 0.0
+ 50 0.0
+ 51 0.0
+ 71 0
+ 72 1000
+ 73 1
+ 74 3
+ 75 0
+ 76 1
+ 77 0
+ 78 0
+281 0
+ 65 1
+110 0.0
+120 0.0
+130 0.0
+111 1.0
+121 0.0
+131 0.0
+112 0.0
+122 1.0
+132 0.0
+ 79 0
+146 0.0
+348 F5
+ 60 3
+ 61 5
+292 1
+282 1
+141 0.0
+142 0.0
+ 63 250
+421 3355443
+1001 ACAD_NAV_VCDISPLAY
+1070 3
+0 ENDTAB
+
+  0 TABLE
+  2 LTYPE
+  5 5
+330 0
+100 AcDbSymbolTable
+ 70 1
+  0 LTYPE
+  5 14
+330 5
+100 AcDbSymbolTableRecord
+100 AcDbLinetypeTableRecord
+  2 ByBlock
+ 70 0
+  3 
+ 72 65
+ 73 0
+ 40 0.0
+  0 LTYPE
+  5 15
+330 5
+100 AcDbSymbolTableRecord
+100 AcDbLinetypeTableRecord
+  2 ByLayer
+ 70 0
+  3 
+ 72 65
+ 73 0
+ 40 0.0
+  0 LTYPE
+  5 16
+330 5
+100 AcDbSymbolTableRecord
+100 AcDbLinetypeTableRecord
+  2 Continuous
+ 70 0
+  3 Solid line
+ 72 65
+ 73 0
+ 40 0.0
+0 ENDTAB
+
+0 TABLE
+  2 LAYER
+  5 2
+102 {ACAD_XDICTIONARY
+360 1FF
+102 }
+330 0
+100 AcDbSymbolTable
+ 70 1
+  0 LAYER
+  5 10
+102 {ACAD_XDICTIONARY
+360 13C
+102 }
+330 2
+100 AcDbSymbolTableRecord
+100 AcDbLayerTableRecord
+  2 0
+ 70 0
+ 62 7
+  6 Continuous
+370 -3
+390 F
+347 EE
+348 0
+0 ENDTAB
+
+
+  0 TABLE
+  2 STYLE
+  5 3
+330 0
+100 AcDbSymbolTable
+ 70 2
+  0 STYLE
+  5 11
+330 3
+100 AcDbSymbolTableRecord
+100 AcDbTextStyleTableRecord
+  2 Standard
+ 70 0
+ 40 0.0
+ 41 1.0
+ 50 0.0
+ 71 0
+ 42 2.5
+  3 ARIAL.TTF
+  4 
+1001 ACAD
+1000 Arial
+1071 34
+  0 STYLE
+  5 132
+330 3
+100 AcDbSymbolTableRecord
+100 AcDbTextStyleTableRecord
+  2 Annotative
+ 70 0
+ 40 0.0
+ 41 1.0
+ 50 0.0
+ 71 0
+ 42 2.5
+  3 ARIAL.TTF
+  4 
+1001 AcadAnnotative
+1000 AnnotativeData
+1002 {
+1070 1
+1070 1
+1002 }
+1001 ACAD
+1000 Arial
+1071 34
+0 ENDTAB
+
+  0 TABLE
+  2 VIEW
+  5 6
+330 0
+100 AcDbSymbolTable
+ 70 0
+0 ENDTAB
+
+  0 TABLE
+  2 UCS
+  5 7
+330 0
+100 AcDbSymbolTable
+ 70 0
+0 ENDTAB
+
+  0 TABLE
+  2 APPID
+  5 9
+330 0
+100 AcDbSymbolTable
+ 70 9
+  0 APPID
+  5 12
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 ACAD
+ 70 0
+  0 APPID
+  5 9E
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 ACAD_PSEXT
+ 70 0
+  0 APPID
+  5 133
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 AcadAnnoPO
+ 70 0
+  0 APPID
+  5 134
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 AcadAnnotative
+ 70 0
+  0 APPID
+  5 135
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 ACAD_DSTYLE_DIMJAG
+ 70 0
+  0 APPID
+  5 136
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 ACAD_DSTYLE_DIMTALN
+ 70 0
+  0 APPID
+  5 165
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 ACAD_MLEADERVER
+ 70 0
+  0 APPID
+  5 217
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 ACAD_NAV_VCDISPLAY
+ 70 0
+  0 APPID
+  5 22D
+330 9
+100 AcDbSymbolTableRecord
+100 AcDbRegAppTableRecord
+  2 SHCKALA
+ 70 0
+0 ENDTAB
+
+  0 TABLE
+  2 DIMSTYLE
+  5 A
+330 0
+100 AcDbSymbolTable
+ 70 3
+100 AcDbDimStyleTable
+ 71 2
+340 27
+340 137
+  0 DIMSTYLE
+105 1B0
+330 A
+100 AcDbSymbolTableRecord
+100 AcDbDimStyleTableRecord
+  2 Standard
+ 70 0
+340 11
+  0 DIMSTYLE
+105 137
+330 A
+100 AcDbSymbolTableRecord
+100 AcDbDimStyleTableRecord
+  2 Annotative
+ 70 0
+ 40 0.0
+ 41 2.5
+ 42 0.625
+ 43 3.75
+ 44 1.25
+ 73 0
+ 74 0
+ 77 1
+ 78 8
+140 2.5
+141 2.5
+143 0.03937007874016
+147 0.625
+171 3
+172 1
+271 2
+272 2
+274 3
+278 44
+283 0
+284 8
+340 11
+1001 AcadAnnotative
+1000 AnnotativeData
+1002 {
+1070 1
+1070 1
+1002 }
+1001 ACAD_DSTYLE_DIMJAG
+1070 388
+1040 1.5
+1001 ACAD_DSTYLE_DIMTALN
+1070 392
+1070 0
+  0 DIMSTYLE
+105 27
+330 A
+100 AcDbSymbolTableRecord
+100 AcDbDimStyleTableRecord
+  2 ISO-25
+ 70 0
+ 41 2.5
+ 42 0.625
+ 43 3.75
+ 44 1.25
+ 73 0
+ 74 0
+ 77 1
+ 78 8
+140 2.5
+141 2.5
+143 0.03937007874016
+147 0.625
+171 3
+172 1
+271 2
+272 2
+274 3
+278 44
+283 0
+284 8
+340 11
+0 ENDTAB
+
+  0 TABLE
+  2 BLOCK_RECORD
+  5 1
+330 0
+100 AcDbSymbolTable
+ 70 1
+  0 BLOCK_RECORD
+  5 1F
+102 {ACAD_XDICTIONARY
+360 1CE
+102 }
+330 1
+100 AcDbSymbolTableRecord
+100 AcDbBlockTableRecord
+  2 *Model_Space
+340 22
+ 70 0
+280 1
+281 0
+  0 BLOCK_RECORD
+  5 D2
+330 1
+100 AcDbSymbolTableRecord
+100 AcDbBlockTableRecord
+  2 *Paper_Space
+340 D3
+ 70 0
+280 1
+281 0
+  0 BLOCK_RECORD
+  5 D6
+330 1
+100 AcDbSymbolTableRecord
+100 AcDbBlockTableRecord
+  2 *Paper_Space0
+340 D7
+ 70 0
+280 1
+281 0
+  0 ENDTAB
+0 ENDSEC
+"

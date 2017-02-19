@@ -21,12 +21,39 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defparameter *db-object-class-marker* "OBJECT")
+
+(defparameter *db-object-subclass-marker* "AcDbObject")
+
 (defclass db-object ()
   ((object-id        :accessor object-id     :initarg :object-id     :initform nil :documentation "")
-   (object-owner     :accessor object-owner  :initarg :object-owner  :initform nil :documentation "")
-   (object-handle    :accessor object-handle :initarg :object-handle :initform nil :documentation "Код 5. Дескриптор")
-   (next-handle      :accessor next-handle   :initarg :next-handle   :initform 1   :allocation :class)))
-   
+   (object-owner     :accessor object-owner  :initarg :object-owner  :initform nil :documentation "Код 330. ")
+   (object-handle    :accessor object-handle :initarg :object-handle :initform nil :documentation "Код   5. Дескриптор")
+   (next-handle      :accessor next-handle   :initarg :next-handle   :initform 1   :allocation :class))
+  (:documentation "См. ./dbmain.h:class ADESK_NO_VTABLE AcDbObject: public AcGiDrawable, public AcHeapOperators
+"))
+
+(defmethod dxf-out-text ((x db-object) stream)
+  (dxf-out-t-string 0 *db-object-class-marker* stream))
+
+(defmethod dxf-out-text :after ((x db-object) stream)
+  (let (
+	(hdl (object-handle x))
+	(own (object-owner  x)))
+    (when hdl (dxf-out-t-hex   5 hdl stream))
+    (when own (dxf-out-t-hex 330 own stream))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod dxf-out-binary ((x db-object) stream)
+  (dxf-out-t-string 0 *db-object-class-marker* stream))
+
+(defmethod dxf-out-binary :after ((x db-object) stream)
+  (let ((own (object-owner  x))
+	(hdl (object-handle x)))
+    (when own (dxf-out-t-hex 330 own stream))
+    (when hdl (dxf-out-t-hex   5 hdl stream))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *db-entity-class-marker* "ENTITY")
@@ -37,19 +64,22 @@
   ((entity-layer      :accessor entity-layer      :initarg :entity-layer      :initform "0" :documentation "Код   8. Имя слоя")
    (entity-color      :accessor entity-color      :initarg :entity-color      :initform 256 :documentation "Код  62. 16-битный цвет")
    (entity-true-color :accessor entity-true-color :initarg :entity-true-color :initform nil :documentation "Код 420. 32-битный цвет"))
-  (:documentation "См. dbmain.h"))
+  (:documentation "См. ./dbmain.h:class ADESK_NO_VTABLE AcDbEntity: public AcDbObject
+"))
 
 (defmethod dxf-out-text ((x db-entity) stream)
   (dxf-out-t-string 0 *db-entity-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x db-entity) stream)
   (dxf-out-t-string 100 *db-entity-subclass-marker* stream)
-  (let ((hdl (object-handle x))
-	(la (entity-layer x))
-	(cl (entity-color x)))
-    (when hdl (dxf-out-t-hex 5 hdl stream))
+  (let ((own (object-owner  x))
+	(hdl (object-handle x))
+	(la  (entity-layer  x))
+	(cl  (entity-color  x)))
+    (when own (dxf-out-t-hex 330 own stream))
+    (when hdl (dxf-out-t-hex   5 hdl stream))
     (dxf-out-t-string 8 la stream)
-    (unless (= 256 cl) (dxf-out-t-int16 62  cl stream))))
+    (unless (= 256 cl) (dxf-out-t-int16 62 cl stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

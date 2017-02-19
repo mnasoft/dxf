@@ -7,6 +7,7 @@
   :serial t
   :depends-on (#:babel #:ie3fp #:mnas-string)
   :components ((:file "package")
+	       (:file "dxf-string")
 	       (:file "colors")
 	       (:file "line-weights")
 	       (:file "byte-array")
