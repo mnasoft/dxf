@@ -47,7 +47,15 @@
 ;;;; Тестирование для секции заголовка
 (let ((h (make-instance 'Db-Header))) (header-vars h) (dxf-out-text h t))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(progn
+  (defparameter *t-br*  (make-instance 'db-symbol-tbl :object-owner #x0 :object-handle #x1  :symbol-tbl-name "BLOCK_RECORD" :symbol-tbl-flag 1 ))
+  (defparameter *m-s*   (make-instance 'db-block-tr   :object-handle #x1F :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Model_Space"  :block-tr-layout #x22 :block-tr-explodability 1 :block-tr-scalability  0))
+  (defparameter *p-s*   (make-instance 'db-block-tr   :object-handle #xD6 :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Paper_Space"  :block-tr-layout #xD3 :block-tr-explodability 1 :block-tr-scalability  0))
+  (defparameter *p-s-0* (make-instance 'db-block-tr   :object-handle #xD2 :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Paper_Space0" :block-tr-layout #xD7 :block-tr-explodability 1 :block-tr-scalability  0))
+  (setf (symbol-tbl-items *t-br*)
+	(append (symbol-tbl-items *t-br*)
+		(list *m-s* *p-s* *p-s-0*))))
 
-
-
+(dxf-out-text *t-br* t)

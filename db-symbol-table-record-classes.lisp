@@ -6,30 +6,51 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *db-symbol-class-marker* "SYMBOL")
+(defparameter *symbol-tbl-class-marker* "TABLE")
 
-(defparameter *db-symbol-subclass-marker* "AcDbSymbolTableRecord")
+(defparameter *symbol-tbl-subclass-marker* "AcDbSymbolTable")
 
-(defclass db-symbol-table-record ( db-object )
-  ((symbol-table-name :accessor symbol-table-name  :initarg :symbol-table-name :initform "Undefined"    :documentation "Код   2. Имя таблицы")
-   (symbol-table-flag :accessor symbol-table-flag  :initarg :symbol-table-flag :initform 0              :documentation "Код  70. Стандартные флаги"))
+(defclass db-symbol-tbl ( db-object )
+  ((symbol-tbl-name  :accessor symbol-tbl-name   :initarg :symbol-tbl-name  :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
+   (symbol-tbl-flag  :accessor symbol-tbl-flag   :initarg :symbol-tbl-flag  :initform 0              :documentation "Код  70. Стандартные флаги")
+   (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil            :documentation "Записи таблицы."))
   (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord"))
 
-(defmethod dxf-out-text ((x db-symbol-table-record) stream)
-  (dxf-out-t-string 0 *db-symbol-class-marker* stream))
-
-(defmethod dxf-out-text :after ((x db-symbol-table-record) stream)
-  (dxf-out-t-string 100 *db-symbol-subclass-marker* stream)
-  (let ((st-flag (symbol-table-flag x))
-	(st-name (symbol-table-name x)))
-    (dxf-out-t-int16 70 st-flag stream)
+(defmethod dxf-out-text ((x db-symbol-tbl) stream)
+  (dxf-out-t-string 0 *symbol-tbl-class-marker* stream)
+    (let ((st-name (symbol-tbl-name x)))
     (dxf-out-t-string 2 st-name stream)))
+
+(defmethod dxf-out-text :after ((x db-symbol-tbl) stream)
+  (dxf-out-t-string 100 *db-symbol-tr-subclass-marker* stream)
+  (let ((st-flag  (symbol-tbl-flag x))
+	(st-items (symbol-tbl-items x)))
+    (dxf-out-t-int16 70 st-flag stream)
+    (mapc #'(lambda (el) (dxf-out-text el stream)) st-items)
+    (dxf-out-t-string 0 *end-tab* stream)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defparameter *db-symbol-tr-class-marker* "SYMBOL")
+
+(defparameter *db-symbol-tr-subclass-marker* "AcDbSymbolTableRecord")
+
+(defclass db-symbol-tr ( db-object )
+  ((symbol-tr-name :accessor symbol-tr-name  :initarg :symbol-tr-name :initform "Undefined"    :documentation "Код   2. Имя таблицы")
+   (symbol-tr-flag :accessor symbol-tr-flag  :initarg :symbol-tr-flag :initform 0              :documentation "Код  70. Стандартные флаги"))
+  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord"))
+
+(defmethod dxf-out-text ((x db-symbol-tr) stream)
+  (dxf-out-t-string 0 *db-symbol-tr-class-marker* stream))
+
+(defmethod dxf-out-text :after ((x db-symbol-tr) stream)
+  (dxf-out-t-string 100 *db-symbol-tr-subclass-marker* stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass db-regapp-tablerecord (db-symbol-table-record)
+(defclass db-regapp-tr (db-symbol-tr)
   ()
   (:documentation "./dbsymtb.h:class AcDbRegAppTableRecord: public  AcDbSymbolTableRecord
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-6E3140E9-E560-4C77-904E-480382F0553E
@@ -57,85 +78,11 @@ APPID (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-'((0 "TABLE")
-  (2 "BLOCK_RECORD")
-  (5 #x1)
-  (330 #x0)
-  (100 "AcDbSymbolTable")
-  (70 1))
-
-'((0 "BLOCK_RECORD")
-  (5 #x1F)
-  (102 "{ACAD_XDICTIONARY")
-  (360 #x1CE)
-  (102 "}")
-  (330 1)
-  (100 "AcDbSymbolTableRecord")
-  (100 "AcDbBlockTableRecord")
-  (2 "*Model_Space")
-  (340 #x22)
-  (70 0)
-  (280 1)
-  (281 0))
-
-'((0 "BLOCK_RECORD")
-  (5 #xD2)
-  (330 #x1)
-  (100 "AcDbSymbolTableRecord")
-  (100 "AcDbBlockTableRecord")
-  (2 "*Paper_Space")
-  (340 #xD3)
-  (70 0)
-  (280 1)
-  (281 0))
-
-'((0 "BLOCK_RECORD")
-  (100 "AcDbSymbolTableRecord")
-  (100 "AcDbBlockTableRecord")
-
-  (0 "ENDTAB")
-
-
-  0 TABLE
-  2 BLOCK_RECORD
-  5 1
-330 0
-100 AcDbSymbolTable
-  70 1
-  
-  0 BLOCK_RECORD
-  5 1F
-102 {ACAD_XDICTIONARY
-360 1CE
-102 }
-
-  0 ENDTAB
-
-(defparameter *m-s* (make-instance
-		   'db-block-tablerecord
-		   :object-handle #x1F :object-owner #x1 :symbol-table-flag 0
-		   :symbol-table-name "*Model_Space" :block-tr-layout #x22 :block-tr-explodability 1 :block-tr-scalability  0))
- 
-
-(defparameter *p-s* (make-instance
-		   'db-block-tablerecord
-		   :object-handle #xD6 :object-owner #x1 :symbol-table-flag 0
-		   :symbol-table-name "*Paper_Space" :block-tr-layout #xD3 :block-tr-explodability 1 :block-tr-scalability  0))
-
-(defparameter *p-s-0* (make-instance
-		   'db-block-tablerecord
-		   :object-handle   #xD2 :object-owner #x1 :symbol-table-flag 0
-		   :symbol-table-name "*Paper_Space0" :block-tr-layout #xD7 :block-tr-explodability 1 :block-tr-scalability  0))
-
-(dxf-out-text *p-s-0* t)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defparameter *db-block-class-marker* "BLOCK_RECORD")
 
 (defparameter *db-block-subclass-marker* "AcDbBlockTableRecord")
 
-(defclass db-block-tablerecord (db-symbol-table-record)
+(defclass db-block-tr (db-symbol-tr)
   ((block-tr-layout            :accessor block-tr-layout              :initarg :block-tr-layout            :initform nil                 :documentation "Код  340. Идентификатор/дескриптор жесткого указателя на связанный объект LAYOUT")
    (block-tr-explodability     :accessor block-tr-explodability       :initarg :block-tr-explodability     :initform 0                   :documentation "Код  280. Расчленяемость блока")
    (block-tr-scalability       :accessor block-tr-scalability         :initarg :block-tr-scalability       :initform 1                   :documentation "Код  281. Масштабируемость блока")
@@ -210,16 +157,20 @@ BLOCK_RECORD (DXF)
 |---------------+---------------------------------------------------------------------------------------------|
 "))
 
-(defmethod dxf-out-text ((x db-block-tablerecord) stream)
+(defmethod dxf-out-text ((x db-block-tr) stream)
   (dxf-out-t-string 0 *db-block-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x db-block-tablerecord) stream)
+(defmethod dxf-out-text :after ((x db-block-tr) stream)
   (dxf-out-t-string 100 *db-block-subclass-marker* stream)
-  (let ((lay (block-tr-layout x))
+  (let ((st-name (symbol-tr-name x))
+	(st-flag (symbol-tr-flag x))
+	(lay (block-tr-layout x))
 	(e-ty (block-tr-explodability x))
 	(s-ty (block-tr-scalability x))
 	(b-p  (block-tr-bitmap x)))
+    (dxf-out-t-string 2 st-name stream)
     (when lay (dxf-out-t-hex 340 lay stream))
+    (dxf-out-t-int16 70 st-flag stream)
     (dxf-out-t-int16 280 e-ty stream)
     (dxf-out-t-int16 281 s-ty stream)
     (when b-p (dxf-out-t-hex 310 b-p stream))))
@@ -228,7 +179,7 @@ BLOCK_RECORD (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass db-dimstyle-tablerecord (Db-Symbol-Table-Record)
+(defclass db-dimstyle-tr (db-symbol-tr)
   ((dimstyle-tr-dimpost   :accessor dimstyle-tr-dimpost   :initarg :dimstyle-tr-dimpost   :initform nil :documentation "Код  3. DIMPOST")
    (dimstyle-tr-dimapost  :accessor dimstyle-tr-dimapost  :initarg :dimstyle-tr-dimapost  :initform nil :documentation "Код  4. DIMAPOST")
 ;   (dimstyle-tr-dimblk    :accessor dimstyle-tr-dimblk    :initarg :dimstyle-tr-dimblk    :initform nil :documentation "Код  5. DIMBLK (устарело, теперь это идентификатор объекта)")
@@ -461,7 +412,7 @@ DIMSTYLE (DXF)
 |---------------+-------------------------------------------------------------------------------------------------------|
 "))
 
-(defclass Db-Layer-TableRecord (Db-Symbol-Table-Record)
+(defclass db-layer-tr (db-symbol-tr)
 ;;;;"AcDbLayerTableRecord"
   ((layer-tr-color      :accessor layer-tr-color      :initarg :layer-tr-color      :initform 7              :documentation "Код  62. Номер цвета (если значение отрицательное, слой отключен)")
    (layer-tr-ltype      :accessor layer-tr-ltype      :initarg :layer-tr-ltype      :initform "Continuous"   :documentation "Код   6. Имя типа линий")
@@ -512,7 +463,7 @@ LAYER (DXF)
 Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
 " ))
 
-(defclass Db-Linetype-TableRecord (Db-Symbol-Table-Record)
+(defclass db-linetype-tr (db-symbol-tr)
   ((ltype-tr-standard-flag     :accessor ltype-tr-standard-flag     :initarg :ltype-tr-standard-flag       :initform 0              :documentation "Код  70. Стандартные значения флагов (кодовые битовые значения): 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки ; 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается; 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз, на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD. Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, записывающих файлы DXF)")
    (ltype-tr-descriptive-text  :accessor ltype-tr-descriptive-text  :initarg :ltype-tr-descriptive-text    :initform ""             :documentation "Код   3. Описательный текст для типа линий")
    (ltype-tr-alignment-code    :accessor ltype-tr-alignment-code    :initarg :ltype-tr-alignment-code      :initform 65             :documentation "Код  72. Код выравнивания; всегда имеет значение 65, код ASCII для A")
@@ -584,7 +535,7 @@ LTYPE (DXF)
 Следует использовать tblobjname для извлечения этих значений из приложения.
 "))
 
-(defclass Db-TextStyle-TableRecord (Db-Symbol-Table-Record)
+(defclass db-textstyle-tr (db-symbol-tr)
   (
    (textstyle-tr-text-height      :accessor textstyle-tr-text-height       :initarg :textstyle-tr-text-height       :initform 0     :documentation "Код   40. Фиксированная высота текста; значение 0, если нефиксированная")
    (textstyle-tr-width-factor     :accessor textstyle-tr-width-factor      :initarg :textstyle-tr-width-factor      :initform 0     :documentation "Код   41. Коэффициент сжатия")
@@ -639,7 +590,7 @@ STYLE (DXF)
 |---------------+-------------------------------------------------------------------------------------------------------------------|
 "))
 
-(defclass db-ucs-tablerecord (db-symbol-table-record)
+(defclass db-ucs-tr (db-symbol-tr)
   ((ucs-tr-origin           :accessor ucs-tr-origin           :initarg :ucs-tr-origin           :initform (vector 0 0 0) :documentation "Код   10. Начало координат (в МСК)")
    (ucs-tr-x-axis-direction :accessor ucs-tr-x-axis-direction :initarg :ucs-tr-x-axis-direction :initform (vector 1 0 0) :documentation "Код   11. Направление оси X (в МСК)")
    (ucs-tr-y-axis-direction :accessor ucs-tr-y-axis-direction :initarg :ucs-tr-y-axis-direction :initform (vector 0 1 0) :documentation "Код   12. Направление оси Y (в МСК)")
@@ -714,7 +665,7 @@ UCS (DXF)
 Если эта пара отсутствует, то вызов команды ПСК/СЛЕВА приведет к созданию
 начала координат новой ПСК в точке начала координат данной ПКС."))
 
-(defclass db-view-tablerecord (db-symbol-table-record)
+(defclass db-view-tr (db-symbol-tr)
   ((view-tr-height          :accessor view-tr-height         :initarg :view-tr-height         :initform 0              :documentation "Код  40. Высота вида (в РСК)")
    (view-tr-center-point    :accessor view-tr-center-point   :initarg :view-tr-center-point   :initform (vector 0 0)   :documentation "Код  10. Центральная точка вида (в РСК).  2D-точка")
    (view-tr-width           :accessor view-tr-width          :initarg :view-tr-width          :initform 420.0          :documentation "Код  41. Ширина вида (в РСК)")
@@ -812,7 +763,7 @@ VIEW (DXF)
 |---------------+-----------------------------------------------------------------------------------------------------------------|
 "))
 
-(defclass db-vport-tablerecord (db-symbol-table-record) 
+(defclass db-vport-tr (db-symbol-tr) 
   (
 ;  (vport-name  :accessor vport-name  :initarg :vport-name  :initform "*Active" :documentation "Код 2. Имя видового экрана")
 ;  (vport-flags :accessor vport-flags :initarg :vport-flags :initform 0		:documentation "Код 70. Стандартные значения флагов (кодовые битовые значения): 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки; 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается; 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз, на запись таблицы ссылался хотя бы один объект на чертеже. Этот флаг нужен для команд AutoCAD. Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, записывающих файлы DXF")
@@ -1380,12 +1331,15 @@ VPORT (DXF)
 340 11
 0 ENDTAB
 
+----------------------------------------------------------------------------------------------------
+
   0 TABLE
   2 BLOCK_RECORD
   5 1
 330 0
 100 AcDbSymbolTable
  70 1
+
   0 BLOCK_RECORD
   5 1F
 102 {ACAD_XDICTIONARY
@@ -1399,6 +1353,7 @@ VPORT (DXF)
  70 0
 280 1
 281 0
+
   0 BLOCK_RECORD
   5 D2
 330 1
@@ -1409,6 +1364,7 @@ VPORT (DXF)
  70 0
 280 1
 281 0
+
   0 BLOCK_RECORD
   5 D6
 330 1
@@ -1419,6 +1375,53 @@ VPORT (DXF)
  70 0
 280 1
 281 0
+
   0 ENDTAB
 0 ENDSEC
+
+
+==================================================================================================== 
+
+  0 TABLE
+  2 BLOCK_RECORD
+  5 1
+330 0
+100 AcDbSymbolTableRecord
+ 70 1
+
+  0 BLOCK_RECORD
+  5 1F
+330 1
+100 AcDbSymbolTableRecord
+100 AcDbBlockTableRecord
+  2 *Model_Space
+340 22
+ 70 0
+280 1
+281 0
+
+  0 BLOCK_RECORD
+  5 D6
+330 1
+100 AcDbSymbolTableRecord
+100 AcDbBlockTableRecord
+  2 *Paper_Space
+340 D3
+ 70 0
+280 1
+281 0
+
+  0 BLOCK_RECORD
+  5 D2
+330 1
+100 AcDbSymbolTableRecord
+100 AcDbBlockTableRecord
+  2 *Paper_Space0
+340 D7
+ 70 0
+280 1
+281 0
+
+  0 ENDTAB
+
 "

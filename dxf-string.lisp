@@ -13,4 +13,6 @@
   (defparameter *section-blocks*   "BLOCKS")
   (defparameter *section-entities* "ENTITIES")
   (defparameter *section-objects*  "OBJECTS")
-  (defparameter *section-acdsdata* "ACDSDATA"))
+  (defparameter *section-acdsdata* "ACDSDATA")
+  (defparameter *end-tab* "ENDTAB")
+  )
