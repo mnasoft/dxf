@@ -173,7 +173,7 @@
     ((<= 330 code 369)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex object IDs
     ((<= 370 code 379)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 380 code 389)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 390 code 399)   (dxf-out-t-string code value stream :max-octet-length 127)) ;;;; String representing hex handle value
+    ((<= 390 code 399)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
     ((<= 400 code 409)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 410 code 419)   (dxf-out-t-string code value stream)) ;;;; String
     ((<= 420 code 429)   (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value

@@ -14,7 +14,11 @@
   ((symbol-tbl-name  :accessor symbol-tbl-name   :initarg :symbol-tbl-name  :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
    (symbol-tbl-flag  :accessor symbol-tbl-flag   :initarg :symbol-tbl-flag  :initform 0              :documentation "Код  70. Стандартные флаги")
    (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil            :documentation "Записи таблицы."))
-  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord"))
+  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295
+
+"))
 
 (defmethod dxf-out-text ((x db-symbol-tbl) stream)
   (dxf-out-t-string 0 *symbol-tbl-class-marker* stream)
@@ -24,7 +28,7 @@
 (defmethod dxf-out-text :after ((x db-symbol-tbl) stream)
   (dxf-out-t-string 100 *db-symbol-tr-subclass-marker* stream)
   (let ((st-flag  (symbol-tbl-flag x))
-	(st-items (symbol-tbl-items x)))
+	(st-items (reverse (symbol-tbl-items x))))
     (dxf-out-t-int16 70 st-flag stream)
     (mapc #'(lambda (el) (dxf-out-text el stream)) st-items)
     (dxf-out-t-string 0 *end-tab* stream)))
@@ -38,7 +42,57 @@
 (defclass db-symbol-tr ( db-object )
   ((symbol-tr-name :accessor symbol-tr-name  :initarg :symbol-tr-name :initform "Undefined"    :documentation "Код   2. Имя таблицы")
    (symbol-tr-flag :accessor symbol-tr-flag  :initarg :symbol-tr-flag :initform 0              :documentation "Код  70. Стандартные флаги"))
-  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord"))
+  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-5926A569-3E40-4ED2-AE06-6ACCE0EFC813
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-5926A569-3E40-4ED2-AE06-6ACCE0EFC813
+
+Общие групповые коды записей таблицы обозначений (DXF)
+
+В следующей таблице приведены групповые коды, которые применяются ко всем записям таблицы обозначений в файлах DXF. 
+Обращаясь к таблице групповых кодов для объектов определенных типов, необходимо помнить, 
+что указанные здесь коды также могут присутствовать.
+
+Групповые коды, которые применяются ко всем записям таблицы обозначений
+|---------------+----------------------------------------------------------------------------------------------------|
+| Групповой код | Описание                                                                                           |
+|---------------+----------------------------------------------------------------------------------------------------|
+|            -1 | Приложение: имя объекта (изменяется при каждом открытии чертежа)                                   |
+|---------------+----------------------------------------------------------------------------------------------------|
+|             0 | Тип объекта (имя таблицы)                                                                          |
+|---------------+----------------------------------------------------------------------------------------------------|
+|             5 | Дескриптор (все, кроме DIMSTYLE)                                                                   |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           105 | Дескриптор (только таблица DIMSTYLE)                                                               |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           102 | Начало определенной приложением группы \"{имя_приложения\". Например, \"{ACAD_REACTORS\"           |
+|               | обозначает начало группы постоянных реакторов AutoCAD (необязательно)                              |
+|---------------+----------------------------------------------------------------------------------------------------|
+|         коды, | Коды и значения в пределах групп с кодом 102 определяются приложением (необязательно)              |
+|  определенные |                                                                                                    |
+|   приложением |                                                                                                    |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           102 | Конец группы, \"}\" (необязательно)                                                                |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           102 | \"{ACAD_REACTORS\" обозначает начало группы постоянных реакторов AutoCAD. Эта группа присутствует, |
+|               | только если постоянные реакторы были присоединены к данному объекту (необязательно)                |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           330 | Идентификатор/дескриптор символьного указателя на словарь владельца (необязательно)                |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           102 | Конец группы, \"}\" (необязательно)                                                                |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           102 | \"{ACAD_XDICTIONARY\" обозначает начало группы словаря расширений. Эта группа присутствует,        |
+|               | только если к данному объекту были присоединены постоянные реакторы (необязательно)                |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           360 | Идентификатор/дескриптор жесткой ссылки-владельца для владельца словаря (необязательно)            |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           102 | Конец группы, \"}\" (необязательно)                                                                |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           330 | Идентификатор/дескриптор символьного указателя на объект владельца                                 |
+|---------------+----------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbSymbolTableRecord)                                                           |
+|---------------+----------------------------------------------------------------------------------------------------|
+
+"))
 
 (defmethod dxf-out-text ((x db-symbol-tr) stream)
   (dxf-out-t-string 0 *db-symbol-tr-class-marker* stream))
@@ -78,9 +132,9 @@ APPID (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *db-block-class-marker* "BLOCK_RECORD")
+(defparameter *db-block-tr-class-marker* "BLOCK_RECORD")
 
-(defparameter *db-block-subclass-marker* "AcDbBlockTableRecord")
+(defparameter *db-block-tr-subclass-marker* "AcDbBlockTableRecord")
 
 (defclass db-block-tr (db-symbol-tr)
   ((block-tr-layout            :accessor block-tr-layout              :initarg :block-tr-layout            :initform nil                 :documentation "Код  340. Идентификатор/дескриптор жесткого указателя на связанный объект LAYOUT")
@@ -158,10 +212,10 @@ BLOCK_RECORD (DXF)
 "))
 
 (defmethod dxf-out-text ((x db-block-tr) stream)
-  (dxf-out-t-string 0 *db-block-class-marker* stream))
+  (dxf-out-t-string 0 *db-block-tr-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x db-block-tr) stream)
-  (dxf-out-t-string 100 *db-block-subclass-marker* stream)
+  (dxf-out-t-string 100 *db-block-tr-subclass-marker* stream)
   (let ((st-name (symbol-tr-name x))
 	(st-flag (symbol-tr-flag x))
 	(lay (block-tr-layout x))
@@ -412,14 +466,22 @@ DIMSTYLE (DXF)
 |---------------+-------------------------------------------------------------------------------------------------------|
 "))
 
+
+(defparameter *db-layer-tr-class-marker* "LAYER")
+
+(defparameter *db-layer-tr-subclass-marker* "AcDbLayerTableRecord")
+
+
 (defclass db-layer-tr (db-symbol-tr)
 ;;;;"AcDbLayerTableRecord"
-  ((layer-tr-color      :accessor layer-tr-color      :initarg :layer-tr-color      :initform 7              :documentation "Код  62. Номер цвета (если значение отрицательное, слой отключен)")
-   (layer-tr-ltype      :accessor layer-tr-ltype      :initarg :layer-tr-ltype      :initform "Continuous"   :documentation "Код   6. Имя типа линий")
-   (layer-tr-plottable  :accessor layer-tr-plottable  :initarg :layer-tr-plottable  :initform 1              :documentation "Код 290. Флаг печати. Если задано значение 0, этот слой не выводится на печать")
-   (layer-tr-lweight    :accessor layer-tr-lweight    :initarg :layer-tr-lweight    :initform 0.25           :documentation "Код 370. Значение из перечисления весов линии")
-   (layer-tr-plot-style :accessor layer-tr-plot-style :initarg :layer-tr-plot-style :initform nil            :documentation "Код 390. Идентификатор/дескриптор жесткого указателя на объект PlotStyleName")
-   (layer-tr-material   :accessor layer-tr-material   :initarg :layer-tr-material   :initform nil            :documentation "Код 347. Идентификатор/дескриптор жесткого указателя на объект материала"))
+  ((layer-tr-color         :accessor layer-tr-color        :initarg :layer-tr-color        :initform 7              :documentation "Код  62. Номер цвета (если значение отрицательное, слой отключен)")
+   (layer-tr-ltype         :accessor layer-tr-ltype        :initarg :layer-tr-ltype        :initform "Continuous"   :documentation "Код   6. Имя типа линий")
+   (layer-tr-plottable     :accessor layer-tr-plottable    :initarg :layer-tr-plottable    :initform 1              :documentation "Код 290. Флаг печати. Если задано значение 0, этот слой не выводится на печать")
+   (layer-tr-lweight       :accessor layer-tr-lweight      :initarg :layer-tr-lweight      :initform -3             :documentation "Код 370. Значение из перечисления весов линии")
+   (layer-tr-plot-style    :accessor layer-tr-plot-style   :initarg :layer-tr-plot-style   :initform nil            :documentation "Код 390. Идентификатор/дескриптор жесткого указателя на объект PlotStyleName")
+   (layer-tr-material      :accessor layer-tr-material     :initarg :layer-tr-material     :initform nil            :documentation "Код 347. Идентификатор/дескриптор жесткого указателя на объект материала")
+   (layer-tr-visual-style  :accessor layer-tr-visual-style :initarg :layer-tr-visual-style :initform nil            :documentation "Код 348? Идентификатор/дескриптор жесткого указателя на объект визуального стиля (необязательно)?")
+   )
   (:documentation "
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
@@ -462,6 +524,31 @@ LAYER (DXF)
 Слои, зависимые от внешних ссылок, выводятся при выполнении команды СОХРАНИТЬКАК. 
 Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
 " ))
+
+(defmethod dxf-out-text ((x db-layer-tr) stream)
+  (dxf-out-t-string 0 *db-layer-tr-class-marker* stream))
+
+(defmethod dxf-out-text :after ((x db-layer-tr) stream)
+  (dxf-out-t-string 100 *db-layer-tr-subclass-marker* stream)
+  (let ((st-name   (symbol-tr-name x))
+	(st-flag   (symbol-tr-flag x))
+	(l-color   (layer-tr-color x))
+        (l-ltype   (layer-tr-ltype x))
+	(l-lweight (layer-tr-lweight x))
+	(l-pstyle  (layer-tr-plot-style x))
+	(l-mat     (layer-tr-material x))
+	(l-vstyle  (layer-tr-visual-style x)))
+    (dxf-out-t-string  2 st-name   stream)
+    (dxf-out-t-int16  70 st-flag   stream)
+    (dxf-out-t        62 l-color   stream)
+    (dxf-out-t         6 l-ltype   stream)
+    (dxf-out-t       370 l-lweight stream)
+    (dxf-out-t       390 l-pstyle  stream)
+    (dxf-out-t       347 l-mat     stream)
+    (dxf-out-t       348 l-vstyle  stream)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass db-linetype-tr (db-symbol-tr)
   ((ltype-tr-standard-flag     :accessor ltype-tr-standard-flag     :initarg :ltype-tr-standard-flag       :initform 0              :documentation "Код  70. Стандартные значения флагов (кодовые битовые значения): 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки ; 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается; 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз, на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD. Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, записывающих файлы DXF)")

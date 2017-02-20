@@ -49,13 +49,26 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;; Table-Block
 (progn
   (defparameter *t-br*  (make-instance 'db-symbol-tbl :object-owner #x0 :object-handle #x1  :symbol-tbl-name "BLOCK_RECORD" :symbol-tbl-flag 1 ))
   (defparameter *m-s*   (make-instance 'db-block-tr   :object-handle #x1F :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Model_Space"  :block-tr-layout #x22 :block-tr-explodability 1 :block-tr-scalability  0))
   (defparameter *p-s*   (make-instance 'db-block-tr   :object-handle #xD6 :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Paper_Space"  :block-tr-layout #xD3 :block-tr-explodability 1 :block-tr-scalability  0))
   (defparameter *p-s-0* (make-instance 'db-block-tr   :object-handle #xD2 :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Paper_Space0" :block-tr-layout #xD7 :block-tr-explodability 1 :block-tr-scalability  0))
-  (setf (symbol-tbl-items *t-br*)
-	(append (symbol-tbl-items *t-br*)
-		(list *m-s* *p-s* *p-s-0*))))
+  (mapc #'(lambda (el) (push el (symbol-tbl-items *t-br*))) (list *m-s* *p-s* *p-s-0*))
+  (dxf-out-text *t-br* t))
 
-(dxf-out-text *t-br* t)
+
+
+;;;; Table-Layer
+(progn
+  (defparameter *t-la* (make-instance 'db-symbol-tbl :object-owner #x0 :object-handle #x2  :symbol-tbl-name "LAYER" :symbol-tbl-flag 1 ))
+  (defparameter *la-0* (make-instance 'db-layer-tr
+				      :object-handle #x10 :object-owner #x2
+				      :symbol-tr-name "0" :symbol-tr-flag 0
+				      :layer-tr-color 7 :layer-tr-ltype "Continuous"
+				      :layer-tr-lweight -3 :layer-tr-plot-style #xF :layer-tr-material #xEE :layer-tr-visual-style #x0))
+  (mapc #'(lambda (el) (push el (symbol-tbl-items *t-la*))) (list *la-0*))
+  (dxf-out-text *t-la* t))
+
+
