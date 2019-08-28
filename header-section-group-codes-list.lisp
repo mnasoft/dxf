@@ -296,6 +296,8 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (dxf-out-text *hdr* t)
 
+(defparameter *hdr-min* (make-instance 'db-header :header-vars *h-vars-list-min* ))
 
+(dxf-out-text *hdr-min* t)
 
 

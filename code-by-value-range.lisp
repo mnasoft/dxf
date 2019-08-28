@@ -76,7 +76,8 @@
        (progn
 	 (put-u2 code)
 	 (write-sequence *byte-aray-2* stream)
-	 (put-u8 (ie3fp:encode-ieee-double (coerce x 'double-float)))
+;;;;	 (put-u8 (ie3fp:encode-ieee-double (coerce x 'double-float)))
+	 (put-u8 (ieee-floats:encode-float64 (coerce x 'double-float)))	 
 	 (write-sequence *byte-aray-8* stream))
        (break "dxf-out-b-double: (numberp x) : code=~A x=~A" code x)))
 

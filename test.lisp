@@ -3,7 +3,7 @@
 (in-package #:dxf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defparameter *dxf-path* "~/quicklisp/local-projects/clisp/dxf/dxf/")
+(defparameter *dxf-path* "~/quicklisp/local-projects/acad/dxf/dxf/")
 
 (defparameter *model-space*
   (list
@@ -19,23 +19,23 @@
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;;(make-instance 'Db-Ellipse)
    ;;(make-instance 'Db-Ellipse :center (vector 10 20 0) :entity-color 3 :entity-layer "Ellipses" :major-axis (vector 2 0 0) :radius-ratio 0.5D0 :start-param (* *degree-to-radian* 120) :end-param (* *degree-to-radian* 390))
-   ;;(make-instance 'Db-Ray)
+   (make-instance 'Db-Ray)
    ;;(make-instance 'Db-Ray :base-point (vector 51 65 0) :unit-dir (vector 1 0 0))
    ))
 
 (defun test-bin ()
   (defparameter *o* (open (concatenate 'string *dxf-path* "12345-bin.dxf" )  :direction :output :element-type 'unsigned-byte :if-exists :supersede))
-  (dxf-out-b-header *o*) (dxf-out-b-string 0 *section* *o*) (dxf-out-b-string 2 *entities* *o*)
+  (dxf-out-b-header *o*) (dxf-out-b-string 0 *section* *o*) (dxf-out-b-string 2 *section-entities* *o*)
   (mapc #'(lambda (el) (dxf-out-binary el *o*)) *model-space* )
   (dxf-out-b-string 0 *endsec* *o*)
   (dxf-out-b-string 0 *eof* *o*)
   (close *o*))
 
-(test-bin)
+(test-bin) 
 
 (defun test-txt ()
   (defparameter *o* (open (concatenate 'string *dxf-path* "12345-txt.dxf" )  :direction :output :if-exists :supersede))
-  (dxf-out-t-header *o*) (dxf-out-t-string 0 *section* *o*) (dxf-out-t-string 2 *entities* *o*)
+  (dxf-out-t-header *o*) (dxf-out-t-string 0 *section* *o*) (dxf-out-t-string 2 *section-entities* *o*)
   (mapc #'(lambda (el) (dxf-out-text el *o*)) *model-space* )
   (dxf-out-t-string 0 *endsec* *o*)
   (dxf-out-t-string 0 *eof* *o*)
@@ -72,3 +72,43 @@
   (dxf-out-text *t-la* t))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun dxf-sort-handles (fname)
+  "Выборка handles из dxf-файла.
+
+Пример использования:
+@begin[lang=lisp](code)
+ (dxf-sort-handles \"d:/PRG/msys32/home/namatv/quicklisp/local-projects/acad/dxf/dxf/Drawing1.dxf\")
+@end(code)
+"
+
+  (with-open-file (fff fname)
+    (do* ((lst nil)
+	  (code (parse-integer (string-trim "" (read-line fff))) (parse-integer (string-trim "" (read-line fff)))) 
+	  (str (string-trim "" (read-line fff)) (string-trim "" (read-line fff))))
+	 ((and (= code 0) (string= str "EOF"))
+	  (sort 
+	   (mapcar 
+	    #'(lambda (el)
+		(list (first el) (second el) (parse-integer (second el) :radix 16) ))
+	    lst) #'<  :key #'third))
+      (when (= code 5) (push (list code str) lst)))))
+
+(defun dxf-sort-handles (fname)
+  "Выборка handles из dxf-файла."
+  (with-open-file (fff fname)
+    (do* ((lst nil)
+	  (code (parse-integer (string-trim "" (read-line fff))) (parse-integer (string-trim "" (read-line fff)))) 
+	  (str (string-trim "" (read-line fff)) (string-trim "" (read-line fff))))
+	 ((and (= code 0) (string= str "EOF"))
+	  (sort 
+	   (mapcar 
+	    #'(lambda (el)
+		(list (first el) (second el) (parse-integer (second el) :radix 16) ))
+	    lst) #'<  :key #'third))
+      (when (= code 5) (push (list code str) lst)))))
+
+
+
+(dxf::
