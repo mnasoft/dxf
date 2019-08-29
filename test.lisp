@@ -111,6 +111,8 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Тестирование dxf-in-t-sections.lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *s*
   (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean.dxf")
@@ -122,7 +124,32 @@
 
 (dxf-out-text (make-instance 'db-ray) t)
 
-(defparameter *LT-2-metric*
-  (with-open-file (stream "d:/PRG/msys32/home/namatv/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf" :direction :output :if-exists :supersede)
-    (dxf-in-t-split-by-sections stream)))
+(progn
+  (defparameter *lt-2-metric*
+    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf" )
+      (dxf-in-t-split-by-sections stream)))
 
+  (defparameter *lt-2000-metric*
+    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2000-metric.dxf" )
+      (dxf-in-t-split-by-sections stream)))
+
+  (defparameter *lt-2004-metric*
+    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2004-metric.dxf" )
+      (dxf-in-t-split-by-sections stream)))
+
+  (defparameter *lt-2007-metric*
+    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2007-metric.dxf" )
+      (dxf-in-t-split-by-sections stream)))
+
+  (defparameter *lt-2010-metric*
+    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2010-metric.dxf" )
+      (dxf-in-t-split-by-sections stream)))
+
+  (defparameter *lt-2013-metric*
+    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2013-metric.dxf" )
+      (dxf-in-t-split-by-sections stream)))
+
+  (defparameter *autocad-2018-metric*
+    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/AutoCAD-2018-metric.dxf" )
+      (dxf-in-t-split-by-sections stream)))
+  )
