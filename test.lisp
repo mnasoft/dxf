@@ -110,5 +110,19 @@
       (when (= code 5) (push (list code str) lst)))))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(dxf::
+(defparameter *s*
+  (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean.dxf")
+    (dxf-in-t-split-by-sections stream)))
+
+(with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean-my.dxf" :direction :output :if-exists :supersede)
+  (dxf-out-by-sections *s* stream))
+
+
+(dxf-out-text (make-instance 'db-ray) t)
+
+(defparameter *LT-2-metric*
+  (with-open-file (stream "d:/PRG/msys32/home/namatv/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf" :direction :output :if-exists :supersede)
+    (dxf-in-t-split-by-sections stream)))
+

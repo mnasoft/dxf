@@ -1,4 +1,4 @@
-;;;; test-2.lisp
+;;;; dxf-in-t-sections.lisp
 
 (in-package #:dxf)
 
@@ -167,15 +167,6 @@
 	sections)
   (dxf-out-t-pairs 0 *eof* stream))
 
-(defparameter *s*
-  (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean.dxf")
-    (dxf-in-t-split-by-sections stream)))
-
-(with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean-my.dxf" :direction :output :if-exists :supersede)
-  (dxf-out-by-sections *s* stream))
-
-(dxf-out-text (make-instance 'db-ray) t)
-
 (defun incf-handseed (sections)
   (1- (incf (cadadr (member '(9 "$HANDSEED")
 			    (assoc '(2 "HEADER") sections :test #'equal)
@@ -186,28 +177,5 @@
 		  (assoc '(2 "HEADER") sections :test #'equal)
 		  :test #'equal)))
 
-  0
-RAY
-100
-AcDbEntity
-  8
-0
-100
-AcDbRay
- 10
-0.000000000000
- 20
-0.000000000000
- 30
-0.000000000000
- 11
-1.000000000000
- 21
-0.000000000000
- 31
-0.000000000000
-NIL
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *LT-2-metric*
-  (with-open-file (stream "d:/PRG/msys32/home/namatv/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf" :direction :output :if-exists :supersede)
-    (dxf-in-t-split-by-sections stream)))

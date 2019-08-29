@@ -18,6 +18,7 @@
 	       (:file "header-section-group-codes-list")
 	       (:file "db-classes")
 	       (:file "db-symbol-table-record-classes")
+	       (:file "dxf-in-t-sections.lisp")
 	       (:file "test-color")
 	       
 ;	       (:file "test")
