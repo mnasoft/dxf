@@ -2,98 +2,16 @@
 
 (in-package #:dxf)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defparameter *dxf-path* "d:/PRG/msys/home/namatv/quicklisp/local-projects/acad/dxf/dxf/")
-
-(defparameter *model-space*
-  (list
-   (make-instance 'db-point)
-   (make-instance 'db-point :position-point (vector 35 45 15) :ecs-rotation (/ pi 6) :entity-layer "Points" :entity-color 6 :normal (vector 0 1 0))
-   (make-instance 'db-line )
-   (make-instance 'db-line :start-point (vector 10. 30. 50.0) :end-point (vector 20. 40. 10.0) :entity-layer "Lines" :entity-color 3)
-   (make-instance 'db-circle)
-   (make-instance 'db-circle :center (vector 51 65 0) :radius 48.6 :entity-color 75 :entity-layer "Circles" :entity-color 2)
-   (make-instance 'db-arc)
-   (make-instance 'db-arc :center (vector 25 15 0) :radius 18.6 :entity-color 70 :start-angle (* 1.9999 pi) :end-angle (* 3.999 pi))
-   (make-instance 'db-text :position-point (vector 30 20 0) :rotation (* *degree-to-radian* 120) :text-string "This is the TEXT string!" :width-factor 1/3 :oblique (* *degree-to-radian* 15))
-   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   ;;(make-instance 'Db-Ellipse)
-   ;;(make-instance 'Db-Ellipse :center (vector 10 20 0) :entity-color 3 :entity-layer "Ellipses" :major-axis (vector 2 0 0) :radius-ratio 0.5D0 :start-param (* *degree-to-radian* 120) :end-param (* *degree-to-radian* 390))
-   ;;(make-instance 'Db-Ray)
-   ;;(make-instance 'Db-Ray :base-point (vector 51 65 0) :unit-dir (vector 1 0 0))
-   ))
-
-(defun test-bin ()
-  (defparameter *o* (open (concatenate 'string *dxf-path* "12345-bin.dxf" )  :direction :output :element-type 'unsigned-byte :if-exists :supersede))
-  (dxf-out-b-header *o*) (dxf-out-b-string 0 *section* *o*) (dxf-out-b-string 2 *entities* *o*)
-  (mapc #'(lambda (el) (dxf-out-binary el *o*)) *model-space* )
-  (dxf-out-b-string 0 *endsec* *o*)
-  (dxf-out-b-string 0 *eof* *o*)
-  (close *o*))
-
-(test-bin)
-
-(defun test-txt ()
-  (defparameter *o* (open (concatenate 'string *dxf-path* "12345-txt.dxf" )  :direction :output :if-exists :supersede))
-  (dxf-out-t-header *o*) (dxf-out-t-string 0 *section* *o*) (dxf-out-t-string 2 *entities* *o*)
-  (mapc #'(lambda (el) (dxf-out-text el *o*)) *model-space* )
-  (dxf-out-t-string 0 *endsec* *o*)
-  (dxf-out-t-string 0 *eof* *o*)
-  (close *o*))
-
-(test-txt)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование для секции заголовка
-(let ((h (make-instance 'Db-Header))) (header-vars h) (dxf-out-text h t))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;; Table-Block
-(progn
-  (defparameter *t-br*  (make-instance 'db-symbol-tbl :object-owner #x0 :object-handle #x1  :symbol-tbl-name "BLOCK_RECORD" :symbol-tbl-flag 1 ))
-  (defparameter *m-s*   (make-instance 'db-block-tr   :object-handle #x1F :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Model_Space"  :block-tr-layout #x22 :block-tr-explodability 1 :block-tr-scalability  0))
-  (defparameter *p-s*   (make-instance 'db-block-tr   :object-handle #xD6 :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Paper_Space"  :block-tr-layout #xD3 :block-tr-explodability 1 :block-tr-scalability  0))
-  (defparameter *p-s-0* (make-instance 'db-block-tr   :object-handle #xD2 :object-owner #x1 :symbol-tr-flag 0 :symbol-tr-name "*Paper_Space0" :block-tr-layout #xD7 :block-tr-explodability 1 :block-tr-scalability  0))
-  (mapc #'(lambda (el) (push el (symbol-tbl-items *t-br*))) (list *m-s* *p-s* *p-s-0*))
-  (dxf-out-text *t-br* t))
-
-
-
-;;;; Table-Layer
-(progn
-  (defparameter *t-la* (make-instance 'db-symbol-tbl :object-owner #x0 :object-handle #x2  :symbol-tbl-name "LAYER" :symbol-tbl-flag 1 ))
-  (defparameter *la-0* (make-instance 'db-layer-tr
-				      :object-handle #x10 :object-owner #x2
-				      :symbol-tr-name "0" :symbol-tr-flag 0
-				      :layer-tr-color 7 :layer-tr-ltype "Continuous"
-				      :layer-tr-lweight -3 :layer-tr-plot-style #xF :layer-tr-material #xEE :layer-tr-visual-style #x0))
-  (mapc #'(lambda (el) (push el (symbol-tbl-items *t-la*))) (list *la-0*))
-  (dxf-out-text *t-la* t))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun read-code-value (i-stream)
-  
-  )
-
-
-
-
 (defun read-dxf-code-value-t (is-dxf-t)
+  "Считывает пару:
+@begin(list)
+ @item(dxf-код - в виде целого значения;)
+ @item(значение, присоединенное к коду dxf - в виде строки.)
+@end(list)
+"
   (let ((code (parse-integer (string-trim "" (read-line is-dxf-t))))
 	(str  (string-trim "" (read-line is-dxf-t))))
-  (list code  str)
-  ))
-
-(read-dxf-code-value-t *is* )
-
-(defparameter *str* (second (read-dxf-code-value-t *is* )))
-
-(read-from-string *str*)
-
-(require :mnas-string )
+  (list code  str)))
 
 (defun read-from-string-string (str) str)
 
@@ -166,29 +84,128 @@
     ((<= 1010 code 1059) (read-from-string-double str)) ;;;; Double-precision floating-point value
     ((<= 1060 code 1070) (read-from-string-int16  str)) ;;;; 16-bit integer value
     ((= 1071 code)       (read-from-string-int32  str)) ;;;; 32-bit integer value
-    (t (error "dxf-in-t-read-from-string code=~a str=~a~%Ucnoun code." code str  ))
-    ))
+    (t (error "dxf-in-t-read-from-string code=~a str=~a~%Ucnoun code." code str  ))))
 
 (defun dxf-in-t-pair (stream)
-  ""
+  "Считываете одной dxf пары - ключ и значение из потока stream.
+Возврвщает в виде списка."
   (let* ((code-string (read-dxf-code-value-t stream))
 	 (code (first code-string ))
 	 (str (second code-string )))
     (list code (dxf-in-t-read-from-string code str))))
 
-
-
-(defun dxf-in-t (fname)
-  (with-open-file (is fname)
-    (let ((pairs-lst nil))
-      (do ((pair (dxf-in-t-pair is) (dxf-in-t-pair is)))
+(defun dxf-in-t-pairs (stream)
+      (let ((pairs-lst nil))
+      (do ((pair (dxf-in-t-pair stream) (dxf-in-t-pair stream)))
 	  ((and (= 0 (first pair )) (string= (second pair) "EOF")) (nreverse pairs-lst))
-	(push pair pairs-lst)))))
+	(push pair pairs-lst))))
 
-(dxf-in-t "d:/PRG/msys/home/namatv/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean.dxf")
+(defun dxf-in-t-split-by-sections (stream)
+  (let ((pairs-list (dxf-in-t-pairs stream))
+	(sections nil)
+	(section  nil))
+    (dolist (i pairs-list (nreverse sections))
+      (push i section)
+      (when (equal i '(0 "ENDSEC"))
+	(push (cdr (nreverse (cdr section))) sections)
+	(setf section nil)))))
 
-(defun dxf-in-t-sections (pairs-list)
-  (
-   (0 "ENDSEC")
+(defun dxf-out-t-pairs (code value stream)
+  ""
+  (cond
+    ((or (<= 0 code 4)
+	 (<= 6 code 9))  (dxf-out-t-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
+    ((=  5  code)        (dxf-out-t-hex    code value stream))
+    ((<= 10 code 19)     (dxf-out-t-double code value stream)) ;;;; Double precision 3D point value
+    ((<= 20 code 39)     (dxf-out-t-double code value stream)) 
+    ((<= 40 code 59)     (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 60 code 79)     (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 90 code 99)     (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
+    ((= 100 code)        (dxf-out-t-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((= 102 code)        (dxf-out-t-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((= 105 code)        (dxf-out-t-hex    code value stream)) ;;;; String representing hexadecimal (hex) handle value
+    ((<= 110 code 119)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
+    ((<= 120 code 129)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
+    ((<= 130 code 139)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
+    ((<= 140 code 149)   (dxf-out-t-double code value stream)) ;;;; Double precision scalar floating-point value
+    ((<= 160 code 169)   (dxf-out-t-int64  code value stream)) ;;;; 64-bit integer value
+    ((<= 170 code 179)   (dxf-out-t-int64  code value stream)) ;;;; 16-bit integer value
+    ((<= 210 code 239)   (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 270 code 279)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 280 code 289)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 290 code 299)   (dxf-out-t-int16  code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
+    ((<= 300 code 309)   (dxf-out-t-string code value stream)) ;;;; Arbitrary text string
+    ((<= 310 code 319)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex value of b chunk
+    ((<= 320 code 329)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
+    ((<= 330 code 369)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex object IDs
+    ((<= 370 code 379)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 380 code 389)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 390 code 399)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
+    ((<= 400 code 409)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 410 code 419)   (dxf-out-t-string code value stream)) ;;;; String
+    ((<= 420 code 429)   (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
+    ((<= 430 code 439)   (dxf-out-t-string code value stream)) ;;;; String
+    ((<= 440 code 449)   (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
+    ((<= 450 code 459)   (dxf-out-t-int64  code value stream)) ;;;; Long
+    ((<= 460 code 469)   (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 470 code 479)   (dxf-out-t-string code value stream)) ;;;; String
+    ((<= 480 code 481)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
+    ((= 999 code)        (dxf-out-t-string code value stream)) ;;;; string)
+    ((<= 1000 code 1009) (dxf-out-t-string code value stream)) ;;;; String (same limits as indicated with 0-9 code range)
+    ((<= 1010 code 1059) (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 1060 code 1070) (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
+    ((= 1071 code)       (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
+    (t (error "dxf-out-t-pairs code=~a str=~a~%Ucnoun code." code value))))
 
-   (mapc 
+(defun dxf-out-by-sections (sections stream)
+  (mapc #'(lambda (sectoin)
+	    (dxf-out-t-pairs 0 *section* stream)
+	    (mapc #'(lambda (el)
+		      (dxf-out-t-pairs (first el) (second el) stream))
+		  sectoin)
+	    (dxf-out-t-pairs 0 *endsec* stream))
+	sections)
+  (dxf-out-t-pairs 0 *eof* stream))
+
+(defparameter *s*
+  (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean.dxf")
+    (dxf-in-t-split-by-sections stream)))
+
+(with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean-my.dxf" :direction :output :if-exists :supersede)
+  (dxf-out-by-sections *s* stream))
+
+(dxf-out-text (make-instance 'db-ray) t)
+
+(defun incf-handseed (sections)
+  (1- (incf (cadadr (member '(9 "$HANDSEED")
+			    (assoc '(2 "HEADER") sections :test #'equal)
+			    :test #'equal)))))
+
+(defun handseed (sections)
+  (cadadr (member '(9 "$HANDSEED")
+		  (assoc '(2 "HEADER") sections :test #'equal)
+		  :test #'equal)))
+
+  0
+RAY
+100
+AcDbEntity
+  8
+0
+100
+AcDbRay
+ 10
+0.000000000000
+ 20
+0.000000000000
+ 30
+0.000000000000
+ 11
+1.000000000000
+ 21
+0.000000000000
+ 31
+0.000000000000
+NIL
+
+
