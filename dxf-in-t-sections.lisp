@@ -21,7 +21,10 @@
 
 (defun read-from-string-int64 (str) (parse-integer str))
 
-(defun read-from-string-hex (str) (parse-integer str :radix 16))
+(defun read-from-string-hex   (str)
+  (if (string/= str "")
+      (parse-integer str :radix 16)
+      0))
 
 (defun read-from-string-double (str)
   "Выполняет чтение из строки вещественного числа.
@@ -41,6 +44,7 @@
 
 
 (defun dxf-in-t-read-from-string (code str)
+  (format t "~A ~A~%" code str)
   (cond
     ((or (<= 0 code 4)
 	 (<= 6 code 9))  (read-from-string-string str)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
@@ -51,6 +55,7 @@
     ((<= 60 code 79)     (read-from-string-int16  str)) ;;;; 16-bit integer value
     ((<= 90 code 99)     (read-from-string-int32  str)) ;;;; 32-bit integer value
     ((= 100 code)        (read-from-string-string str)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((= 101 code)        (read-from-string-string str)) ;;;; ACDSRECORD
     ((= 102 code)        (read-from-string-string str)) ;;;; String (255-character maximum; less for Unicode strings)
     ((= 105 code)        (read-from-string-hex    str)) ;;;; String representing hexadecimal (hex) handle value
     ((<= 110 code 119)   (read-from-string-double str)) ;;;; Double precision floating-point value
@@ -122,6 +127,7 @@
     ((<= 60 code 79)     (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 90 code 99)     (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
     ((= 100 code)        (dxf-out-t-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((= 101 code)        (dxf-out-t-string code value stream :max-octet-length 255)) 
     ((= 102 code)        (dxf-out-t-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
     ((= 105 code)        (dxf-out-t-hex    code value stream)) ;;;; String representing hexadecimal (hex) handle value
     ((<= 110 code 119)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
@@ -166,6 +172,8 @@
 	    (dxf-out-t-pairs 0 *endsec* stream))
 	sections)
   (dxf-out-t-pairs 0 *eof* stream))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun incf-handseed (sections)
   (1- (incf (cadadr (member '(9 "$HANDSEED")

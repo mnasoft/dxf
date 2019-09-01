@@ -890,3 +890,4 @@ ELLIPSE (DXF)
 ;;;;    ./dbmtext.h:class AcDbMText: public  AcDbEntity
 ;;;;    ./dbregion.h:class AcDbRegion: public  AcDbEntity
 ;;;;    ./dbsol3d.h:class AcDb3dSolid: public  AcDbEntity
+

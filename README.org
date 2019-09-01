@@ -14,6 +14,21 @@ This is the stub README.txt for the "dxf" project.
 **** Общие групповые коды записей таблицы обозначений (DXF)
 *** APPID (DXF)
 *** BLOCK_RECORD (DXF)
+| Group code | Description                                                                                                                                                                                                                                                                                                                                                                                               |
+|------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        100 | Subclass marker (AcDbBlockTableRecord)                                                                                                                                                                                                                                                                                                                                                                    |
+|          2 | Block name                                                                                                                                                                                                                                                                                                                                                                                                |
+|        340 | Hard-pointer ID/handle to associated LAYOUT object                                                                                                                                                                                                                                                                                                                                                        |
+|         70 | Block insertion units.                                                                                                                                                                                                                                                                                                                                                                                    |
+|        280 | Block explodability                                                                                                                                                                                                                                                                                                                                                                                       |
+|        281 | Block scalability                                                                                                                                                                                                                                                                                                                                                                                         |
+|        310 | DXF: Binary data for bitmap preview (optional)                                                                                                                                                                                                                                                                                                                                                            |
+|       1001 | Xdata application name “ACAD” (optional)                                                                                                                                                                                                                                                                                                                                                                  |
+|       1000 | Xdata string data “DesignCenter Data” (optional)                                                                                                                                                                                                                                                                                                                                                          |
+|       1002 | Begin xdata “{“ (optional)                                                                                                                                                                                                                                                                                                                                                                                |
+|       1070 | Autodesk Design Center version number                                                                                                                                                                                                                                                                                                                                                                     |
+|       1070 | Insert units: 0 = Unitless 1 = Inches 2 = Feet 3 = Miles 4 = Millimeters 5 = Centimeters 6 = Meters 7 = Kilometers 8 = Microinches 9 = Mils 10 = Yards 11 = Angstroms 12 = Nanometers 13 = Microns 14 = Decimeters 15 = Decameters 16 = Hectometers 17 = Gigameters 18 = Astronomical units 19 = Light years 20 = Parsecs 21 = US Survey Feet 22 = US Survey Inch 23 = US Survey Yard 24 = US Survey Mile |
+|       1002 | End xdata “}“                                                                                                                                                                                                                                                                                                                                                                                             |
 *** DIMSTYLE (DXF)
  
  The following group codes apply to DIMSTYLE symbol table entries.
@@ -1283,6 +1298,751 @@ AutoCAD используются различные форматы файлов 
 *** Файлы библиотеки слайдов (DXF)
 
 ** Проблемы расширенного формата DXF 
+
+* main
+#+BEGIN_SRC shell :results output 
+find "/d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc" -name "*.h" | xargs grep -n -i "AcDbBlockTable" | grep -i "public" 
+#+END_SRC
+
+#+RESULTS:
+: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:76:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
+: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:930:class AcDbBlockTable: public AcDbSymbolTable
+: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:1403:class AcDbBlockTableIterator : public AcDbSymbolTableIterator
+
+#+name:dot-eg-table
+| AcRxObject      | AcGiDrawable    |
+| AcRxObject      | AcHeapOperators |
+| AcGiDrawable    | AcDbObject      |
+| AcHeapOperators | AcDbObject      |
+| AcDbObject      | AcDbSymbolTable |
+| AcDbSymbolTable | AcDbBlockTable  |
+
+#+name: make-dot
+#+BEGIN_SRC emacs-lisp :var table=dot-eg-table :results output :exports none
+  (mapcar #'(lambda (x)
+	      (princ (format "%s [shape = \"box\"];\n" (first x)))
+	      (princ (format "%s [shape = \"box\"];\n" (second x)))
+	    
+	      (princ (format "%s -> %s;\n" (first x) (second x))))
+	  table)
+
+#+END_SRC
+
+#+BEGIN_SRC dot :file ./images/test-dot.png :var input=make-dot :exports results
+digraph {
+$input
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:./images/test-dot.png]]
+
+
+* AcDb
+** 1
+./AcDbArrayGripAppData.h: AcDbArrayGripAppData <- AcRxObject
+./AcDbAssoc2dConstraintGroup.h: AcDbAssoc2dConstraintGroup <- AcDbAssocAction
+./AcDbAssocAction.h: AcDbAssocAction <- AcDbObject
+./AcDbAssocActionBody.h: AcDbAssocActionBody <- AcDbObject
+./AcDbAssocActionParam.h: AcDbAssocActionParam <- AcDbObject
+./AcDbAssocArrayActionBody.h: AcDbAssocArrayActionBody <- AcDbAssocParamBasedActionBody
+./AcDbAssocArrayCommonParameters.h: AcDbAssocArrayCommonParameters <- AcDbAssocArrayParameters
+./AcDbAssocArrayItem.h: AcDbAssocArrayItem <- AcRxObject
+./AcDbAssocArrayModifyActionBody.h: AcDbAssocArrayModifyActionBody <- AcDbAssocArrayActionBody
+./AcDbAssocArrayParameters.h: AcDbAssocArrayParameters <- AcRxObject
+./AcDbAssocArrayPathParameters.h: AcDbAssocArrayPathParameters <- AcDbAssocArrayCommonParameters
+./AcDbAssocArrayPolarParameters.h: AcDbAssocArrayPolarParameters <- AcDbAssocArrayCommonParameters
+./AcDbAssocArrayRectangularParameters.h: AcDbAssocArrayRectangularParameters <- AcDbAssocArrayCommonParameters
+./AcDbAssocAsmBodyActionParam.h: AcDbAssocAsmBodyActionParam <- AcDbAssocActionParam
+./AcDbAssocBlendSurfaceActionBody.h: AcDbAssocBlendSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocCompoundActionParam.h: AcDbAssocCompoundActionParam <- AcDbAssocActionParam
+./AcDbAssocDependency.h: AcDbAssocDependency <- AcDbObject
+./AcDbAssocDependencyBody.h: AcDbAssocDependencyBody <- AcDbObject
+./AcDbAssocDependencyPE.h: AcDbAssocDependencyPE <- AcRxObject
+./AcDbAssocDimDependencyBody.h: AcDbAssocDimDependencyBody <- AcDbAssocDimDependencyBodyBase
+./AcDbAssocDimDependencyBodyBase.h: AcDbAssocDimDependencyBodyBase <- AcDbAssocDependencyBody
+./AcDbAssocEdgeActionParam.h: AcDbAssocEdgeActionParam <- AcDbAssocActionParam
+./AcDbAssocEdgeChamferActionBody.h: AcDbAssocEdgeChamferActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocEdgeFilletActionBody.h: AcDbAssocEdgeFilletActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocEdgePersSubentId.h: AcDbAssocEdgePersSubentId <- AcDbAssocPersSubentId
+./AcDbAssocExtendSurfaceActionBody.h: AcDbAssocExtendSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocExtrudedSurfaceActionBody.h: AcDbAssocExtrudedSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocFaceActionParam.h: AcDbAssocFaceActionParam <- AcDbAssocActionParam
+./AcDbAssocFilletSurfaceActionBody.h: AcDbAssocFilletSurfaceActionBody <- AcDbAssocSurfaceActionBody
+./AcDbAssocGeomDependency.h: AcDbAssocGeomDependency <- AcDbAssocDependency
+./AcDbAssocIndexPersSubentId.h: AcDbAssocIndexPersSubentId <- AcDbAssocPersSubentId
+./AcDbAssocIndexPersSubentId.h: AcDbAssocExternalIndexPersSubentId <- AcDbAssocIndexPersSubentId
+./AcDbAssocIndexPersSubentId.h: AcDbAssocObjectAndIndexPersSubentId <- AcDbAssocIndexPersSubentId
+./AcDbAssocLoftedSurfaceActionBody.h: AcDbAssocLoftedSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocManager.h: AcDbAssocManager <- AcDbObject
+./AcDbAssocNetwork.h: AcDbAssocNetwork <- AcDbAssocAction
+./AcDbAssocNetworkSurfaceActionBody.h: AcDbAssocNetworkSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocObjectActionParam.h: AcDbAssocObjectActionParam <- AcDbAssocActionParam
+./AcDbAssocOffsetSurfaceActionBody.h: AcDbAssocOffsetSurfaceActionBody <- AcDbAssocSurfaceActionBody
+./AcDbAssocParamBasedActionBody.h: AcDbAssocParamBasedActionBody <- AcDbAssocActionBody
+./AcDbAssocPatchSurfaceActionBody.h: AcDbAssocPatchSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocPathActionParam.h: AcDbAssocPathActionParam <- AcDbAssocCompoundActionParam
+./AcDbAssocPathBasedSurfaceActionBody.h: AcDbAssocPathBasedSurfaceActionBody <- AcDbAssocSurfaceActionBody
+./AcDbAssocPersSubentId.h: AcDbAssocPersSubentId <- AcRxObject
+./AcDbAssocPersSubentIdPE.h: AcDbAssocPersSubentIdPE <- AcRxObject
+./AcDbAssocPlaneSurfaceActionBody.h: AcDbAssocPlaneSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocRevolvedSurfaceActionBody.h: AcDbAssocRevolvedSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocSimplePersSubentId.h: AcDbAssocSimplePersSubentId <- AcDbAssocPersSubentId
+./AcDbAssocSingleEdgePersSubentId.h: AcDbAssocSingleEdgePersSubentId <- AcDbAssocPersSubentId
+./AcDbAssocSurfaceActionBody.h: AcDbAssocSurfaceActionBody <- AcDbAssocParamBasedActionBody
+./AcDbAssocSweptSurfaceActionBody.h: AcDbAssocSweptSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocTrimSurfaceActionBody.h: AcDbAssocTrimSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocValueDependency.h: AcDbAssocValueDependency <- AcDbAssocDependency
+./AcDbAssocValueProviderPE.h: AcDbAssocValueProviderPE <- AcRxObject
+./AcDbAssocVariable.h: AcDbAssocVariable <- AcDbAssocAction
+./AcDbAssocVertexActionParam.h: AcDbAssocVertexActionParam <- AcDbAssocActionParam
+./AcDbCompoundObjectId.h: AcDbCompoundObjectId <- AcRxObject
+./AcDbCompoundObjectId.h: AcDbParentTransformOfChildPE <- AcRxObject
+./AcDbGeomRef.h: AcDbGeomRef <- AcRxObject
+./AcDbGeomRef.h: AcDbSubentRef <- AcDbGeomRef
+./AcDbGeomRef.h: AcDbFaceRef <- AcDbSubentRef
+./AcDbGeomRef.h: AcDbEdgeRef <- AcDbSubentRef
+./AcDbGeomRef.h: AcDbVertexRef <- AcDbSubentRef
+./AcDbGeomRef.h: AcDbPathRef <- AcDbGeomRef
+./AcDbGeomRef.h: AcDbVectorRef <- AcDbGeomRef
+./AcDbGeomRef.h: AcDbCoordSystemRef <- AcDbGeomRef
+./AcDbGeoPositionMarker.h: AcDbGeoPositionMarker <- AcDbEntity
+./AcDbLMgr.h: AcDbLayoutManager <- AcRxObject 
+./AcDbPointCloudColorMap.h: AcDbPointCloudColorMap <- AcDbObject
+./AcDbPointCloudDefEx.h: AcDbPointCloudDefEx <- AcDbObject
+./AcDbPointCloudDefEx.h: AcDbPointCloudDefReactorEx <- AcDbObject
+./AcDbPointCloudEx.h: AcDbPointCloudEx <- AcDbEntity
+./AcExplicitConstr.h: AcExplicitConstraint <- AcGeomConstraint
+./AcExplicitConstr.h: AcDistanceConstraint <- AcExplicitConstraint
+./AcExplicitConstr.h: AcAngleConstraint <- AcExplicitConstraint 
+./AcExplicitConstr.h: Ac3PointAngleConstraint <- AcAngleConstraint 
+./AcExplicitConstr.h: AcRadiusDiameterConstraint <- AcExplicitConstraint
+./AcGeomConstraint.h: AcGeomConstraint <- AcConstraintGroupNode
+./AcGeomConstraint.h: AcHelpParameter <- AcConstraintGroupNode
+./AcGeomConstraint.h: AcCompositeConstraint <- AcGeomConstraint
+./acgi.h: AcGiEdgeData <- AcGiParameter 
+./acgi.h: AcGiFaceData <- AcGiParameter 
+./acgi.h: AcGiVertexData <- AcGiParameter 
+./acgi.h: AcGiFill <- AcRxObject
+./acgi.h: AcGiHatchPattern <- AcGiFill
+./acgi.h: AcGiGradientFill <- AcGiFill
+./acgidrawstream.h: AcGiDrawStream <- AcGiDrawable
+./AcGiEnvironment.h: AcGiSolidBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiGradientBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiImageBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiGroundPlaneBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiSkyBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiIBLBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiRenderEnvironmentTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiRenderSettingsTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiMentalRayRenderSettingsTraits <- AcGiRenderSettingsTraits
+./AcGiEnvironment.h: AcGiRapidRTRenderSettingsTraits <- AcGiNonEntityTraits 
+./AcGiEnvironment.h: AcGiToneOperatorParameters <- AcRxObject
+./AcGiEnvironment.h: AcGiPhotographicExposureParameters <- AcGiToneOperatorParameters
+./acgiparameter.h: AcGiParameter <- AcRxCopyOnWriteObject
+./AcGraph.h: AcGraph <- AcRxObject
+./AcGraphNode.h: AcGraphNode <- AcRxObject, 
+./achapi.h: AcDbEntityHyperlinkPE <- AcRxObject
+./AcImplicitConstr.h: AcPerpendicularConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcNormalConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcPointCurveConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcColinearConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcPointCoincidenceConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcConcentricConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcCenterPointConstraint <- AcConcentricConstraint 
+./AcImplicitConstr.h: AcTangentConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcEqualRadiusConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcEqualDistanceConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcEqualLengthConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcParallelConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcHorizontalConstraint <- AcParallelConstraint 
+./AcImplicitConstr.h: AcVerticalConstraint <- AcParallelConstraint 
+./AcImplicitConstr.h: AcEqualCurvatureConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcSymmetricConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcMidPointConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcFixedConstraint <- AcGeomConstraint
+./AcImplicitConstr.h: AcEqualHelpParameterConstraint <- AcGeomConstraint
+./AcImplicitConstr.h: AcG2SmoothConstraint <- AcCompositeConstraint
+./AcPointCloudEngineAPI.h: IPointCloudFilter2 <- IPointCloudFilter
+./AcPointCloudFilter.h: PointCloudBinaryOperatorFilter <- IPointCloudFilter
+./AcPointCloudFilter.h: PointCloudIntersectionFilter <- PointCloudBinaryOperatorFilter
+./AcPointCloudFilter.h: PointCloudUnionFilter <- PointCloudBinaryOperatorFilter
+./AcPointCloudFilter.h: PointCloudXORFilter <- PointCloudBinaryOperatorFilter
+./db3dProfile.h: AcDb3dProfile <- AcRxObject
+./db3dProfile.h: AcDbLoftProfile <- AcDb3dProfile
+./dbAnnotationScale.h: AcDbAnnotationScale <- AcDbObjectContext, public AcHeapOperators
+./dbAnnotationScale.h: AcDbAnnotationScaleReactor <- AcRxObject
+./dbAnnotativeObjectPE.h: AcDbAnnotativeObjectPE <- AcRxObject
+./dbAnnotativeObjectPE.h: AcDbPaperOrientationPE <- AcRxObject
+./dbappgrip.h: AcDbAppEntityGrips <- AcRxProtocolReactor
+./dbappgrip.h: AcDbBlockInsertionPoints : public AcRxProtocolReactor
+./dbAuditRecreate.h: AcDbAuditRecreatePE <- AcRxObject
+./dbbody.h: AcDbBody <- AcDbEntity
+./dbBreakData.h: AcDbBreakData <- AcDbObject
+./dbBreakData.h: AcDbBreakPointRef <- AcDbObject
+./dbcfilrs.h: AcDbDeepCloneFiler <- AcDbDwgFiler
+./dbcfilrs.h: AcDbWblockCloneFiler <- AcDbDeepCloneFiler
+./DbDataLink.h: AcDbDataLink <- AcDbObject
+./DbDataLink.h: AcDbDataLinkManager <- AcRxObject
+./dbDataTable.h: AcDbDataCell <- AcRxObject
+./dbDataTable.h: AcDbDataColumn <- AcRxObject
+./dbDataTable.h: AcDbDataTable <- AcDbObject
+./dbDetailViewStyle.h: AcDbDetailViewStyle <- AcDbModelDocViewStyle
+./dbdict.h: AcDbDictionary <- AcDbObject
+./dbdictdflt.h: AcDbDictionaryWithDefault <- AcDbDictionary
+./dbdim.h: AcDbOrdinateDimension <- AcDbDimension
+./dbdim.h: AcDbAlignedDimension <- AcDbDimension
+./dbdim.h: AcDbRotatedDimension <- AcDbDimension
+./dbdim.h: AcDb3PointAngularDimension <- AcDbDimension
+./dbdim.h: AcDb2LineAngularDimension <- AcDbDimension
+./dbdim.h: AcDbRadialDimension <- AcDbDimension
+./dbdim.h: AcDbDiametricDimension <- AcDbDimension
+./dbdim.h: AcDbArcDimension <- AcDbDimension
+./dbdim.h: AcDbRadialDimensionLarge <- AcDbDimension
+./dbdim.h: AcDbDimensionStyleOverrule <- AcRxOverrule
+./dbdimassoc.h: AcDbDimAssoc <- AcDbObject
+./dbdimptref.h: AcDbPointRef <- AcRxObject
+./dbdimptref.h: AcDbOsnapPointRef <- AcDbPointRef
+./dbDynamicUCSpe.h: AcDbDynamicUCSPE	 <- AcRxObject
+./dbDynamicUCSpe.h: AcDbNonSubEntDynamicUCSPE <- AcRxObject
+./dbdynblk.h: AcDbDynBlockReferenceProperty <- AcHeapOperators
+./dbdynblk.h: AcDbDynBlockReference <- AcHeapOperators
+./dbdynblk.h: AcDbDynBlockTableRecord <- AcHeapOperators
+./dbelipse.h: AcDbEllipse <- AcDbCurve
+./dbentityoverrule.h: AcDbPropertiesOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbOsnapOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbTransformOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbGripOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbSubentityOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbHighlightOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbHighlightStateOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbVisibilityOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbGeometryOverrule <- AcRxOverrule
+./dbents.h: AcDbText <- AcDbEntity
+./dbents.h: AcDbAttributeDefinition <- AcDbText
+./dbents.h: AcDbAttribute <- AcDbText
+./dbents.h: AcDbBlockReference <- AcDbEntity
+./dbents.h: AcDbMInsertBlock <- AcDbBlockReference
+./dbents.h: AcDbBlockBegin <- AcDbEntity
+./dbents.h: AcDbBlockEnd <- AcDbEntity
+./dbents.h: AcDbSequenceEnd <- AcDbEntity
+./dbents.h: AcDbVertex <- AcDbEntity
+./dbents.h: AcDb2dVertex <- AcDbVertex
+./dbents.h: AcDb3dPolylineVertex <- AcDbVertex
+./dbents.h: AcDbPolygonMeshVertex <- AcDbVertex
+./dbents.h: AcDbPolyFaceMeshVertex <- AcDbVertex
+./dbents.h: AcDbFaceRecord <- AcDbVertex
+./dbents.h: AcDb2dPolyline <- AcDbCurve
+./dbents.h: AcDb3dPolyline <- AcDbCurve
+./dbents.h: AcDbArc <- AcDbCurve
+./dbents.h: AcDbCircle <- AcDbCurve
+./dbents.h: AcDbLine <- AcDbCurve
+./dbents.h: AcDbPoint <- AcDbEntity
+./dbents.h: AcDbFace <- AcDbEntity
+./dbents.h: AcDbPolyFaceMesh <- AcDbEntity
+./dbents.h: AcDbPolygonMesh <- AcDbEntity
+./dbents.h: AcDbSolid <- AcDbEntity
+./dbents.h: AcDbTrace <- AcDbEntity
+./dbents.h: AcDbShape <- AcDbEntity
+./dbents.h: AcDbViewport <- AcDbEntity
+./dbeval.h: AcDbEvalVariant <- resbuf, public AcRxObject
+./dbeval.h: AcDbEvalGraph <- AcDbObject
+./dbeval.h: AcDbEvalExpr <- AcDbObject
+./dbeval.h: AcDbEvalConnectable <- AcDbEvalExpr
+./dbeval.h: AcDbEvalContext <- AcRxObject, public AcHeapOperators
+./dbeval.h: AcDbEvalContextPair <- AcHeapOperators 
+./dbeval.h: AcDbEvalContextIterator <- AcRxObject, public AcHeapOperators
+./dbextrudedsurf.h: AcDbExtrudedSurface <- AcDbSurface
+./dbfcf.h: AcDbFcf <- AcDbEntity
+./DbField.h: AcDbField <- AcDbObject
+./dbfilter.h: AcDbFilter <- AcDbObject
+./DbFormattedTableData.h: AcDbFormattedTableData <- AcDbLinkedTableData
+./dbGeoData.h: AcDbGeoData <- AcDbObject
+./dbgroup.h: AcDbGroup <- AcDbObject
+./dbhatch.h: AcDbHatch <- AcDbEntity
+./dbhelix.h: AcDbHelix <- AcDbSpline
+./dbid.h: AcDbHardOwnershipId <- AcDbObjectId
+./dbid.h: AcDbSoftOwnershipId <- AcDbObjectId
+./dbid.h: AcDbHardPointerId <- AcDbObjectId
+./dbid.h: AcDbSoftPointerId <- AcDbObjectId
+./dbidmap.h: AcDbIdMapping <- AcRxObject
+./dbidmap.h: AcDbIdMappingIter <- AcRxObject
+./dbimage.h: AcDbImage <- AcDbEntity
+./dbindex.h: AcDbIndex <- AcDbObject
+./dbInterferencePE.h: AcDbInterferencePE <- AcRxObject
+./dbJoinEntityPE.h: AcDbJoinEntityPE <- AcRxObject
+./dblaymgrrctr.h: AcDbLayoutManagerReactor <- AcRxObject
+./dblayout.h: AcDbLayout <- AcDbPlotSettings
+./dblead.h: AcDbLeader <- AcDbCurve
+./DbLinkedData.h: AcDbLinkedData <- AcDbObject
+./DbLinkedTableData.h: AcDbLinkedTableData <- AcDbLinkedData
+./dbloftedsurf.h: AcDbLoftedSurface <- AcDbSurface
+./dblstate.h: AcDbLayerStateManager <- AcRxObject
+./dblstate.h: AcDbLayerStateManagerReactor <- AcRxObject
+./dbltrans.h: AcDbLongTransWorkSetIterator <- AcRxObject
+./dbltrans.h: AcDbLongTransaction <- AcDbObject
+./dblyfilt.h: AcDbLayerFilter <- AcDbFilter
+./dblyindx.h: AcDbLayerIndex <- AcDbIndex
+./dblyindx.h: AcDbLayerIndexIterator <- AcDbFilteredBlockIterator
+./dbmain.h: AcDbDatabase <- AcRxObject, public AcHeapOperators
+./dbmain.h: AcDbObjectIterator <- AcRxObject, public AcHeapOperators
+./dbmain.h: AcDbColor <- AcDbObject
+./dbmain.h: AcDbExtents2d <- AcHeapOperators
+./dbmain.h: AcDbExtents <- AcHeapOperators
+./dbmatch.h: AcDbMatchProperties	 <- AcRxObject
+./dbmaterial.h: AcDbMaterial <- AcDbObject
+./dbmleader.h: AcDbMLeader <- AcDbEntity
+./dbmleaderstyle.h: AcDbMLeaderStyle <- AcDbObject
+./dbmline.h: AcDbMline <- AcDbEntity
+./dbModelDocViewStyle.h: AcDbModelDocViewStyle <- AcDbObject
+./dbMPolygon.h: AcDbMPolygon <- AcDbEntity 
+./dbmstyle.h: AcDbMlineStyle <- AcDbObject
+./dbmtext.h: AcDbMText <- AcDbEntity
+./dbnurbsurf.h: AcDbNurbSurface <- AcDbSurface
+./dbObjContext.h: AcDbObjectContext <- AcRxObject
+./dbObjectContextInterface.h: AcDbObjectContextInterface <- AcRxObject
+./dbObjectContextManager.h: AcDbObjectContextManager <- AcRxObject
+./dbobjectoverrule.h: AcDbObjectOverrule <- AcRxOverrule
+./dbobjptr.h: AcDbObjectPointer <- AcDbObjectPointerBase<T_OBJECT>
+./dbobjptr.h: AcDbSymbolTablePointer <- AcDbObjectPointerBase<T_OBJECT>
+./dbobjptr.h: AcDbSymbolTableRecordPointer <- AcDbObjectPointerBase<T_OBJECT>
+./dbole.h: AcDbOleFrame <- AcDbFrame
+./dbole.h: AcDbOle2Frame <- AcDbOleFrame
+./dbosnap.h: AcDbCustomOsnapInfo <- AcRxObject 
+./dbosnap2.h: AcDbCustomOsnapMode2 <- AcDbCustomOsnapMode
+./dbpl.h: AcDbPolyline <- AcDbCurve
+./dbplanesurf.h: AcDbPlaneSurface <- AcDbSurface
+./dbplhldr.h: AcDbPlaceHolder <- AcDbObject
+./dbplotsettings.h: AcDbPlotSettings <- AcDbObject
+./dbPropertyFilterCustomizationPE.h: AcDbPropertyFilterCustomizationPE <- AcRxObject
+./dbray.h: AcDbRay <- AcDbCurve
+./dbregion.h: AcDbRegion <- AcDbEntity
+./dbrevolvedsurf.h: AcDbRevolvedSurface <- AcDbSurface
+./DbSection.h: AcDbSection <- AcDbEntity
+./DbSection.h: AcDbSectionSettings <- AcDbObject
+./dbSectionablePE.h: AcDbSectionablePE <- AcRxObject
+./DbSectionManager.h: AcDbSectionManager <- AcDbObject
+./dbSectionViewStyle.h: AcDbSectionViewStyle <- AcDbModelDocViewStyle
+./dbsol3d.h: AcDb3dSolid <- AcDbEntity
+./dbspfilt.h: AcDbSpatialFilter <- AcDbFilter
+./dbspindx.h: AcDbSpatialIndex <- AcDbIndex
+./dbspindx.h: AcDbSpatialIndexIterator <- AcDbFilteredBlockIterator
+./dbspline.h: AcDbSpline <- AcDbCurve
+./dbSubD.h: AcDbSubDMesh <- AcDbEntity
+./dbsurf.h: AcDbSurface <- AcDbEntity
+./dbsweptsurf.h: AcDbSweptSurface <- AcDbSurface
+./dbsymtb.h: AcDbBlockTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbLayerTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbTextStyleTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbLinetypeTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbViewTableRecord <- AcDbAbstractViewTableRecord
+./dbsymtb.h: AcDbUCSTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbViewportTableRecord <- AcDbAbstractViewTableRecord
+./dbsymtb.h: AcDbRegAppTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbDimStyleTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbBlockTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbLayerTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbTextStyleTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbLinetypeTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbViewTable <- AcDbAbstractViewTable
+./dbsymtb.h: AcDbUCSTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbViewportTable <- AcDbAbstractViewTable
+./dbsymtb.h: AcDbRegAppTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbDimStyleTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbBlockTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbLayerTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbTextStyleTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbLinetypeTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbAbstractViewTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbViewTableIterator <- AcDbAbstractViewTableIterator
+./dbsymtb.h: AcDbUCSTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbViewportTableIterator <- AcDbAbstractViewTableIterator
+./dbsymtb.h: AcDbRegAppTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbDimStyleTableIterator <- AcDbSymbolTableIterator
+./dbtable.h: AcDbTable <- AcDbBlockReference
+./DbTableContent.h: AcDbTableContent <- AcDbFormattedTableData
+./dbTableStyle.h: AcDbTableStyle <- AcDbObject
+./DbTableTemplate.h: AcDbTableTemplate <- AcDbTableContent
+./dbtexteditor.h: AcDbTextEditorSelection <- AcDbTextEditorSelectionBase
+./dbtexteditor.h: AcDbTextEditorCursor <- AcDbTextEditorSelectionBase
+./dbtexteditor.h: AcDbTextEditorParagraph <- AcDbTextEditorSelectable
+./dbtexteditor.h: AcDbTextEditorColumn <- AcDbTextEditorSelectable
+./dbtexteditor.h: AcDbTextEditor <- AcDbTextEditorSelectable
+./dbtrans.h: AcDbTransactionManager <- AcRxObject
+./dbunderlaydef.h: AcDbDwfDefinition <- AcDbUnderlayDefinition
+./dbunderlaydef.h: AcDbDgnDefinition <- AcDbUnderlayDefinition
+./dbunderlaydef.h: AcDbPdfDefinition <- AcDbUnderlayDefinition
+./dbunderlayref.h: AcDbDwfReference <- AcDbUnderlayReference
+./dbunderlayref.h: AcDbDgnReference <- AcDbUnderlayReference
+./dbunderlayref.h: AcDbPdfReference <- AcDbUnderlayReference
+./dbvisualstyle.h: AcDbVisualStyle <- AcDbObject
+./dbxline.h: AcDbXline <- AcDbCurve
+./dbxrecrd.h: AcDbXrecord <- AcDbObject
+./dbxrecrd.h: AcDbXrecordIterator <- AcRxObject
+./drawable.h: AcGiDrawableReactor <- AcRxObject
+./embeddedASMEntPE.h: AcDbEmbeddedASMEntPropsPE <- AcRxObject
+./graph.h: AcDbGraphNode <- AcHeapOperators
+./graph.h: AcDbGraph <- AcHeapOperators
+./graph.h: AcDbGraphStack <- AcHeapOperators
+./idgraph.h: AcDbObjectIdGraphNode <- AcDbGraphNode
+./idgraph.h: AcDbObjectIdGraph <- AcDbGraph
+./sorttab.h: AcDbSortentsTable <- AcDbObject
+./xgraph.h: AcDbXrefGraphNode <- AcDbGraphNode
+./xgraph.h: AcDbXrefGraph <- AcDbGraph
+
+
+
+** 2
+./AcDbArrayGripAppData.h: AcDbArrayGripAppData <- AcRxObject
+./AcDbAssoc2dConstraintGroup.h: AcDbAssoc2dConstraintGroup <- AcDbAssocAction
+./AcDbAssocAction.h: AcDbAssocAction <- AcDbObject
+./AcDbAssocActionBody.h: AcDbAssocActionBody <- AcDbObject
+./AcDbAssocActionParam.h: AcDbAssocActionParam <- AcDbObject
+./AcDbAssocArrayActionBody.h: AcDbAssocArrayActionBody <- AcDbAssocParamBasedActionBody
+./AcDbAssocArrayCommonParameters.h: AcDbAssocArrayCommonParameters <- AcDbAssocArrayParameters
+./AcDbAssocArrayItem.h: AcDbAssocArrayItem <- AcRxObject
+./AcDbAssocArrayModifyActionBody.h: AcDbAssocArrayModifyActionBody <- AcDbAssocArrayActionBody
+./AcDbAssocArrayParameters.h: AcDbAssocArrayParameters <- AcRxObject
+./AcDbAssocArrayPathParameters.h: AcDbAssocArrayPathParameters <- AcDbAssocArrayCommonParameters
+./AcDbAssocArrayPolarParameters.h: AcDbAssocArrayPolarParameters <- AcDbAssocArrayCommonParameters
+./AcDbAssocArrayRectangularParameters.h: AcDbAssocArrayRectangularParameters <- AcDbAssocArrayCommonParameters
+./AcDbAssocAsmBodyActionParam.h: AcDbAssocAsmBodyActionParam <- AcDbAssocActionParam
+./AcDbAssocBlendSurfaceActionBody.h: AcDbAssocBlendSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocCompoundActionParam.h: AcDbAssocCompoundActionParam <- AcDbAssocActionParam
+./AcDbAssocDependency.h: AcDbAssocDependency <- AcDbObject
+./AcDbAssocDependencyBody.h: AcDbAssocDependencyBody <- AcDbObject
+./AcDbAssocDependencyPE.h: AcDbAssocDependencyPE <- AcRxObject
+./AcDbAssocDimDependencyBody.h: AcDbAssocDimDependencyBody <- AcDbAssocDimDependencyBodyBase
+./AcDbAssocDimDependencyBodyBase.h: AcDbAssocDimDependencyBodyBase <- AcDbAssocDependencyBody
+./AcDbAssocEdgeActionParam.h: AcDbAssocEdgeActionParam <- AcDbAssocActionParam
+./AcDbAssocEdgeChamferActionBody.h: AcDbAssocEdgeChamferActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocEdgeFilletActionBody.h: AcDbAssocEdgeFilletActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocEdgePersSubentId.h: AcDbAssocEdgePersSubentId <- AcDbAssocPersSubentId
+./AcDbAssocExtendSurfaceActionBody.h: AcDbAssocExtendSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocExtrudedSurfaceActionBody.h: AcDbAssocExtrudedSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocFaceActionParam.h: AcDbAssocFaceActionParam <- AcDbAssocActionParam
+./AcDbAssocFilletSurfaceActionBody.h: AcDbAssocFilletSurfaceActionBody <- AcDbAssocSurfaceActionBody
+./AcDbAssocGeomDependency.h: AcDbAssocGeomDependency <- AcDbAssocDependency
+./AcDbAssocIndexPersSubentId.h: AcDbAssocIndexPersSubentId <- AcDbAssocPersSubentId
+./AcDbAssocIndexPersSubentId.h: AcDbAssocExternalIndexPersSubentId <- AcDbAssocIndexPersSubentId
+./AcDbAssocIndexPersSubentId.h: AcDbAssocObjectAndIndexPersSubentId <- AcDbAssocIndexPersSubentId
+./AcDbAssocLoftedSurfaceActionBody.h: AcDbAssocLoftedSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocManager.h: AcDbAssocManager <- AcDbObject
+./AcDbAssocNetwork.h: AcDbAssocNetwork <- AcDbAssocAction
+./AcDbAssocNetworkSurfaceActionBody.h: AcDbAssocNetworkSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocObjectActionParam.h: AcDbAssocObjectActionParam <- AcDbAssocActionParam
+./AcDbAssocOffsetSurfaceActionBody.h: AcDbAssocOffsetSurfaceActionBody <- AcDbAssocSurfaceActionBody
+./AcDbAssocParamBasedActionBody.h: AcDbAssocParamBasedActionBody <- AcDbAssocActionBody
+./AcDbAssocPatchSurfaceActionBody.h: AcDbAssocPatchSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocPathActionParam.h: AcDbAssocPathActionParam <- AcDbAssocCompoundActionParam
+./AcDbAssocPathBasedSurfaceActionBody.h: AcDbAssocPathBasedSurfaceActionBody <- AcDbAssocSurfaceActionBody
+./AcDbAssocPersSubentId.h: AcDbAssocPersSubentId <- AcRxObject
+./AcDbAssocPersSubentIdPE.h: AcDbAssocPersSubentIdPE <- AcRxObject
+./AcDbAssocPlaneSurfaceActionBody.h: AcDbAssocPlaneSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocRevolvedSurfaceActionBody.h: AcDbAssocRevolvedSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocSimplePersSubentId.h: AcDbAssocSimplePersSubentId <- AcDbAssocPersSubentId
+./AcDbAssocSingleEdgePersSubentId.h: AcDbAssocSingleEdgePersSubentId <- AcDbAssocPersSubentId
+./AcDbAssocSurfaceActionBody.h: AcDbAssocSurfaceActionBody <- AcDbAssocParamBasedActionBody
+./AcDbAssocSweptSurfaceActionBody.h: AcDbAssocSweptSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocTrimSurfaceActionBody.h: AcDbAssocTrimSurfaceActionBody <- AcDbAssocPathBasedSurfaceActionBody
+./AcDbAssocValueDependency.h: AcDbAssocValueDependency <- AcDbAssocDependency
+./AcDbAssocValueProviderPE.h: AcDbAssocValueProviderPE <- AcRxObject
+./AcDbAssocVariable.h: AcDbAssocVariable <- AcDbAssocAction
+./AcDbAssocVertexActionParam.h: AcDbAssocVertexActionParam <- AcDbAssocActionParam
+./AcDbCompoundObjectId.h: AcDbCompoundObjectId <- AcRxObject
+./AcDbCompoundObjectId.h: AcDbParentTransformOfChildPE <- AcRxObject
+./AcDbGeomRef.h: AcDbGeomRef <- AcRxObject
+./AcDbGeomRef.h: AcDbSubentRef <- AcDbGeomRef
+./AcDbGeomRef.h: AcDbFaceRef <- AcDbSubentRef
+./AcDbGeomRef.h: AcDbEdgeRef <- AcDbSubentRef
+./AcDbGeomRef.h: AcDbVertexRef <- AcDbSubentRef
+./AcDbGeomRef.h: AcDbPathRef <- AcDbGeomRef
+./AcDbGeomRef.h: AcDbVectorRef <- AcDbGeomRef
+./AcDbGeomRef.h: AcDbCoordSystemRef <- AcDbGeomRef
+./AcDbGeoPositionMarker.h: AcDbGeoPositionMarker <- AcDbEntity
+./AcDbLMgr.h: AcDbLayoutManager <- AcRxObject 
+./AcDbPointCloudColorMap.h: AcDbPointCloudColorMap <- AcDbObject
+./AcDbPointCloudDefEx.h: AcDbPointCloudDefEx <- AcDbObject
+./AcDbPointCloudDefEx.h: AcDbPointCloudDefReactorEx <- AcDbObject
+./AcDbPointCloudEx.h: AcDbPointCloudEx <- AcDbEntity
+./AcExplicitConstr.h: AcExplicitConstraint <- AcGeomConstraint
+./AcExplicitConstr.h: AcDistanceConstraint <- AcExplicitConstraint
+./AcExplicitConstr.h: AcAngleConstraint <- AcExplicitConstraint 
+./AcExplicitConstr.h: Ac3PointAngleConstraint <- AcAngleConstraint 
+./AcExplicitConstr.h: AcRadiusDiameterConstraint <- AcExplicitConstraint
+./AcGeomConstraint.h: AcGeomConstraint <- AcConstraintGroupNode
+./AcGeomConstraint.h: AcHelpParameter <- AcConstraintGroupNode
+./AcGeomConstraint.h: AcCompositeConstraint <- AcGeomConstraint
+./acgi.h: AcGiEdgeData <- AcGiParameter 
+./acgi.h: AcGiFaceData <- AcGiParameter 
+./acgi.h: AcGiVertexData <- AcGiParameter 
+./acgi.h: AcGiFill <- AcRxObject
+./acgi.h: AcGiHatchPattern <- AcGiFill
+./acgi.h: AcGiGradientFill <- AcGiFill
+./acgidrawstream.h: AcGiDrawStream <- AcGiDrawable
+./AcGiEnvironment.h: AcGiSolidBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiGradientBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiImageBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiGroundPlaneBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiSkyBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiIBLBackgroundTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiRenderEnvironmentTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiRenderSettingsTraits <- AcGiNonEntityTraits
+./AcGiEnvironment.h: AcGiMentalRayRenderSettingsTraits <- AcGiRenderSettingsTraits
+./AcGiEnvironment.h: AcGiRapidRTRenderSettingsTraits <- AcGiNonEntityTraits 
+./AcGiEnvironment.h: AcGiToneOperatorParameters <- AcRxObject
+./AcGiEnvironment.h: AcGiPhotographicExposureParameters <- AcGiToneOperatorParameters
+./acgiparameter.h: AcGiParameter <- AcRxCopyOnWriteObject
+./AcGraph.h: AcGraph <- AcRxObject
+./AcGraphNode.h: AcGraphNode <- AcRxObject 
+./achapi.h: AcDbEntityHyperlinkPE <- AcRxObject
+./AcImplicitConstr.h: AcPerpendicularConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcNormalConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcPointCurveConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcColinearConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcPointCoincidenceConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcConcentricConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcCenterPointConstraint <- AcConcentricConstraint 
+./AcImplicitConstr.h: AcTangentConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcEqualRadiusConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcEqualDistanceConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcEqualLengthConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcParallelConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcHorizontalConstraint <- AcParallelConstraint 
+./AcImplicitConstr.h: AcVerticalConstraint <- AcParallelConstraint 
+./AcImplicitConstr.h: AcEqualCurvatureConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcSymmetricConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcMidPointConstraint <- AcGeomConstraint 
+./AcImplicitConstr.h: AcFixedConstraint <- AcGeomConstraint
+./AcImplicitConstr.h: AcEqualHelpParameterConstraint <- AcGeomConstraint
+./AcImplicitConstr.h: AcG2SmoothConstraint <- AcCompositeConstraint
+./AcPointCloudEngineAPI.h: IPointCloudFilter2 <- IPointCloudFilter
+./AcPointCloudFilter.h: PointCloudBinaryOperatorFilter <- IPointCloudFilter
+./AcPointCloudFilter.h: PointCloudIntersectionFilter <- PointCloudBinaryOperatorFilter
+./AcPointCloudFilter.h: PointCloudUnionFilter <- PointCloudBinaryOperatorFilter
+./AcPointCloudFilter.h: PointCloudXORFilter <- PointCloudBinaryOperatorFilter
+./db3dProfile.h: AcDb3dProfile <- AcRxObject
+./db3dProfile.h: AcDbLoftProfile <- AcDb3dProfile
+./dbAnnotationScale.h: AcDbAnnotationScale <- AcDbObjectContext, public AcHeapOperators
+./dbAnnotationScale.h: AcDbAnnotationScaleReactor <- AcRxObject
+./dbAnnotativeObjectPE.h: AcDbAnnotativeObjectPE <- AcRxObject
+./dbAnnotativeObjectPE.h: AcDbPaperOrientationPE <- AcRxObject
+./dbappgrip.h: AcDbAppEntityGrips <- AcRxProtocolReactor
+./dbappgrip.h: AcDbBlockInsertionPoints : public AcRxProtocolReactor
+./dbAuditRecreate.h: AcDbAuditRecreatePE <- AcRxObject
+./dbbody.h: AcDbBody <- AcDbEntity
+./dbBreakData.h: AcDbBreakData <- AcDbObject
+./dbBreakData.h: AcDbBreakPointRef <- AcDbObject
+./dbcfilrs.h: AcDbDeepCloneFiler <- AcDbDwgFiler
+./dbcfilrs.h: AcDbWblockCloneFiler <- AcDbDeepCloneFiler
+./DbDataLink.h: AcDbDataLink <- AcDbObject
+./DbDataLink.h: AcDbDataLinkManager <- AcRxObject
+./dbDataTable.h: AcDbDataCell <- AcRxObject
+./dbDataTable.h: AcDbDataColumn <- AcRxObject
+./dbDataTable.h: AcDbDataTable <- AcDbObject
+./dbDetailViewStyle.h: AcDbDetailViewStyle <- AcDbModelDocViewStyle
+./dbdict.h: AcDbDictionary <- AcDbObject
+./dbdictdflt.h: AcDbDictionaryWithDefault <- AcDbDictionary
+./dbdim.h: AcDbOrdinateDimension <- AcDbDimension
+./dbdim.h: AcDbAlignedDimension <- AcDbDimension
+./dbdim.h: AcDbRotatedDimension <- AcDbDimension
+./dbdim.h: AcDb3PointAngularDimension <- AcDbDimension
+./dbdim.h: AcDb2LineAngularDimension <- AcDbDimension
+./dbdim.h: AcDbRadialDimension <- AcDbDimension
+./dbdim.h: AcDbDiametricDimension <- AcDbDimension
+./dbdim.h: AcDbArcDimension <- AcDbDimension
+./dbdim.h: AcDbRadialDimensionLarge <- AcDbDimension
+./dbdim.h: AcDbDimensionStyleOverrule <- AcRxOverrule
+./dbdimassoc.h: AcDbDimAssoc <- AcDbObject
+./dbdimptref.h: AcDbPointRef <- AcRxObject
+./dbdimptref.h: AcDbOsnapPointRef <- AcDbPointRef
+./dbDynamicUCSpe.h: AcDbDynamicUCSPE	 <- AcRxObject
+./dbDynamicUCSpe.h: AcDbNonSubEntDynamicUCSPE <- AcRxObject
+./dbdynblk.h: AcDbDynBlockReferenceProperty <- AcHeapOperators
+./dbdynblk.h: AcDbDynBlockReference <- AcHeapOperators
+./dbdynblk.h: AcDbDynBlockTableRecord <- AcHeapOperators
+./dbelipse.h: AcDbEllipse <- AcDbCurve
+./dbentityoverrule.h: AcDbPropertiesOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbOsnapOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbTransformOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbGripOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbSubentityOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbHighlightOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbHighlightStateOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbVisibilityOverrule <- AcRxOverrule
+./dbentityoverrule.h: AcDbGeometryOverrule <- AcRxOverrule
+./dbents.h: AcDbText <- AcDbEntity
+./dbents.h: AcDbAttributeDefinition <- AcDbText
+./dbents.h: AcDbAttribute <- AcDbText
+./dbents.h: AcDbBlockReference <- AcDbEntity
+./dbents.h: AcDbMInsertBlock <- AcDbBlockReference
+./dbents.h: AcDbBlockBegin <- AcDbEntity
+./dbents.h: AcDbBlockEnd <- AcDbEntity
+./dbents.h: AcDbSequenceEnd <- AcDbEntity
+./dbents.h: AcDbVertex <- AcDbEntity
+./dbents.h: AcDb2dVertex <- AcDbVertex
+./dbents.h: AcDb3dPolylineVertex <- AcDbVertex
+./dbents.h: AcDbPolygonMeshVertex <- AcDbVertex
+./dbents.h: AcDbPolyFaceMeshVertex <- AcDbVertex
+./dbents.h: AcDbFaceRecord <- AcDbVertex
+./dbents.h: AcDb2dPolyline <- AcDbCurve
+./dbents.h: AcDb3dPolyline <- AcDbCurve
+./dbents.h: AcDbArc <- AcDbCurve
+./dbents.h: AcDbCircle <- AcDbCurve
+./dbents.h: AcDbLine <- AcDbCurve
+./dbents.h: AcDbPoint <- AcDbEntity
+./dbents.h: AcDbFace <- AcDbEntity
+./dbents.h: AcDbPolyFaceMesh <- AcDbEntity
+./dbents.h: AcDbPolygonMesh <- AcDbEntity
+./dbents.h: AcDbSolid <- AcDbEntity
+./dbents.h: AcDbTrace <- AcDbEntity
+./dbents.h: AcDbShape <- AcDbEntity
+./dbents.h: AcDbViewport <- AcDbEntity
+./dbeval.h: AcDbEvalVariant <- resbuf, public AcRxObject
+./dbeval.h: AcDbEvalGraph <- AcDbObject
+./dbeval.h: AcDbEvalExpr <- AcDbObject
+./dbeval.h: AcDbEvalConnectable <- AcDbEvalExpr
+./dbeval.h: AcDbEvalContext <- AcRxObject, public AcHeapOperators
+./dbeval.h: AcDbEvalContextPair <- AcHeapOperators 
+./dbeval.h: AcDbEvalContextIterator <- AcRxObject, public AcHeapOperators
+./dbextrudedsurf.h: AcDbExtrudedSurface <- AcDbSurface
+./dbfcf.h: AcDbFcf <- AcDbEntity
+./DbField.h: AcDbField <- AcDbObject
+./dbfilter.h: AcDbFilter <- AcDbObject
+./DbFormattedTableData.h: AcDbFormattedTableData <- AcDbLinkedTableData
+./dbGeoData.h: AcDbGeoData <- AcDbObject
+./dbgroup.h: AcDbGroup <- AcDbObject
+./dbhatch.h: AcDbHatch <- AcDbEntity
+./dbhelix.h: AcDbHelix <- AcDbSpline
+./dbid.h: AcDbHardOwnershipId <- AcDbObjectId
+./dbid.h: AcDbSoftOwnershipId <- AcDbObjectId
+./dbid.h: AcDbHardPointerId <- AcDbObjectId
+./dbid.h: AcDbSoftPointerId <- AcDbObjectId
+./dbidmap.h: AcDbIdMapping <- AcRxObject
+./dbidmap.h: AcDbIdMappingIter <- AcRxObject
+./dbimage.h: AcDbImage <- AcDbEntity
+./dbindex.h: AcDbIndex <- AcDbObject
+./dbInterferencePE.h: AcDbInterferencePE <- AcRxObject
+./dbJoinEntityPE.h: AcDbJoinEntityPE <- AcRxObject
+./dblaymgrrctr.h: AcDbLayoutManagerReactor <- AcRxObject
+./dblayout.h: AcDbLayout <- AcDbPlotSettings
+./dblead.h: AcDbLeader <- AcDbCurve
+./DbLinkedData.h: AcDbLinkedData <- AcDbObject
+./DbLinkedTableData.h: AcDbLinkedTableData <- AcDbLinkedData
+./dbloftedsurf.h: AcDbLoftedSurface <- AcDbSurface
+./dblstate.h: AcDbLayerStateManager <- AcRxObject
+./dblstate.h: AcDbLayerStateManagerReactor <- AcRxObject
+./dbltrans.h: AcDbLongTransWorkSetIterator <- AcRxObject
+./dbltrans.h: AcDbLongTransaction <- AcDbObject
+./dblyfilt.h: AcDbLayerFilter <- AcDbFilter
+./dblyindx.h: AcDbLayerIndex <- AcDbIndex
+./dblyindx.h: AcDbLayerIndexIterator <- AcDbFilteredBlockIterator
+./dbmain.h: AcDbDatabase <- AcRxObject, public AcHeapOperators
+./dbmain.h: AcDbObjectIterator <- AcRxObject, public AcHeapOperators
+./dbmain.h: AcDbColor <- AcDbObject
+./dbmain.h: AcDbExtents2d <- AcHeapOperators
+./dbmain.h: AcDbExtents <- AcHeapOperators
+./dbmatch.h: AcDbMatchProperties	 <- AcRxObject
+./dbmaterial.h: AcDbMaterial <- AcDbObject
+./dbmleader.h: AcDbMLeader <- AcDbEntity
+./dbmleaderstyle.h: AcDbMLeaderStyle <- AcDbObject
+./dbmline.h: AcDbMline <- AcDbEntity
+./dbModelDocViewStyle.h: AcDbModelDocViewStyle <- AcDbObject
+./dbMPolygon.h: AcDbMPolygon <- AcDbEntity 
+./dbmstyle.h: AcDbMlineStyle <- AcDbObject
+./dbmtext.h: AcDbMText <- AcDbEntity
+./dbnurbsurf.h: AcDbNurbSurface <- AcDbSurface
+./dbObjContext.h: AcDbObjectContext <- AcRxObject
+./dbObjectContextInterface.h: AcDbObjectContextInterface <- AcRxObject
+./dbObjectContextManager.h: AcDbObjectContextManager <- AcRxObject
+./dbobjectoverrule.h: AcDbObjectOverrule <- AcRxOverrule
+./dbobjptr.h: AcDbObjectPointer <- AcDbObjectPointerBase<T_OBJECT>
+./dbobjptr.h: AcDbSymbolTablePointer <- AcDbObjectPointerBase<T_OBJECT>
+./dbobjptr.h: AcDbSymbolTableRecordPointer <- AcDbObjectPointerBase<T_OBJECT>
+./dbole.h: AcDbOleFrame <- AcDbFrame
+./dbole.h: AcDbOle2Frame <- AcDbOleFrame
+./dbosnap.h: AcDbCustomOsnapInfo <- AcRxObject 
+./dbosnap2.h: AcDbCustomOsnapMode2 <- AcDbCustomOsnapMode
+./dbpl.h: AcDbPolyline <- AcDbCurve
+./dbplanesurf.h: AcDbPlaneSurface <- AcDbSurface
+./dbplhldr.h: AcDbPlaceHolder <- AcDbObject
+./dbplotsettings.h: AcDbPlotSettings <- AcDbObject
+./dbPropertyFilterCustomizationPE.h: AcDbPropertyFilterCustomizationPE <- AcRxObject
+./dbray.h: AcDbRay <- AcDbCurve
+./dbregion.h: AcDbRegion <- AcDbEntity
+./dbrevolvedsurf.h: AcDbRevolvedSurface <- AcDbSurface
+./DbSection.h: AcDbSection <- AcDbEntity
+./DbSection.h: AcDbSectionSettings <- AcDbObject
+./dbSectionablePE.h: AcDbSectionablePE <- AcRxObject
+./DbSectionManager.h: AcDbSectionManager <- AcDbObject
+./dbSectionViewStyle.h: AcDbSectionViewStyle <- AcDbModelDocViewStyle
+./dbsol3d.h: AcDb3dSolid <- AcDbEntity
+./dbspfilt.h: AcDbSpatialFilter <- AcDbFilter
+./dbspindx.h: AcDbSpatialIndex <- AcDbIndex
+./dbspindx.h: AcDbSpatialIndexIterator <- AcDbFilteredBlockIterator
+./dbspline.h: AcDbSpline <- AcDbCurve
+./dbSubD.h: AcDbSubDMesh <- AcDbEntity
+./dbsurf.h: AcDbSurface <- AcDbEntity
+./dbsweptsurf.h: AcDbSweptSurface <- AcDbSurface
+./dbsymtb.h: AcDbBlockTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbLayerTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbTextStyleTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbLinetypeTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbViewTableRecord <- AcDbAbstractViewTableRecord
+./dbsymtb.h: AcDbUCSTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbViewportTableRecord <- AcDbAbstractViewTableRecord
+./dbsymtb.h: AcDbRegAppTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbDimStyleTableRecord <- AcDbSymbolTableRecord
+./dbsymtb.h: AcDbBlockTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbLayerTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbTextStyleTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbLinetypeTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbViewTable <- AcDbAbstractViewTable
+./dbsymtb.h: AcDbUCSTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbViewportTable <- AcDbAbstractViewTable
+./dbsymtb.h: AcDbRegAppTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbDimStyleTable <- AcDbSymbolTable
+./dbsymtb.h: AcDbBlockTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbLayerTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbTextStyleTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbLinetypeTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbAbstractViewTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbViewTableIterator <- AcDbAbstractViewTableIterator
+./dbsymtb.h: AcDbUCSTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbViewportTableIterator <- AcDbAbstractViewTableIterator
+./dbsymtb.h: AcDbRegAppTableIterator <- AcDbSymbolTableIterator
+./dbsymtb.h: AcDbDimStyleTableIterator <- AcDbSymbolTableIterator
+./dbtable.h: AcDbTable <- AcDbBlockReference
+./DbTableContent.h: AcDbTableContent <- AcDbFormattedTableData
+./dbTableStyle.h: AcDbTableStyle <- AcDbObject
+./DbTableTemplate.h: AcDbTableTemplate <- AcDbTableContent
+./dbtexteditor.h: AcDbTextEditorSelection <- AcDbTextEditorSelectionBase
+./dbtexteditor.h: AcDbTextEditorCursor <- AcDbTextEditorSelectionBase
+./dbtexteditor.h: AcDbTextEditorParagraph <- AcDbTextEditorSelectable
+./dbtexteditor.h: AcDbTextEditorColumn <- AcDbTextEditorSelectable
+./dbtexteditor.h: AcDbTextEditor <- AcDbTextEditorSelectable
+./dbtrans.h: AcDbTransactionManager <- AcRxObject
+./dbunderlaydef.h: AcDbDwfDefinition <- AcDbUnderlayDefinition
+./dbunderlaydef.h: AcDbDgnDefinition <- AcDbUnderlayDefinition
+./dbunderlaydef.h: AcDbPdfDefinition <- AcDbUnderlayDefinition
+./dbunderlayref.h: AcDbDwfReference <- AcDbUnderlayReference
+./dbunderlayref.h: AcDbDgnReference <- AcDbUnderlayReference
+./dbunderlayref.h: AcDbPdfReference <- AcDbUnderlayReference
+./dbvisualstyle.h: AcDbVisualStyle <- AcDbObject
+./dbxline.h: AcDbXline <- AcDbCurve
+./dbxrecrd.h: AcDbXrecord <- AcDbObject
+./dbxrecrd.h: AcDbXrecordIterator <- AcRxObject
+./drawable.h: AcGiDrawableReactor <- AcRxObject
+./embeddedASMEntPE.h: AcDbEmbeddedASMEntPropsPE <- AcRxObject
+./graph.h: AcDbGraphNode <- AcHeapOperators
+./graph.h: AcDbGraph <- AcHeapOperators
+./graph.h: AcDbGraphStack <- AcHeapOperators
+./idgraph.h: AcDbObjectIdGraphNode <- AcDbGraphNode
+./idgraph.h: AcDbObjectIdGraph <- AcDbGraph
+./sorttab.h: AcDbSortentsTable <- AcDbObject
+./xgraph.h: AcDbXrefGraphNode <- AcDbGraphNode
+./xgraph.h: AcDbXrefGraph <- AcDbGraph
+
 
 
 

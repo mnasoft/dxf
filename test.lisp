@@ -153,3 +153,33 @@
     (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/AutoCAD-2018-metric.dxf" )
       (dxf-in-t-split-by-sections stream)))
   )
+
+(defparameter *Drawing-sty*
+    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf")
+      (dxf-in-t-split-by-sections stream)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun split-TABLES (sec-tables)
+  (let ((pairs-list sec-tables)
+	(sections nil)
+	(section  nil))
+    (dolist (i pairs-list (nreverse sections))
+      (push i section)
+      (when (equal i '(0 "ENDTAB"))
+	(push (cdr (nreverse (cdr section))) sections)
+	(setf section nil)))))
+
+(split-TABLES (cdr (assoc '(2 "TABLES") *Drawing-sty* :test #'equal)))
+
+(setq mycircle
+      (vla-addCircle mSpace
+		     (vlax-3d-point '(3.0 3.0 0.0)) 2.0))
+
+
+((2 "BLOCK_RECORD") (5 1) (330 0) (100 "AcDbSymbolTable") (70 3)
+ (0 "BLOCK_RECORD") (5 112) (102 "{ACAD_XDICTIONARY") (360 421) (102 "}") (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "*Model_Space") (340 115) (70 0) (280 1) (281 0)
+ (0 "BLOCK_RECORD") (5 108) (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "*Paper_Space") (340 111) (70 0) (280 1) (281 0)
+ (0 "BLOCK_RECORD") (5 116) (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "*Paper_Space0") (340 119) (70 0) (280 1) (281 0)
+ (0 "BLOCK_RECORD") (5 134) (102 "{ACAD_XDICTIONARY") (360 434) (102 "}") (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "123") (340 0) (102 "{BLKREFS") (331 177) (331 178) (102 "}") (70 4) (280 1) (281 0)
+ (0 "BLOCK_RECORD") (5 141) (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "*D2") (340 0) (70 0) (280 1) (281 0))
