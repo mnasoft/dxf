@@ -108,78 +108,78 @@
 		(list (first el) (second el) (parse-integer (second el) :radix 16) ))
 	    lst) #'<  :key #'third))
       (when (= code 5) (push (list code str) lst)))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Тестирование Acad-Line
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (defparameter *line* (make-instance 'acad-line))
+  (dxf-in-text *line* '((0 "LINE") (5 2499) (330 112)
+			(100 "AcDbEntity") (8 "0") (6 "158-2 Трамвайные линии") (62 0)
+			(100 "AcDbLine") (10 -52.76377270404833d0) (20 2.063090847165234d0) (30 0.0d0)
+			(11 37.07532904481968d0) (21 -81.68118962192304d0) (31 0.0d0)))
+  (dxf-out-text *line* t)
+  (dxf-in-text *line* '((0 "LINE") (5 2498) (330 112) (100 "AcDbEntity") (8 "0") (6 "158-2 Трамвайные линии") (100 "AcDbLine") (10 37.07532904481968d0) (20 85.8073713162535d0) (30 0.0d0) (11 37.07532904481968d0) (21 -81.68118962192304d0) (31 0.0d0)))
+  (dxf-out-text *line* t)
+  (dxf-in-text *line* '((0 "LINE") (5 2497) (330 112) (100 "AcDbEntity") (8 "0") (6 "158-2 Трамвайные линии") (62 4) (100 "AcDbLine") (10 -52.76377270404833d0) (20 2.063090847165234d0) (30 0.0d0) (11 37.07532904481968d0) (21 85.8073713162535d0) (31 0.0d0)))
+  (dxf-out-text *line* t)
+  (dxf-in-text *line* '((0 "LINE") (5 2496) (330 112) (100 "AcDbEntity") (8 "488880") (6 "158-2 Трамвайные линии") (62 72) (420 7524399) (100 "AcDbLine") (10 -6.881102092627656d0) (20 2.063090847165234d0) (30 0.0d0) (11 -83.53985847650065d0) (21 2.063090847165234d0) (31 0.0d0)))
+  (dxf-out-text *line* t))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Тестирование acad-circle
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(progn
+  (defparameter *circle* (make-instance 'acad-circle))
+  (dxf-out-text *circle* t)
+  (dxf-in-text *circle*
+	       '((0 "CIRCLE") (5 1227) (330 112)
+		 (100 "AcDbEntity") (8 "0") (6 "158-2 Трамвайные линии") (62 72) (420 7524399)
+		 (100 "AcDbCircle")
+		 (10 -6.881102092627656d0) (20 2.063090847165234d0) (30 0.0d0) (40 45.88267061142068d0)))
+  (dxf-out-text *circle* t)
+  (dxf-in-text *circle*  '((0 "CIRCLE") (5 1227) (330 112) (100 "AcDbEntity") (8 "0") (6 "158-2 Трамвайные линии") (62 72) (420 7524399)
+			   (100 "AcDbCircle") (10 -2.063090847165234d0) (20 -5.959209218249812d0) (30 3.440551046313827d0) (40 45.88267061142068d0)
+			   (210 -0.5d0) (220 0.0d0) (230 0.8660254037844387d0)))
+  (dxf-out-text *circle* t)
+  (dxf-out-text *circle* t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Тестирование dxf-in-t-sections.lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defparameter *s*
-  (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean.dxf")
-    (dxf-in-t-split-by-sections stream)))
-
-(with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/2000-txt-clean-my.dxf" :direction :output :if-exists :supersede)
-  (dxf-out-by-sections *s* stream))
-
-
-(dxf-out-text (make-instance 'db-ray) t)
-
 (progn
-  (defparameter *lt-2-metric*
-    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf" )
-      (dxf-in-t-split-by-sections stream)))
+  (defparameter *lt-2-metric*         (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf"))
+  (defparameter *lt-2000-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2000-metric.dxf"))
+  (defparameter *lt-2004-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2004-metric.dxf"))
+  (defparameter *lt-2007-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2007-metric.dxf"))
+  (defparameter *lt-2010-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2010-metric.dxf"))
+  (defparameter *lt-2013-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2013-metric.dxf"))
+  (defparameter *autocad-2018-metric* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/AutoCAD-2018-metric.dxf")))
 
-  (defparameter *lt-2000-metric*
-    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2000-metric.dxf" )
-      (dxf-in-t-split-by-sections stream)))
-
-  (defparameter *lt-2004-metric*
-    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2004-metric.dxf" )
-      (dxf-in-t-split-by-sections stream)))
-
-  (defparameter *lt-2007-metric*
-    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2007-metric.dxf" )
-      (dxf-in-t-split-by-sections stream)))
-
-  (defparameter *lt-2010-metric*
-    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2010-metric.dxf" )
-      (dxf-in-t-split-by-sections stream)))
-
-  (defparameter *lt-2013-metric*
-    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2013-metric.dxf" )
-      (dxf-in-t-split-by-sections stream)))
-
-  (defparameter *autocad-2018-metric*
-    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/metric/AutoCAD-2018-metric.dxf" )
-      (dxf-in-t-split-by-sections stream)))
-  )
-
-(defparameter *Drawing-sty*
-    (with-open-file (stream "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf")
-      (dxf-in-t-split-by-sections stream)))
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defparameter *Drawing-sty* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun split-TABLES (sec-tables)
-  (let ((pairs-list sec-tables)
-	(sections nil)
-	(section  nil))
-    (dolist (i pairs-list (nreverse sections))
-      (push i section)
-      (when (equal i '(0 "ENDTAB"))
-	(push (cdr (nreverse (cdr section))) sections)
-	(setf section nil)))))
+(mapcar #'car *Drawing-sty*)
 
-(split-TABLES (cdr (assoc '(2 "TABLES") *Drawing-sty* :test #'equal)))
+(progn
+  (defparameter *Drawing-sty* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf"))
+  (split-ENTITIES *Drawing-sty*))
+
+(defparameter *t* nil)
+
+
+(defun handent ())
+(parse-integer "58" :radix 16)
+(format t "~X" 623)
+
+(mapcar
+ #'(lambda (tbl)
+     (list tbl (table-and-items tbl *s-tbl*)))
+ '( "VPORT" "LTYPE" "LAYER" "STYLE" "VIEW" "UCS" "APPID" "DIMSTYLE" "BLOCK_RECORD"))
+
+
 
 (setq mycircle
       (vla-addCircle mSpace
 		     (vlax-3d-point '(3.0 3.0 0.0)) 2.0))
-
-
-((2 "BLOCK_RECORD") (5 1) (330 0) (100 "AcDbSymbolTable") (70 3)
- (0 "BLOCK_RECORD") (5 112) (102 "{ACAD_XDICTIONARY") (360 421) (102 "}") (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "*Model_Space") (340 115) (70 0) (280 1) (281 0)
- (0 "BLOCK_RECORD") (5 108) (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "*Paper_Space") (340 111) (70 0) (280 1) (281 0)
- (0 "BLOCK_RECORD") (5 116) (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "*Paper_Space0") (340 119) (70 0) (280 1) (281 0)
- (0 "BLOCK_RECORD") (5 134) (102 "{ACAD_XDICTIONARY") (360 434) (102 "}") (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "123") (340 0) (102 "{BLKREFS") (331 177) (331 178) (102 "}") (70 4) (280 1) (281 0)
- (0 "BLOCK_RECORD") (5 141) (330 1) (100 "AcDbSymbolTableRecord") (100 "AcDbBlockTableRecord") (2 "*D2") (340 0) (70 0) (280 1) (281 0))

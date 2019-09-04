@@ -44,7 +44,7 @@
 
 
 (defun dxf-in-t-read-from-string (code str)
-  (format t "~A ~A~%" code str)
+;;  (format t "~A ~A~%" code str)
   (cond
     ((or (<= 0 code 4)
 	 (<= 6 code 9))  (read-from-string-string str)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
@@ -95,11 +95,14 @@
   "Считываете одной dxf пары - ключ и значение из потока stream.
 Возврвщает в виде списка."
   (let* ((code-string (read-dxf-code-value-t stream))
-	 (code (first code-string ))
-	 (str (second code-string )))
-    (list code (dxf-in-t-read-from-string code str))))
+	 (code (first code-string))
+	 (str (second code-string))
+	 (val (dxf-in-t-read-from-string code str)))
+;;    (format t "~A ~A ~A~%" code str val)
+    (list code val)))
 
 (defun dxf-in-t-pairs (stream)
+  "(with-open-file (stream \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\") (dxf-in-t-pairs stream))"
       (let ((pairs-lst nil))
       (do ((pair (dxf-in-t-pair stream) (dxf-in-t-pair stream)))
 	  ((and (= 0 (first pair )) (string= (second pair) "EOF")) (nreverse pairs-lst))
@@ -114,6 +117,30 @@
       (when (equal i '(0 "ENDSEC"))
 	(push (cdr (nreverse (cdr section))) sections)
 	(setf section nil)))))
+
+(defun dxf-in-t-fname (fname)
+  "Выполняет попытку считывания текстового dxf-файла в формате:
+@begin(list)
+ @item(версий с 2000 по 2004 [:external-format :cp1251])
+ @item(версий с 2007 по 2018 [:external-format :utf8].)
+
+Возвращает список, каждый подсписок, которого содержит пары - код и значение.
+@end(list)
+
+Пример использования:
+@begin[lang=lisp](code)
+ (dxf-in-t-fname \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\")
+@end(code)
+
+"
+  (cond
+    ((ignore-errors
+       (with-open-file (stream fname :external-format :cp1251)
+	 (dxf-in-t-split-by-sections stream))))
+    ((ignore-errors
+       (with-open-file (stream fname :external-format :utf8)
+	 (dxf-in-t-split-by-sections stream))))
+    (t (error "Cannot read file ~a." fname))))
 
 (defun dxf-out-t-pairs (code value stream)
   ""
@@ -187,3 +214,91 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defparameter *section-names* '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun split-HEADER (sections)
+"Пример использования
+ (split-CLASSES *Drawing-sty*)
+"
+"split-HEADER - not yet defined")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun split-CLASSES (sections)
+"Пример использования
+ (split-CLASSES *Drawing-sty*)
+"
+)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defun split-TABLES (sections)
+  "Пример использования:
+ (split-TABLES *Drawing-sty*)
+"
+  (let ((pairs-list (cdr (assoc '(2 "TABLES") sections :test #'equal)))
+	(tables nil)
+	(table  nil))
+    (dolist (i pairs-list (nreverse tables))
+      (push i table)
+      (when (equal i '(0 "ENDTAB"))
+	(push (cdr (nreverse (cdr table))) tables)
+	(setf table nil)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defparameter *table-names*
+  '("VPORT" "LTYPE" "LAYER" "STYLE" "VIEW" "UCS" "APPID" "DIMSTYLE" "BLOCK_RECORD"))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun table-and-items (tbl-name tables-pairs )
+  "Пример использования:
+ (table-and-items \"BLOCK_RECORD\" *s-tbl*)
+"
+  (assert (member tbl-name *table-names* :test #'string=  ))
+  (assert (consp tables-pairs))
+  (let ((pairs-list (cdr (assoc
+			  (list 2 tbl-name)
+			  tables-pairs
+			  :test #'equal)))
+	(rez nil)
+	(block-items nil)
+	(blk nil))
+    (setf rez 
+	  (dolist (i pairs-list (nreverse (push (nreverse blk) block-items)))
+	    (push i blk)
+	    (when (= (car i) 0)
+	      (push (nreverse (cdr blk)) block-items)
+	      (setf blk nil))))
+    (values (car rez) (cdr rez))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun split-BLOCKS (sections)
+  "Пример использования:
+  (split-BLOCKS *Drawing-sty*)
+"
+  "split-BLOCKS - not yet defined")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun split-ENTITIES (sections)
+  "Выделяет из посекционного представления dxf - файла секцию ENTITIES
+и преобразует ее в список с dxf - представлениями объектов.
+Пример использования:
+ (split-ENTITIES *Drawing-sty*)
+"
+  (let ((pairs-list (reverse (cdr (assoc '(2 "ENTITIES") sections :test #'equal))))
+	(entities nil)
+	(entity   nil))
+    (dolist (i pairs-list (nreverse entities))
+      (push i entity)
+      (when (= (car i) 0)
+	(push entity entities)
+	(setf entity nil)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun split-OBJECTS (sections)
+"Пример использования
+ (split-OBJECTS *Drawing-sty*)
+"
+"split-OBJECTS - not yet defined"
+)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -11,18 +11,61 @@
 (defparameter *symbol-tbl-subclass-marker* "AcDbSymbolTable")
 
 (defclass db-symbol-tbl ( db-object )
-  ((symbol-tbl-name  :accessor symbol-tbl-name   :initarg :symbol-tbl-name  :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
-   (symbol-tbl-flag  :accessor symbol-tbl-flag   :initarg :symbol-tbl-flag  :initform 0              :documentation "Код  70. Стандартные флаги")
+  ((Object-Name  :accessor Object-Name       :initarg :Object-Name  :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
+   (Count        :accessor symbol-tbl-flag   :initarg :Count  :initform 0              :documentation "Код  70. Стандартные флаги")
    (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil            :documentation "Записи таблицы."))
   (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295
 
+Group codes that apply to all symbol tables
+| Group code | Description                                                                                                                                                          |   |
+|------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+---|
+|         -1 | APP: entity name (changes each time a drawing is opened)                                                                                                             |   |
+|          0 | Object type (TABLE)                                                                                                                                                  |   |
+|          2 | Table name                                                                                                                                                           |   |
+|          5 | Handle                                                                                                                                                               |   |
+|        102 | “{ACAD_XDICTIONARY” indicates the start of an extension dictionary group. This group exists only if persistent reactors have been attached to this object (optional) |   |
+|        360 | Hard owner ID/handle to owner dictionary (optional)                                                                                                                  |   |
+|        102 | End of group, “}” (optional)                                                                                                                                         |   |
+|        330 | Soft-pointer ID/handle to owner object                                                                                                                               |   |
+|        100 | Subclass marker (AcDbSymbolTable)                                                                                                                                    |   |
+|         70 | Maximum number of entries in table                                                                                                                                   |   |
+
+Пример DXF-кода:
+  (0 \"TABLE\") (2 \"BLOCK_RECORD\") (5 1) (330 0) (100 \"AcDbSymbolTable\") (70 1)
+    ...
+   (0 \"ENDTAB\")
 "))
+
+(defclass acad-blocks()
+    ((Object-Name ))
+  (:documentation "
+* Methods
+Add
+GetExtensionDictionary
+GetXData
+Item
+SetXData
+* Properties
+Application
+Count
+Document
+Handle
+HasExtensionDictionary
+ObjectID
+ObjectName
+OwnerID
+* Events
+None
+* END
+
+"))
+
 
 (defmethod dxf-out-text ((x db-symbol-tbl) stream)
   (dxf-out-t-string 0 *symbol-tbl-class-marker* stream)
-    (let ((st-name (symbol-tbl-name x)))
+    (let ((st-name (Object-Name x)))
     (dxf-out-t-string 2 st-name stream)))
 
 (defmethod dxf-out-text :after ((x db-symbol-tbl) stream)
@@ -34,9 +77,44 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21
     (dxf-out-t-string 0 *end-tab* stream)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass db-block-tbl ( db-symbol-tbl )
+(defclass db-block-rec ( db-e symbol-tbl )
+  ((block-tbl-name  :accessor block-tbl-name    :initarg :block-tbl-name :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
+   )
+  (:documentation "
+| Group code | Description                                                                                                                                                                                                                                                                                                                                                                                               |
+|------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|        100 | Subclass marker (AcDbBlockTableRecord)                                                                                                                                                                                                                                                                                                                                                                    |
+|          2 | Block name                                                                                                                                                                                                                                                                                                                                                                                                |
+|        340 | Hard-pointer ID/handle to associated LAYOUT object                                                                                                                                                                                                                                                                                                                                                        |
+|         70 | Block insertion units.                                                                                                                                                                                                                                                                                                                                                                                    |
+|        280 | Block explodability                                                                                                                                                                                                                                                                                                                                                                                       |
+|        281 | Block scalability                                                                                                                                                                                                                                                                                                                                                                                         |
+|        310 | DXF: Binary data for bitmap preview (optional)                                                                                                                                                                                                                                                                                                                                                            |
+|       1001 | Xdata application name “ACAD” (optional)                                                                                                                                                                                                                                                                                                                                                                  |
+|       1000 | Xdata string data “DesignCenter Data” (optional)                                                                                                                                                                                                                                                                                                                                                          |
+|       1002 | Begin xdata “{“ (optional)                                                                                                                                                                                                                                                                                                                                                                                |
+|       1070 | Autodesk Design Center version number                                                                                                                                                                                                                                                                                                                                                                     |
+|       1070 | Insert units: 0 = Unitless 1 = Inches 2 = Feet 3 = Miles 4 = Millimeters 5 = Centimeters 6 = Meters 7 = Kilometers 8 = Microinches 9 = Mils 10 = Yards 11 = Angstroms 12 = Nanometers 13 = Microns 14 = Decimeters 15 = Decameters 16 = Hectometers 17 = Gigameters 18 = Astronomical units 19 = Light years 20 = Parsecs 21 = US Survey Feet 22 = US Survey Inch 23 = US Survey Yard 24 = US Survey Mile |
+|       1002 | End xdata “}“                                                                                                                                                                                                                                                                                                                                                                                             |
+
+Пример DXF-кода
+ (0 \"TABLE\") (2 \"BLOCK_RECORD\") (5 1) (330 0) (100 \"AcDbSymbolTable\") (70 1)
+  (0 \"BLOCK_RECORD\") (5 112) (330 1) (100 \"AcDbSymbolTableRecord\") (100 \"AcDbBlockTableRecord\") (2 \"*Model_Space\") (340 115) (70 0) (280 1) (281 0) 
+  (0 \"BLOCK_RECORD\") (5 108) (330 1) (100 \"AcDbSymbolTableRecord\") (100 \"AcDbBlockTableRecord\") (2 \"*Paper_Space\") (340 111) (70 0) (280 1) (281 0) 
+  (0 \"BLOCK_RECORD\") (5 116) (330 1) (100 \"AcDbSymbolTableRecord\") (100 \"AcDbBlockTableRecord\") (2 \"*Paper_Space0\") (340 119) (70 0) (280 1) (281 0) 
+ (0 \"ENDTAB\")
 
 
+| Methods    | Add         | GetExtensionDictionary | GetXData | Item   | SetXData               |          |            |         |
+
+| Properties | Application | Count                  | Document | Handle | HasExtensionDictionary | ObjectID | ObjectName | OwnerID |
+
+| Events     | None        |                        |          |        |                        |          |            |         |
+
+
+
+
+"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -266,7 +266,10 @@
 
 (defun color-rgb-to-index (rgb)
   "Пример использования:
-;;;;(color-rgb-to-index (list (random 255) (random 255) (random 255)))"
+ (color-rgb-to-index (list (random 255) (random 255) (random 255)))
+ (color-rgb-to-index (list 114 208 47))
+"
+  (assert (and (consp rgb) (= (length rgb) 3)))
   (caadar  (sort (mapcar #'(lambda (el)
 			     (let ((r  (- (first (cadr el)) (first  rgb)))
 				   (g (- (second (cadr el)) (second rgb)))
@@ -280,8 +283,30 @@
 ;;;;		   (format t "(= ~A (rgb-2-ac-ci '~S))~%"
 ;;;;			   (color-rgb-to-index (list r g b ))
 ;;;;			   (list r g b))))
+(defparameter *color-bylayer*  (* -64 256 256 256))
+(defparameter *color-byblock*  (* -63 256 256 256))
+
+(defun color-rgb-to-truecolor (rgb)
+  "Пример использования:
+ (/  (color-rgb-to-truecolor '(114 208 47))   7524399
+"
+  (+ (* (first rgb) 256 256) (* (second rgb) 256) (*  (third rgb))))
 
 
+(defun color-truecolor-to-rgb (truecolor)
+  "Примеры использования:
+ (color-truecolor-to-rgb *color-byblock*)
+ (color-truecolor-to-rgb *color-bylayer*)
+ (color-truecolor-to-rgb -1032662993)
+ (color-truecolor-to-rgb -7524399)
+ (color-truecolor-to-rgb 7524399)
 
-
+"
+  (let* ((rg-b (multiple-value-list (floor  truecolor 256)))
+	 (b    (+ 256 -256 (second rg-b)))
+	 (r-g  (multiple-value-list (floor (first rg-b) 256)))
+	 (g    (+ 256 -256 (second r-g)))
+	 (r-   (multiple-value-list (floor (first r-g) 256)))
+	 (r    (+ 256 -256 (second r-))))
+    (list r g b )))
 

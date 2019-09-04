@@ -21,79 +21,200 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *db-object-class-marker* "OBJECT")
+(defparameter *Acad-Object-class-marker* "OBJECT")
 
-(defparameter *db-object-subclass-marker* "AcDbObject")
+(defparameter *Acad-Object-subclass-marker* "AcDbObject")
 
-(defclass db-object ()
-  ((object-id        :accessor object-id     :initarg :object-id     :initform nil :documentation "")
-   (object-owner     :accessor object-owner  :initarg :object-owner  :initform nil :documentation "Код 330. ")
-   (object-handle    :accessor object-handle :initarg :object-handle :initform nil :documentation "Код   5. Дескриптор")
+(defclass Acad-Object ()
+  ((Application)
+   (Document)
+   (Object-Name      :accessor Object-Name   :initarg :Object-Name   :initform nil :documentation "")
+   (Object-ID        :accessor Object-ID     :initarg :Object-ID     :initform nil :documentation "")
+   (Owner-ID         :accessor Owner-ID      :initarg :Owner-ID      :initform nil :documentation "Код 330.  object-owner -> Owner-ID")
+   (Handle           :accessor Handle        :initarg :object-handle :initform nil :documentation "Код   5. Дескриптор object-handle -> Handle")
+   (HasExtensionDictionary)
    (next-handle      :accessor next-handle   :initarg :next-handle   :initform 1   :allocation :class))
-  (:documentation "См. ./dbmain.h:class ADESK_NO_VTABLE AcDbObject: public AcGiDrawable, public AcHeapOperators
+  (:documentation "
+db-object -> Acad-Object
+См. ./dbmain.h:class ADESK_NO_VTABLE AcDbObject: public AcGiDrawable, public AcHeapOperators
+* Object inheritance
+Object
+   AcadObject
+
+*Methods
+Delete
+GetExtensionDictionary
+GetXData
+SetXData
+*Properties
+Application
+Document
+Handle
+HasExtensionDictionary
+ObjectID
+ObjectName
+OwnerID
+* Events
+Modified
+
 "))
 
-(defmethod dxf-out-text ((x db-object) stream)
-  (dxf-out-t-string 0 *db-object-class-marker* stream))
+(defmethod dxf-out-text ((x Acad-Object) stream)
+  (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x db-object) stream)
+(defmethod dxf-out-text :after ((x Acad-Object) stream)
   (let (
-	(hdl (object-handle x))
-	(own (object-owner  x)))
+	(hdl (Handle x))
+	(own (Owner-ID x)))
     (when hdl (dxf-out-t-hex   5 hdl stream))
     (when own (dxf-out-t-hex 330 own stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x db-object) stream)
-  (dxf-out-t-string 0 *db-object-class-marker* stream))
+(defmethod dxf-out-binary ((x Acad-Object) stream)
+  (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x db-object) stream)
-  (let ((own (object-owner  x))
-	(hdl (object-handle x)))
+(defmethod dxf-out-binary :after ((x Acad-Object) stream)
+  (let ((own (Owner-ID  x))
+	(hdl (Handle x)))
     (when own (dxf-out-t-hex 330 own stream))
     (when hdl (dxf-out-t-hex   5 hdl stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defparameter *db-entity-class-marker* "ENTITY")
-
-(defparameter *db-entity-subclass-marker* "AcDbEntity")
-
-(defclass db-entity (db-object)
-  ((entity-layer      :accessor entity-layer      :initarg :entity-layer      :initform "0" :documentation "Код   8. Имя слоя")
-   (entity-color      :accessor entity-color      :initarg :entity-color      :initform 256 :documentation "Код  62. 16-битный цвет")
-   (entity-true-color :accessor entity-true-color :initarg :entity-true-color :initform nil :documentation "Код 420. 32-битный цвет"))
-  (:documentation "См. ./dbmain.h:class ADESK_NO_VTABLE AcDbEntity: public AcDbObject
-"))
-
-(defmethod dxf-out-text ((x db-entity) stream)
-  (dxf-out-t-string 0 *db-entity-class-marker* stream))
-
-(defmethod dxf-out-text :after ((x db-entity) stream)
-  (dxf-out-t-string 100 *db-entity-subclass-marker* stream)
-  (let ((own (object-owner  x))
-	(hdl (object-handle x))
-	(la  (entity-layer  x))
-	(cl  (entity-color  x)))
-    (when own (dxf-out-t-hex 330 own stream))
-    (when hdl (dxf-out-t-hex   5 hdl stream))
-    (dxf-out-t-string 8 la stream)
-    (unless (= 256 cl) (dxf-out-t-int16 62 cl stream))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x db-entity) stream)
-  (dxf-out-b-string 0 *db-entity-class-marker* stream))
+(defmethod  dxf-in-text :after ((object Acad-Object) (pairs cons))
+  (let ((c-5   (cadr (assoc   5 pairs :test #'equal)))
+	(c-330 (cadr (assoc 330 pairs :test #'equal))))
+;;    (break "~A ~A"  c-5 c-330)
+    (when c-5   (setf (Handle   object) c-5))
+    (when c-330 (setf (Owner-ID object) c-330))))
 
-(defmethod dxf-out-binary :after ((x db-entity) stream)
-  (dxf-out-b-string 100 *db-entity-subclass-marker* stream)
-  (let ((hdl (object-handle x))
-	(la (entity-layer x))
-	(cl (entity-color x)))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defparameter *Acad-Entity-class-marker* "ENTITY")
+
+(defparameter *Acad-Entity-subclass-marker* "AcDbEntity")
+
+(defclass acad-entity (acad-object)
+  ((Layer               :accessor Layer    :initarg :Layer  :initform "0" :documentation "Код   8. Имя слоя  entity-layer -> Layer" )
+
+   (Entity-Transparency)
+   (Linetype            :accessor Linetype :initarg :Layer  :initform "BYLAYER" :documentation "Код   6. Linetype name (present if not BYLAYER). The special name BYBLOCK indicates a floating linetype (optional) | BYLAYER |" )
+   (Hyperlinks)
+   (LinetypeScale)
+   (Lineweight)
+   (Material)
+   (PlotStyleName)
+   (TrueColor           :accessor TrueColor :initarg :TrueColor :initform '(256 nil) :documentation "Код   62 и 420" )
+   ;;   (entity-color      :accessor entity-color      :initarg :entity-color      :initform 256 :documentation "Код  62. 16-битный цвет")
+   ;;   (entity-true-color :accessor entity-true-color :initarg :entity-true-color :initform nil :documentation "Код 420. 32-битный цвет")
+   (Visible)
+   )
+  (:documentation "См. ./dbmain.h:class ADESK_NO_VTABLE AcDbEntity: public AcDbObject
+
+* Members
+These members are part of this object:
+** Methods
+ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+** Properties
+Application Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName TrueColor Visible
+** Events
+Modified
+
+* DXF
+
+| Group code | Description                                                                                                                                                                   | If omitted, defaults to… |
+|         -1 | APP: entity name (changes each time a drawing is opened)                                                                                                                      | not omitted              |
+|          0 | Entity type                                                                                                                                                                   | not omitted              |
+|          5 | Handle                                                                                                                                                                        | not omitted              |
+|        102 | Start of application-defined group “{application_name” (optional)                                                                                                             | no default               |
+|      a-d-c | Codes and values within the 102 groups are application-defined (optional)                                                                                                     | no default               |
+|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
+|        102 | “{ACAD_REACTORS” indicates the start of the AutoCAD persistent reactors group.                                                                                                | no default               |
+|        330 | This group exists only if persistent reactors have been attached to this object (optional) Soft-pointer ID/handle to owner dictionary (optional)                              | no default               |
+|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
+|        102 | “{ACAD_XDICTIONARY” indicates the start of an extension dictionary group. This group exists only if an extension dictionary has been attached to the object (optional)        | no default               |
+|        360 | Hard-owner ID/handle to owner dictionary (optional)                                                                                                                           | no default               |
+|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
+|        330 | Soft-pointer ID/handle to owner BLOCK_RECORD object                                                                                                                           | not omitted              |
+|        100 | Subclass marker (AcDbEntity)                                                                                                                                                  | not omitted              |
+|         67 | Absent or zero indicates entity is in model space. 1 indicates entity is in paper space (optional).                                                                           | 0                        |
+|        410 | APP: layout tab name                                                                                                                                                          | not omitted              |
+|          8 | Layer name                                                                                                                                                                    | not omitted              |
+|          6 | Linetype name (present if not BYLAYER). The special name BYBLOCK indicates a floating linetype (optional)                                                                     | BYLAYER                  |
+|        347 | Hard-pointer ID/handle to material object (present if not BYLAYER)                                                                                                            | BYLAYER                  |
+|         62 | Color number (present if not BYLAYER); zero indicates the BYBLOCK (floating) color; 256 indicates BYLAYER; a negative value indicates that the layer is turned off (optional) | BYLAYER                  |
+|        370 | Lineweight enum value. Stored and moved around as a 16-bit integer.                                                                                                           | not omitted              |
+|         48 | Linetype scale (optional)                                                                                                                                                     | 1.0                      |
+|         60 | Object visibility (optional): 0 = Visible 1 = Invisible                                                                                                                       | 0                        |
+|         92 | Number of bytes in the proxy entity graphics represented in the subsequent 310 groups, which are binary chunk records (optional)                                              | no default               |
+|        310 | Proxy entity graphics data (multiple lines; 256 characters max. per line) (optional)                                                                                          | no default               |
+|        420 | A 24-bit color value that should be dealt with in terms of bytes with values of 0 to 255.                                                                                     | no default               |
+|        430 | The lowest byte is the blue value, the middle byte is the green value, and the third byte is the red value.                                                                   | no default               |
+|        440 | The top byte is always 0. The group code cannot be used by custom entities for their own data because                                                                         | no default               |
+|        390 | the group code is reserved for AcDbEntity, class-level color data and AcDbEntity, class-level                                                                                 | no default               |
+|        284 | transparency data Color name. The group code cannot be used by custom entities for their own                                                                                  | no default               |
+|            | data because the group code is reserved for AcDbEntity, class-level color data and AcDbEntity,                                                                                |                          |
+|            | class-level transparency data Transparency value. The group code cannot be used by custom entities                                                                            |                          |
+|            | for their own data because the group code is reserved for AcDbEntity, class-level color data and AcDbEntity,                                                                  |                          |
+|            | class-level transparency data Hard-pointer ID/handle to the plot style object Shadow mode 0 = Casts                                                                           |                          |
+|            | and receives shadows 1 = Casts shadows 2 = Receives shadows 3 = Ignores shadows NOTE:Starting                                                                                 |                          |
+|            | with AutoCAD 2016-based products, this property is obsolete but still supported for backwards compatibility.                                                                  |                          |
+
+"))
+
+(defmethod dxf-out-text ((x Acad-Entity) stream)
+  (dxf-out-t-string 0 *Acad-Entity-class-marker* stream))
+
+(defmethod dxf-out-text :after ((x Acad-Entity) stream)
+  (dxf-out-t-string 100 *Acad-Entity-subclass-marker* stream)
+  (let ((la  (Layer  x))
+	(cl  (truecolor x))
+	(lt  (linetype  x)))
+    (dxf-out-t-string 8 la stream)
+    (unless (string= "BYLAYER" lt ) (dxf-out-t 6 lt stream))
+    (cond
+      ((= 256 (first cl)))
+      ((= 0   (first cl)) (dxf-out-t 62 (first cl) stream))
+      ((and (< 0 (first cl) 256) (null (second cl)))
+       (dxf-out-t-int16 62 (first cl) stream))
+      ((and (< 0 (first cl) 256) (second cl))
+       (dxf-out-t-int16 62  (first cl) stream)
+       (dxf-out-t-int32 420 (color-rgb-to-truecolor (second cl)) stream)))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;LLLL;;
+
+(defmethod dxf-out-binary ((x Acad-Entity) stream)
+  (dxf-out-b-string 0 *Acad-Entity-class-marker* stream))
+
+(defmethod dxf-out-binary :after ((x Acad-Entity) stream)
+  (dxf-out-b-string 100 *Acad-Entity-subclass-marker* stream)
+  (let ((hdl (Handle x))
+	(la (Layer x))
+	(cl (truecolor x)))
     (when hdl (dxf-out-b-hex 5 hdl stream))
     (dxf-out-b-string 8 la stream)
     (unless (= 256 cl) (dxf-out-b-int16 62  cl stream))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod  dxf-in-text :after ((object Acad-Entity) (pairs cons))
+  (let ((c-8   (cadr (assoc   8 pairs :test #'equal)))
+	(c-6   (cadr (assoc   6 pairs :test #'equal)))
+	(c-62  (cadr (assoc  62 pairs :test #'equal)))
+	(c-420 (cadr (assoc 420 pairs :test #'equal))))
+    (when c-8   (setf (layer     object) c-8))
+    (when c-6   (setf (linetype  object) c-6))
+    (cond
+      ((and c-62 c-420)
+       (setf (truecolor object)
+	     (list c-62 (color-truecolor-to-rgb   c-420))))
+      (c-62
+       (setf (truecolor object)
+	     (list c-62 nil)))
+      (t
+       (setf (truecolor object) (list 256 nil))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -101,19 +222,23 @@
 
 (defparameter *db-curve-subclass-marker* "AcDbCurve")
 
-(defclass db-curve (db-entity) ())
+(defclass db-curve (Acad-Entity) ())
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *db-line-class-marker* "LINE")
+(defparameter *Acad-Line-class-marker* "LINE")
 
-(defparameter *db-line-subclass-marker* "AcDbLine")
+(defparameter *Acad-Line-subclass-marker* "AcDbLine")
 
-(defclass db-line (db-curve)
-  ((start-point :accessor start-point :initarg :start-point :initform (vector 0 0 0 ) :documentation "Код 10. Начальная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
-   (end-point   :accessor end-point   :initarg :end-point   :initform (vector 0 0 0 ) :documentation "Код 11. Конечная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
-   (thickness   :accessor thickness   :initarg :thickness   :initform 0               :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
-   (normal      :accessor normal      :initarg :normal      :initform (vector 0 0 1)  :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор"))
+(defclass acad-line (acad-entity)
+  ((StartPoint :accessor StartPoint  :initarg :StartPoint  :initform (vector 0d0 0d0 0d0 ) :documentation "Код 10. Начальная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
+   (EndPoint   :accessor EndPoint    :initarg :EndPoint    :initform (vector 0d0 0d0 0d0 ) :documentation "Код 11. Конечная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
+   (Thickness  :accessor Thickness   :initarg :thickness   :initform 0d0                   :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
+   (Normal     :accessor Normal      :initarg :Normal      :initform (vector 0d0 0d0 1d0)  :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
+   (Angle)
+   (Delta)
+   (Length))
+
   (:documentation "См. ./dbents.h:class AcDbLine: public AcDbCurve
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66
@@ -142,16 +267,59 @@ LINE (DXF)
 |               | Файл DXF: значение X; приложение: 3D-вектор                               |
 |---------------+---------------------------------------------------------------------------|
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
-|---------------+---------------------------------------------------------------------------|"))
+|---------------+---------------------------------------------------------------------------|
 
-(defmethod dxf-out-text ((x db-line) stream)
-  (dxf-out-t-string 0 *db-line-class-marker* stream))
+* Object Inheritance
+Object
+   AcadObject AcadEntity
+         AcadLine
 
-(defmethod dxf-out-text :after ((x db-line) stream)
-  (dxf-out-t-string 100 *db-line-subclass-marker* stream)
-  (let ((th (thickness x))
-        (p-s (start-point x))
-	(p-e (end-point x))
+* Members
+These members are part of this object:
+** Methods 
+ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+** Properties 
+Angle Application Delta Document EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Length Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName StartPoint Thickness TrueColor Visible
+** Events 
+Modified
+
+
+;   Angle (RO) = 2.54047
+;   Application (RO) = #<VLA-OBJECT IAcadApplication 00007ff77d4470f8>
+;   Delta (RO) = (-1.58936 1.08997 0.0)
+;   Document (RO) = #<VLA-OBJECT IAcadDocument 00000142daa47188>
+;   EndPoint = (-1.58936 1.09759 0.0)
+;   EntityTransparency = \"ByLayer\"
+;   Handle (RO) = \"162\"
+;   HasExtensionDictionary (RO) = 0
+;   Hyperlinks (RO) = #<VLA-OBJECT IAcadHyperlinks 00000142eeeb8188>
+;   Layer = \"0\"
+;   Length (RO) = 1.9272
+;   Linetype = \"ByLayer\"
+;   LinetypeScale = 1.0
+;   Lineweight = -1
+;   Material = \"ByBlock\"
+;   Normal = (0.0 0.0 1.0)
+;   ObjectID (RO) = 42
+;   ObjectName (RO) = \"AcDbLine\"
+;   OwnerID (RO) = 43
+;   PlotStyleName = \"ByLayer\"
+;   StartPoint = (0.0 0.00762657 0.0)
+;   Thickness = 0.0
+;   TrueColor = #<VLA-OBJECT IAcadAcCmColor 00000142eeebf020>
+;   Visible = -1
+
+
+"))
+
+(defmethod dxf-out-text ((x Acad-Line) stream)
+  (dxf-out-t-string 0 *Acad-Line-class-marker* stream))
+
+(defmethod dxf-out-text :after ((x Acad-Line) stream)
+  (dxf-out-t-string 100 *Acad-Line-subclass-marker* stream)
+  (let ((th  (thickness x))
+        (p-s (StartPoint x))
+	(p-e (EndPoint x))
 	(nrm (normal x))
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
@@ -164,14 +332,14 @@ LINE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x db-line) stream)
-  (dxf-out-b-string 0 *db-line-class-marker* stream))
+(defmethod dxf-out-binary ((x Acad-Line) stream)
+  (dxf-out-b-string 0 *Acad-Line-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x db-line) stream)
-  (dxf-out-b-string 100 *db-line-subclass-marker* stream)
+(defmethod dxf-out-binary :after ((x Acad-Line) stream)
+  (dxf-out-b-string 100 *Acad-Line-subclass-marker* stream)
   (let ((th (thickness x))
-        (p-s (start-point x))
-	(p-e (end-point x))
+        (p-s (StartPoint x))
+	(p-e (EndPoint x))
 	(nrm (normal x))
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
@@ -182,13 +350,47 @@ LINE (DXF)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1))
       (dxf-out-b-point-3d nrm 210 stream))))
 
+(defmethod  dxf-in-text  ((object Acad-Line) (pairs cons))
+  (assert (equal (assoc 0 pairs :test #'equal) '(0 "LINE"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod  dxf-in-text :after ((object Acad-Line) (pairs cons))
+  (let (
+	(c-10  (cadr (assoc  10 pairs :test #'equal)))
+	(c-20  (cadr (assoc  20 pairs :test #'equal)))
+	(c-30  (cadr (assoc  30 pairs :test #'equal)))
+	(c-11  (cadr (assoc  11 pairs :test #'equal)))
+	(c-21  (cadr (assoc  21 pairs :test #'equal)))
+	(c-31  (cadr (assoc  31 pairs :test #'equal)))
+	(c-39  (cadr (assoc  39 pairs :test #'equal)))
+	(c-210 (cadr (assoc 210 pairs :test #'equal)))
+	(c-220 (cadr (assoc 220 pairs :test #'equal)))
+	(c-230 (cadr (assoc 230 pairs :test #'equal)))
+	)
+    (cond
+      ((and c-10 c-20 c-30)        (setf  (StartPoint object) (vector c-10 c-20 c-30)))
+      ((and c-10 c-20 (null c-30)) (setf  (StartPoint object) (vector c-10 c-20 0d0)))
+      (t                           (setf  (StartPoint object) (vector 0d0 0d0 0d0))))
+    (cond
+      ((and c-11 c-21 c-31)        (setf  (EndPoint   object) (vector c-11 c-21 c-31)))
+      ((and c-11 c-21 (null c-31)) (setf  (EndPoint   object) (vector c-11 c-21 0.d0)))
+      (t                           (setf  (EndPoint   object) (vector 0.d0 0.d0 0.d0))))
+    (cond
+      (c-39     (setf  (thickness   object) c-39))
+      (t        (setf  (thickness   object) 0.0d0)))
+    (cond
+      ((and c-210 c-220 c-230)     (setf  (normal   object) (vector c-210 c-220 c-230)))
+      (t                           (setf  (normal   object) (vector 0.0d0 0.0d0 1.0d0))))))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *db-point-class-marker* "POINT")
 
 (defparameter *db-point-subclass-marker* "AcDbPoint")
 
-(defclass db-point (db-entity)
+(defclass db-point (Acad-Entity)
   ((position-point    :accessor position-point    :initarg :position-point :initform (vector 0 0 0) :documentation "Код  10. Положение точки")
    (thickness         :accessor thickness         :initarg :thickness      :initform 0              :documentation "Код  39. Высота выдавливания")
    (normal            :accessor normal            :initarg :normal         :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания")
@@ -363,34 +565,35 @@ XLINE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *db-circle-class-marker* "CIRCLE")
+(defparameter *Acad-Circle-class-marker* "CIRCLE")
 
-(defparameter *db-circle-subclass-marker* "AcDbCircle")
+(defparameter *Acad-Circle-subclass-marker* "AcDbCircle")
 
-(defclass db-circle (db-curve)
+(defclass  acad-circle (acad-entity) 
   ((center    :accessor center     :initarg :center    :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
    (radius    :accessor radius     :initarg :radius    :initform 1              :documentation "Код 40. Радиус")
    (thickness :accessor thickness  :initarg :thickness :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
-   (normal    :accessor normal     :initarg :normal    :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор"))
-  (:documentation "См. ./dbents.h:class AcDbCircle: public AcDbCurve
+   (normal    :accessor normal     :initarg :normal    :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
+   (area)
+   (circumference)
+   (diameter) 
+   )
+  (:documentation
+   "См. ./dbents.h:class AcDbCircle: public AcDbCurve
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18
 
 CIRCLE (DXF)
 К объектам CIRCLE применяются следующие групповые коды.
 Групповые коды CIRCLE 
-|---------------+---------------------------------------------------------------------------|
 | Групповой код | Описание                                                                  |
-|---------------+---------------------------------------------------------------------------|
 |           100 | Маркер подкласса (AcDbCircle)                                             |
-|---------------+---------------------------------------------------------------------------|
 |            39 | Толщина (необязательно; значение по умолчанию = 0)                        |
 |---------------+---------------------------------------------------------------------------|
 |            10 | Центральная точка (в ОСК)                                                 |
 |               | Файл DXF: значение X; приложение: 3D-точка                                |
 |---------------+---------------------------------------------------------------------------|
 |        20, 30 | Файл DXF: значения Y и Z для центральной точки (в ОСК)                    |
-|---------------+---------------------------------------------------------------------------|
 |            40 | Радиус                                                                    |
 |---------------+---------------------------------------------------------------------------|
 |           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1) |
@@ -399,13 +602,26 @@ CIRCLE (DXF)
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
 |               | Понятия, связанные с данным                                               |
 |---------------+---------------------------------------------------------------------------|
+
+* Object Inheritance
+ Object
+   AcadObject AcadEntity
+         AcadCircle
+* Members
+These members are part of this object:
+** Methods
+ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+** Properties
+Application Area Center Circumference Diameter Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Radius Thickness TrueColor Visible
+** Events
+Modified
 "))
 
-(defmethod dxf-out-text ((x db-circle) stream)
-  (dxf-out-t-string 0 *db-circle-class-marker*  stream))
+(defmethod dxf-out-text ((x Acad-Circle) stream)
+  (dxf-out-t-string 0 *Acad-Circle-class-marker*  stream))
 
-(defmethod dxf-out-text  :after ((x db-circle) stream)
-  (dxf-out-t-string 100 *db-circle-subclass-marker* stream)
+(defmethod dxf-out-text  :after ((x Acad-Circle) stream)
+  (dxf-out-t-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
         (p-c (center x))
 	(rad (radius x))
@@ -420,11 +636,11 @@ CIRCLE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x db-circle) stream)
-  (dxf-out-b-string 0 *db-circle-class-marker*  stream))
+(defmethod dxf-out-binary ((x Acad-Circle) stream)
+  (dxf-out-b-string 0 *Acad-Circle-class-marker*  stream))
 
-(defmethod dxf-out-binary :after ((x db-circle) stream)
-  (dxf-out-b-string 100 *db-circle-subclass-marker* stream)
+(defmethod dxf-out-binary :after ((x Acad-Circle) stream)
+  (dxf-out-b-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
         (p-c (center x))
 	(rad (radius x))
@@ -436,6 +652,32 @@ CIRCLE (DXF)
     (dxf-out-b-point-3d 10 p-c stream)
     (dxf-out-b-double 40 rad stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod  dxf-in-text  ((object Acad-Circle) (pairs cons))
+  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *Acad-Circle-class-marker*))))
+
+(defmethod  dxf-in-text :after ((object Acad-Circle) (pairs cons))
+  (let (
+	(c-40  (cadr (assoc  40 pairs :test #'equal)))
+	(c-10  (cadr (assoc  10 pairs :test #'equal)))
+	(c-20  (cadr (assoc  20 pairs :test #'equal)))
+	(c-30  (cadr (assoc  30 pairs :test #'equal)))
+	(c-210 (cadr (assoc 210 pairs :test #'equal)))
+	(c-220 (cadr (assoc 220 pairs :test #'equal)))
+	(c-230 (cadr (assoc 230 pairs :test #'equal)))
+	
+	)
+    (if  c-40 (setf  (radius object) c-40)
+	      (setf  (radius object) 1.0d0))
+    (if (and c-10 c-20 c-30)
+	(setf  (center object) (vector c-10 c-20 c-30))
+	(setf  (center object) (vector 0.0d0 0.0d0 0.0d0)))
+    (if (and c-210 c-220 c-230)
+	(setf  (normal object) (vector c-210 c-220 c-230))
+	(setf  (normal object) (vector 0.0d0 0.0d0 1.0d0)))
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -487,7 +729,7 @@ ARC (DXF)
   (dxf-out-t-string 0 *db-arc-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x db-arc) stream)
-  (dxf-out-t-string 100 *db-circle-subclass-marker* stream)
+  (dxf-out-t-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-c (center x))
 	(rad (radius x))
@@ -511,7 +753,7 @@ ARC (DXF)
   (dxf-out-b-string 0 *db-arc-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x db-arc) stream)
-  (dxf-out-b-string 100 *db-circle-subclass-marker* stream)
+  (dxf-out-b-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-c (center x))
 	(rad (radius x))
@@ -537,7 +779,7 @@ ARC (DXF)
 
 (defparameter *db-text-subclass-marker* "AcDbText")
 
-(defclass db-text (db-entity)
+(defclass db-text (Acad-Entity)
   ((thickness         :accessor thickness         :initarg :thickness           :initform 0              :documentation "Код  39. Thickness (optional; default = 0)")
    (position-point    :accessor position-point    :initarg :position-point      :initform (vector 0 0 0) :documentation "Код  10. First alignment point (in OCS) DXF: X value; APP: 3D point")
    (height            :accessor height            :initarg :height              :initform 3.5            :documentation "Код  40. Text height")
@@ -808,86 +1050,253 @@ ELLIPSE (DXF)
     (dxf-out-b-double 41 s-p stream)
     (dxf-out-b-double 42 e-p stream)))
 
-;====================================================================================================
+(defclass AcadDatabase ()
+  (
+   (Blocks                  :accessor Blocks                 :initarg :Blocks :initform nil :documentation "")
+   (Dictionaries            :accessor Dictionaries           :initarg :Dictionaries :initform nil :documentation "")
+   (DimStyles               :accessor DimStyles              :initarg :DimStyles :initform nil :documentation "")
+   (Groups                  :accessor Groups                 :initarg :Groups :initform nil :documentation "")
+   (Layers                  :accessor Layers                 :initarg :Layers :initform nil :documentation "")
+   (Layouts                 :accessor Layouts                :initarg :Layouts :initform nil :documentation "")
+   (Limits                  :accessor Limits                 :initarg :Limits :initform nil :documentation "") ;;;;;
+   (Linetypes               :accessor Linetypes              :initarg :Linetypes :initform nil :documentation "")
+   (Materials               :accessor Materials              :initarg :Materials :initform nil :documentation "")
+   (PlotConfigurations      :accessor PlotConfigurations     :initarg :PlotConfigurations :initform nil :documentation "")
+   (RegisteredApplications  :accessor RegisteredApplications :initarg :RegisteredApplications :initform nil :documentation "")
+   (TextStyles              :accessor TextStyles             :initarg :TextStyles :initform nil :documentation "")
+   (UserCoordinateSystems   :accessor UserCoordinateSystems  :initarg :UserCoordinateSystems :initform nil :documentation "")
+   (Viewports               :accessor Viewports              :initarg :Viewports :initform nil :documentation "" )
+   (Views                   :accessor Views                  :initarg :Views :initform nil :documentation "")
+   (ElevationModelSpace)
+   (ElevationPaperSpace)
+   (ModelSpace)
+   (PaperSpace)
+   (Preferences)
+   (SectionManager)
+   (SummaryInfo)
+   )
+  (:documentation
+   "
+* Object Inheritance
+ Object
+  AcadDatabase
+* Members
+These members are part of this object:
+** Methods
+CopyObjects
+HandleToObject
+ObjectIdToObject
+** Properties
+Blocks
+Dictionaries
+DimStyles
+ElevationModelSpace
+ElevationPaperSpace
+Groups
+Layers
+Layouts
+Limits
+Linetypes
+Material
+ModelSpace
+PaperSpace
+PlotConfigurations
+Preferences
+RegisteredApplications
+SectionManager
+SummaryInfo
+TextStyles
+UserCoordinateSystems
+Viewports
+Views
+** Events
+None
+"))
 
-;;;; http://help.autodesk.com/view/ACD/2017/RUS/
+(defclass AcadDocument (AcadDatabase)
+  (
+   (Active)
+   (ActiveDimStyle)
+   (ActiveLayer)
+   (ActiveLayout)
+   (ActiveLinetype)
+   (ActiveMaterial)
+   (ActivePViewport)
+   (ActiveSelectionSet)
+   (ActiveSpace)
+   (ActiveTextStyle)
+   (ActiveUCS)
+   (ActiveViewport)
+   (Application)
+   (Database)
+   (FullName)
+   (Height)
+   (HWND)
+   (MSpace)
+   (Name)
+   (ObjectSnapMode)
+   (Path)
+   (PickfirstSelectionSet)
+   (Plot)
+   (ReadOnly)
+   (Saved)
+   (SelectionSets)
+   (Utility)
+   (Width)
+   (WindowState)
+   (WindowTitle))
+  (:documentation "
+* Object Inheritance
+ Object
+   AcadDatabase
+      AcadDocument
+Members
+These members are part of this object:
+** Methods
+ Activate
+ AuditInfo
+ Close
+ CopyObjects
+ EndUndoMark
+ Export
+ GetVariable
+ HandleToObject
+ Import
+ LoadShapeFile
+ New
+ ObjectIDToObject
+ Open
+ PostCommand
+ PurgeAll
+ Regen
+ Save
+ SaveAs
+ SendCommand
+ SetVariable
+ StartUndoMark
+ WBlock
+** Properties
+ Active
+ ActiveDimStyle
+ ActiveLayer
+ ActiveLayout
+ ActiveLinetype
+ ActiveMaterial
+ ActivePViewport
+ ActiveSelectionSet
+ ActiveSpace
+ ActiveTextStyle
+ ActiveUCS
+ ActiveViewport
+ Application
+ Blocks
+ Database
+ Dictionaries
+ DimStyles
+ ElevationModelSpace
+ ElevationPaperSpace
+ FullName
+ Groups
+ Height
+ HWND
+ Layers
+ Layouts
+ Limits
+ Linetypes
+ Materials
+ ModelSpace
+ MSpace
+ Name
+ ObjectSnapMode
+ PaperSpace
+ Path
+ PickfirstSelectionSet
+ Plot
+ PlotConfigurations
+ Preferences
+ ReadOnly
+ RegisteredApplications
+ Saved
+ SectionManager
+ SelectionSets
+ SummaryInfo
+ TextStyles
+ UserCoordinateSystems
+ Utility
+ Viewports
+ Views
+ Width
+ WindowState
+ WindowTitle
+** Events
+ Activate
+ BeginClose
+ BeginCommand
+ BeginDocClose
+ BeginDoubleClick
+ BeginLISP
+ BeginPlot
+ BeginRightClick
+ BeginSave
+ BeginShortcutMenuCommand
+ BeginShortcutMenuDefault
+ BeginShortcutMenuEdit
+ BeginShortcutMenuGrip
+ BeginShortcutMenuOSnap
+ Deactivate
+ EndCommand
+ EndLISP
+ EndPlot
+ EndSave
+ EndShortcutMenu
+ LayoutSwitched
+ LISPCancelled
+ ObjectAdded
+ ObjectErased
+ ObjectModified
+ SelectionChanged
+ WindowChanged
+ WindowMovedOrResized
+ "))
 
-;;;;AcRxObject
-;;;;  AcDbObject
-;;;;     AcDbEntity
-;;;;      AcDbText -
-;;;;        AcDbAttribute
-;;;;        AcDbAttributeDefinition
-;;;;      AcDbBlockBegin
-;;;;      AcDbBlockEnd
-;;;;      AcDbSequenceEnd
-;;;;      AcDbBlockReference
-;;;;        AcDbMInsertBlock
-;;;;      AcDbVertex
-;;;;        AcDb2dVertex
-;;;;        AcDb3dPolylineVertex
-;;;;        AcDbPolygonMeshVertex
-;;;;        AcDbPolyFaceMeshVertex
-;;;;        AcDbFaceRecord
-;;;;      AcDbCurve
-;;;;        AcDb2dPolyline                  ./dbents.h:class AcDb2dPolyline: public AcDbCurve 
-;;;;        AcDb3dPolyline                  ./dbents.h:class AcDb3dPolyline: public AcDbCurve 
-;;;;        AcDbArc                +        ./dbents.h:class AcDbArc: public AcDbCurve 
-;;;;        AcDbCircle             +        ./dbents.h:class AcDbCircle: public AcDbCurve 
-;;;;        AcDbLine               +        ./dbents.h:class AcDbLine: public AcDbCurve 
-;;;;        AcDbRay                -        ./dbray.h:class AcDbRay: public AcDbCurve 
-;;;;        AcDbXline              -        ./dbxline.h:class AcDbXline: public AcDbCurve
-;;;;        AcDbPolyline                    ./dbpl.h:class AcDbPolyline : public AcDbCurve
-;;;;        AcDbSpline                      ./dbspline.h:class AcDbSpline: public AcDbCurve
-;;;;        AcDbEllipse                     ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
-;;;;        AcDbLeader                      ./dblead.h:class AcDbLeader: public  AcDbCurve  
-;;;;      AcDbPoint                +        ./dbents.h:class AcDbPoint: public AcDbEntity
-;;;;      AcDbFace
-;;;;      AcDbPolyFaceMesh
-;;;;      AcDbPolygonMesh
-;;;;      AcDbTrace
-;;;;      AcDbSolid
-;;;;      AcDbShape
-;;;;      AcDbViewport
+ ;====================================================================================================
 
+ ;;;; http://help.autodesk.com/view/ACD/2017/RUS/
 
-;;;;    ./AcCamera.h:class CAMERADLLIMPEXP AcDbCamera: public AcDbEntity
-;;;;    ./AcDbGeoPositionMarker.h:class ACDB_PORT AcDbGeoPositionMarker : public AcDbEntity
-;;;;    ./AcDbPointCloudEx.h:class ACDB_PORT AcDbPointCloudEx : public AcDbEntity
-;;;;    ./dbcurve.h:class ADESK_NO_VTABLE AcDbCurve: public AcDbEntity
-;;;;    ./dbdim.h:class ADESK_NO_VTABLE AcDbDimension: public AcDbEntity
-;;;;    ./dbents.h:class AcDbText: public AcDbEntity
-;;;;    ./dbents.h:class AcDbBlockReference: public AcDbEntity
-;;;;    ./dbents.h:class AcDbBlockBegin: public AcDbEntity
-;;;;    ./dbents.h:class AcDbBlockEnd: public AcDbEntity
-;;;;    ./dbents.h:class AcDbSequenceEnd: public AcDbEntity
-;;;;    ./dbents.h:class AcDbVertex: public AcDbEntity
-;;;;    ./dbents.h:class AcDbPoint: public AcDbEntity
-;;;;    ./dbents.h:class AcDbFace: public AcDbEntity
-;;;;    ./dbents.h:class AcDbPolyFaceMesh: public AcDbEntity
-;;;;    ./dbents.h:class AcDbPolygonMesh: public AcDbEntity
-;;;;    ./dbents.h:class AcDbSolid: public AcDbEntity
-;;;;    ./dbents.h:class AcDbTrace: public AcDbEntity
-;;;;    ./dbents.h:class AcDbShape: public AcDbEntity
-;;;;    ./dbents.h:class AcDbViewport: public AcDbEntity
-;;;;    ./dbframe.h:class ADESK_NO_VTABLE AcDbFrame: public AcDbEntity
-;;;;    ./dbhatch.h:class AcDbHatch: public AcDbEntity
-;;;;    ./dbimage.h:class AcDbImage: public AcDbEntity
-;;;;    ./dbmleader.h:class AcDbMLeader : public AcDbEntity
-;;;;    ./dbsurf.h:class AcDbSurface: public AcDbEntity
-;;;;    ./dbLight.h:class LIGHTDLLIMPEXP AcDbLight : public AcDbEntity
-;;;;    ./dbMPolygon.h:class AcDbMPolygon : public AcDbEntity {
-;;;;    ./dbproxy.h:class ADESK_NO_VTABLE AcDbProxyEntity : public AcDbEntity
-;;;;    ./DbSection.h:class AcDbSection : public AcDbEntity
-;;;;    ./dbSubD.h:class ACDB_PORT AcDbSubDMesh: public AcDbEntity
-;;;;    ./dbunderlayref.h:class ADESK_NO_VTABLE AcDbUnderlayReference: public AcDbEntity
-;;;;    ./dbViewBorder.h:class ACSYNERGY_PORT AcDbViewBorder : public AcDbEntity
-;;;;    ./dbViewSymbol.h:class ACSYNERGY_PORT AcDbViewSymbol : public AcDbEntity
-;;;;    
-;;;;    ./dbbody.h:class AcDbBody: public  AcDbEntity
-;;;;    ./dbfcf.h:class AcDbFcf: public  AcDbEntity
-;;;;    ./dbmline.h:class AcDbMline: public  AcDbEntity
-;;;;    ./dbmtext.h:class AcDbMText: public  AcDbEntity
-;;;;    ./dbregion.h:class AcDbRegion: public  AcDbEntity
-;;;;    ./dbsol3d.h:class AcDb3dSolid: public  AcDbEntity
-
+ ;;;;AcRxObject
+ ;;;;  AcDbObject
+ ;;;;     AcDbEntity
+ ;;;;      AcDbText -
+ ;;;;        AcDbAttribute
+ ;;;;        AcDbAttributeDefinition
+ ;;;;      AcDbBlockBegin
+ ;;;;      AcDbBlockEnd
+ ;;;;      AcDbSequenceEnd
+ ;;;;      AcDbBlockReference
+ ;;;;        AcDbMInsertBlock
+ ;;;;      AcDbVertex
+ ;;;;        AcDb2dVertex
+ ;;;;        AcDb3dPolylineVertex
+ ;;;;        AcDbPolygonMeshVertex
+ ;;;;        AcDbPolyFaceMeshVertex
+ ;;;;        AcDbFaceRecord
+ ;;;;      AcDbCurve
+ ;;;;        AcDb2dPolyline                  ./dbents.h:class AcDb2dPolyline: public AcDbCurve 
+ ;;;;        AcDb3dPolyline                  ./dbents.h:class AcDb3dPolyline: public AcDbCurve 
+ ;;;;        AcDbArc                +        ./dbents.h:class AcDbArc: public AcDbCurve 
+ ;;;;        AcDbCircle             +        ./dbents.h:class AcDbCircle: public AcDbCurve 
+ ;;;;        AcDbLine               +        ./dbents.h:class AcDbLine: public AcDbCurve 
+ ;;;;        AcDbRay                -        ./dbray.h:class AcDbRay: public AcDbCurve 
+ ;;;;        AcDbXline              -        ./dbxline.h:class AcDbXline: public AcDbCurve
+ ;;;;        AcDbPolyline                    ./dbpl.h:class AcDbPolyline : public AcDbCurve
+ ;;;;        AcDbSpline                      ./dbspline.h:class AcDbSpline: public AcDbCurve
+ ;;;;        AcDbEllipse                     ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
+ ;;;;        AcDbLeader                      ./dblead.h:class AcDbLeader: public  AcDbCurve  
+ ;;;;      AcDbPoint                +        ./dbents.h:class AcDbPoint: public AcDbEntity
+ ;;;;      AcDbFace
+ ;;;;      AcDbPolyFaceMesh
+ ;;;;      AcDbPolygonMesh
+ ;;;;      AcDbTrace
+ ;;;;      AcDbSolid
+ ;;;;      AcDbShape
+ ;;;;      AcDbViewport
