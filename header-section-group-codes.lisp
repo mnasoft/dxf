@@ -21,8 +21,7 @@ AC1024 = AutoCAD 2010")
 
 (defparameter *$ATTMODE* '("$ATTMODE"70 ) "Attribute visibility: 0 = None; 1 = Normal; 2 = All")
 
-(defparameter *$AUNITS* '("$AUNITS" 70 )
-  "Units format for angles")
+(defparameter *$AUNITS* '("$AUNITS" 70 ) "Units format for angles")
 
 (defparameter *$AUPREC* '("$AUPREC" 70 ) "Units precision for angles")
 

@@ -10,7 +10,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *h-vars-list*
-  '(("ACADVER"               1           "AC1027")
+  '(("ACADVER"               1   "AC1027")
     ("ACADMAINTVER"         70   20)
     ("DWGCODEPAGE"           3   "ANSI_1251")
     ("LASTSAVEDBY"           1   "namatv")

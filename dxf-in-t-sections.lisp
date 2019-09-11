@@ -217,20 +217,63 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defparameter *section-names* '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun split-HEADER (sections)
-"Пример использования
+
+(defun split-header (sections)
+  "Пример использования:
  (split-CLASSES *Drawing-sty*)
 "
-"split-HEADER - not yet defined")
+  (do ((hdr-rec (reverse (cdr (assoc (list 2 "HEADER") sections :test #'equal)))
+		(cdr hdr-rec))
+       (header-item nil)
+       (header-rez nil))
+      ((null hdr-rec) header-rez)
+    (push (first hdr-rec) header-item)
+    (when (= 9 (first (first header-item)))
+      (push header-item header-rez)
+      (setf header-item nil))))
+
+(defun get-acad-variable-as-list (variable-name splited-header-section)
+  "Возвращает значение системной переменной variable-name.
+
+Значение возвращается в виде списка.
+
+Пример использования:
+ (get-acad-variable-as-list \"ELEVATION\" (split-HEADER *Drawing-sty*)) => ((9 \"$ELEVATION\") (40 10.55d0))
+"
+  (assoc (concatenate 'string "$" (string-upcase variable-name))
+	 splited-header-section :key #'second :test #'string=))
+
+(defun get-acad-variable-names (splited-header-section)
+  "Возвращает список
+
+Пример использования:
+
+ (get-acad-variable-names (split-HEADER *Drawing-sty*)) => (\"ACADVER\" ... \"SHADOWPLANELOCATION\")
+
+ (length (get-acad-variable-names (split-HEADER *Drawing-sty*))) => 253
+"
+  (mapcar
+   #'(lambda (el) (string-left-trim "$" (second (first el))))
+   splited-header-section))
+
+(defun get-acad-variable-name-codes (splited-header-section)
+  "
+Пример использования:
+
+ (get-acad-variable-name-codes  (split-HEADER *Drawing-sty*))
+"
+  (mapcar
+   #'(lambda (el) (list (string-left-trim "$" (second (first el))) (first (second el))))
+   splited-header-section))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun split-CLASSES (sections)
+(defun split-classes (sections)
 "Пример использования
  (split-CLASSES *Drawing-sty*)
 "
 )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun split-TABLES (sections)
+(defun split-tables (sections)
   "Пример использования:
  (split-TABLES *Drawing-sty*)
 "
@@ -254,10 +297,10 @@
 "
   (assert (member tbl-name *table-names* :test #'string=  ))
   (assert (consp tables-pairs))
-  (let ((pairs-list (cdr (assoc
+  (let ((pairs-list  (assoc
 			  (list 2 tbl-name)
 			  tables-pairs
-			  :test #'equal)))
+			  :test #'equal))
 	(rez nil)
 	(block-items nil)
 	(blk nil))
@@ -265,8 +308,9 @@
 	  (dolist (i pairs-list (nreverse (push (nreverse blk) block-items)))
 	    (push i blk)
 	    (when (= (car i) 0)
-	      (push (nreverse (cdr blk)) block-items)
-	      (setf blk nil))))
+	      (push (nreverse  (cdr blk)) block-items)
+	      (setf blk nil)
+	      (push i blk))))
     (values (car rez) (cdr rez))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
