@@ -29,11 +29,26 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defclass dxf-pairs ()
+  ((pairs :accessor pairs        :initarg :pairs        :initform nil :documentation "pairs"))
+  (:documentation
+   "Содержит dxf-представление объекта"))
+
+(defmethod  dxf-in-text ((object dxf-pairs) (pairs cons))
+  (break "dxf-in-text ((object dxf-pairs) (pairs cons))")
+  object)
+
+(defmethod  dxf-in-text :after ((object dxf-pairs) (pairs cons))
+  (break "dxf-in-text :after ((object dxf-pairs) (pairs cons))")
+  (setf (pairs object) (copy-list pairs)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defparameter *Acad-Object-class-marker* "OBJECT")
 
 (defparameter *Acad-Object-subclass-marker* "AcDbObject")
 
-(defclass acad-object ()
+(defclass acad-object (dxf-pairs)
   ((Application)
    (Document)
    (Object-Name      :accessor Object-Name   :initarg :Object-Name   :initform nil :documentation "")
@@ -45,16 +60,6 @@
   (:documentation "
 db-object -> Acad-Object
 См. ./dbmain.h:class ADESK_NO_VTABLE AcDbObject: public AcGiDrawable, public AcHeapOperators
-* Object inheritance
-Object
-   AcadObject
-* Methods
-** Methods
-Delete GetExtensionDictionary GetXData SetXData
-** Properties
-Application Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
-** Events
-Modified
 
 "))
 
@@ -85,10 +90,16 @@ Modified
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text :after ((object Acad-Object) (pairs cons))
+(defmethod  dxf-in-text ((object acad-object) (pairs cons))
+    (break "dxf-in-text ((object acad-object) (pairs cons))")
+    )
+
+(defmethod  dxf-in-text :after ((object acad-object) (pairs cons))
+  (break "dxf-in-text :after ((object acad-object) (pairs cons))")
+
   (let ((c-5   (cadr (assoc   5 pairs :test #'equal)))
 	(c-330 (cadr (assoc 330 pairs :test #'equal))))
-;;    (break "~A ~A"  c-5 c-330)
+    ;;    (break "~A ~A"  c-5 c-330)
     (when c-5   (setf (Handle   object) c-5))
     (when c-330 (setf (Owner-ID object) c-330))))
 
@@ -99,86 +110,20 @@ Modified
 (defparameter *acad-entity-subclass-marker* "AcDbEntity")
 
 (defclass acad-entity (acad-object)
-  ((layer                :accessor layer    :initarg :layer  :initform "0" :documentation "Код   8. Имя слоя  entity-layer -> Layer" )
-   (Entity-Transparency)
-   (line-type            :accessor line-type :initarg :line-type  :initform "BYLAYER" :documentation "Код   6. Linetype name (present if not BYLAYER). The special name BYBLOCK indicates a floating linetype (optional) | BYLAYER |" )
-   (Hyperlinks)
+  ((layer                :accessor layer           :initarg :layer  :initform "0" :documentation "Код   8. Имя слоя  entity-layer -> Layer" )
+   (entity-transparency)
+   (line-type            :accessor line-type       :initarg :line-type  :initform "BYLAYER" :documentation "Код   6. Linetype name (present if not BYLAYER). The special name BYBLOCK indicates a floating linetype (optional) | BYLAYER |" )
+   (hyperlinks)
    (line-type-scale      :accessor line-type-scale :initarg :line-type-scale  :initform 1.0d0 :documentation "Код 48")
    (line-weight          :accessor line-weight     :initarg :line-weight      :initform -1    :documentation "| 370 | Lineweight enum value. Stored and moved around as a 16-bit integer. | not omitted |")
-   (Material)
+   (material)
    (PlotStyleName)
-   (truecolor            :accessor truecolor :initarg :truecolor :initform '(256 nil) :documentation "Код   62 и 420" )
-   ;;   (entity-color      :accessor entity-color      :initarg :entity-color      :initform 256 :documentation "Код  62. 16-битный цвет")
-   ;;   (entity-true-color :accessor entity-true-color :initarg :entity-true-color :initform nil :documentation "Код 420. 32-битный цвет")
-   (visible :accessor visible :initarg :visible :initform t :documentation " 60 | Object visibility (optional): 0 = Visible 1 = Invisible | 0"))
+   (truecolor            :accessor truecolor       :initarg :truecolor :initform '(256 nil) :documentation "Код   62 и 420" )
+   (visible              :accessor visible         :initarg :visible :initform t :documentation " 60 | Object visibility (optional): 0 = Visible 1 = Invisible | 0"))
 ; (plotstylename :accessor plotstylename :initarg :plotstylename :initform nil :documentation "plotstylename")
 ; (material :accessor material :initarg :material :initform nil :documentation "material")
-; (lineweight :accessor lineweight :initarg :lineweight :initform nil :documentation "lineweight")
-; (linetypescale :accessor linetypescale :initarg :linetypescale :initform nil :documentation "linetypescale")
-; (linetype :accessor linetype :initarg :linetype :initform nil :documentation "linetype")
-; (layer :accessor layer :initarg :layer :initform nil :documentation "layer")
-; (hyperlinks :accessor hyperlinks :initarg :hyperlinks :initform nil :documentation "hyperlinks")
-; (entitytransparency :accessor entitytransparency :initarg :entitytransparency :initform nil :documentation "entitytransparency")
-  
+
   (:documentation "См. ./dbmain.h:class ADESK_NO_VTABLE AcDbEntity: public AcDbObject
-
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
-Application Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName TrueColor Visible
-** Events
-Modified
-
-* DXF
-
-| Group code | Description                                                                                                                                                                   | If omitted, defaults to… |
-|         -1 | APP: entity name (changes each time a drawing is opened)                                                                                                                      | not omitted              |
-|          0 | Entity type                                                                                                                                                                   | not omitted              |
-|          5 | Handle                                                                                                                                                                        | not omitted              |
-|        102 | Start of application-defined group “{application_name” (optional)                                                                                                             | no default               |
-|      a-d-c | Codes and values within the 102 groups are application-defined (optional)                                                                                                     | no default               |
-|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
-|        102 | “{ACAD_REACTORS” indicates the start of the AutoCAD persistent reactors group.                                                                                                | no default               |
-|        330 | This group exists only if persistent reactors have been attached to this object (optional) Soft-pointer ID/handle to owner dictionary (optional)                              | no default               |
-|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
-|        102 | “{ACAD_XDICTIONARY” indicates the start of an extension dictionary group. This group exists only if an extension dictionary has been attached to the object (optional)        | no default               |
-|        360 | Hard-owner ID/handle to owner dictionary (optional)                                                                                                                           | no default               |
-|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
-|        330 | Soft-pointer ID/handle to owner BLOCK_RECORD object                                                                                                                           | not omitted              |
-|        100 | Subclass marker (AcDbEntity)                                                                                                                                                  | not omitted              |
-|         67 | Absent or zero indicates entity is in model space. 1 indicates entity is in paper space (optional).                                                                           | 0                        |
-|        410 | APP: layout tab name                                                                                                                                                          | not omitted              |
-|          8 | Layer name                                                                                                                                                                    | not omitted              |
-|          6 | Linetype name (present if not BYLAYER). The special name BYBLOCK indicates a floating linetype (optional)                                                                     | BYLAYER                  |
-|        347 | Hard-pointer ID/handle to material object (present if not BYLAYER)                                                                                                            | BYLAYER                  |
-|         62 | Color number (present if not BYLAYER); zero indicates the BYBLOCK (floating) color; 256 indicates BYLAYER; a negative value indicates that the layer is turned off (optional) | BYLAYER                  |
-|        370 | Lineweight enum value. Stored and moved around as a 16-bit integer.                                                                                                           | not omitted              |
-|         48 | Linetype scale (optional)                                                                                                                                                     | 1.0                      |
-|         60 | Object visibility (optional): 0 = Visible 1 = Invisible                                                                                                                       | 0                        |
-|         92 | Number of bytes in the proxy entity graphics represented in the subsequent 310 groups, which are binary chunk records (optional)                                              | no default               |
-|        310 | Proxy entity graphics data (multiple lines; 256 characters max. per line) (optional)                                                                                          | no default               |
-|        420 | A 24-bit color value that should be dealt with in terms of bytes with values of 0 to 255.                                                                                     | no default               |
-|        430 | The lowest byte is the blue value, the middle byte is the green value, and the third byte is the red value.                                                                   | no default               |
-|        440 | The top byte is always 0. The group code cannot be used by custom entities for their own data because                                                                         | no default               |
-|        390 | the group code is reserved for AcDbEntity, class-level color data and AcDbEntity, class-level                                                                                 | no default               |
-|        284 | transparency data Color name. The group code cannot be used by custom entities for their own                                                                                  | no default               |
-|            | data because the group code is reserved for AcDbEntity, class-level color data and AcDbEntity,                                                                                |                          |
-|            | class-level transparency data Transparency value. The group code cannot be used by custom entities                                                                            |                          |
-|            | for their own data because the group code is reserved for AcDbEntity, class-level color data and AcDbEntity,                                                                  |                          |
-|            | class-level transparency data Hard-pointer ID/handle to the plot style object Shadow mode 0 = Casts                                                                           |                          |
-|            | and receives shadows 1 = Casts shadows 2 = Receives shadows 3 = Ignores shadows NOTE:Starting                                                                                 |                          |
-|            | with AutoCAD 2016-based products, this property is obsolete but still supported for backwards compatibility.                                                                  |                          |
-
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
- Application Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName TrueColor Visible
-** Events
-Modified
 
 "))
 
@@ -317,20 +262,6 @@ LINE (DXF)
 |---------------+---------------------------------------------------------------------------|
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
 |---------------+---------------------------------------------------------------------------|
-
-* Object Inheritance
-Object
-   AcadObject AcadEntity
-         AcadLine
-
-* Members
-These members are part of this object:
-** Methods 
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties 
-Angle Application Delta Document EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Length Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName StartPoint Thickness TrueColor Visible
-** Events 
-Modified
 
 
 ;   Angle (RO) = 2.54047
@@ -471,19 +402,6 @@ POINT (DXF)
 |---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
 |            50 | Угол оси X для ПСК, используемый при построении точки (необязательно, по умолчанию = 0); используется, если параметр PDMODE не равен нулю |
 |---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-* Object Inheritance
- Object
-   AcadObject AcadEntity
-         AcadPoint
-
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
-Application Coordinates Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Thickness TrueColor Visible
-** Events
-Modified
 "))
 
 (defparameter *acad-point-properties* '(Application Coordinates Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Thickness TrueColor Visible))
@@ -588,20 +506,6 @@ RAY (DXF)
 |---------------+--------------------------------------------------------------|
 |        21, 31 | Файл DXF: значения Y и Z вектора направления единицы (в МСК) |
 |---------------+--------------------------------------------------------------|
-* Object Inheritance
- Object
-   AcadObject AcadEntity
-         AcadRay
-
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
-Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible
-** Events
-Modified
-
 "))
 
 (defparameter *acad-ray-properties* '(Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible))
@@ -687,21 +591,6 @@ XLINE (DXF)
 |---------------+--------------------------------------------------------------|
 |        21, 31 | Файл DXF: значения Y и Z вектора направления единицы (в МСК) |
 |---------------+--------------------------------------------------------------|
-
-* Object Inheritance
- Object
-   AcadObject AcadEntity
-         AcadXline
-
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
-Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible
-** Events
-Modified
-
 "))
 
 
@@ -791,19 +680,6 @@ CIRCLE (DXF)
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
 |               | Понятия, связанные с данным                                               |
 |---------------+---------------------------------------------------------------------------|
-
-* Object Inheritance
- Object
-   AcadObject AcadEntity
-         AcadCircle
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
-Application Area Center Circumference Diameter Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Radius Thickness TrueColor Visible
-** Events
-Modified
 "))
 
 (defmethod dxf-out-text ((x Acad-Circle) stream)
@@ -920,15 +796,6 @@ ARC (DXF)
 |---------------+---------------------------------------------------------------------------|
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
 |---------------+---------------------------------------------------------------------------|
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
-Application ArcLength Area Center Document EndAngle EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Radius StartAngle StartPoint Thickness TotalAngle TrueColor Visible
- (mapcar #'make-slot (set-difference *acad-arc-properties* *acad-entity-properties*))
-** Events
-Modified
 
 "))
 
@@ -1128,20 +995,6 @@ TEXT (DXF)
 самой текстовой строки (после применения стиля текста). Если значения групп с кодами 72 и 73 равны нулю или 
 отсутствуют, то вторая точка выравнивания является нерелевантной. 
 
-* Object Inheritance
- Object
-   AcadObject AcadEntity
-         AcadText
-
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete FieldCode GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
-Alignment Application Backward Document EntityTransparency Handle HasExtensionDictionary Height Hyperlinks InsertionPoint Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName ObliqueAngle OwnerID PlotStyleName Rotation ScaleFactor StyleName TextAlignmentPoint TextGenerationFlag TextString Thickness TrueColor UpsideDown Visible
-** Events
-Modified
-
 "))
 
 (defparameter *acad-text-properties* '(Alignment Application Backward Document EntityTransparency Handle HasExtensionDictionary Height Hyperlinks InsertionPoint Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName ObliqueAngle OwnerID PlotStyleName Rotation ScaleFactor StyleName TextAlignmentPoint TextGenerationFlag TextString Thickness TrueColor UpsideDown Visible))
@@ -1286,15 +1139,6 @@ ELLIPSE (DXF)
 |            42 | Конечный параметр (значение для полного эллипса — 2 пи)                                        |
 |---------------+------------------------------------------------------------------------------------------------|
 
-* Members
-These members are part of this object:
-** Methods
-ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
-** Properties
-Application Area Center Document EndAngle EndParameter EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight MajorAxis MajorRadius Material MinorAxis MinorRadius Normal ObjectID ObjectName OwnerID PlotStyleName RadiusRatio StartAngle StartParameter StartPoint TrueColor Visible
-** Events
-Modified
-
 "))
 
 
@@ -1390,15 +1234,11 @@ Modified
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
+(defparameter *acad-symboltablerecord-subclass-marker* "AcDbSymbolTableRecord")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *acad-layer-class-marker* "LAYER")
-
-
-(defparameter *acad-symboltablerecord-subclass-marker* "AcDbSymbolTableRecord")
 
 (defparameter *acad-layer-subclass-marker* "AcDbLayerTableRecord")
 
@@ -1406,7 +1246,7 @@ Modified
 ;;;;"AcDbLayerTableRecord"
   ((name             :accessor name            :initarg :name            :initform "LAYER1"       :documentation "name")
    (description      :accessor description     :initarg :description     :initform nil            :documentation "description")
-   (truecolor        :accessor truecolor       :initarg :truecolor       :initform 7              :documentation "Код  62. Номер цвета (если значение отрицательное, слой отключен)")
+   (truecolor        :accessor truecolor       :initarg :truecolor       :initform '(7 nil)       :documentation "Код  62. Номер цвета (если значение отрицательное, слой отключен)")
    (line-type        :accessor line-type       :initarg :line-type       :initform "Continuous"   :documentation "Код   6. Имя типа линий")
    (plottable        :accessor plottable       :initarg :plottable       :initform t              :documentation "Код 290. Флаг печати. Если задано значение 0, этот слой не выводится на печать")
    (plotstylename    :accessor plotstylename   :initarg :plotstylename   :initform nil            :documentation "Код 390. Идентификатор/дескриптор жесткого указателя на объект PlotStyleName")
@@ -1425,56 +1265,6 @@ http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
 ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
 ====================================================================================================
-LAYER (DXF)
-К записям таблицы обозначений LAYER применяются следующие групповые коды.
-Групповые коды LAYER
-|---------------+-------------------------------------------------------------------------------------------------------|
-| Групповой код | Описание                                                                                              |
-|               |                                                                                                       |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbLayerTableRecord)                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             2 | Имя слоя                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            70 | Стандартные флаги (битовые кодовые значения):                                                         |
-|               | 0 = слой заморожен ; в противном случае слой разморожен                                               |
-|               | 1 = слой заморожен по умолчанию на новых видовых экранах                                              |
-|               | 2 = слой заблокирован                                                                                 |
-|               | 3 = если задано это значение, запись таблицы внешне зависима от внешней ссылки                        |
-|               | 4 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается             |
-|               | 5 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,           |
-|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.       |
-|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, |
-|               | записывающих файлы DXF)                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            62 | Номер цвета (если значение отрицательное, слой отключен)                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             6 | Имя типа линий                                                                                        |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           290 | Флаг печати. Если задано значение 0, этот слой не выводится на печать                                 |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           370 | Значение перечня веса линий                                                                           |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           390 | Идентификатор/дескриптор жесткого указателя на объект PlotStyleName                                   |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           347 | Идентификатор/дескриптор жесткого указателя на объект материала                                       |
-|---------------+-------------------------------------------------------------------------------------------------------|
-Слои, зависимые от внешних ссылок, выводятся при выполнении команды СОХРАНИТЬКАК. 
-Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
-
-Object Inheritance
- Object
-   AcadObject
-      AcadLayer
-
-* Members
-These members are part of this object:
- ** Methods
- Delete GetExtensionDictionary GetXData SetXData
-** Properties
-Application Description Document Freeze Handle HasExtensionDictionary LayerOn Linetype Lineweight Lock Material Name ObjectID ObjectName OwnerID PlotStyleName Plottable TrueColor Used ViewportDefault 
-** Events
-Modified
 " ))
 
 (defparameter *acad-layer-properties* '(Application Description Document Freeze Handle HasExtensionDictionary LayerOn Linetype Lineweight Lock Material Name ObjectID ObjectName OwnerID PlotStyleName Plottable TrueColor Used  ViewportDefault ))
@@ -1530,9 +1320,12 @@ Modified
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod  dxf-in-text  ((object acad-layer) (pairs cons))
-  (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-layer-class-marker*)))
+  (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-layer-class-marker*))
+  (break "dxf-in-text  ((object acad-layer) (pairs cons))")
+  )
 
 (defmethod  dxf-in-text :after ((object acad-layer) (pairs cons))
+  (break "dxf-in-text :after ((object acad-layer) (pairs cons))")
   (let ((c-2   (cadr (assoc   2 pairs :test #'equal)))
 	(c-70  (cadr (assoc  70 pairs :test #'equal)))
 	(c-62  (cadr (assoc  62 pairs :test #'equal)))
@@ -1578,39 +1371,49 @@ Modified
       (t (error "dxf-in-text :after ((object acad-entity) (pairs cons)): wrong c-370 value ~A" c-370)))
     ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass acad-layers  (acad-object)
+(defparameter *acad-symboltable-subclass-marker* "AcDbSymbolTable")
+
+(defclass acad-layers (acad-object)
   ((count  :accessor a-count :initarg :count :initform 0   :documentation "70 count -> a-count переимновано из-за ошибки")
-   (layers :accessor layers                :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)")
+   (items  :accessor items                   :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)")
    )
-  
   (:documentation "
-* Object Inheritance
- Object
-   AcadObject
-      AcadLayers
-* Members
-These members are part of this object:
-* Methods
-Add
-GenerateUsageData
-GetExtensionDictionary
-GetXData
-Item
-SetXData
-* Properties
-Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
-* Events
-Modified
 "))
 
 (defparameter *acad-layers-properties* '(Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
 
 (reverse (mapcar #'make-slot (set-difference *acad-layers-properties* *acad-object-properties*)))
 
+(defmethod dxf-out-text ((x acad-layers) stream)
+  (dxf-out-t-string 2 *acad-layer-class-marker* stream))
 
+(defmethod dxf-out-text :after ((x acad-layers) stream)
+  (dxf-out-t-string 100 *acad-symboltable-subclass-marker* stream)
+  (let ((a-count (a-count x))
+	(items   (items   x)))
+    (dxf-out-t-int16  70 a-count   stream)
+    (mapc #'(lambda (el) (dxf-out-text el stream)) items)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod dxf-in-text  ((object acad-layers) (tables cons))
+;;;  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*)))
+  object)
+
+(defmethod dxf-in-text :after ((object acad-layers) (tables cons))
+  (multiple-value-bind (items-data list-item-data) (table-and-items *acad-layer-class-marker* tables)
+    (setf (items object)
+	  (mapcar
+	   #'(lambda (item-data)
+	       (let ((it (make-instance 'acad-layer)))
+		 (dxf-in-text it item-data)
+		 it))
+	   list-item-data)
+	  (a-count  object ) (length (items object)))))
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (defclass acad-database ()
   (
@@ -1623,7 +1426,7 @@ Modified
    (layers                 :accessor layers                 :initarg :layers                 :initform (make-instance 'acad-layers) :documentation "layers")
    (layouts                :accessor layouts                :initarg :layouts                :initform nil :documentation "layouts")
    (limits                 :accessor limits                 :initarg :limits                 :initform nil :documentation "limits")
-   (linetypes              :accessor linetypes              :initarg :linetypes              :initform nil :documentation "linetypes")
+   (linetypes              :accessor linetypes              :initarg :linetypes              :initform (make-instance 'acad-linetypes) :documentation "linetypes")
    (material               :accessor material               :initarg :material               :initform nil :documentation "material")
    (modelspace             :accessor modelspace             :initarg :modelspace             :initform nil :documentation "modelspace")
    (paperspace             :accessor paperspace             :initarg :paperspace             :initform nil :documentation "paperspace")
@@ -1639,18 +1442,9 @@ Modified
    )
   (:documentation
    "
-* Object Inheritance
- Object
-  AcadDatabase
-* Members
-These members are part of this object:
-** Methods
-CopyObjects HandleToObject ObjectIdToObject
-** Properties
-Blocks Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace Groups Layers Layouts Limits Linetypes Material ModelSpace PaperSpace PlotConfigurations Preferences RegisteredApplications SectionManager SummaryInfo TextStyles UserCoordinateSystems Viewports Views
-** Events
-None
 "))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *acad-database-properties* '(Blocks Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace Groups Layers Layouts Limits Linetypes Material ModelSpace PaperSpace PlotConfigurations Preferences RegisteredApplications SectionManager SummaryInfo TextStyles UserCoordinateSystems Viewports Views))
 
@@ -1670,7 +1464,7 @@ None
    (activeucs             :accessor activeucs             :initarg :activeucs             :initform nil :documentation "activeucs")
    (activeviewport        :accessor activeviewport        :initarg :activeviewport        :initform nil :documentation "activeviewport")
    (application           :accessor application           :initarg :application           :initform nil :documentation "application")
-   (database              :accessor database              :initarg :database              :initform (make-instance 'acad-database) :documentation "database")
+   (database              :accessor database              :initarg :database              :initform nil :documentation "database")
    (fullname              :accessor fullname              :initarg :fullname              :initform nil :documentation "fullname")
    (height                :accessor height                :initarg :height                :initform nil :documentation "height")
    (hwnd                  :accessor hwnd                  :initarg :hwnd                  :initform nil :documentation "hwnd")
@@ -1690,20 +1484,6 @@ None
    (windowtitle           :accessor windowtitle           :initarg :windowtitle           :initform nil :documentation "windowtitle")
    )
   (:documentation "
-
-* Object Inheritance
- Object
-   AcadDatabase
-      AcadDocument
-Members
-These members are part of this object:
-
-** Methods
- Activate AuditInfo Close CopyObjects EndUndoMark Export GetVariable HandleToObject Import LoadShapeFile New ObjectIDToObject Open PostCommand PurgeAll Regen Save SaveAs SendCommand SetVariable StartUndoMark WBlock
-** Properties
- Active ActiveDimStyle ActiveLayer ActiveLayout ActiveLinetype ActiveMaterial ActivePViewport ActiveSelectionSet ActiveSpace ActiveTextStyle ActiveUCS ActiveViewport Application Blocks Database Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace FullName Groups Height HWND Layers Layouts Limits Linetypes Materials ModelSpace MSpace Name ObjectSnapMode PaperSpace Path PickfirstSelectionSet Plot PlotConfigurations Preferences ReadOnly RegisteredApplications Saved SectionManager SelectionSets SummaryInfo TextStyles UserCoordinateSystems Utility Viewports Views Width WindowState WindowTitle
-** Events
- Activate BeginClose BeginCommand BeginDocClose BeginDoubleClick BeginLISP BeginPlot BeginRightClick BeginSave BeginShortcutMenuCommand BeginShortcutMenuDefault BeginShortcutMenuEdit BeginShortcutMenuGrip BeginShortcutMenuOSnap Deactivate EndCommand EndLISP EndPlot EndSave EndShortcutMenu LayoutSwitched LISPCancelled ObjectAdded ObjectErased ObjectModified SelectionChanged WindowChanged WindowMovedOrResized
  "))
 
 (defparameter *acad-document-properties* '( Active ActiveDimStyle ActiveLayer ActiveLayout ActiveLinetype ActiveMaterial ActivePViewport ActiveSelectionSet ActiveSpace ActiveTextStyle ActiveUCS ActiveViewport Application Blocks Database Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace FullName Groups Height HWND Layers Layouts Limits Linetypes Materials ModelSpace MSpace Name ObjectSnapMode PaperSpace Path PickfirstSelectionSet Plot PlotConfigurations Preferences ReadOnly RegisteredApplications Saved SectionManager SelectionSets SummaryInfo TextStyles UserCoordinateSystems Utility Viewports Views Width WindowState WindowTitle))
@@ -1713,11 +1493,12 @@ These members are part of this object:
 
 (defmethod  dxf-in-text  ((object acad-document) (sections cons))
 ;;;  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*)))
+  object
   )
 
 (defmethod  dxf-in-text :after ((object acad-document) (sections cons))
 	    (let ((header  (split-header   sections))
-		  (classes (split-classes  sections))
+;;;;		  (classes (split-classes  sections))
 		  (tables  (split-tables   sections))
 		  )
 	      (setf (activedimstyle  object) (get-acad-variable-as-list "DIMSTYLE"   header))
@@ -1727,44 +1508,132 @@ These members are part of this object:
 	      (setf (activematerial  object) (get-acad-variable-as-list "CMATERIAL"  header))
 	      (setf (activespace     object) (get-acad-variable-as-list "TILEMODE"   header))
 	      (setf (activetextstyle object) (get-acad-variable-as-list "TEXTSTYLE"  header))
-
-;;;    (setf (activelayout    object) (get-acad-variable-as-list "CLAYOUT"    header))    
+;;;;
+;;;    (setf (activelayout       object) (get-acad-variable-as-list "CLAYOUT"  header))    
 ;;;    (setf (activeviewport     object) (get-acad-variable-as-list "CLAYOUT"  header))
 ;;;    (setf (activepviewport    object) (get-acad-variable-as-list "CLAYOUT"  header))    
 ;;;    (setf (activeselectionset object) (get-acad-variable-as-list "CLAYOUT"  header))
+;;;;	      
+	      (setf  (layers    object) (dxf-in-text (layers    object) tables))
+	      (setf  (linetypes object) (dxf-in-text (linetypes object) tables))
+	      ))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	      (multiple-value-bind (layers-data list-layer-data) (table-and-items "LAYER" tables)
-		(setf (layers (layers object)) (mapcar
-						#'(lambda (layer-data)
-						    (let ((layer (make-instance 'acad-layer)))
-						      (dxf-in-text layer layer-data  )
-						      layer))
-						list-layer-data)
-		      (a-count (layers object)) (length(layers (layers object))))
-		)))
 
+(defparameter *acad-linetype-class-marker* "LTYPE")
 
-(defparameter *document* (make-instance 'acad-document ) )
+(defparameter *acad-linetype-subclass-marker* "AcDbLinetypeTableRecord")
 
-(setf (layers (layers *document*)) 10)
+(defclass acad-linetype  (acad-object)
+  ((name        :accessor name        :initarg :name        :initform "CONTINUOUS" :documentation "name")
+   (description :accessor description :initarg :description :initform ""           :documentation "description"))
+  (:documentation "./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
+http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
+http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
+====================================================================================================
 
-(dxf-in-text *document* *Drawing-sty*)
+"))
 
-(activedimstyle *document*)
+(defparameter *acad-linetype-properties* '(Application Description Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID))
 
-(handle (layers *document*))
+(mapcar #'make-slot (set-difference *acad-linetype-properties* *acad-object-properties*))
 
-(defparameter *ls*
-  (mapcar
-   #'(lambda (layer-data)
-       (let ((layer (make-instance 'acad-layer)))
-	 (dxf-in-text layer layer-data  )
-	 layer)
-       )
-   (second (multiple-value-list (table-and-items "LAYER" (split-tables *Drawing-sty*))))))
+(defmethod dxf-out-text ((x acad-linetype) stream)
+  (dxf-out-t-string 0 *acad-linetype-class-marker* stream))
 
+(defmethod dxf-out-text :after ((x acad-linetype) stream)
+  (dxf-out-t-string 100 *acad-symboltablerecord-subclass-marker* stream)
+  (dxf-out-t-string 100 *acad-linetype-subclass-marker* stream)
+  (let ((name            (name            x))
+	(description     (description     x))
+	(pairs           (pairs           x)))
+    (dxf-out-t-string  2 name   stream)
+    (dxf-out-t-int16  70 (cadr (assoc 70 pairs))   stream)
+    (dxf-out-t-string  3 description stream)
+    (mapcar
+     #'(lambda (el)
+	 (dxf-out-t (car el) (cadr el) t))
+     (member (assoc 72 pairs) pairs))))
 
-(mapcar
- #'(lambda (layer )
-     (dxf-out-text layer t))
- *ls*)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod dxf-out-binary ((x acad-linetype) stream)
+  (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
+
+(defmethod dxf-out-binary :after ((x acad-linetype) stream)
+  (let ((own (Owner-ID  x))
+	(hdl (Handle x)))
+    (when own (dxf-out-t-hex 330 own stream))
+    (when hdl (dxf-out-t-hex   5 hdl stream))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmethod  dxf-in-text  ((object acad-linetype) (pairs cons))
+  (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-linetype-class-marker*)))
+
+(defmethod  dxf-in-text :after ((object acad-linetype) (pairs cons))
+  (setf (pairs object) (copy-list pairs))
+  (let ((c-2   (cadr (assoc   2 pairs :test #'equal)))
+	(c-3   (cadr (assoc   3 pairs :test #'equal))))
+    (when c-2   (setf (name        object) c-2))
+    (when c-3   (setf (description object) c-3))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defclass acad-linetypes (acad-object)
+  ((count  :accessor a-count :initarg :count :initform 0   :documentation "70 count -> a-count переимновано из-за ошибки")
+   (items  :accessor items                   :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)"))
+  (:documentation "
+"))
+
+(defparameter *acad-linetypes-properties* '(Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
+
+(reverse (mapcar #'make-slot (set-difference *acad-linetypes-properties* *acad-object-properties*)))
+
+(defmethod dxf-in-text  ((object acad-linetypes) (tables cons))
+;;;  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*)))
+  object)
+
+(defmethod dxf-in-text :after ((object acad-linetypes) (tables cons))
+      (multiple-value-bind (items-data list-item-data) (table-and-items *acad-linetype-class-marker* tables)
+      (setf (items object)
+	    (mapcar
+	     #'(lambda (item-data)
+		 (let ((it (make-instance 'acad-linetype)))
+		   (dxf-in-text it item-data)
+		   it))
+	     list-item-data)
+	    (a-count  object ) (length (items object)))))
+
+(defmethod dxf-in-text :after ((object acad-linetypes) (pairs cons))
+)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+'(
+  acad-document
+  acad-database
+  
+  acad-linetypes
+  acad-layers
+
+  acad-layer
+  acad-linetype
+  
+  ge-point-3d
+  rx-object
+  dxf-pairs
+  
+  acad-object
+  acad-entity
+  
+  db-curve
+  acad-line
+  acad-point
+  acad-ray
+  acad-xline
+  acad-circle
+  acad-arc
+  acad-text
+  acad-ellipse
+  )

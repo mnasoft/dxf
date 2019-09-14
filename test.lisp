@@ -309,17 +309,78 @@
   (truecolor       *layer*)
   )
 
+(pairs             *layer*)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Тестирование dxf-in-t-sections.lisp
+;;;; Тестирование acad-layers
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (progn
-  (defparameter *lt-2-metric*         (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf"))
-  (defparameter *lt-2000-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2000-metric.dxf"))
-  (defparameter *lt-2004-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2004-metric.dxf"))
-  (defparameter *lt-2007-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2007-metric.dxf"))
-  (defparameter *lt-2010-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2010-metric.dxf"))
-  (defparameter *lt-2013-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2013-metric.dxf"))
-  (defparameter *autocad-2018-metric* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/AutoCAD-2018-metric.dxf")))
+  (defparameter *layers* (make-instance 'acad-layers))
+  (dxf-in-text *layers* (split-tables *Drawing-sty*))
+  (items *layers*)
+  )
+
+(dxf-in-text *layers* (table-and-items *acad-layer-class-marker* (split-tables *Drawing-sty*)))
+
+(pairs *layers*)
+
+(handle   *layers*)
+(owner-id *layers*)
+
+(setf (pairs *layers*) '((2 "LAYER") (5 2) (102 "{ACAD_XDICTIONARY") (360 442) (102 "}") (330 0) (100 "AcDbSymbolTable") (70 4)))
+
+(dxf-in-text *layers* '((2 "LAYER") (5 2) (102 "{ACAD_XDICTIONARY") (360 442) (102 "}") (330 0) (100 "AcDbSymbolTable") (70 4)))
+(dxf-out-text *layers* t)
+
+
+'((2 "LTYPE") (5 5) (330 0) (100 "AcDbSymbolTable") (70 1))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Тестирование acad-linetype
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(table-and-items "LTYPE" (split-tables *Drawing-sty*))
+
+(progn 
+  (defparameter *linetype* (make-instance 'acad-linetype))
+  (dxf-in-text *linetype*
+	       '((0 "LTYPE") (5 91) (330 5) (100 "AcDbSymbolTableRecord")
+		 (100 "AcDbLinetypeTableRecord") (2 "ByBlock") (70 0) (3 "") (72 65) (73 0)
+		 (40 0.0d0)))
+  (dxf-in-text *linetype*
+	       '((0 "LTYPE") (5 92) (330 5) (100 "AcDbSymbolTableRecord")
+		 (100 "AcDbLinetypeTableRecord") (2 "ByLayer") (70 0) (3 "") (72 65) (73 0)
+		 (40 0.0d0)))
+  (dxf-in-text *linetype*
+	       '((0 "LTYPE") (5 92) (330 5) (100 "AcDbSymbolTableRecord")
+		 (100 "AcDbLinetypeTableRecord") (2 "ByLayer") (70 0) (3 "") (72 65) (73 0)
+		 (40 0.0d0)))
+  (dxf-in-text *linetype*
+	       '((0 "LTYPE") (5 464) (330 5) (100 "AcDbSymbolTableRecord")
+		 (100 "AcDbLinetypeTableRecord") (2 "CENTER") (70 0)
+		 (3 "________ _ ________ _ ________ _ ________ _ ___") (72 65) (73 5)
+		 (40 20.5d0) (49 5.0d0) (74 0) (49 -2.0d0) (74 0) (49 0.5d0) (74 0)
+		 (49 -2.0d0) (74 0) (49 11.0d0) (74 0)))
+  (name *linetype*)
+  (description *linetype*)
+  (dxf-out-text *linetype* t)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Тестирование acad-linetypes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(progn
+  (defparameter *linetypes* (make-instance 'acad-linetypes))
+  (dxf-in-text *linetypes* (split-tables *Drawing-sty*))
+  (items *linetypes*)
+  )
+
+(mapc
+ #'(lambda (el)
+     (dxf-out-text el t))
+ (items *linetypes*))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -329,6 +390,8 @@
 (progn
   (defparameter *document* (make-instance 'acad-document))
 
+  (dxf-in-text *document* *Drawing-sty*)
+  
   (activedimstyle  *document*)
   (activelayer     *document*)
   (activelayout    *document*)
@@ -336,20 +399,23 @@
   (activematerial  *document*)
   (activespace     *document*)
   (activetextstyle *document*)
-  
-  (dxf-in-text *document* *drawing-sty*)
 
   (activetextstyle *document*)
+  (activedimstyle  *document*)
+  (activespace     *document*)
 
-  (activedimstyle *document* )
+  (layers          *document*)
+  (items (layers   *document*))
+  )
 
-  (activespace *document*))
+(mapc
+ #'(lambda (layer )
+     (dxf-out-text layer t))
+ (items (layers   *document*)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defparameter *Drawing-sty* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-
 
 (mapcar #'car *Drawing-sty*)
 
@@ -378,3 +444,15 @@
 (setq mycircle
       (vla-addCircle mSpace
 		     (vlax-3d-point '(3.0 3.0 0.0)) 2.0))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Тестирование dxf-in-t-sections.lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(progn
+  (defparameter *lt-2-metric*         (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf"))
+  (defparameter *lt-2000-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2000-metric.dxf"))
+  (defparameter *lt-2004-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2004-metric.dxf"))
+  (defparameter *lt-2007-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2007-metric.dxf"))
+  (defparameter *lt-2010-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2010-metric.dxf"))
+  (defparameter *lt-2013-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2013-metric.dxf"))
+  (defparameter *autocad-2018-metric* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/AutoCAD-2018-metric.dxf")))
