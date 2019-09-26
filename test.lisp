@@ -5,6 +5,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defparameter *dxf-path* "~/quicklisp/local-projects/acad/dxf/dxf/")
 
+
+(defparameter *Drawing-sty* (dxf-in-t-fname (concatenate 'string *dxf-path* "Drawing-sty.dxf")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defparameter *model-space*
   (list
    (make-instance 'db-point)
@@ -413,19 +417,24 @@
      (dxf-out-text layer t))
  (items (layers   *document*)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defparameter *Drawing-sty* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf"))
+(sec-classes *document*)
+
+(sec-header *document*)
+
+(with-open-file (os-dxf "d:/PRG/msys32/home/namatv/123.dxf" :direction :output :if-exists :supersede)
+  (dxf-out-text  *document* os-dxf))
+
+(dxf-out-text  *document* t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (mapcar #'car *Drawing-sty*)
 
-(progn
-  (defparameter *Drawing-sty* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf"))
-  (split-entities *Drawing-sty*))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
   (defparameter *Drawing-sty* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf"))
-  (table-and-items "LAYER" (split-tables *Drawing-sty*)))
+  )
 
 (defparameter *t* nil)
 
@@ -445,14 +454,39 @@
       (vla-addCircle mSpace
 		     (vlax-3d-point '(3.0 3.0 0.0)) 2.0))
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Тестирование dxf-in-t-sections.lisp
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(progn
-  (defparameter *lt-2-metric*         (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2-metric.dxf"))
-  (defparameter *lt-2000-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2000-metric.dxf"))
-  (defparameter *lt-2004-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2004-metric.dxf"))
-  (defparameter *lt-2007-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2007-metric.dxf"))
-  (defparameter *lt-2010-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2010-metric.dxf"))
-  (defparameter *lt-2013-metric*      (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/LT-2013-metric.dxf"))
-  (defparameter *autocad-2018-metric* (dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/metric/AutoCAD-2018-metric.dxf")))
+
+'((2 "CLASSES")
+  (0 "CLASS") (1 "ACDBDICTIONARYWDFLT")  (2 "AcDbDictionaryWithDefault")             (3 "ObjectDBX Classes")       (90 0)    (91 1)  (280 0) (281 0)
+  (0 "CLASS") (1 "DICTIONARYVAR")        (2 "AcDbDictionaryVar")                     (3 "ObjectDBX Classes")       (90 0)    (91 9)  (280 0) (281 0)
+  (0 "CLASS") (1 "TABLESTYLE")           (2 "AcDbTableStyle")                        (3 "ObjectDBX Classes")       (90 4095) (91 1)  (280 0) (281 0)
+  (0 "CLASS") (1 "MATERIAL")             (2 "AcDbMaterial")                          (3 "ObjectDBX Classes")       (90 1153) (91 3)  (280 0) (281 0)
+  (0 "CLASS") (1 "VISUALSTYLE")          (2 "AcDbVisualStyle")                       (3 "ObjectDBX Classes")       (90 4095) (91 24) (280 0) (281 0)
+  (0 "CLASS") (1 "SCALE")                (2 "AcDbScale")                             (3 "ObjectDBX Classes")       (90 1153) (91 17) (280 0) (281 0)
+  (0 "CLASS") (1 "MLEADERSTYLE")         (2 "AcDbMLeaderStyle")                      (3 "ACDB_MLEADERSTYLE_CLASS") (90 4095) (91 1)  (280 0) (281 0)
+  (0 "CLASS") (1 "CELLSTYLEMAP")         (2 "AcDbCellStyleMap")                      (3 "ObjectDBX Classes")       (90 1152) (91 2)  (280 0) (281 0)
+  (0 "CLASS") (1 "EXACXREFPANELOBJECT")  (2 "ExAcXREFPanelObject")                   (3 "EXAC_ESW")                (90 1025) (91 1)  (280 0) (281 0)
+  (0 "CLASS") (1 "NPOCOLLECTION")        (2 "AcDbImpNonPersistentObjectsCollection") (3 "ObjectDBX Classes")       (90 1153) (91 1)  (280 0) (281 0)
+  (0 "CLASS") (1 "LAYER_INDEX")          (2 "AcDbLayerIndex")                        (3 "ObjectDBX Classes")       (90 0)    (91 0)  (280 0) (281 0)
+  (0 "CLASS") (1 "SPATIAL_INDEX")        (2 "AcDbSpatialIndex")                      (3 "ObjectDBX Classes")       (90 0)    (91 0)  (280 0) (281 0)
+  (0 "CLASS") (1 "IDBUFFER")             (2 "AcDbIdBuffer")                          (3 "ObjectDBX Classes")       (90 0)    (91 0)  (280 0) (281 0)
+  (0 "CLASS") (1 "ACDBSECTIONVIEWSTYLE") (2 "AcDbSectionViewStyle")                  (3 "ObjectDBX Classes")       (90 1025) (91 1)  (280 0) (281 0)
+  (0 "CLASS") (1 "ACDBDETAILVIEWSTYLE")  (2 "AcDbDetailViewStyle")                   (3 "ObjectDBX Classes")       (90 1025) (91 1)  (280 0) (281 0))
+
+
+
+(0 "TABLE")
+(2 "APPID") (5 9) (330 0) (100 "AcDbSymbolTable") (70 9)
+
+(0 "APPID") (5 18) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "ACAD") (70 0)
+(0 "APPID") (5 158) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "ACAD_PSEXT") (70 0)
+(0 "APPID") (5 307) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "AcadAnnoPO") (70 0)
+(0 "APPID") (5 308) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "AcadAnnotative") (70 0)
+(0 "APPID") (5 309) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "ACAD_DSTYLE_DIMJAG") (70 0)
+(0 "APPID") (5 310) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "ACAD_DSTYLE_DIMTALN") (70 0)
+(0 "APPID") (5 357) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "ACAD_MLEADERVER") (70 0)
+(0 "APPID") (5 535) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "ACAD_NAV_VCDISPLAY") (70 0)
+(0 "APPID") (5 560) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "SHCKALA") (70 0)
+
+(0 "ENDTAB") 

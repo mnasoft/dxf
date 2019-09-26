@@ -268,10 +268,18 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun split-classes (sections)
-"Пример использования
- (split-CLASSES *Drawing-sty*)
+  "Пример использования
+ (split-classes *Drawing-sty*)
 "
-)
+  (let ((pairs-list (reverse (cdr (assoc '(2 "CLASSES") sections :test #'equal))))
+	(classes nil)
+	(class   nil))
+    (dolist (i pairs-list (nreverse classes))
+      (push i class)
+      (when (equal i '(0 "CLASS"))
+	(push class classes)
+	(setf class nil)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defun split-tables (sections)
   "Пример использования:

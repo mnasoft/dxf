@@ -150,7 +150,7 @@
     ((or (<= 0 code 4)
 	 (<= 6 code 9))  (dxf-out-t-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
     ((=  5  code)        (dxf-out-t-hex    code value stream))
-    ((<= 10 code 19)     (dxf-out-t-point  code value stream)) ;;;; Double precision 3D point value
+    ((<= 10 code 19)     (dxf-out-t-double code value stream)) ;;;; Double precision 3D point value
     ((<= 20 code 39)     (dxf-out-t-double code value stream)) 
     ((<= 40 code 59)     (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
     ((<= 60 code 79)     (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value

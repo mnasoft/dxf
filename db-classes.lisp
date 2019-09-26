@@ -35,11 +35,11 @@
    "Содержит dxf-представление объекта"))
 
 (defmethod  dxf-in-text ((object dxf-pairs) (pairs cons))
-  (break "dxf-in-text ((object dxf-pairs) (pairs cons))")
+;;; (break "dxf-in-text ((object dxf-pairs) (pairs cons))")
   object)
 
 (defmethod  dxf-in-text :after ((object dxf-pairs) (pairs cons))
-  (break "dxf-in-text :after ((object dxf-pairs) (pairs cons))")
+;;; (break "dxf-in-text :after ((object dxf-pairs) (pairs cons))")
   (setf (pairs object) (copy-list pairs)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -91,11 +91,11 @@ db-object -> Acad-Object
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod  dxf-in-text ((object acad-object) (pairs cons))
-    (break "dxf-in-text ((object acad-object) (pairs cons))")
+;;; (break "dxf-in-text ((object acad-object) (pairs cons))")
     )
 
 (defmethod  dxf-in-text :after ((object acad-object) (pairs cons))
-  (break "dxf-in-text :after ((object acad-object) (pairs cons))")
+;;; (break "dxf-in-text :after ((object acad-object) (pairs cons))")
 
   (let ((c-5   (cadr (assoc   5 pairs :test #'equal)))
 	(c-330 (cadr (assoc 330 pairs :test #'equal))))
@@ -1321,11 +1321,11 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 (defmethod  dxf-in-text  ((object acad-layer) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-layer-class-marker*))
-  (break "dxf-in-text  ((object acad-layer) (pairs cons))")
+;;; (break "dxf-in-text  ((object acad-layer) (pairs cons))")
   )
 
 (defmethod  dxf-in-text :after ((object acad-layer) (pairs cons))
-  (break "dxf-in-text :after ((object acad-layer) (pairs cons))")
+;;; (break "dxf-in-text :after ((object acad-layer) (pairs cons))")
   (let ((c-2   (cadr (assoc   2 pairs :test #'equal)))
 	(c-70  (cadr (assoc  70 pairs :test #'equal)))
 	(c-62  (cadr (assoc  62 pairs :test #'equal)))
@@ -1482,6 +1482,11 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
    (width                 :accessor width                 :initarg :width                 :initform nil :documentation "width")
    (windowstate           :accessor windowstate           :initarg :windowstate           :initform nil :documentation "windowstate")
    (windowtitle           :accessor windowtitle           :initarg :windowtitle           :initform nil :documentation "windowtitle")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   (sec-header            :accessor sec-header            :initarg :sec-header            :initform nil :documentation "header      - Представление секции HEADER")
+   (sec-classes           :accessor sec-classes           :initarg :sec-classes           :initform nil :documentation "classes     - Представление секции CLASSES")
+   (sec-table-appid       :accessor sec-table-appid       :initarg :sec-table-appid       :initform nil :documentation "table-appid - Представление секции TABLE-APPID")
+
    )
   (:documentation "
  "))
@@ -1498,7 +1503,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 (defmethod  dxf-in-text :after ((object acad-document) (sections cons))
 	    (let ((header  (split-header   sections))
-;;;;		  (classes (split-classes  sections))
+		  (classes (split-classes  sections))
 		  (tables  (split-tables   sections))
 		  )
 	      (setf (activedimstyle  object) (get-acad-variable-as-list "DIMSTYLE"   header))
@@ -1514,9 +1519,63 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 ;;;    (setf (activepviewport    object) (get-acad-variable-as-list "CLAYOUT"  header))    
 ;;;    (setf (activeselectionset object) (get-acad-variable-as-list "CLAYOUT"  header))
 ;;;;	      
-	      (setf  (layers    object) (dxf-in-text (layers    object) tables))
-	      (setf  (linetypes object) (dxf-in-text (linetypes object) tables))
+	      (setf  (layers      object) (dxf-in-text (layers    object) tables))
+	      (setf  (linetypes   object) (dxf-in-text (linetypes object) tables))
+;;;;	      
+	      (setf  (sec-header  object) header)
+      	      (setf  (sec-classes object) classes)
 	      ))
+
+(defmethod dxf-out-text ((x acad-document) stream))
+
+(defmethod dxf-out-text :after ((x acad-document) stream)
+  (block section-header
+    (dxf-out-t 0 "SECTION" stream)
+    (dxf-out-t 2 "HEADER"  stream)
+    (mapc #'(lambda (header)
+	      (mapc #'(lambda (el) (dxf-out-t (first el) (second el) stream)) header))
+	  (sec-header x))
+    (dxf-out-t 0 "ENDSEC" stream))
+  (block section-classes
+    (dxf-out-t 0 "SECTION" stream)
+    (dxf-out-t 2 "CLASSES" stream)
+    (mapc #'(lambda (class)
+	      (mapc #'(lambda (el) (dxf-out-t (first el) (second el) stream)) class))
+	  (sec-classes x))
+    (dxf-out-t 0 "ENDSEC" stream))
+  (block section-tables
+    (dxf-out-t 0 "SECTION" stream)
+    (dxf-out-t 2 "TABLES" stream)
+;;;
+    (dxf-out-t 0 "ENDSEC" stream)
+    )
+  (block section-blocks
+    (dxf-out-t 0 "SECTION" stream)
+    (dxf-out-t 2 "BLOCKS" stream)
+;;;
+    (dxf-out-t 0 "ENDSEC" stream)
+    )
+  (block section-entities
+    (dxf-out-t 0 "SECTION" stream)
+    (dxf-out-t 2 "ENTITIES" stream)
+;;;
+    (dxf-out-t 0 "ENDSEC" stream)
+    )
+  (block section-objects
+    (dxf-out-t 0 "SECTION" stream)
+    (dxf-out-t 2 "OBJECTS" stream)
+;;;
+    (dxf-out-t 0 "ENDSEC" stream)
+    )
+    (block section-objects
+    (dxf-out-t 0 "SECTION" stream)
+    (dxf-out-t 2 "ACDSDATA" stream)
+;;;
+    (dxf-out-t 0 "ENDSEC" stream)
+    )
+    
+    (dxf-out-t 0 "EOF" stream)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
