@@ -4,4 +4,5 @@
 *.fasl
 *.lisp-temp
 *.html
+*.bak
 \#*#
