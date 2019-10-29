@@ -215,7 +215,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defparameter *section-names* '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS"))
+(export  '*section-names*)
+(defparameter *section-names*
+  '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS" "ACDSDATA")
+  "Наименования секций dxf-файла.
+@begin(list)
+ @item(HEADER   - содержит системные переменные.)
+ @item(CLASSES  - ) 
+ @item(TABLES   - ) 
+ @item(BLOCKS   - ) 
+ @item(ENTITIES - ) 
+ @item(OBJECTS  - )
+ @item(ACDSDATA - )
+@end(list)
+"
+  )
+  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun split-header (sections)
@@ -322,19 +337,19 @@
     (values (car rez) (cdr rez))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun split-BLOCKS (sections)
+(defun split-blocks (sections)
   "Пример использования:
-  (split-BLOCKS *Drawing-sty*)
+  (split-blocks *Drawing-sty*)
 "
-  "split-BLOCKS - not yet defined")
+  "split-blocks - not yet defined")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun split-ENTITIES (sections)
+(defun split-entities (sections)
   "Выделяет из посекционного представления dxf - файла секцию ENTITIES
 и преобразует ее в список с dxf - представлениями объектов.
 Пример использования:
- (split-ENTITIES *Drawing-sty*)
+ (split-entities *Drawing-sty*)
 "
   (let ((pairs-list (reverse (cdr (assoc '(2 "ENTITIES") sections :test #'equal))))
 	(entities nil)
@@ -347,10 +362,17 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun split-OBJECTS (sections)
+(defun split-objects (sections)
 "Пример использования
- (split-OBJECTS *Drawing-sty*)
+ (split-objects *Drawing-sty*)
 "
-"split-OBJECTS - not yet defined"
+"split-objects - not yet defined"
 )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun split-acdsdata (sections)
+"Пример использования
+ (split-acdsdata *Drawing-sty*)
+"
+"split-acdsdata - not yet defined"
+)
