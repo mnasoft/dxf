@@ -6,13 +6,15 @@
     (if (and (stringp string)
 	     (<= (length (babel:string-to-octets string)) max-octet-length))
 	(format stream "~A~%~A~%" (dxf-code code) string)
-	(break "dxf-t-string: code=~A; ~A~%" code string)))
+;;;;	(break "dxf-t-string: code=~A; ~A~%" code string)
+	))
 ;;;;
 
 (defun dxf-out-t-double (code x stream)
   (if  (numberp x)
        (format stream "~A~%~,12F~%" (dxf-code code) x)
-       (break "dxf-out-t-double: (numberp x) : code=~A x=~A" code x)))
+;;;;   (break "dxf-out-t-double: (numberp x) : code=~A x=~A" code x)
+       ))
 
 ;;;;
 
@@ -67,7 +69,8 @@
 	(put-u2 code)
 	(write-sequence *byte-aray-2* stream)
 	(write-sequence (babel:string-to-octets (concatenate 'string string (format nil "~C" #\NUL))) stream))
-      (break "dxf-b-string: code=~A; ~A~%" code string)))
+;;;;      (break "dxf-b-string: code=~A; ~A~%" code string)
+      ))
 
 ;;;;
 
@@ -79,7 +82,8 @@
 ;;;;	 (put-u8 (ie3fp:encode-ieee-double (coerce x 'double-float)))
 	 (put-u8 (ieee-floats:encode-float64 (coerce x 'double-float)))	 
 	 (write-sequence *byte-aray-8* stream))
-       (break "dxf-out-b-double: (numberp x) : code=~A x=~A" code x)))
+;;;;       (break "dxf-out-b-double: (numberp x) : code=~A x=~A" code x)
+       ))
 
 ;;;;
 
