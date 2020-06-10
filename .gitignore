@@ -3,6 +3,9 @@
 *.FASL
 *.fasl
 *.lisp-temp
+build
+\#*#
+
 *.html
 *.bak
-\#*#
+
