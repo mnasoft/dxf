@@ -505,3 +505,6 @@
 (0 "APPID") (5 560) (330 9) (100 "AcDbSymbolTableRecord") (100 "AcDbRegAppTableRecord") (2 "SHCKALA") (70 0)
 
 (0 "ENDTAB") 
+
+
+(dxf:
