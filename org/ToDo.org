@@ -1,0 +1,300 @@
+
+https://help.autodesk.com/view/OARX/2021/ENU/
+
+* ToDo
+ ;;;; http://help.autodesk.com/view/ACD/2017/RUS/
+
+ ;;;;AcRxObject
+ ;;;;  AcDbObject
+ ;;;;     AcDbEntity
+ ;;;;      AcDbText -
+ ;;;;        AcDbAttribute
+ ;;;;        AcDbAttributeDefinition
+ ;;;;      AcDbBlockBegin
+ ;;;;      AcDbBlockEnd
+ ;;;;      AcDbSequenceEnd
+ ;;;;      AcDbBlockReference
+ ;;;;        AcDbMInsertBlock
+ ;;;;      AcDbVertex
+ ;;;;        AcDb2dVertex
+ ;;;;        AcDb3dPolylineVertex
+ ;;;;        AcDbPolygonMeshVertex
+ ;;;;        AcDbPolyFaceMeshVertex
+ ;;;;        AcDbFaceRecord
+ ;;;;      AcDbCurve
+ ;;;;        AcDb2dPolyline                  ./dbents.h:class AcDb2dPolyline: public AcDbCurve 
+ ;;;;        AcDb3dPolyline                  ./dbents.h:class AcDb3dPolyline: public AcDbCurve 
+ ;;;;        AcDbArc                +        ./dbents.h:class AcDbArc: public AcDbCurve 
+ ;;;;        AcDbCircle             +        ./dbents.h:class AcDbCircle: public AcDbCurve 
+ ;;;;        AcDbLine               +        ./dbents.h:class AcDbLine: public AcDbCurve 
+ ;;;;        AcDbRay                -        ./dbray.h:class AcDbRay: public AcDbCurve 
+ ;;;;        AcDbXline              -        ./dbxline.h:class AcDbXline: public AcDbCurve
+ ;;;;        AcDbPolyline                    ./dbpl.h:class AcDbPolyline : public AcDbCurve
+ ;;;;        AcDbSpline                      ./dbspline.h:class AcDbSpline: public AcDbCurve
+ ;;;;        AcDbEllipse                     ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
+ ;;;;        AcDbLeader                      ./dblead.h:class AcDbLeader: public  AcDbCurve  
+ ;;;;      AcDbPoint                +        ./dbents.h:class AcDbPoint: public AcDbEntity
+ ;;;;      AcDbFace
+ ;;;;      AcDbPolyFaceMesh
+ ;;;;      AcDbPolygonMesh
+ ;;;;      AcDbTrace
+ ;;;;      AcDbSolid
+ ;;;;      AcDbShape
+ ;;;;      AcDbViewport
+
+* Code
+#+name: code
+#+begin_src lisp
+  (defun make-defclass (m-p o-i des)
+    (format t 
+            "(defclass ~A (~A)~%  (~%~{  (~A)~^~%~}~%  (:docmentation ~S))" 
+            (str:downcase (str:header-case (first (first (last o-i)))))
+            (str:downcase (str:header-case (first (first (cdr (reverse o-i))))))
+            (mapcar #'(lambda (el)
+                        (let ((slot (str:downcase (str:header-case el))))
+                          (format nil "~A~25t:accessor ~A~60t:initarg :~A~95t:initform nil :documentation ~S"
+                                  slot slot slot slot)
+                          ))
+                    (nreverse
+                     (reduce
+                      #'(lambda (x y)
+                          (if (string= "" y) x
+                              (cons y x))
+                          )
+                      (mapcar #'second m-p)
+                      :initial-value nil)))
+            (first(first des))))
+#+end_src
+
+#+RESULTS: code
+: MAKE-DEFCLASS
+
+
+* AcadApplication
+#+name: Description-Acad-Application
+| Description                              |
+|------------------------------------------|
+| An instance of the AutoCAD application.  |
+
+** Object Inheritance 
+#+name: Object-Inheritance-Acad-Application
+| Object          |
+| AcadApplication |
+
+** Resident
+#+name: Resident-Acad-Application
+| Resident           | Val |
+|--------------------+-----|
+| DB-resident-entity |     |
+| DB-resident-object |     |
+| NON-DB-resident    | y   |
+
+** Object-Collection
+| Collection | Val |
+|------------+-----|
+| Object     | y   |
+| Collection |     |
+
+** Methods Properties Events
+#+name: Methods-Properties-Events-Acad-Application
+| Methods            | Properties     | Events               |
+|--------------------+----------------+----------------------|
+| Eval               | ActiveDocument | AppActivate          |
+| GetAcadState       | Application    | AppDeactivate        |
+| GetInterfaceObject | Caption        | ARXLoaded            |
+| ListARX            | Documents      | ARXUnloaded          |
+| LoadARX            | FullName       | BeginCommand         |
+| LoadDVB            | Height         | BeginFileDrop        |
+| Quit               | HWND           | BeginLisp            |
+| RunMacro           | LocaleID       | BeginModal           |
+| UnloadARX          | MenuBar        | BeginOpen            |
+| UnloadDVB          | MenuGroups     | BeginPlot            |
+| Update             | Name           | BeginQuit            |
+| ZoomAll            | Path           | BeginSave            |
+| ZoomCenter         | Preferences    | EndCommand           |
+| ZoomExtents        | StatusID       | EndLisp              |
+| ZoomPickWindow     | VBE            | EndModal             |
+| ZoomPrevious       | Version        | EndOpen              |
+| ZoomScaled         | Visible        | EndPlot              |
+| ZoomWindow         | Width          | EndSave              |
+|                    | WindowLeft     | LispCancelled        |
+|                    | WindowState    | NewDrawing           |
+|                    | WindowTop      | SysVarChanged        |
+|                    |                | WindowChanged        |
+|                    |                | WindowMovedOrResized |
+
+#+name: Acad-Application
+#+header: :var m-p=Methods-Properties-Events-Acad-Application
+#+header: :var o-i=Object-Inheritance-Acad-Application
+#+header: :var des=Description-Acad-Application
+#+header: :results output
+#+header: :var code=code
+#+begin_src lisp 
+(make-defclass m-p o-i des)
+#+end_src
+
+#+RESULTS: Acad-Application
+#+begin_example
+(defclass acad-application (object)
+  (
+  (active-document     :accessor active-document     :initarg :active-document     :initform nil :documentation "active-document")
+  (application         :accessor application         :initarg :application         :initform nil :documentation "application")
+  (caption             :accessor caption             :initarg :caption             :initform nil :documentation "caption")
+  (documents           :accessor documents           :initarg :documents           :initform nil :documentation "documents")
+  (full-name           :accessor full-name           :initarg :full-name           :initform nil :documentation "full-name")
+  (height              :accessor height              :initarg :height              :initform nil :documentation "height")
+  (hwnd                :accessor hwnd                :initarg :hwnd                :initform nil :documentation "hwnd")
+  (locale-id           :accessor locale-id           :initarg :locale-id           :initform nil :documentation "locale-id")
+  (menu-bar            :accessor menu-bar            :initarg :menu-bar            :initform nil :documentation "menu-bar")
+  (menu-groups         :accessor menu-groups         :initarg :menu-groups         :initform nil :documentation "menu-groups")
+  (name                :accessor name                :initarg :name                :initform nil :documentation "name")
+  (path                :accessor path                :initarg :path                :initform nil :documentation "path")
+  (preferences         :accessor preferences         :initarg :preferences         :initform nil :documentation "preferences")
+  (status-id           :accessor status-id           :initarg :status-id           :initform nil :documentation "status-id")
+  (vbe                 :accessor vbe                 :initarg :vbe                 :initform nil :documentation "vbe")
+  (version             :accessor version             :initarg :version             :initform nil :documentation "version")
+  (visible             :accessor visible             :initarg :visible             :initform nil :documentation "visible")
+  (width               :accessor width               :initarg :width               :initform nil :documentation "width")
+  (window-left         :accessor window-left         :initarg :window-left         :initform nil :documentation "window-left")
+  (window-state        :accessor window-state        :initarg :window-state        :initform nil :documentation "window-state")
+  (window-top          :accessor window-top          :initarg :window-top          :initform nil :documentation "window-top")
+  (:docmentation "An instance of the AutoCAD application."))
+#+end_example
+
+* AcadDocuments
+#+name: Description-Acad-Documents
+| Description                                                                  |
+|------------------------------------------------------------------------------|
+| The collection of all AutoCAD drawings that are open in the current session. |
+
+
+** Object Inheritance
+#+name: Object-Inheritance-Acad-Documents
+| Object        |
+| AcadObject    |
+| AcadDocuments |
+
+** Members
+
+#+name: Methods-Properties-Events-Acad-Documents
+| Methods | Properties  | Events |
+|---------+-------------+--------|
+| Add     | Application |        |
+| Close   | Count       |        |
+| Item    |             |        |
+| Open    |             |        |
+
+
+#+name: Acad-Application
+#+header: :var m-p=Methods-Properties-Events-Acad-Application
+#+header: :var o-i=Object-Inheritance-Acad-Application
+#+header: :var des=Description-Acad-Application
+#+header: :results output
+#+header: :var code=code
+#+begin_src lisp 
+(make-defclass m-p o-i des)
+#+end_src
+
+** Code
+
+#+name: Acad-Documents
+#+header: :var m-p=Methods-Properties-Events-Acad-Documents
+#+header: :var o-i=Object-Inheritance-Acad-Documents
+#+header: :var des=Description-Acad-Documents
+#+header: :var code=code
+#+header: :results output
+#+begin_src lisp 
+(make-defclass m-p o-i des)
+#+end_src
+
+#+RESULTS: Acad-Documents
+: (defclass acad-documents (acad-object)
+:   (
+:   (application         :accessor application         :initarg :application         :initform nil :documentation "application")
+:   (count               :accessor count               :initarg :count               :initform nil :documentation "count")
+:   (:docmentation "The collection of all AutoCAD drawings that are open in the current session."))
+
+* AcadDatabase
+
+#+name: Description-Acad-Database
+| Description                    |
+|--------------------------------|
+| The contents of an XRef block. |
+
+
+** Object Inheritance
+
+#+name: Object-Inheritance-Acad-Database
+| Object       |
+| AcadDatabase |
+
+** Members
+
+#+name: Methods-Properties-Events-Acad-Database
+| Methods          | Properties             | Events |
+|------------------+------------------------+--------|
+| CopyObjects      | Blocks                 |        |
+| HandleToObject   | Dictionaries           |        |
+| ObjectIdToObject | DimStyles              |        |
+|                  | ElevationModelSpace    |        |
+|                  | ElevationPaperSpace    |        |
+|                  | Groups                 |        |
+|                  | Layers                 |        |
+|                  | Layouts                |        |
+|                  | Limits                 |        |
+|                  | Linetypes              |        |
+|                  | Material               |        |
+|                  | ModelSpace             |        |
+|                  | PaperSpace             |        |
+|                  | PlotConfigurations     |        |
+|                  | Preferences            |        |
+|                  | RegisteredApplications |        |
+|                  | SectionManager         |        |
+|                  | SummaryInfo            |        |
+|                  | TextStyles             |        |
+|                  | UserCoordinateSystems  |        |
+|                  | Viewports              |        |
+|                  | Views                  |        |
+
+** Remarks
+
+This object provides access to the contents of an external reference block. It is only available on blocks whose IsXRef property is equal to True.
+** Code
+#+name: Acad-Database
+#+header: :var m-p=Methods-Properties-Events-Acad-Database
+#+header: :var o-i=Object-Inheritance-Acad-Database
+#+header: :var des=Description-Acad-Database
+#+header: :var code=code
+#+header: :results output
+#+begin_src lisp 
+(make-defclass m-p o-i des)
+#+end_src
+
+#+RESULTS: Acad-Database
+#+begin_example
+(defclass acad-database (object)
+  (
+  (blocks                   :accessor blocks                   :initarg :blocks                   :initform nil :documentation "blocks")
+  (dictionaries             :accessor dictionaries             :initarg :dictionaries             :initform nil :documentation "dictionaries")
+  (dim-styles               :accessor dim-styles               :initarg :dim-styles               :initform nil :documentation "dim-styles")
+  (elevation-model-space    :accessor elevation-model-space    :initarg :elevation-model-space    :initform nil :documentation "elevation-model-space")
+  (elevation-paper-space    :accessor elevation-paper-space    :initarg :elevation-paper-space    :initform nil :documentation "elevation-paper-space")
+  (groups                   :accessor groups                   :initarg :groups                   :initform nil :documentation "groups")
+  (layers                   :accessor layers                   :initarg :layers                   :initform nil :documentation "layers")
+  (layouts                  :accessor layouts                  :initarg :layouts                  :initform nil :documentation "layouts")
+  (limits                   :accessor limits                   :initarg :limits                   :initform nil :documentation "limits")
+  (linetypes                :accessor linetypes                :initarg :linetypes                :initform nil :documentation "linetypes")
+  (material                 :accessor material                 :initarg :material                 :initform nil :documentation "material")
+  (model-space              :accessor model-space              :initarg :model-space              :initform nil :documentation "model-space")
+  (paper-space              :accessor paper-space              :initarg :paper-space              :initform nil :documentation "paper-space")
+  (plot-configurations      :accessor plot-configurations      :initarg :plot-configurations      :initform nil :documentation "plot-configurations")
+  (preferences              :accessor preferences              :initarg :preferences              :initform nil :documentation "preferences")
+  (registered-applications  :accessor registered-applications  :initarg :registered-applications  :initform nil :documentation "registered-applications")
+  (section-manager          :accessor section-manager          :initarg :section-manager          :initform nil :documentation "section-manager")
+  (summary-info             :accessor summary-info             :initarg :summary-info             :initform nil :documentation "summary-info")
+  (text-styles              :accessor text-styles              :initarg :text-styles              :initform nil :documentation "text-styles")
+  (user-coordinate-systems  :accessor user-coordinate-systems  :initarg :user-coordinate-systems  :initform nil :documentation "user-coordinate-systems")
+  (viewports                :accessor viewports                :initarg :viewports                :initform nil :documentation "viewports")
+  (views                    :accessor views                    :initarg :views                    :initform nil :documentation "views")
+  (:docmentation "The contents of an XRef block."))
+#+end_example

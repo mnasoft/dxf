@@ -1,3 +1,5 @@
+* Обзор 
+Проект определяет функции для чтения и записи файлов в формате [[https://en.wikipedia.org/wiki/AutoCAD_DXF][DXF]].
 
 * DXF Reference (Справочник по DXF)
 ** Формат DXF
@@ -1336,48 +1338,6 @@ $input
 
 #+RESULTS:
 [[file:./images/test-dot.png]]
-
-* ToDo
-
- ;;;; http://help.autodesk.com/view/ACD/2017/RUS/
-
- ;;;;AcRxObject
- ;;;;  AcDbObject
- ;;;;     AcDbEntity
- ;;;;      AcDbText -
- ;;;;        AcDbAttribute
- ;;;;        AcDbAttributeDefinition
- ;;;;      AcDbBlockBegin
- ;;;;      AcDbBlockEnd
- ;;;;      AcDbSequenceEnd
- ;;;;      AcDbBlockReference
- ;;;;        AcDbMInsertBlock
- ;;;;      AcDbVertex
- ;;;;        AcDb2dVertex
- ;;;;        AcDb3dPolylineVertex
- ;;;;        AcDbPolygonMeshVertex
- ;;;;        AcDbPolyFaceMeshVertex
- ;;;;        AcDbFaceRecord
- ;;;;      AcDbCurve
- ;;;;        AcDb2dPolyline                  ./dbents.h:class AcDb2dPolyline: public AcDbCurve 
- ;;;;        AcDb3dPolyline                  ./dbents.h:class AcDb3dPolyline: public AcDbCurve 
- ;;;;        AcDbArc                +        ./dbents.h:class AcDbArc: public AcDbCurve 
- ;;;;        AcDbCircle             +        ./dbents.h:class AcDbCircle: public AcDbCurve 
- ;;;;        AcDbLine               +        ./dbents.h:class AcDbLine: public AcDbCurve 
- ;;;;        AcDbRay                -        ./dbray.h:class AcDbRay: public AcDbCurve 
- ;;;;        AcDbXline              -        ./dbxline.h:class AcDbXline: public AcDbCurve
- ;;;;        AcDbPolyline                    ./dbpl.h:class AcDbPolyline : public AcDbCurve
- ;;;;        AcDbSpline                      ./dbspline.h:class AcDbSpline: public AcDbCurve
- ;;;;        AcDbEllipse                     ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
- ;;;;        AcDbLeader                      ./dblead.h:class AcDbLeader: public  AcDbCurve  
- ;;;;      AcDbPoint                +        ./dbents.h:class AcDbPoint: public AcDbEntity
- ;;;;      AcDbFace
- ;;;;      AcDbPolyFaceMesh
- ;;;;      AcDbPolygonMesh
- ;;;;      AcDbTrace
- ;;;;      AcDbSolid
- ;;;;      AcDbShape
- ;;;;      AcDbViewport
 
 * Object Model (ActiveX)
 ** AcadDocument

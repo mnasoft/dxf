@@ -10,7 +10,7 @@
 
 (defparameter *symbol-tbl-subclass-marker* "AcDbSymbolTable")
 
-(defclass db-symbol-tbl ( db-object )
+(defclass db-symbol-tbl ( acad-object )
   ((Object-Name  :accessor Object-Name       :initarg :Object-Name  :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
    (Count        :accessor symbol-tbl-flag   :initarg :Count  :initform 0              :documentation "Код  70. Стандартные флаги")
    (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil            :documentation "Записи таблицы."))

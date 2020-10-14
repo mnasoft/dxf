@@ -118,8 +118,11 @@
 	(push (cdr (nreverse (cdr section))) sections)
 	(setf section nil)))))
 
+(export 'dxf-in-t-fname)
+
 (defun dxf-in-t-fname (fname)
-  "Выполняет попытку считывания текстового dxf-файла в формате:
+  "@b(Описание:) функция @b(dxf-in-t-fname) выполняет
+попытку считывания текстового dxf-файла в формате:
 @begin(list)
  @item(версий с 2000 по 2004 [:external-format :cp1251])
  @item(версий с 2007 по 2018 [:external-format :utf8].)
@@ -131,7 +134,6 @@
 @begin[lang=lisp](code)
  (dxf-in-t-fname \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\")
 @end(code)
-
 "
   (cond
     ((ignore-errors
@@ -213,9 +215,10 @@
 		  :test #'equal)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (export  '*section-names*)
+
 (defparameter *section-names*
   '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS" "ACDSDATA")
   "Наименования секций dxf-файла.
@@ -345,11 +348,17 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(export 'split-entities)
+
 (defun split-entities (sections)
-  "Выделяет из посекционного представления dxf - файла секцию ENTITIES
+  "@b(Описание:) функция @b(split-entities) выделяет
+из посекционного представления dxf - файла секцию ENTITIES
 и преобразует ее в список с dxf - представлениями объектов.
-Пример использования:
- (split-entities *Drawing-sty*)
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+  (split-entities *Drawing-sty*)
+@end(code)
 "
   (let ((pairs-list (reverse (cdr (assoc '(2 "ENTITIES") sections :test #'equal))))
 	(entities nil)

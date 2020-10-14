@@ -1,0 +1,8 @@
+ @begin(section) @title(Графы dxf)
+  @begin(list)
+   @item(system-graph @image[src=./system-graph-dxf.gv.png]())
+   @item(call-graph   @image[src=./call-graph-dxf.gv.png]())
+   @item(symbol-graph @image[src=./symbol-graph-dxf.gv.png]())
+   @item(class-graph  @image[src=./class-graph-dxf.gv.png]())
+  @end(list)
+ @end(section)

@@ -287,8 +287,11 @@
 (defparameter *color-byblock*  (* -63 256 256 256))
 
 (defun color-rgb-to-truecolor (rgb)
-  "Пример использования:
- (/  (color-rgb-to-truecolor '(114 208 47))   7524399
+  "
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+   (color-rgb-to-truecolor '(114 208 47))   7524399
+@end(code)
 "
   (+ (* (first rgb) 256 256) (* (second rgb) 256) (*  (third rgb))))
 
@@ -300,7 +303,6 @@
  (color-truecolor-to-rgb -1032662993)
  (color-truecolor-to-rgb -7524399)
  (color-truecolor-to-rgb 7524399)
-
 "
   (let* ((rg-b (multiple-value-list (floor  truecolor 256)))
 	 (b    (+ 256 -256 (second rg-b)))
@@ -309,4 +311,28 @@
 	 (r-   (multiple-value-list (floor (first r-g) 256)))
 	 (r    (+ 256 -256 (second r-))))
     (list r g b )))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun color-rgb (rgb)
+  "@b(Описание:) функция @b(rgb) 
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (rgb '(230 200 200)) => (254 15124680)
+@end(code)
+"
+  (color-rgb-to-truecolor rgb))
+
+(defun color-index (index)
+  "@b(Описание:) функция @b(color-index)
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+  (color-index 1)    => 16711680 (24 bits, #xFF0000)
+  (color-index 255) 16777215 (24 bits, #xFFFFFF) 
+@end(code)
+"
+  (color-rgb-to-truecolor (color-index-to-rgb index)))
+
 

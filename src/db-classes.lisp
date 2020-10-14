@@ -36,6 +36,16 @@
   (:documentation
    "Содержит dxf-представление объекта"))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(export 'dxf-in-text)
+
+(defgeneric dxf-in-text (object pairs)
+  (:documentation
+   "@b(Описание:) обобщенная функция @b(dxf-in-text) считывает данные из
+@b(pairs) в @b(object).
+")
+  )
+
 (defmethod  dxf-in-text ((object dxf-pairs) (pairs cons))
 ;;; (break "dxf-in-text ((object dxf-pairs) (pairs cons))")
   object)
@@ -51,7 +61,7 @@
 (defparameter *Acad-Object-subclass-marker* "AcDbObject")
 
 (defclass acad-object (dxf-pairs)
-  ((Application)
+  ((Application :documentation "Gets the Application object.")
    (Document)
    (Object-Name      :accessor Object-Name   :initarg :Object-Name   :initform nil :documentation "")
    (Object-ID        :accessor Object-ID     :initarg :Object-ID     :initform nil :documentation "")
@@ -69,6 +79,13 @@ db-object -> Acad-Object
 
 (mapcar #'make-slot (set-difference *acad-object-properties* nil))
 
+(export 'dxf-out-text)
+
+(defgeneric dxf-out-text (object stream)
+  (:documentation
+   "@b(Описание:) обобщенная функция @b(dxf-out-text) выводит содержимое 
+объекта @b(object) в поток @b(stream) в текстовом формате."))
+
 (defmethod dxf-out-text ((x Acad-Object) stream)
   (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
 
@@ -80,6 +97,11 @@ db-object -> Acad-Object
     (when own (dxf-out-t-hex 330 own stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defgeneric dxf-out-binary (object stream)
+  (:documentation
+   "@b(Описание:) обобщенная функция @b(dxf-out-text) выводит содержимое 
+объекта @b(object) в поток @b(stream) в двоичном формате."))
 
 (defmethod dxf-out-binary ((x Acad-Object) stream)
   (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
@@ -120,7 +142,7 @@ db-object -> Acad-Object
    (line-weight          :accessor line-weight     :initarg :line-weight      :initform -1    :documentation "| 370 | Lineweight enum value. Stored and moved around as a 16-bit integer. | not omitted |")
    (material)
    (PlotStyleName)
-   (truecolor            :accessor truecolor       :initarg :truecolor :initform '(256 nil) :documentation "Код   62 и 420" )
+   (truecolor            :accessor truecolor       :initarg :truecolor :initform *color-bylayer* :documentation "Код   62 и 420" )
    (visible              :accessor visible         :initarg :visible :initform t :documentation " 60 | Object visibility (optional): 0 = Visible 1 = Invisible | 0"))
 ; (plotstylename :accessor plotstylename :initarg :plotstylename :initform nil :documentation "plotstylename")
 ; (material :accessor material :initarg :material :initform nil :documentation "material")
@@ -1698,3 +1720,4 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
   acad-text
   acad-ellipse
   )
+

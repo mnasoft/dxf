@@ -1,0 +1,17 @@
+@begin(section) @title(Обзор)
+
+Проект определяет функции для чтения и записи файлов в формате 
+@link[uri="https://en.wikipedia.org/wiki/AutoCAD_DXF"](DXF).
+
+@end(section)
+
+@begin(section) @title(API Reference)
+ @cl:with-package[name="dxf"](
+  @cl:doc(function dxf-in-t-fname)
+  @cl:doc(function split-entities)
+  @cl:doc(variable *section-names*)
+  @cl:doc(generic dxf-in-text)
+  @cl:doc(generic dxf-out-text)
+  @cl:doc(generic dxf-out-binary)
+ )
+@end(section)
