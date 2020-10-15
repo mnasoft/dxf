@@ -28,21 +28,18 @@
                              ))))
 
 (defsystem "dxf/tests"
-  :description "Тестирование систем, входящих  в проект Math"
+  :description "Тестирование систем, входящих  в проект Dfx"
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
-  :depends-on (:math :fiveam)
+  :depends-on (:dxf :fiveam)
   :perform (test-op (o s)
 		    (uiop:symbol-call :dxf/tests :tests))
   :components ((:module "tests"
-			:serial t
-			:components ((:file "package")
-				     (:file "main")
-				     (:file "matrix")
-				     (:file "linear-system-tests") 
-				     (:file "approximation-tests") 
-				     (:file "list-matr-tests") 
-				     (:file "main-run")))))
+		:serial t
+		:components ((:file "package")
+			     (:file "main")
+			     (:file "dxf-text")
+			     (:file "main-run")))))
 
 (defsystem "dxf/docs"
   :description "Зависимости для сборки документации"

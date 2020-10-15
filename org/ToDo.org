@@ -47,254 +47,5280 @@ https://help.autodesk.com/view/OARX/2021/ENU/
 #+begin_src lisp
   (defun make-defclass (m-p o-i des)
     (format t 
-            "(defclass ~A (~A)~%  (~%~{  (~A)~^~%~}~%  (:docmentation ~S))" 
-            (str:downcase (str:header-case (first (first (last o-i)))))
-            (str:downcase (str:header-case (first (first (cdr (reverse o-i))))))
-            (mapcar #'(lambda (el)
-                        (let ((slot (str:downcase (str:header-case el))))
-                          (format nil "~A~25t:accessor ~A~60t:initarg :~A~95t:initform nil :documentation ~S"
-                                  slot slot slot slot)
-                          ))
-                    (nreverse
-                     (reduce
-                      #'(lambda (x y)
-                          (if (string= "" y) x
-                              (cons y x))
-                          )
-                      (mapcar #'second m-p)
-                      :initial-value nil)))
-            (first(first des))))
+	    "(defclass ~A (~A)~%  (~%~{  (~A)~%~}  )~%  (:documentation ~S))" 
+	    (str:downcase (str:header-case (first (first (last o-i)))))
+	    (str:downcase (str:header-case (first (first (cdr (reverse o-i))))))
+	    (mapcar #'(lambda (el)
+			(let ((slot (str:downcase (str:header-case el))))
+			  (format nil "~A~28t:accessor ~A~66t:initarg :~A~104t:initform nil :documentation ~S"
+				  (str:concat "ac-" slot)
+				  (str:concat "ac-" slot)
+				  (str:concat "ac-" slot)
+				  (str:concat "ac-" slot))))
+		    (nreverse
+		     (reduce
+		      #'(lambda (x y)
+			  (if (string= "" y) x
+			      (cons y x))
+			  )
+		      (mapcar #'second m-p)
+		      :initial-value nil)))
+	    (first (first des))))
 #+end_src
 
 #+RESULTS: code
 : MAKE-DEFCLASS
 
+* Classes
+** AcadApplication
+ #+name: Description-Acad-Application
+ | Description                              |
+ |------------------------------------------|
+ | An instance of the AutoCAD application.  |
 
-* AcadApplication
-#+name: Description-Acad-Application
-| Description                              |
-|------------------------------------------|
-| An instance of the AutoCAD application.  |
+*** Object Inheritance 
+ #+name: Object-Inheritance-Acad-Application
+ | Object          |
+ | AcadApplication |
 
-** Object Inheritance 
-#+name: Object-Inheritance-Acad-Application
-| Object          |
-| AcadApplication |
+*** Resident
+ #+name: Resident-Acad-Application
+ | Resident           | Val |
+ |--------------------+-----|
+ | DB-resident-entity |     |
+ | DB-resident-object |     |
+ | NON-DB-resident    | y   |
 
-** Resident
-#+name: Resident-Acad-Application
-| Resident           | Val |
-|--------------------+-----|
-| DB-resident-entity |     |
-| DB-resident-object |     |
-| NON-DB-resident    | y   |
+*** Object-Collection
+ | Collection | Val |
+ |------------+-----|
+ | Object     | y   |
+ | Collection |     |
 
-** Object-Collection
-| Collection | Val |
-|------------+-----|
-| Object     | y   |
-| Collection |     |
+*** Methods Properties Events
+ #+name: Methods-Properties-Events-Acad-Application
+ | Methods            | Properties     | Events               |
+ |--------------------+----------------+----------------------|
+ | Eval               | ActiveDocument | AppActivate          |
+ | GetAcadState       | Application    | AppDeactivate        |
+ | GetInterfaceObject | Caption        | ARXLoaded            |
+ | ListARX            | Documents      | ARXUnloaded          |
+ | LoadARX            | FullName       | BeginCommand         |
+ | LoadDVB            | Height         | BeginFileDrop        |
+ | Quit               | HWND           | BeginLisp            |
+ | RunMacro           | LocaleID       | BeginModal           |
+ | UnloadARX          | MenuBar        | BeginOpen            |
+ | UnloadDVB          | MenuGroups     | BeginPlot            |
+ | Update             | Name           | BeginQuit            |
+ | ZoomAll            | Path           | BeginSave            |
+ | ZoomCenter         | Preferences    | EndCommand           |
+ | ZoomExtents        | StatusID       | EndLisp              |
+ | ZoomPickWindow     | VBE            | EndModal             |
+ | ZoomPrevious       | Version        | EndOpen              |
+ | ZoomScaled         | Visible        | EndPlot              |
+ | ZoomWindow         | Width          | EndSave              |
+ |                    | WindowLeft     | LispCancelled        |
+ |                    | WindowState    | NewDrawing           |
+ |                    | WindowTop      | SysVarChanged        |
+ |                    |                | WindowChanged        |
+ |                    |                | WindowMovedOrResized |
 
-** Methods Properties Events
-#+name: Methods-Properties-Events-Acad-Application
-| Methods            | Properties     | Events               |
-|--------------------+----------------+----------------------|
-| Eval               | ActiveDocument | AppActivate          |
-| GetAcadState       | Application    | AppDeactivate        |
-| GetInterfaceObject | Caption        | ARXLoaded            |
-| ListARX            | Documents      | ARXUnloaded          |
-| LoadARX            | FullName       | BeginCommand         |
-| LoadDVB            | Height         | BeginFileDrop        |
-| Quit               | HWND           | BeginLisp            |
-| RunMacro           | LocaleID       | BeginModal           |
-| UnloadARX          | MenuBar        | BeginOpen            |
-| UnloadDVB          | MenuGroups     | BeginPlot            |
-| Update             | Name           | BeginQuit            |
-| ZoomAll            | Path           | BeginSave            |
-| ZoomCenter         | Preferences    | EndCommand           |
-| ZoomExtents        | StatusID       | EndLisp              |
-| ZoomPickWindow     | VBE            | EndModal             |
-| ZoomPrevious       | Version        | EndOpen              |
-| ZoomScaled         | Visible        | EndPlot              |
-| ZoomWindow         | Width          | EndSave              |
-|                    | WindowLeft     | LispCancelled        |
-|                    | WindowState    | NewDrawing           |
-|                    | WindowTop      | SysVarChanged        |
-|                    |                | WindowChanged        |
-|                    |                | WindowMovedOrResized |
+*** Code
+ #+name: Acad-Application
+ #+header: :var m-p=Methods-Properties-Events-Acad-Application
+ #+header: :var o-i=Object-Inheritance-Acad-Application
+ #+header: :var des=Description-Acad-Application
+ #+header: :results output
+ #+header: :var code=code
+ #+begin_src lisp 
+ (make-defclass m-p o-i des)
+ #+end_src
 
-#+name: Acad-Application
-#+header: :var m-p=Methods-Properties-Events-Acad-Application
-#+header: :var o-i=Object-Inheritance-Acad-Application
-#+header: :var des=Description-Acad-Application
-#+header: :results output
-#+header: :var code=code
-#+begin_src lisp 
-(make-defclass m-p o-i des)
-#+end_src
+ #+RESULTS: Acad-Application
+ #+begin_example
+ (defclass acad-application (object)
+   (
+   (active-document          :accessor active-document          :initarg :active-document          :initform nil :documentation "active-document")
+   (application              :accessor application              :initarg :application              :initform nil :documentation "application")
+   (caption                  :accessor caption                  :initarg :caption                  :initform nil :documentation "caption")
+   (documents                :accessor documents                :initarg :documents                :initform nil :documentation "documents")
+   (full-name                :accessor full-name                :initarg :full-name                :initform nil :documentation "full-name")
+   (height                   :accessor height                   :initarg :height                   :initform nil :documentation "height")
+   (hwnd                     :accessor hwnd                     :initarg :hwnd                     :initform nil :documentation "hwnd")
+   (locale-id                :accessor locale-id                :initarg :locale-id                :initform nil :documentation "locale-id")
+   (menu-bar                 :accessor menu-bar                 :initarg :menu-bar                 :initform nil :documentation "menu-bar")
+   (menu-groups              :accessor menu-groups              :initarg :menu-groups              :initform nil :documentation "menu-groups")
+   (name                     :accessor name                     :initarg :name                     :initform nil :documentation "name")
+   (path                     :accessor path                     :initarg :path                     :initform nil :documentation "path")
+   (preferences              :accessor preferences              :initarg :preferences              :initform nil :documentation "preferences")
+   (status-id                :accessor status-id                :initarg :status-id                :initform nil :documentation "status-id")
+   (vbe                      :accessor vbe                      :initarg :vbe                      :initform nil :documentation "vbe")
+   (version                  :accessor version                  :initarg :version                  :initform nil :documentation "version")
+   (visible                  :accessor visible                  :initarg :visible                  :initform nil :documentation "visible")
+   (width                    :accessor width                    :initarg :width                    :initform nil :documentation "width")
+   (window-left              :accessor window-left              :initarg :window-left              :initform nil :documentation "window-left")
+   (window-state             :accessor window-state             :initarg :window-state             :initform nil :documentation "window-state")
+   (window-top               :accessor window-top               :initarg :window-top               :initform nil :documentation "window-top")
+   (:docmentation "An instance of the AutoCAD application."))
+ #+end_example
 
-#+RESULTS: Acad-Application
-#+begin_example
-(defclass acad-application (object)
-  (
-  (active-document     :accessor active-document     :initarg :active-document     :initform nil :documentation "active-document")
-  (application         :accessor application         :initarg :application         :initform nil :documentation "application")
-  (caption             :accessor caption             :initarg :caption             :initform nil :documentation "caption")
-  (documents           :accessor documents           :initarg :documents           :initform nil :documentation "documents")
-  (full-name           :accessor full-name           :initarg :full-name           :initform nil :documentation "full-name")
-  (height              :accessor height              :initarg :height              :initform nil :documentation "height")
-  (hwnd                :accessor hwnd                :initarg :hwnd                :initform nil :documentation "hwnd")
-  (locale-id           :accessor locale-id           :initarg :locale-id           :initform nil :documentation "locale-id")
-  (menu-bar            :accessor menu-bar            :initarg :menu-bar            :initform nil :documentation "menu-bar")
-  (menu-groups         :accessor menu-groups         :initarg :menu-groups         :initform nil :documentation "menu-groups")
-  (name                :accessor name                :initarg :name                :initform nil :documentation "name")
-  (path                :accessor path                :initarg :path                :initform nil :documentation "path")
-  (preferences         :accessor preferences         :initarg :preferences         :initform nil :documentation "preferences")
-  (status-id           :accessor status-id           :initarg :status-id           :initform nil :documentation "status-id")
-  (vbe                 :accessor vbe                 :initarg :vbe                 :initform nil :documentation "vbe")
-  (version             :accessor version             :initarg :version             :initform nil :documentation "version")
-  (visible             :accessor visible             :initarg :visible             :initform nil :documentation "visible")
-  (width               :accessor width               :initarg :width               :initform nil :documentation "width")
-  (window-left         :accessor window-left         :initarg :window-left         :initform nil :documentation "window-left")
-  (window-state        :accessor window-state        :initarg :window-state        :initform nil :documentation "window-state")
-  (window-top          :accessor window-top          :initarg :window-top          :initform nil :documentation "window-top")
-  (:docmentation "An instance of the AutoCAD application."))
-#+end_example
+** AcadDocuments
+ #+name: Description-Acad-Documents
+ | Description                                                                  |
+ |------------------------------------------------------------------------------|
+ | The collection of all AutoCAD drawings that are open in the current session. |
 
-* AcadDocuments
-#+name: Description-Acad-Documents
-| Description                                                                  |
-|------------------------------------------------------------------------------|
-| The collection of all AutoCAD drawings that are open in the current session. |
+*** Object Inheritance
+ #+name: Object-Inheritance-Acad-Documents
+ | Object        |
+ | AcadObject    |
+ | AcadDocuments |
 
+*** Members
 
-** Object Inheritance
-#+name: Object-Inheritance-Acad-Documents
-| Object        |
-| AcadObject    |
-| AcadDocuments |
+ #+name: Methods-Properties-Events-Acad-Documents
+ | Methods | Properties  | Events |
+ |---------+-------------+--------|
+ | Add     | Application |        |
+ | Close   | Count       |        |
+ | Item    |             |        |
+ | Open    |             |        |
 
-** Members
+*** Code
+ #+name: Acad-Documents
+ #+header: :var m-p=Methods-Properties-Events-Acad-Documents
+ #+header: :var o-i=Object-Inheritance-Acad-Documents
+ #+header: :var des=Description-Acad-Documents
+ #+header: :var code=code
+ #+header: :results output
+ #+begin_src lisp 
+ (make-defclass m-p o-i des)
+ #+end_src
 
-#+name: Methods-Properties-Events-Acad-Documents
-| Methods | Properties  | Events |
-|---------+-------------+--------|
-| Add     | Application |        |
-| Close   | Count       |        |
-| Item    |             |        |
-| Open    |             |        |
+ #+RESULTS: Acad-Documents
+ : (defclass acad-documents (acad-object)
+ :   (
+ :   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
+ :   (ac-count                    :accessor ac-count                    :initarg :ac-count                    :initform nil :documentation "ac-count")
+ :   )
+ :   (:documentation "The collection of all AutoCAD drawings that are open in the current session."))
 
+** AcadDatabase
 
-#+name: Acad-Application
-#+header: :var m-p=Methods-Properties-Events-Acad-Application
-#+header: :var o-i=Object-Inheritance-Acad-Application
-#+header: :var des=Description-Acad-Application
-#+header: :results output
-#+header: :var code=code
-#+begin_src lisp 
-(make-defclass m-p o-i des)
-#+end_src
-
-** Code
-
-#+name: Acad-Documents
-#+header: :var m-p=Methods-Properties-Events-Acad-Documents
-#+header: :var o-i=Object-Inheritance-Acad-Documents
-#+header: :var des=Description-Acad-Documents
-#+header: :var code=code
-#+header: :results output
-#+begin_src lisp 
-(make-defclass m-p o-i des)
-#+end_src
-
-#+RESULTS: Acad-Documents
-: (defclass acad-documents (acad-object)
-:   (
-:   (application         :accessor application         :initarg :application         :initform nil :documentation "application")
-:   (count               :accessor count               :initarg :count               :initform nil :documentation "count")
-:   (:docmentation "The collection of all AutoCAD drawings that are open in the current session."))
-
-* AcadDatabase
-
-#+name: Description-Acad-Database
-| Description                    |
-|--------------------------------|
-| The contents of an XRef block. |
+ #+name: Description-Acad-Database
+ | Description                    |
+ |--------------------------------|
+ | The contents of an XRef block. |
 
 
-** Object Inheritance
+*** Object Inheritance
 
-#+name: Object-Inheritance-Acad-Database
-| Object       |
-| AcadDatabase |
+ #+name: Object-Inheritance-Acad-Database
+ | Object       |
+ | AcadDatabase |
 
-** Members
+*** Members
 
-#+name: Methods-Properties-Events-Acad-Database
-| Methods          | Properties             | Events |
-|------------------+------------------------+--------|
-| CopyObjects      | Blocks                 |        |
-| HandleToObject   | Dictionaries           |        |
-| ObjectIdToObject | DimStyles              |        |
-|                  | ElevationModelSpace    |        |
-|                  | ElevationPaperSpace    |        |
-|                  | Groups                 |        |
-|                  | Layers                 |        |
-|                  | Layouts                |        |
-|                  | Limits                 |        |
-|                  | Linetypes              |        |
-|                  | Material               |        |
-|                  | ModelSpace             |        |
-|                  | PaperSpace             |        |
-|                  | PlotConfigurations     |        |
-|                  | Preferences            |        |
-|                  | RegisteredApplications |        |
-|                  | SectionManager         |        |
-|                  | SummaryInfo            |        |
-|                  | TextStyles             |        |
-|                  | UserCoordinateSystems  |        |
-|                  | Viewports              |        |
-|                  | Views                  |        |
+ #+name: Methods-Properties-Events-Acad-Database
+ | Methods          | Properties             | Events |
+ |------------------+------------------------+--------|
+ | CopyObjects      | Blocks                 |        |
+ | HandleToObject   | Dictionaries           |        |
+ | ObjectIdToObject | DimStyles              |        |
+ |                  | ElevationModelSpace    |        |
+ |                  | ElevationPaperSpace    |        |
+ |                  | Groups                 |        |
+ |                  | Layers                 |        |
+ |                  | Layouts                |        |
+ |                  | Limits                 |        |
+ |                  | Linetypes              |        |
+ |                  | Material               |        |
+ |                  | ModelSpace             |        |
+ |                  | PaperSpace             |        |
+ |                  | PlotConfigurations     |        |
+ |                  | Preferences            |        |
+ |                  | RegisteredApplications |        |
+ |                  | SectionManager         |        |
+ |                  | SummaryInfo            |        |
+ |                  | TextStyles             |        |
+ |                  | UserCoordinateSystems  |        |
+ |                  | Viewports              |        |
+ |                  | Views                  |        |
 
-** Remarks
+*** Remarks
+
+ This object provides access to the contents of an external reference block. It is only available on blocks whose IsXRef property is equal to True.
+*** Code
+ #+name: Acad-Database
+ #+header: :var m-p=Methods-Properties-Events-Acad-Database
+ #+header: :var o-i=Object-Inheritance-Acad-Database
+ #+header: :var des=Description-Acad-Database
+ #+header: :var code=code
+ #+header: :results output
+ #+begin_src lisp 
+ (make-defclass m-p o-i des)
+ #+end_src
+
+ #+RESULTS: Acad-Database
+ #+begin_example
+ (defclass acad-database (object)
+   (
+   (ac-blocks                   :accessor ac-blocks                   :initarg :ac-blocks                   :initform nil :documentation "ac-blocks")
+   (ac-dictionaries             :accessor ac-dictionaries             :initarg :ac-dictionaries             :initform nil :documentation "ac-dictionaries")
+   (ac-dim-styles               :accessor ac-dim-styles               :initarg :ac-dim-styles               :initform nil :documentation "ac-dim-styles")
+   (ac-elevation-model-space    :accessor ac-elevation-model-space    :initarg :ac-elevation-model-space    :initform nil :documentation "ac-elevation-model-space")
+   (ac-elevation-paper-space    :accessor ac-elevation-paper-space    :initarg :ac-elevation-paper-space    :initform nil :documentation "ac-elevation-paper-space")
+   (ac-groups                   :accessor ac-groups                   :initarg :ac-groups                   :initform nil :documentation "ac-groups")
+   (ac-layers                   :accessor ac-layers                   :initarg :ac-layers                   :initform nil :documentation "ac-layers")
+   (ac-layouts                  :accessor ac-layouts                  :initarg :ac-layouts                  :initform nil :documentation "ac-layouts")
+   (ac-limits                   :accessor ac-limits                   :initarg :ac-limits                   :initform nil :documentation "ac-limits")
+   (ac-linetypes                :accessor ac-linetypes                :initarg :ac-linetypes                :initform nil :documentation "ac-linetypes")
+   (ac-material                 :accessor ac-material                 :initarg :ac-material                 :initform nil :documentation "ac-material")
+   (ac-model-space              :accessor ac-model-space              :initarg :ac-model-space              :initform nil :documentation "ac-model-space")
+   (ac-paper-space              :accessor ac-paper-space              :initarg :ac-paper-space              :initform nil :documentation "ac-paper-space")
+   (ac-plot-configurations      :accessor ac-plot-configurations      :initarg :ac-plot-configurations      :initform nil :documentation "ac-plot-configurations")
+   (ac-preferences              :accessor ac-preferences              :initarg :ac-preferences              :initform nil :documentation "ac-preferences")
+   (ac-registered-applications  :accessor ac-registered-applications  :initarg :ac-registered-applications  :initform nil :documentation "ac-registered-applications")
+   (ac-section-manager          :accessor ac-section-manager          :initarg :ac-section-manager          :initform nil :documentation "ac-section-manager")
+   (ac-summary-info             :accessor ac-summary-info             :initarg :ac-summary-info             :initform nil :documentation "ac-summary-info")
+   (ac-text-styles              :accessor ac-text-styles              :initarg :ac-text-styles              :initform nil :documentation "ac-text-styles")
+   (ac-user-coordinate-systems  :accessor ac-user-coordinate-systems  :initarg :ac-user-coordinate-systems  :initform nil :documentation "ac-user-coordinate-systems")
+   (ac-viewports                :accessor ac-viewports                :initarg :ac-viewports                :initform nil :documentation "ac-viewports")
+   (ac-views                    :accessor ac-views                    :initarg :ac-views                    :initform nil :documentation "ac-views")
+   )
+   (:documentation "The contents of an XRef block."))
+ #+end_example
+
+** AcadDocument
+Document Object (ActiveX)
+
+An AutoCAD drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadDocument
+Object Inheritance
+
+    Object
+       AcadDatabase
+          AcadDocument
+
+Create Using
+
+    VBA
+
+    Documents.Add
+    Documents.Open
+    Document.New
+
+Access Via
+
+    VBA
+
+    Documents.Item
+    Application.ActiveDocument
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Activate
+
+AuditInfo
+
+Close
+
+CopyObjects
+
+EndUndoMark
+
+Export
+
+GetVariable
+
+HandleToObject
+
+Import
+
+LoadShapeFile
+
+New
+
+ObjectIDToObject
+
+Open
+
+PostCommand
+
+PurgeAll
+
+Regen
+
+Save
+
+SaveAs
+
+SendCommand
+
+SetVariable
+
+StartUndoMark
+
+WBlock
+	
+
+Active
+
+ActiveDimStyle
+
+ActiveLayer
+
+ActiveLayout
+
+ActiveLinetype
+
+ActiveMaterial
+
+ActivePViewport
+
+ActiveSelectionSet
+
+ActiveSpace
+
+ActiveTextStyle
+
+ActiveUCS
+
+ActiveViewport
+
+Application
+
+Blocks
+
+Database
+
+Dictionaries
+
+DimStyles
+
+ElevationModelSpace
+
+ElevationPaperSpace
+
+FullName
+
+Groups
+
+Height
+
+HWND
+
+Layers
+
+Layouts
+
+Limits
+
+Linetypes
+
+Materials
+
+ModelSpace
+
+MSpace
+
+Name
+
+ObjectSnapMode
+
+PaperSpace
+
+Path
+
+PickfirstSelectionSet
+
+Plot
+
+PlotConfigurations
+
+Preferences
+
+ReadOnly
+
+RegisteredApplications
+
+Saved
+
+SectionManager
+
+SelectionSets
+
+SummaryInfo
+
+TextStyles
+
+UserCoordinateSystems
+
+Utility
+
+Viewports
+
+Views
+
+Width
+
+WindowState
+
+WindowTitle
+	
+
+Activate
+
+BeginClose
+
+BeginCommand
+
+BeginDocClose
+
+BeginDoubleClick
+
+BeginLISP
+
+BeginPlot
+
+BeginRightClick
+
+BeginSave
+
+BeginShortcutMenuCommand
+
+BeginShortcutMenuDefault
+
+BeginShortcutMenuEdit
+
+BeginShortcutMenuGrip
+
+BeginShortcutMenuOSnap
+
+Deactivate
+
+EndCommand
+
+EndLISP
+
+EndPlot
+
+EndSave
+
+EndShortcutMenu
+
+LayoutSwitched
+
+LISPCancelled
+
+ObjectAdded
+
+ObjectErased
+
+ObjectModified
+
+SelectionChanged
+
+WindowChanged
+
+WindowMovedOrResized
+Remarks
+
+The active document (AutoCAD drawing) can be accessed using ThisDrawing in VBA, or through the ActiveDocument property in VB. Because AutoCAD works with only one document at a time, and that document represents one database, the active document can be thought of as the current database as well as the current document.
+
+Certain objects in the drawing establish the format, location, or style that new objects being added to the drawing will adopt. These objects include the DimensionStyle, TextStyle, Linetype, Viewport, and Layer objects. A drawing may contain many of these types of objects, but only one may be active at a time. For example, there may be several linetypes available in a drawing, but only one, designated as the active one, will be used when creating a new entity. The Document object contains the references to these active objects. To set an existing object as the active object, use the properties listed below.
+
+The Document object also contains a property (or link) for all the collections. From these collections, you can iterate through every object in the drawing.
+
+To access drawing properties such as Title , Subject, Author, and Keywords , the AcadSummaryInfo interface, accessible as a property of the Document object, must be used.
+
+To create or open a Document object, use the Open method.
+
+Using Paper Space and Model Space
+    From the Document object, you control the model space and paper space settings. By default, a drawing is opened in the model space, with the tiled viewport setting. Use the ActiveSpace property, MSpace property, and the Display method to control the model space and paper space settings. See the PViewport object for more information about using these properties and methods. 
+Resetting Active Objects
+    Changes to most active objects, such as the active layer and active linetype, are displayed immediately. However, several objects must be reset for changes to appear. These objects are the active text style, active UCS, and the active viewport. To reset the objects, simply call the ActiveTextStyle, ActiveUCS, or ActiveViewport property, using the updated object. 
+
+Release Information
+
+Releases: AutoCAD 2000 and later
+
+    The FileDependencies property was removed in AutoCAD 2018 and AutoCAD 2018-based products.
+
+** AcadBlocks
+Blocks Collection (ActiveX)
+
+The collection of all blocks in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadBlocks
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadBlocks
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Blocks
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+None
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific block, use the Item method.
+
+There are two special blocks in the collection. One contains the collection of all model space entities, the ModelSpace collection; the other contains all paper space entities, the PaperSpace collection.
+
+Although the Blocks collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the Blocks collection will result in an error, therefore the Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of blocks you can create in your drawing. However, there can be only one instance of the Blocks collection. The Blocks collection is predefined for each drawing. You can make multiple references to it by using the Blocks property. Once done with an object, the reference is automatically released.
+** AcadDictionaries
+Dictionaries Collection (ActiveX)
+
+The collection of all dictionaries in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadDictionaries
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadDictionaries
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Dictionaries
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific dictionary, use the Item method.
+
+Although the Dictionaries collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the Dictionaries collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of dictionaries that you can create in your drawing. However, there can be only one instance of the Dictionaries collection. The Dictionaries collection is predefined for each drawing. You can make multiple references to it by using the Dictionaries property. Once done with an object, the reference is automatically released.
+** AcadDimStyles
+imStyles Collection (ActiveX)
+
+The collection of all dimension styles in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadDimStyles
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadDimStyles
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.DimStyles
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific dimension style, use the Item method.
+
+Although the DimStyles collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the DimStyles collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of dimension styles that you can create in your drawing. However, there can be only one instance of the DimStyles collection. The DimStyles collection is predefined for each drawing. You can make multiple references to it by using the DimStyles property. Once done with an object, the reference is automatically released.
+** AcadGroups
+Groups Collection (ActiveX)
+
+The collection of all groups in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadGroups
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadGroups
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Groups
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific group, use the Item method.
+
+Although the Groups collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the Groups collection will result in an error, therefore the Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of groups you can create in your drawing. However, there can be only one instance of the Groups collection. The Groups collection is predefined for each drawing. You can make multiple references to it by using the Groups property. Once done with an object, the reference is automatically released.
+** AcadLayers
+Layers Collection (ActiveX)
+
+The collection of all layers in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadLayers
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadLayers
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Layers
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GenerateUsageData
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific layer, use the Item method.
+
+Although the Layers collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the Layers collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of layers that you can create in your drawing. However, there can be only one instance of the Layers collection. The Layers collection is predefined for each drawing. You can make multiple references to it by using the Layers property. Once done with an object, the reference is automatically released.
+** AcadLayouts
+Layouts Collection (ActiveX)
+
+The collection of all layouts in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadLayouts
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadLayouts
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Layouts
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+None
+Remarks
+
+To add a new Layout to the collection, use the Add method. When a new layout is created, it is not automatically made current. To make a layout current, use the ActiveLayout property.
+
+You can create a maximum of 255 layouts in your drawing. There can be only one instance of the Layouts collection. The Layouts collection is predefined for each document.
+
+To select a specific layout, including the ModelSpace and PaperSpace collections, use the Item method.
+
+Although the Layouts collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the Layouts collection will result in an error. The Delete method has been removed from the documentation for this collection.
+** AcadLineTypes
+Linetypes Collection (ActiveX)
+
+The collection of all linetypes in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadLineTypes
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadLineTypes
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Linetypes
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+Load
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific linetype, use the Item method.
+
+Although the Linetypes collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the Linetypes collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of linetypes that you can create in your drawing. However, there can be only one instance of the Linetypes collection that is predefined for each drawing. You can make multiple references to it by using the Linetypes property. Once done with an object, the reference is automatically released.
+** AcadMaterials
+Materials Collection (ActiveX)
+
+The collection of all materials in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadMaterials
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadMaterials
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Database.Materials
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+Use the Materials object to access materials defined in a drawing. You can create new materials by using the Add method.
+
+Although the Materials collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete this collection will result in an error. The Delete method has been removed from the documentation for this collection.
+** AcadMLeaderStyle
+MLeaderStyle Object (ActiveX)
+
+Adds, modifies, and deletes MLeader styles.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadMLeaderStyle
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadMLeaderStyle
+
+Create Using
+
+    VBA
+
+    Dim Dictionary As AcadDictionary
+    Set Dictionary = Document.Dictionaries.Item("ACAD_MLEADERSTYLE")
+    Dictionary.AddObject("<Style Name>", "AcDbMLeaderStyle")
+
+Access Via
+
+    VBA
+
+    Dim Dictionary As AcadDictionary
+    Set Dictionary = Document.Dictionaries.Item("ACAD_MLEADERSTYLE")
+    Dictionary.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetBoundingBox
+
+GetXData
+
+SetXData
+	
+
+AlignSpace
+
+Annotative
+
+Application
+
+ArrowSize
+
+ArrowSymbol
+
+BitFlags
+
+Block
+
+BlockColor
+
+BlockConnectionType
+
+BlockRotation
+
+BlockScale
+
+BreakSize
+
+ContentType
+
+Description
+
+Document
+
+DoglegLength
+
+DrawLeaderOrderType
+
+DrawMLeaderOrderType
+
+EnableBlockRotation
+
+EnableBlockScale
+
+EnableDogleg
+
+EnableFrameText
+
+EnableLanding
+
+FirstSegmentAngleConstraint
+
+Handle
+
+HasExtensionDictionary
+
+LandingGap
+
+LeaderLineColor
+
+LeaderLineType
+
+LeaderLineTypeId
+
+LeaderLineWeight
+
+MaxLeaderSegmentsPoints
+
+Name
+
+ObjectID
+
+ObjectName
+
+OverwritePropChanged
+
+OwnerID
+
+ScaleFactor
+
+SecondSegmentAngleConstraint
+
+TextAlignmentType
+
+TextAngleType
+
+TextAttachmentDirection
+
+TextBottomAttachmentType
+
+TextColor
+
+TextHeight
+
+TextLeftAttachmentType
+
+TextRightAttachmentType
+
+TextString
+
+TextStyle
+
+TextTopAttachmentType
+	
+
+Modified
+Remarks
+
+You can use the MLeaderStyle object to store MLeader formatting. The object controls the initial formatting of a newly created MLeader object.
+** AcadPlotConfigurations
+PlotConfigurations Collection (ActiveX)
+
+A collection of named plot settings.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadPlotConfigurations
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadPlotConfigurations
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.PlotConfigurations
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+A plot configuration is similar to a layout; as both contain identical plot information. The difference is that a layout is associated with a Block object containing the geometry to plot. A plot configuration is not associated with a particular Block object. A plot configuration is simply a named collection of plot settings available for use with any geometry.
+
+Although the PlotConfigurations collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete this collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+To create a new plot configuration, use the Add method.
+** AcadRegisteredApplications
+
+RegisteredApplications Collection (ActiveX)
+
+The collection of all registered applications in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadRegisteredApplications
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadRegisteredApplications
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.RegisteredApplications
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific registered application, use the Item method. To delete a specific registered application, use the Delete method found on the RegisteredApplication object.
+
+Although this collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete this collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of registered applications that you can create in your drawing. However, there can be only one instance of the RegisteredApplications collection. The RegisteredApplications collection is predefined for each drawing. You can make multiple references to it by using the RegisteredApplications property.
+** AcadSelectionSets
+SelectionSets Collection (ActiveX)
+
+The collection of all selection sets in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadSelectionSets
+Object Inheritance
+
+    Object
+       AcadSelectionSets
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.SelectionSets
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+Item
+	
+
+Application
+
+Count
+	
+
+None
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific selection set, use the Item method. To delete a specific selection set, use the Delete method found in the SelectionSet object. You can create up to 128 selection sets in your drawing.
+
+There can be only one instance of the SelectionSets collection. The SelectionSets collection is predefined for each drawing. You can make multiple references to it by using the SelectionSets property. Once done with an object, the reference is automatically released.
+** AcadSortentsTable
+SortentsTable Object (ActiveX)
+
+Contains and manipulates draw order information.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadSortentsTable
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadSortentsTable
+
+Create Using
+
+    VBA
+
+    Dictionary.AddObject
+
+Access Via
+
+    VBA
+
+    object.GetExtensionDictionary
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Block
+
+Delete
+
+GetExtensionDictionary
+
+GetFullDrawOrder
+
+GetRelativeDrawOrder
+
+GetXData
+
+MoveAbove
+
+MoveBelow
+
+MoveToBottom
+
+MoveToTop
+
+SetRelativeDrawOrder
+
+SetXData
+
+SwapObjects
+	
+
+Application
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+The SortentsTable object contains draw order information.
+** AcadTableStyle
+TableStyle Object (ActiveX)
+
+Adds, modifies, and deletes table styles.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadTableStyle
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadTableStyle
+
+Create Using
+
+    VBA
+
+    Dictionary.AddObject "<style name>", "AcDbTableStyle"
+
+Access Via
+
+    VBA
+
+    Dictionary.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+CreateCellStyle
+
+CreateCellStyleFromStyle
+
+Delete
+
+DeleteCellStyle
+
+EnableMergeAll
+
+GetAlignment
+
+GetAlignment2
+
+GetBackgroundColor
+
+GetBackgroundColor2
+
+GetBackgroundColorNone
+
+GetCellClass
+
+GetCellStyles
+
+GetColor
+
+GetColor2
+
+GetDataType
+
+GetDataType2
+
+GetExtensionDictionary
+
+GetFormat
+
+GetFormat2
+
+GetGridColor
+
+GetGridColor2
+
+GetGridLineWeight
+
+GetGridLineWeight2
+
+GetGridVisibility
+
+GetGridVisibility2
+
+GetIsCellStyleInUse
+
+GetIsMergeAllEnabled
+
+GetRotation
+
+GetTextHeight
+
+GetTextHeight2
+
+GetTextStyle
+
+GetTextStyleId
+
+GetUniqueCellStyleName
+
+GetXData
+
+RenameCellStyle
+
+SetAlignment
+
+SetAlignment2
+
+SetBackgroundColor
+
+SetBackgroundColor2
+
+SetBackgroundColorNone
+
+SetCellClass
+
+SetColor
+
+SetColor2
+
+SetDataType
+
+SetDataType2
+
+SetFormat
+
+SetFormat2
+
+SetGridColor
+
+SetGridColor2
+
+SetGridLineWeight
+
+SetGridLineWeight2
+
+SetGridVisibility
+
+SetGridVisibility2
+
+SetRotation
+
+SetTemplateId
+
+SetTextHeight
+
+SetTextHeight2
+
+SetTextStyle
+
+SetTextStyleId
+
+SetXData
+	
+
+Application
+
+BitFlags
+
+Description
+
+Document
+
+FlowDirection
+
+Handle
+
+HasExtensionDictionary
+
+HeaderSuppressed
+
+HorzCellMargin
+
+Name
+
+NumCellStyles
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+TemplateId
+
+TitleSuppressed
+
+VertCellMargin
+	
+
+Modified
+Remarks
+
+You can use the TableStyle object to store table formatting, such as grid visibility, lineweight, and color. The object controls the initial formatting of a newly created Table object.
+
+The TableStyle object includes methods for specifying the colors, margins, and other attributes of table styles.
+** AcadTextStyles
+TextStyles Collection (ActiveX)
+
+The collection of all text styles in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadTextStyles
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadTextStyles
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.TextStyles
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific text style, use the Item method. To delete a specific text style, use the Delete method found on the TextStyle object.
+
+Although the TextStyles collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the TextStyles collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of text styles that you can create in your drawing. However, there can be only one instance of the TextStyles collection. The TextStyles Collection is predefined for each drawing. You can make multiple references to it by using the TextStyles property. Once done with an object, the reference is automatically released.
+** AcadUCSs
+UCSs Collection (ActiveX)
+
+The collection of all user coordinate systems (UCSs) in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadUCSs
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadUCSs
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.UserCoordinateSystems
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific UCS, use the Item method. To delete a specific UCS, use the Delete method found on the UCS object.
+
+Although the UCSs collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the UCSs collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of UCSs that you can create in your drawing. However, there can be only one instance of the UCSs collection. The UCSs collection is predefined for each drawing. You can make multiple references to the UCSs collection by using the UserCoordinateSystems property. Once done with an object, the reference is automatically released.
+** AcadViews
+Views Collection (ActiveX)
+
+The collection of all views in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadViews
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadViews
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Views
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific view, use the Item method. To delete a specific view, use the Delete method found on the View object.
+
+Although the Views collection inherits a Delete method, you cannot actually delete the collection. Attempting to delete the Views collection will result in an error. The Delete method has been removed from the documentation for this collection.
+
+There is no limit to the number of views that you can create in your drawing. However, there can be only one instance of the Views collection. The Views collection is predefined for each drawing. You can make multiple references to it by using the Views property. Once done with an object, the reference is automatically released.
+** AcadViewports
+Viewports Collection (ActiveX)
+
+The collection of all viewports in the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadViewports
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadViewports
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Viewports
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add
+
+DeleteConfiguration
+
+GetExtensionDictionary
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To add a new member to the collection, use the Add method. To select a specific viewport, use the Item method. To delete a specific viewport, use the DeleteConfiguration method or the Delete method found on the Viewport object.
+
+The number of viewports you can have active at one time is controlled by the MAXACTVP system variable. There can be only one instance of the Viewports collection. The Viewports collection is predefined for each drawing. You can make multiple references to it by using the Viewports property. Once done with an object, the reference is automatically released.
+** AcadDatabasePreferences
+DatabasePreferences Object (ActiveX)
+
+An object that specifies the settings for the current AutoCAD drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadDatabasePreferences
+Object Inheritance
+
+    Object
+       AcadDatabasePreferences
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Preferences
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+None
+	
+
+AllowLongSymbolNames
+
+Application
+
+ContourlinesPerSurface
+
+DisplaySilhouette
+
+Lineweight
+
+LineweightDisplay
+
+MaxActiveViewports
+
+ObjectSortByPlotting
+
+ObjectSortByPSOutput
+
+ObjectSortByRedraws
+
+ObjectSortByRegens
+
+ObjectSortBySelection
+
+ObjectSortBySnap
+
+OLELaunch
+
+RenderSmoothness
+
+SegmentPerPolyline
+
+SolidFill
+
+TextFrameDisplay
+
+XRefEdit
+
+XRefLayerVisibility
+	
+
+None
+Remarks
+
+Database preferences represent options from the Options dialog box that reside in a drawing. Options that reside in the registry can be accessed through the main Preferences object.
+
+The DatabasePreferences object can be referenced from the Preferences property on the Document object.
+** AcadPlot
+Plot Object (ActiveX)
+
+The set of methods and properties used for plotting layouts.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadPlot
+Object Inheritance
+
+    Object
+       AcadPlot
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Plot
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+DisplayPlotPreview
+
+PlotToDevice
+
+PlotToFile
+
+SetLayoutsToPlot
+
+StartBatchMode
+	
+
+Application
+
+BatchPlotProgress
+
+NumberOfCopies
+
+QuietErrorMode
+	
+
+None
+Remarks
+
+This object contains the methods and properties that initiate a plot of specified layouts. You can choose to:
+
+    Display a plot preview
+    Plot to a file
+    Plot to a plot device
+
+To plot in the foreground using ActiveX, you must set the BACKGROUNDPLOT system variable to 0. Otherwise, plotting occurs in the background.
+
+To specify the layouts to plot, use the SetLayoutsToPlot method. This method must be called before each PlotToDevice or PlotToFile method. If SetLayoutsToPlot is not called, or is called with a NULL input, the active layout will be plotted.
+
+The NumberOfCopies property specifies the number of copies to plot. If this property is not reset before each PlotToDevice call, the last value specified in the NumberOfCopies property will be used.
+
+You cannot create a configured plotter (PC3) file using ActiveX. To create a PC3 file, use the Add-a-Plotter wizard in AutoCAD. If you want to use a PC3 file for plotting, the file should be located in the Plotters folder. For more information, see the AutoCAD user documentation.
+** AcadSectionManager
+SectionManager Object (ActiveX)
+
+This object manages the collection of section planes in the DWG database.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadSectionManager
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadSectionManager
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Database.SectionManager
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+GetExtensionDictionary
+
+GetLiveSection
+
+GetUniqueSectionName
+
+GetXData
+
+Item
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+SectionManager objects cannot be created through ActiveX. You can obtain the SectionManager object for a database from the SectionManager property. However, the SectionManager object is available in a drawing only after a section plane has been created.
+** AcadSummaryInfo
+SummaryInfo Object (ActiveX)
+
+Accesses drawing properties such as the Title, Subject, Author, and Keywords properties.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadSummaryInfo
+Object Inheritance
+
+    Object
+       AcadSummaryInfo
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.SummaryInfo
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+AddCustomInfo
+
+GetCustomByIndex
+
+GetCustomByKey
+
+NumCustomInfo
+
+RemoveCustomByIndex
+
+RemoveCustomByKey
+
+SetCustomByIndex
+
+SetCustomByKey
+	
+
+Author
+
+Comments
+
+HyperlinkBase
+
+Keywords
+
+LastSavedBy
+
+RevisionNumber
+
+Subject
+
+Title
+	
+
+None
+Remarks
+
+You can use the SummaryInfo object to access the properties of a drawing. You can also use the SummaryInfo object to specify custom properties.
+
+The object includes properties for specifying the title, subject, author, and keywords of a drawing.
+** AcadUtility
+Utility Object (ActiveX)
+
+A series of methods provided for utility purposes.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadUtility
+Object Inheritance
+
+    Object
+       AcadUtility
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.Utility
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+AngleFromXAxis
+
+AngleToReal
+
+AngleToString
+
+CreateTypedArray
+
+DistanceToReal
+
+GetAngle
+
+GetCorner
+
+GetDistance
+
+GetEntity
+
+GetInput
+
+GetInteger
+
+GetKeyword
+
+GetObjectIdString
+
+GetOrientation
+
+GetPoint
+
+GetReal
+
+GetRemoteFile
+
+GetString
+
+GetSubEntity
+
+InitializeUserInput
+
+IsRemoteFile
+
+IsURL
+
+LaunchBrowserDialog
+
+PolarPoint
+
+Prompt
+
+PutRemoteFile
+
+RealToString
+
+SendModelessOperationEnded
+
+SendModelessOperationStart
+
+TranslateCoordinates
+	
+
+None
+	
+
+None
+Remarks
+
+Utility functions that allow you to request input from the user or perform geometric calculations.
+* CL1
+** AcadAcCmColor
+AcCmColor Object (ActiveX)
+
+AutoCAD true color object.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadAcCmColor
+Object Inheritance
+
+    Object
+       AcadAcCmColor
+
+Create Using
+
+    VBA
+
+    GetInterfaceObject("AutoCAD.AcCmColor.24")
+    Dim col As New AcadAcCmColor
+
+Access Via
+
+    VBA
+
+    Not applicable
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+SetColorBookColor
+
+SetNames
+
+SetRGB
+	
+
+Blue
+
+BookName
+
+ColorIndex
+
+ColorMethod
+
+ColorName
+
+EntityColor
+
+Green
+
+Red
+	
+
+None
+Remarks
+
+The AcCmColor object represents colors. You can use the AcCmColor object to set colors and perform other color-related operations on objects.
+
+The object includes properties for colors, color names, color book names, and the color index.
+** AcadBlock
+Block Object (ActiveX)
+
+A block definition containing a name and a set of objects.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadBlock
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadBlock
+
+Create Using
+
+    VBA
+
+    Blocks.Add
+
+Access Via
+
+    VBA
+
+    Blocks.Item
+    Layout.Block
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add3DFace
+
+Add3DMesh
+
+Add3DPoly
+
+AddArc
+
+AddAttribute
+
+AddBox
+
+AddCircle
+
+AddCone
+
+AddCustomObject
+
+AddCylinder
+
+AddDim3PointAngular
+
+AddDimAligned
+
+AddDimAngular
+
+AddDimArc
+
+AddDimDiametric
+
+AddDimOrdinate
+
+AddDimRadial
+
+AddDimRadialLarge
+
+AddDimRotated
+
+AddEllipse
+
+AddEllipticalCone
+
+AddEllipticalCylinder
+
+AddExtrudedSolid
+
+AddExtrudedSolidALongPath
+
+AddHatch
+
+AddLeader
+
+AddLightWeightPolyline
+
+AddLine
+
+AddMInsertBlock
+
+AddMLeader
+
+AddMLine
+
+AddMText
+
+AddPoint
+
+AddPolyfaceMesh
+
+AddPolyline
+
+AddRaster
+
+AddRay
+
+AddRegion
+
+AddRevolvedSolid
+
+AddSection
+
+AddShape
+
+AddSolid
+
+AddSphere
+
+AddSpline
+
+AddTable
+
+AddText
+
+AddTolerance
+
+AddTorus
+
+AddTrace
+
+AddWedge
+
+AddXLine
+
+AttachExternalReference
+
+Bind
+
+Delete
+
+Detach
+
+GetExtensionDictionary
+
+GetXData
+
+InsertBlock
+
+Item
+
+Reload
+
+SetXData
+
+Unload
+	
+
+Application
+
+BlockScaling
+
+Comments
+
+Count
+
+Document
+
+Explodable
+
+Handle
+
+HasExtensionDictionary
+
+IsDynamicBlock
+
+IsLayout
+
+IsXRef
+
+Layout
+
+Material
+
+Name
+
+ObjectID
+
+ObjectName
+
+Origin
+
+OwnerID
+
+Path
+
+Units
+
+XRefDatabase
+	
+
+Modified
+Remarks
+
+There are four types of blocks: the simple block, the XRef block, the layout block, and the dynamic block.
+
+A simple block is a collection of objects that you can associate together to form a single object, or block definition. You can insert, scale, and rotate a simple block in a drawing. You can explode a simple block into its component objects, modify them, and redefine the block definition. Simple blocks can be defined from geometry in the current drawing, or by using another AutoCAD drawing. When you use another drawing to create a block, the new simple block is stored in the current drawing database; it is not updated if the original drawing changes. Inserting an instance of a simple block into the current drawing creates a BlockReference object.
+
+An XRef block is an external link from another drawing to the current drawing. Because the XRef block represents a link to geometry, not the geometry itself, it is updated whenever the original drawing changes. Inserting an instance of an XRef block into the current drawing creates an ExternalReference object.
+
+The layout blocks represent the geometry in the model space and paper space layouts. These blocks have a Layout object associated with them that contains the plot settings and other layout definition information. The block name of the active paper space layout is always *PAPER_SPACE. The other paper space layouts will have blocks named *PAPER_SPACEn, where n is an integer. Block names start with *PAPER_SPACE0, and the Integer increments by 1 each time a new layout is inserted.
+
+By default, the layout blocks in a new drawing have the following names:
+
+    *MODEL_SPACE - The model space layout. There is only one model space layout per drawing.
+
+    This block corresponds to the ModelSpace collection.
+    *PAPER_SPACE - The first paper space layout created. If the model space layout is currently active, this block contains the last active paper space layout.
+
+    This block corresponds to the PaperSpace collection.
+    *PAPER_SPACE0 - The second paper space layout created. If this layout is activated, its block is renamed *PAPER_SPACE and becomes accessible from the PaperSpace collection; the first layout's block is renamed *PAPER_SPACE0.
+
+When you activate a new layout, it swaps block names with the layout that was formerly active. In this way, the block of the active layout is always named *PAPER_SPACE. For example, suppose Layout1 is active and Layout2 is associated with a block named *PAPER_SPACE0. If you then activate Layout2, it's block is renamed to *PAPER_SPACE, and Layout1's block is renamed to *PAPER_SPACE0.
+
+Dynamic blocks enhance simple blocks by increasing their intelligence potential and adaptability. The internal geometry of a dynamic block instance can be adjusted independently of both its base definition and other instances. This flexibility is the central concept of dynamic blocks. Inserting an instance of a dynamic block into the current drawing creates a BlockReference object. From the block reference, you can get the DynamicBlockReferenceProperty object.
+
+To identify a block's type, use the IsLayout , IsXRef , and IsDynamicBlock properties. If these properties are False, then the block is a simple block. If the IsXRef property is True, then the block is an external reference. If the IsLayout property is True, then the block contains all the geometry associated with a layout. If the IsDynamicBlock property is True, then the block is a dynamic block.
+
+There is no limit to the number of objects a block can contain.
+
+To insert a simple, XRef, or dynamic block into a drawing, use the InsertBlock method. To create a new layout block, use the Add method to add a new layout to the Layouts collection. When the new layout is created, an associated block for the layout will also be created.
+** AcadDatabase
+Database Object (ActiveX)
+
+The contents of an XRef block.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadDatabase
+Object Inheritance
+
+    Object
+       AcadDatabase
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Block.XRefDatabase
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+CopyObjects
+
+HandleToObject
+
+ObjectIdToObject
+	
+
+Blocks
+
+Dictionaries
+
+DimStyles
+
+ElevationModelSpace
+
+ElevationPaperSpace
+
+Groups
+
+Layers
+
+Layouts
+
+Limits
+
+Linetypes
+
+Material
+
+ModelSpace
+
+PaperSpace
+
+PlotConfigurations
+
+Preferences
+
+RegisteredApplications
+
+SectionManager
+
+SummaryInfo
+
+TextStyles
+
+UserCoordinateSystems
+
+Viewports
+
+Views
+	
+
+None
+Remarks
 
 This object provides access to the contents of an external reference block. It is only available on blocks whose IsXRef property is equal to True.
-** Code
-#+name: Acad-Database
-#+header: :var m-p=Methods-Properties-Events-Acad-Database
-#+header: :var o-i=Object-Inheritance-Acad-Database
-#+header: :var des=Description-Acad-Database
-#+header: :var code=code
-#+header: :results output
-#+begin_src lisp 
-(make-defclass m-p o-i des)
-#+end_src
+Release Information
 
-#+RESULTS: Acad-Database
-#+begin_example
-(defclass acad-database (object)
-  (
-  (blocks                   :accessor blocks                   :initarg :blocks                   :initform nil :documentation "blocks")
-  (dictionaries             :accessor dictionaries             :initarg :dictionaries             :initform nil :documentation "dictionaries")
-  (dim-styles               :accessor dim-styles               :initarg :dim-styles               :initform nil :documentation "dim-styles")
-  (elevation-model-space    :accessor elevation-model-space    :initarg :elevation-model-space    :initform nil :documentation "elevation-model-space")
-  (elevation-paper-space    :accessor elevation-paper-space    :initarg :elevation-paper-space    :initform nil :documentation "elevation-paper-space")
-  (groups                   :accessor groups                   :initarg :groups                   :initform nil :documentation "groups")
-  (layers                   :accessor layers                   :initarg :layers                   :initform nil :documentation "layers")
-  (layouts                  :accessor layouts                  :initarg :layouts                  :initform nil :documentation "layouts")
-  (limits                   :accessor limits                   :initarg :limits                   :initform nil :documentation "limits")
-  (linetypes                :accessor linetypes                :initarg :linetypes                :initform nil :documentation "linetypes")
-  (material                 :accessor material                 :initarg :material                 :initform nil :documentation "material")
-  (model-space              :accessor model-space              :initarg :model-space              :initform nil :documentation "model-space")
-  (paper-space              :accessor paper-space              :initarg :paper-space              :initform nil :documentation "paper-space")
-  (plot-configurations      :accessor plot-configurations      :initarg :plot-configurations      :initform nil :documentation "plot-configurations")
-  (preferences              :accessor preferences              :initarg :preferences              :initform nil :documentation "preferences")
-  (registered-applications  :accessor registered-applications  :initarg :registered-applications  :initform nil :documentation "registered-applications")
-  (section-manager          :accessor section-manager          :initarg :section-manager          :initform nil :documentation "section-manager")
-  (summary-info             :accessor summary-info             :initarg :summary-info             :initform nil :documentation "summary-info")
-  (text-styles              :accessor text-styles              :initarg :text-styles              :initform nil :documentation "text-styles")
-  (user-coordinate-systems  :accessor user-coordinate-systems  :initarg :user-coordinate-systems  :initform nil :documentation "user-coordinate-systems")
-  (viewports                :accessor viewports                :initarg :viewports                :initform nil :documentation "viewports")
-  (views                    :accessor views                    :initarg :views                    :initform nil :documentation "views")
-  (:docmentation "The contents of an XRef block."))
-#+end_example
+Releases: AutoCAD 2000 and later
+
+    The FileDependencies property was removed in AutoCAD 2018 and AutoCAD 2018-based products.
+
+** AcadModelSpace
+ModelSpace Collection (ActiveX)
+
+A special Block object containing all model space entities.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadModelSpace
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadBlock
+             AcadModelSpace
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.ModelSpace
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add3DFace
+
+Add3DMesh
+
+Add3DPoly
+
+AddArc
+
+AddAttribute
+
+AddBox
+
+AddCircle
+
+AddCone
+
+AddCustomObject
+
+AddCylinder
+
+AddDim3PointAngular
+
+AddDimAligned
+
+AddDimAngular
+
+AddDimArc
+
+AddDimDiametric
+
+AddDimOrdinate
+
+AddDimRadial
+
+AddDimRadialLarge
+
+AddDimRotated
+
+AddEllipse
+
+AddEllipticalCone
+
+AddEllipticalCylinder
+
+AddExtrudedSolid
+
+AddExtrudedSolidALongPath
+
+AddHatch
+
+AddLeader
+
+AddLightWeightPolyline
+
+AddLine
+
+AddMInsertBlock
+
+AddMLeader
+
+AddMLine
+
+AddMText
+
+AddPoint
+
+AddPolyfaceMesh
+
+AddPolyline
+
+AddRaster
+
+AddRay
+
+AddRegion
+
+AddRevolvedSolid
+
+AddSection
+
+AddShape
+
+AddSolid
+
+AddSphere
+
+AddSpline
+
+AddTable
+
+AddText
+
+AddTolerance
+
+AddTorus
+
+AddTrace
+
+AddWedge
+
+AddXLine
+
+AttachExternalReference
+
+GetExtensionDictionary
+
+GetXdata
+
+InsertBlock
+
+Item
+
+SetXdata
+	
+
+Application
+
+Comments
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Layout
+
+Name
+
+ObjectID
+
+ObjectName
+
+Origin
+
+OwnerID
+
+Units
+	
+
+Modified
+Remarks
+
+This collection represents all the objects in model space. To add new objects to model space, use the Add* methods listed below.
+
+Because this collection is actually a block, it possesses several block characteristics. For example, this collection has a Layout object associated with it. In addition, all the objects in this collection can also be found in the Blocks collection under a block named *MODEL_SPACE. Both the block named *MODEL_SPACE and the ModelSpace collection actually point to the same data. The ModelSpace collection was created to provide a faster and easier means of accessing the data in model space.
+
+You cannot create or delete a ModelSpace collection. There is always one ModelSpace collection provided in the drawing. You cannot delete, detach, bind, unload, or reload ModelSpace like an external reference can be so those functions are not listed. Nor cannot you manipulate ModelSpace like you can with a block definition.
+** AcadPaperSpace
+PaperSpace Collection (ActiveX)
+
+A special Block object containing all the entities in the active paper space layout.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadPaperSpace
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadBlock
+             AcadPaperSpace
+
+Create Using
+
+    VBA
+
+    Not applicable
+
+Access Via
+
+    VBA
+
+    Document.PaperSpace
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Add3DFace
+
+Add3DMesh
+
+Add3DPoly
+
+AddArc
+
+AddAttribute
+
+AddBox
+
+AddCircle
+
+AddCone
+
+AddCustomObject
+
+AddCylinder
+
+AddDim3PointAngular
+
+AddDimAligned
+
+AddDimAngular
+
+AddDimArc
+
+AddDimDiametric
+
+AddDimOrdinate
+
+AddDimRadial
+
+AddDimRadialLarge
+
+AddDimRotated
+
+AddEllipse
+
+AddEllipticalCone
+
+AddEllipticalCylinder
+
+AddExtrudedSolid
+
+AddExtrudedSolidALongPath
+
+AddHatch
+
+AddLeader
+
+AddLightWeightPolyline
+
+AddLine
+
+AddMInsertBlock
+
+AddMLeader
+
+AddMLine
+
+AddMText
+
+AddPoint
+
+AddPolyfaceMesh
+
+AddPolyline
+
+AddPViewport
+
+AddRaster
+
+AddRay
+
+AddRegion
+
+AddRevolvedSolid
+
+AddSection
+
+AddShape
+
+AddSolid
+
+AddSphere
+
+AddSpline
+
+AddTable
+
+AddText
+
+AddTolerance
+
+AddTorus
+
+AddTrace
+
+AddWedge
+
+AddXLine
+
+AttachExternalReference
+
+GetExtensionDictionary
+
+GetXdata
+
+InsertBlock
+
+Item
+
+SetXdata
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Layout
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+This collection represents all the objects in the active paper space layout. If a different paper space layout is made active, the data in the PaperSpace collection will be changed to reflect the data in the new active paper space layout.
+
+Because this collection is actually a block, it possesses several block characteristics. For example, this collection has a Layout object associated with it that contains all of the plot settings and visible attributes of the paper space layout. Additionally, all the objects in the PaperSpace collection can be found in the Blocks collection under a block named *PAPER_SPACE. Both the block named *PAPER_SPACE and the PaperSpace collection actually point to the same data. The PaperSpace collection was created to provide a faster and easier means of accessing the data in active paper space layout.
+
+Paper space layouts are used for creating a finished layout for printing or plotting the drawing, as opposed to doing drafting or design work, which is accomplished in model space. Although both 2D and 3D objects can exist in paper space, commands that render a 3D viewpoint are disabled.
+
+You cannot create or delete the PaperSpace collection. You cannot delete, detach, bind, unload, or reload PaperSpace like an external reference can be so those functions are not listed. Nor cannot you manipulate ModelSpace like you can with a block definition.
+** PViewport object (ActiveX)
+
+Rectangular objects created in paper space that display views.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadPViewport
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadEntity
+             AcadPViewport
+
+Create Using
+
+    VBA
+
+    PaperSpace.AddPViewport
+
+Access Via
+
+    VBA
+
+    PaperSpace.Item
+    Document.ActivePViewport
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+ArrayPolar
+
+ArrayRectangular
+
+Copy
+
+Delete
+
+Display
+
+GetBoundingBox
+
+GetExtensionDictionary
+
+GetGridSpacing
+
+GetSnapSpacing
+
+GetXData
+
+Highlight
+
+IntersectWith
+
+Mirror
+
+Mirror3D
+
+Move
+
+Rotate
+
+Rotate3D
+
+ScaleEntity
+
+SetGridSpacing
+
+SetSnapSpacing
+
+SetXData
+
+SyncModelView
+
+TransformBy
+
+Update
+	
+
+Application
+
+ArcSmoothness
+
+Center
+
+Clipped
+
+CustomScale
+
+Direction
+
+DisplayLocked
+
+Document
+
+EntityTransparency
+
+GridOn
+
+Handle
+
+HasExtensionDictionary
+
+HasSheetView
+
+Height
+
+Hyperlinks
+
+LabelBlockId
+
+Layer
+
+LayerPropertyOverrides
+
+LensLength
+
+Linetype
+
+LinetypeScale
+
+Lineweight
+
+Material
+
+ModelView
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+PlotStyleName
+
+ShadePlot
+
+SheetView
+
+SnapBasePoint
+
+SnapOn
+
+SnapRotationAngle
+
+StandardScale
+
+StandardScale2
+
+Target
+
+TrueColor
+
+TwistAngle
+
+UCSIconAtOrigin
+
+UCSIconOn
+
+UCSPerViewport
+
+ViewportOn
+
+Visible
+
+VisualStyle
+
+Width
+	
+
+Modified
+Remarks
+
+The functionality of the PViewport object is slightly different from what is used in the AutoCAD user interface. Users familiar with AutoCAD paper space viewport functionality will find the following information helpful.
+
+In ActiveX Automation, the ActiveSpace property is used to control the TILEMODE system variable. Setting ThisDrawing.ActiveSpace = acModelSpace is equivalent to setting TILEMODE = 1, and setting ThisDrawing.ActiveSpace = acPaperSpace is equivalent to setting TILEMODE = 0.
+
+Similarly, the MSpace property is the equivalent of both the MSPACE and PSPACE commands in AutoCAD. Setting ThisDrawing.MSpace = True is the same as using the MSPACE command, and setting ThisDrawing.MSpace = False is the same as using the PSPACE command.
+
+In addition, the ActiveX Automation user is required to use the Display method before setting the MSpace property to True. The Display method initializes certain graphic settings that must be set before switching to model space. In AutoCAD this is done "behind the scenes." However, in the ActiveX Automation interface, the programmer must take care of this initialization.
+Note: Remember, you must turn on the display using the Display method for at least one PViewport object before you can set the MSpace property to True. Failure to turn on the display will result in an error being returned when you try to set the MSpace property.
+
+The ActiveSpace and MSpace properties are found on the Document object.
+
+To create a PViewport object, use the AddPViewport method.
+** AcadDictionary
+Dictionary Object (ActiveX)
+
+A container object for storing and retrieving objects.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadDictionary
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadDictionary
+
+Create Using
+
+    VBA
+
+    Dictionaries.Add
+
+Access Via
+
+    VBA
+
+    Dictionaries.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+AddObject
+
+AddXRecord
+
+Delete
+
+GetExtensionDictionary
+
+GetName
+
+GetObject
+
+GetXData
+
+Item
+
+Remove
+
+Rename
+
+Replace
+
+SetXData
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+Dictionaries provide a mechanism for storing and retrieving objects with associated string keywords.
+
+The objects in a dictionary may be referenced by their keywords. A dictionary can contain any type of object, including other dictionaries. A dictionary does not perform type checking of entries.
+
+You can create new dictionaries, add entries to an existing dictionary, and get the keyword for a given object or the object for a given keyword. You can change the object that is associated with a given keyword, or rename the keyword for a given object.
+
+This dictionary is similar to a collection in AutoCAD, and is used for custom object implementation. This object does not represent the spell checking dictionary. The spell checking dictionary is specified in the Preferences object.
+
+To add a dictionary to the application, use the Add method.
+** AcadXRecord
+XRecord Object (ActiveX)
+
+XRecord objects are used to store and manage arbitrary data.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadXRecord
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadXRecord
+
+Create Using
+
+    VBA
+
+    Dictionary.AddXRecord
+
+Access Via
+
+    VBA
+
+    Dictionary.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetXData
+
+GetXRecordData
+
+SetXData
+
+SetXRecordData
+	
+
+Application
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+TranslateIDs
+	
+
+Modified
+Remarks
+
+This object is similar in concept to XData but is not limited by size or order.
+
+Unlike XData, XRecords work with the standard AutoCAD group codes that are all below 1000 in value. All the standard AutoCAD group codes are supported. This means that, in addition to all the normally used data types, an XRecord is capable of storing object IDs, which allows XRecords to own other objects including other XRecords.
+
+The following group codes are common to all XRecord objects:
+
+    100: Subclass marker (AcDbXrecord)
+    1-369 (except 5 and 105 and 210-239): These values can be used by an application in any way
+
+XRecord objects are saved with the drawing and are directly accessible by other ObjectARX, Managed .NET, and AutoLISP programs. So, if data security is an issue for your application, you should be careful when storing information in XRecords.
+Note: XRecord objects are designed to work in such a way as to not offend Releases 13c0 through 13c3. However, if read into a pre-Release 13c4 level of AutoCAD, XRecord objects disappear.
+
+To create an XRecord, use the AddXRecord method.
+** AcadDimStyle
+DimStyle Object (ActiveX)
+
+A group of dimension settings that determines the appearance of a dimension.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadDimStyle
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadDimStyle
+
+Create Using
+
+    VBA
+
+    DimStyles.Add
+
+Access Via
+
+    VBA
+
+    DimStyles.Item
+    Document.ActiveDimStyle
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+CopyFrom
+
+Delete
+
+GetExtensionDictionary
+
+GetXData
+
+SetXData
+	
+
+Application
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+The active dimension style determines the appearance of new dimensions that are created in the drawing. To change the style of an existing dimension, use the StyleName property found on the dimension.
+
+To control the settings of the current document overrides, use the dimensioning system variables. See "System Variables" in the AutoCAD Online help for a list of dimensioning system variables.
+
+When you change a dimensioning system variable, you are actually setting a document override for the active dimension style; you are not changing the active dimension style itself. This means that all newly created dimensions will still be created with the active dimension style only and will not reflect the overrides from the system variables. The overrides from the system variables will not be recognized on new dimensions until the active dimension style is updated. To change the settings of any dimension style, use the CopyFrom method. This method copies a dimension style configuration, including overrides, from a document, dimension, or other dimension style.
+
+Dimensions created via the AutoCAD user interface are created with the active dimension style plus all document overrides. Dimensions created via ActiveX are created with the active dimension style only. To have the dimensions created via ActiveX take on the document overrides, use the CopyFrom method to copy the dimension style from the document to the active dimension style. This process will copy all existing overrides into the active dimension style.
+** AcadGroup
+Group Object (ActiveX)
+
+A named SelectionSet object.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadGroup
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadGroup
+
+Create Using
+
+    VBA
+
+    Groups.Add
+
+Access Via
+
+    VBA
+
+    Groups.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+AppendItems
+
+Delete
+
+GetExtensionDictionary
+
+GetXData
+
+Highlight
+
+Item
+
+RemoveItems
+
+SetXData
+
+Update
+	
+
+Application
+
+Count
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Layer
+
+Linetype
+
+LinetypeScale
+
+Lineweight
+
+Material
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+PlotStyleName
+
+TrueColor
+
+Visible
+	
+
+Modified
+Remarks
+
+For more information about selection sets, see the SelectionSet object.
+
+To create a group, use the Add method.
+** AcadLayer
+Layer Object (ActiveX)
+
+A logical grouping of data, similar to transparent acetate overlays on a drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadLayer
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadLayer
+
+Create Using
+
+    VBA
+
+    Layers.Add
+
+Access Via
+
+    VBA
+
+    Layers.Item
+    Document.ActiveLayer
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetXData
+
+SetXData
+	
+
+Application
+
+Description
+
+Document
+
+Freeze
+
+Handle
+
+HasExtensionDictionary
+
+LayerOn
+
+Linetype
+
+Lineweight
+
+Lock
+
+Material
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+PlotStyleName
+
+Plottable
+
+TrueColor
+
+Used
+
+ViewportDefault
+	
+
+Modified
+Remarks
+
+All new objects are added to the active layer. To make a layer active, use the ActiveLayer property.
+
+To create a layer, use the Add method.
+** AcadLayout
+Layout Object (ActiveX)
+
+The plot settings and visual properties of a model space or paper space block.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadLayout
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadPlotConfiguration
+             AcadLayout
+
+Create Using
+
+    VBA
+
+    Layouts.Add
+
+Access Via
+
+    VBA
+
+    Layouts.Item
+    Document.ActiveLayout
+    ModelSpace.Layout
+    PaperSpace.Layout
+    Block.Layout
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+CopyFrom
+
+Delete
+
+GetCanonicalMediaNames
+
+GetCustomScale
+
+GetExtensionDictionary
+
+GetLocaleMediaName
+
+GetPaperMargins
+
+GetPaperSize
+
+GetPlotDeviceNames
+
+GetPlotStyleTableNames
+
+GetWindowToPlot
+
+GetXData
+
+RefreshPlotDeviceInfo
+
+SetCustomScale
+
+SetWindowToPlot
+
+SetXData
+	
+
+Application
+
+Block
+
+CanonicalMediaName
+
+CenterPlot
+
+ConfigName
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ModelType
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+PaperUnits
+
+PlotHidden
+
+PlotOrigin
+
+PlotRotation
+
+PlotType
+
+PlotViewportBorders
+
+PlotViewportsFirst
+
+PlotWithLineweights
+
+PlotWithPlotStyles
+
+ScaleLineweights
+
+ShowPlotStyles
+
+StandardScale
+
+StyleSheet
+
+TabOrder
+
+UseStandardScale
+
+ViewToPlot
+	
+
+Modified
+Remarks
+
+The representation of a layout is slightly different in ActiveX from that of the AutoCAD user interface. In ActiveX, the content of a standard AutoCAD layout is broken out into two separate objects: Layout object and Block object. The Layout object contains the plot settings and the visual properties of the layout as it appears in the AutoCAD user interface. The Block object contains the geometry for the layout.
+
+Each Layout object is associated with one Block object. To access the Block object associated with a given layout, use the Block property. Conversely, each Block object is associated with one Layout object. To access the Layout object associated with a given Block, use the Layout property for that block.
+
+In ActiveX, in addition to the paper space layouts, model space is considered a layout.
+
+To create a new layout, use the Add method.
+** AcadLinetype
+Linetype Object (ActiveX)
+
+The line characteristics consisting of combinations of dashes, dots, and spaces.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadLinetype
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadLinetype
+
+Create Using
+
+    VBA
+
+    Linetypes.Add
+    Linetypes.Load
+
+Access Via
+
+    VBA
+
+    Linetypes.Item
+    Document.ActiveLinetype
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetXData
+
+SetXData
+	
+
+Application
+
+Description
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+You can only create default linetypes programmatically using the Add method. However, you can load an existing linetype to your drawing programmatically using the Load method.
+
+There is no limit to the number of linetypes that can exist in your drawing. However, only one linetype can be active at a time. New objects are created with the linetype that is specified for the active layer. If no linetype has been specified for the active layer, new objects are created with the active linetype. To make a linetype active, use the ActiveLinetype property.
+
+To add an existing linetype to your drawing, use either the Add or Load method.
+** AcadMaterial
+Material Object (ActiveX)
+
+The render material characteristics.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadMaterial
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadMaterial
+
+Create Using
+
+    VBA
+
+    Materials.Add
+
+Access Via
+
+    VBA
+
+    Document.ActiveMaterial
+    Materials.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetXData
+
+SetXData
+	
+
+Application
+
+Description
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To set the visual properties of a material, use the MATERIALS command in AutoCAD. Use the Material property to retrieve the name of the material applied to Group , Layer , and Block objects, and SubEntSolidFace entities.
+** AcadPlotConfiguration
+PlotConfiguration Object (ActiveX)
+
+A named collection of plot settings.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadPlotConfiguration
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadPlotConfiguration
+
+Create Using
+
+    VBA
+
+    PlotConfigurations.Add
+
+Access Via
+
+    VBA
+
+    PlotConfigurations.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+CopyFrom
+
+Delete
+
+GetCanonicalMediaNames
+
+GetCustomScale
+
+GetExtensionDictionary
+
+GetLocaleMediaName
+
+GetPaperMargins
+
+GetPaperSize
+
+GetPlotDeviceNames
+
+GetPlotStyleTableNames
+
+GetWindowToPlot
+
+GetXData
+
+RefreshPlotDeviceInfo
+
+SetCustomScale
+
+SetWindowToPlot
+
+SetXData
+	
+
+Application
+
+CanonicalMediaName
+
+CenterPlot
+
+ConfigName
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+ModelType
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+PaperUnits
+
+PlotHidden
+
+PlotOrigin
+
+PlotRotation
+
+PlotType
+
+PlotViewportBorders
+
+PlotViewportsFirst
+
+PlotWithLineweights
+
+PlotWithPlotStyles
+
+ScaleLineweights
+
+ShowPlotStyles
+
+StandardScale
+
+StyleSheet
+
+UseStandardScale
+
+ViewToPlot
+	
+
+Modified
+Remarks
+
+A plot configuration is similar to a layout; as both contain identical plot information. The difference is that a layout is associated with a Block object containing the geometry to plot. A plot configuration is not associated with a particular Block object. A plot configuration is simply a named collection of plot settings available for use with any geometry.
+
+To create a new plot configuration, use the Add method.
+** AcadRegisteredApplication
+RegisteredApplication Object (ActiveX)
+
+An external application that has been added to the drawing.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadRegisteredApplication
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadRegisteredApplication
+
+Create Using
+
+    VBA
+
+    RegisteredApplications.Add
+
+Access Via
+
+    VBA
+
+    RegisteredApplications.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetXData
+
+SetXData
+	
+
+Application
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+	
+
+Modified
+Remarks
+
+To be recognized by AutoCAD, an application must register the name or names that it uses. The application name needs to be registered only once per drawing.
+
+Application names are saved with the extended data of each entity that uses them. Every instance of extended data referenced in a drawing must have its application registered in the drawing.
+
+To register an application, add it to the RegisteredApplications collection using the Add method.
+** AcadSelectionSet
+SelectionSet Object (ActiveX)
+
+A group of one or more AutoCAD objects specified for processing as a single unit.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadSelectionSet
+Object Inheritance
+
+    Object
+       AcadSelectionSet
+
+Create Using
+
+    VBA
+
+    SelectionSets.Add
+
+Access Via
+
+    VBA
+
+    SelectionSets.Item
+    Document.ActiveSelectionSet
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+AddItems
+
+Clear
+
+Delete
+
+Erase
+
+Highlight
+
+Item
+
+RemoveItems
+
+Select
+
+SelectAtPoint
+
+SelectByPolygon
+
+SelectOnScreen
+
+Update
+	
+
+Application
+
+Count
+
+Name
+	
+
+None
+Remarks
+
+To delete a selection set, or delete items from a selection set, use one of the following methods:
+
+    Clear: Empties the selection set. The selection set will still exist, but will not contain any items. The items that previously resided in the selection still exist, but they no longer reside in the selection set.
+    RemoveItems: Removes one or more items from a selection set. The removed items still exist, but they no longer reside in the selection set.
+    Erase: Deletes all items in a selection set. The selection set still exists, but will not contain any items. The items that previously resided in the selection set no longer exist.
+    Delete: Deletes a selection set object, but not the objects in the selection set. While the selection set itself will not exist after the call to the Delete method, the items previously in the selection set will still exist.
+
+To create a selection set, use the Add method.
+** AcadTextStyle
+TextStyle Object (ActiveX)
+
+A named, saved collection of settings that determines the appearance of text characters.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadTextStyle
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadTextStyle
+
+Create Using
+
+    VBA
+
+    TextStyles.Add
+
+Access Via
+
+    VBA
+
+    TextStyles.Item
+    Document.ActiveTextStyle
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetFont
+
+GetXData
+
+SetFont
+
+SetXData
+	
+
+Application
+
+BigFontFile
+
+Document
+
+FontFile
+
+Handle
+
+HasExtensionDictionary
+
+Height
+
+LastHeight
+
+Name
+
+ObjectID
+
+ObjectName
+
+ObliqueAngle
+
+OwnerID
+
+TextGenerationFlag
+
+Width
+	
+
+Modified
+Remarks
+
+To control the settings on a text style, use the properties below, or the text style system variables. See "System Variables" in the AutoCAD user documentation for a list of text style system variables.
+
+The active text style (set with the ActiveTextStyle property) determines the appearance of new text created in the drawing, and existing text that has no distinct text style specified.
+
+If changes are made to the active TextStyle, the new TextStyle object must be reset as the active TextStyle, and the Regen method must be called for the changes to appear. To reset the active TextStyle, simply call the ActiveTextStyle property again with the updated TextStyle object.
+
+To specify a distinct text style for an object so it will not change along with the active text style, use the StyleName property for the specific object.
+** AcadUCS
+UCS Object (ActiveX)
+
+A user-defined coordinate system that determines the orientation of the X, Y, and Z axes in 3D space.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadUCS
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadUCS
+
+Create Using
+
+    VBA
+
+    UserCoordinateSystems.Add
+
+Access Via
+
+    VBA
+
+    UserCoordinateSystems.Item
+    Document.ActiveUCS
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetUCSMatrix
+
+GetXData
+
+SetXData
+	
+
+Application
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+Name
+
+ObjectID
+
+ObjectName
+
+Origin
+
+OwnerID
+
+XVector
+
+YVector
+	
+
+Modified
+Remarks
+
+You define a UCS to change the location of the (0, 0, 0) origin point and the orientation of the XY plane and the Z axis. You can locate and orient a UCS anywhere in 3D space, and you can define as many UCSs as you require.
+
+All coordinates in ActiveX Automation are entered in the world coordinate system (WCS). Use the GetUCSMatrix method to return the transformation matrix of a given UCS. Use this transformation matrix to find the equivalent WCS coordinates.
+
+Use the UCSIconOn property to turn the UCS icon on or off for a given viewport.
+
+To make a UCS active, use the ActiveUCS property on the Document object. If changes are made to the active UCS, the new UCS object must be reset as the active UCS for the changes to appear. To reset the active UCS, simply call the ActiveUCS property again with the updated UCS object.
+
+To add a new UCS to the drawing, use the Add method off the UCSs Collection.
+** AcadView
+View Object (ActiveX)
+
+A graphical representation of a 2D drawing or 3D model from a specific location (viewpoint) in space.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadView
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadView
+
+Create Using
+
+    VBA
+
+    Views.Add
+
+Access Via
+
+    VBA
+
+    Views.Item
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetXData
+
+SetXData
+	
+
+Application
+
+CategoryName
+
+Center
+
+Direction
+
+Document
+
+Handle
+
+HasExtensionDictionary
+
+HasVpAssociation
+
+Height
+
+LayerState
+
+LayoutID
+
+Name
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+Target
+
+Width
+	
+
+Modified
+Remarks
+
+The line of sight is drawn from the viewpoint (represented by the Center property) to the target point. The Height and Width properties crop the view. Note that these properties do not change the viewport size, only the size of the view visible within the viewport.
+
+
+Note that the Delete method for a view is found on the View object, not the Views collection. This is due to programming requirements specific to the View object.
+
+To add a view, use the Add method from the Views collection object.
+** AcadViewport
+Viewport Object (ActiveX)
+
+A bounded area that displays some portion of a drawing's model space.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    AcadViewport
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadViewport
+
+Create Using
+
+    VBA
+
+    Viewports.Add
+
+Access Via
+
+    VBA
+
+    Viewports.Item
+    Document.ActiveViewport
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+Delete
+
+GetExtensionDictionary
+
+GetGridSpacing
+
+GetSnapSpacing
+
+GetXData
+
+SetGridSpacing
+
+SetSnapSpacing
+
+SetView
+
+SetXData
+
+Split
+	
+
+Application
+
+ArcSmoothness
+
+Center
+
+Direction
+
+Document
+
+GridOn
+
+Handle
+
+HasExtensionDictionary
+
+Height
+
+LowerLeftCorner
+
+Name
+
+ObjectID
+
+ObjectName
+
+OrthoOn
+
+OwnerID
+
+SnapBasePoint
+
+SnapOn
+
+SnapRotationAngle
+
+Target
+
+UCSIconAtOrigin
+
+UCSIconOn
+
+UpperRightCorner
+
+Width
+	
+
+Modified
+Remarks
+
+The ActiveSpace property (equivalent to the TILEMODE system variable) determines the type of viewport used.
+
+No editing or view changes can be performed unless the viewport is active. To make a viewport active, use the ActiveViewport property on the Document object.
+
+Once changes have been completed, the viewport must be reset as the active viewport for the changes to appear. To reset the active viewport, simply call the ActiveViewport property again with the updated Viewport object.
+* CL2
+** Acad3DFace
+ 3DFace Object (ActiveX)
+
+A 3D triangle or quadrilateral plane section.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    Acad3DFace
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadEntity
+             Acad3DFace
+
+Create Using
+
+    VBA
+
+    ModelSpace.Add3DFace
+    PaperSpace.Add3DFace
+    Block.Add3DFace 
+
+Access Via
+
+    VBA
+
+    ModelSpace.Item
+    PaperSpace.Item
+    Block.Item
+    SelectionSet.Item
+    Group.Item 
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+ArrayPolar
+
+ArrayRectangular
+
+Copy
+
+Delete
+
+GetBoundingBox
+
+GetExtensionDictionary
+
+GetInvisibleEdge
+
+GetXData
+
+Highlight
+
+IntersectWith
+
+Mirror
+
+Mirror3D
+
+Move
+
+Rotate
+
+Rotate3D
+
+ScaleEntity
+
+SetInvisibleEdge
+
+SetXData
+
+TransformBy
+
+Update
+	
+
+Application
+
+Coordinate
+
+Coordinates
+
+Document
+
+EntityTransparency
+
+Handle
+
+HasExtensionDictionary
+
+Hyperlinks
+
+Layer
+
+Linetype
+
+LinetypeScale
+
+Lineweight
+
+Material
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+PlotStyleName
+
+TrueColor
+
+VisibilityEdge1
+
+VisibilityEdge2
+
+VisibilityEdge3
+
+VisibilityEdge4
+
+Visible
+	
+
+Modified
+Remarks
+
+You can specify different Z coordinates for each corner point of a 3DFace object. This differs from a Solid object, which creates a three- or four-sided surface that is parallel to the current UCS and can be extruded.
+
+
+Six 3DFaces joined together to make a cube
+
+You control which edges of the face are visible through the SetInvisibleEdge method. This allows accurate modeling of objects with holes.
+
+To create a 3DFace, use the Add3DFace method.
+** Acad3DPolyline
+3DPolyline Object (ActiveX)
+
+A 3D polyline of straight line segments.
+
+Supported Platforms: Windows only
+Class Information
+
+Class Name
+
+    Acad3DPolyline
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadEntity
+             Acad3DPolyline
+
+Create Using
+
+    VBA
+
+    ModelSpace.Add3DPoly
+    PaperSpace.Add3DPoly
+    Block.Add3DPoly 
+
+Access Via
+
+    VBA
+
+    ModelSpace.Item
+    PaperSpace.Item
+    Block.Item
+    SelectionSet.Item
+    Group.Item 
+
+Members
+
+These members are part of this object:
+
+Methods
+	
+
+Properties
+	
+
+Events
+
+AppendVertex
+
+ArrayPolar
+
+ArrayRectangular
+
+Copy
+
+Delete
+
+Explode
+
+GetBoundingBox
+
+GetExtensionDictionary
+
+GetXData
+
+Highlight
+
+IntersectWith
+
+Mirror
+
+Mirror3D
+
+Move
+
+Rotate
+
+Rotate3D
+
+ScaleEntity
+
+SetXData
+
+TransformBy
+
+Update
+	
+
+Application
+
+Closed
+
+Coordinate
+
+Coordinates
+
+Document
+
+EntityTransparency
+
+Handle
+
+HasExtensionDictionary
+
+Hyperlinks
+
+Layer
+
+Length
+
+Linetype
+
+LinetypeScale
+
+Lineweight
+
+Material
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+PlotStyleName
+
+TrueColor
+
+Type
+
+Visible
+	
+
+Modified
+Remarks
+
+To open or close a polyline, use the Closed property.
+
+An open 3D polyline
+
+To create a 3D polyline, use the Add3DPoly method.
+

@@ -55,13 +55,15 @@
   (setf (pairs object) (copy-list pairs)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defclass object () ())
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *Acad-Object-class-marker* "OBJECT")
 
 (defparameter *Acad-Object-subclass-marker* "AcDbObject")
 
-(defclass acad-object (dxf-pairs)
-  ((Application :documentation "Gets the Application object.")
+(defclass acad-object (dxf-pairs object)
+  ((Application      :documentation "Gets the Application object.")
    (Document)
    (Object-Name      :accessor Object-Name   :initarg :Object-Name   :initform nil :documentation "")
    (Object-ID        :accessor Object-ID     :initarg :Object-ID     :initform nil :documentation "")
@@ -1439,34 +1441,35 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass acad-database ()
-  (
-   (blocks                 :accessor blocks                 :initarg :blocks                 :initform nil :documentation "blocks")
-   (dictionaries           :accessor dictionaries           :initarg :dictionaries           :initform nil :documentation "dictionaries")
-   (dimstyles              :accessor dimstyles              :initarg :dimstyles              :initform nil :documentation "dimstyles")
-   (elevationmodelspace    :accessor elevationmodelspace    :initarg :elevationmodelspace    :initform nil :documentation "elevationmodelspace")
-   (elevationpaperspace    :accessor elevationpaperspace    :initarg :elevationpaperspace    :initform nil :documentation "elevationpaperspace")
-   (groups                 :accessor groups                 :initarg :groups                 :initform nil :documentation "groups")
-   (layers                 :accessor layers                 :initarg :layers                 :initform (make-instance 'acad-layers) :documentation "layers")
-   (layouts                :accessor layouts                :initarg :layouts                :initform nil :documentation "layouts")
-   (limits                 :accessor limits                 :initarg :limits                 :initform nil :documentation "limits")
-   (linetypes              :accessor linetypes              :initarg :linetypes              :initform (make-instance 'acad-linetypes) :documentation "linetypes")
-   (material               :accessor material               :initarg :material               :initform nil :documentation "material")
-   (modelspace             :accessor modelspace             :initarg :modelspace             :initform nil :documentation "modelspace")
-   (paperspace             :accessor paperspace             :initarg :paperspace             :initform nil :documentation "paperspace")
-   (plotconfigurations     :accessor plotconfigurations     :initarg :plotconfigurations     :initform nil :documentation "plotconfigurations")
-   (preferences            :accessor preferences            :initarg :preferences            :initform nil :documentation "preferences")
-   (registeredapplications :accessor registeredapplications :initarg :registeredapplications :initform nil :documentation "registeredapplications")
-   (sectionmanager         :accessor sectionmanager         :initarg :sectionmanager         :initform nil :documentation "sectionmanager")
-   (summaryinfo            :accessor summaryinfo            :initarg :summaryinfo            :initform nil :documentation "summaryinfo")
-   (textstyles             :accessor textstyles             :initarg :textstyles             :initform nil :documentation "textstyles")
-   (usercoordinatesystems  :accessor usercoordinatesystems  :initarg :usercoordinatesystems  :initform nil :documentation "usercoordinatesystems")
-   (viewports              :accessor viewports              :initarg :viewports              :initform nil :documentation "viewports")
-   (views                  :accessor views                  :initarg :views                  :initform nil :documentation "views")
-   )
-  (:documentation
-   "
-"))
+(defclass acad-documents (acad-object)
+  ((ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
+   (ac-count                    :accessor ac-count                    :initarg :ac-count                    :initform nil :documentation "ac-count"))
+  (:documentation "The collection of all AutoCAD drawings that are open in the current session."))
+
+(defclass acad-database (object)
+  ((ac-blocks                   :accessor ac-blocks                   :initarg :ac-blocks                   :initform nil :documentation "ac-blocks")
+   (ac-dictionaries             :accessor ac-dictionaries             :initarg :ac-dictionaries             :initform nil :documentation "ac-dictionaries")
+   (ac-dim-styles               :accessor ac-dim-styles               :initarg :ac-dim-styles               :initform nil :documentation "ac-dim-styles")
+   (ac-elevation-model-space    :accessor ac-elevation-model-space    :initarg :ac-elevation-model-space    :initform nil :documentation "ac-elevation-model-space")
+   (ac-elevation-paper-space    :accessor ac-elevation-paper-space    :initarg :ac-elevation-paper-space    :initform nil :documentation "ac-elevation-paper-space")
+   (ac-groups                   :accessor ac-groups                   :initarg :ac-groups                   :initform nil :documentation "ac-groups")
+   (ac-layers                   :accessor ac-layers                   :initarg :ac-layers                   :initform (make-instance 'acad-layers) :documentation "ac-layers")
+   (ac-layouts                  :accessor ac-layouts                  :initarg :ac-layouts                  :initform nil :documentation "ac-layouts")
+   (ac-limits                   :accessor ac-limits                   :initarg :ac-limits                   :initform nil :documentation "ac-limits")
+   (ac-linetypes                :accessor ac-linetypes                :initarg :ac-linetypes                :initform (make-instance 'acad-linetypes) :documentation "ac-linetypes")
+   (ac-material                 :accessor ac-material                 :initarg :ac-material                 :initform nil :documentation "ac-material")
+   (ac-model-space              :accessor ac-model-space              :initarg :ac-model-space              :initform nil :documentation "ac-model-space")
+   (ac-paper-space              :accessor ac-paper-space              :initarg :ac-paper-space              :initform nil :documentation "ac-paper-space")
+   (ac-plot-configurations      :accessor ac-plot-configurations      :initarg :ac-plot-configurations      :initform nil :documentation "ac-plot-configurations")
+   (ac-preferences              :accessor ac-preferences              :initarg :ac-preferences              :initform nil :documentation "ac-preferences")
+   (ac-registered-applications  :accessor ac-registered-applications  :initarg :ac-registered-applications  :initform nil :documentation "ac-registered-applications")
+   (ac-section-manager          :accessor ac-section-manager          :initarg :ac-section-manager          :initform nil :documentation "ac-section-manager")
+   (ac-summary-info             :accessor ac-summary-info             :initarg :ac-summary-info             :initform nil :documentation "ac-summary-info")
+   (ac-text-styles              :accessor ac-text-styles              :initarg :ac-text-styles              :initform nil :documentation "ac-text-styles")
+   (ac-user-coordinate-systems  :accessor ac-user-coordinate-systems  :initarg :ac-user-coordinate-systems  :initform nil :documentation "ac-user-coordinate-systems")
+   (ac-viewports                :accessor ac-viewports                :initarg :ac-viewports                :initform nil :documentation "ac-viewports")
+   (ac-views                    :accessor ac-views                    :initarg :ac-views                    :initform nil :documentation "ac-views"))
+  (:documentation "The contents of an XRef block."))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1694,6 +1697,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 '(
+  acad-documents
   acad-document
   acad-database
   
