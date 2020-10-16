@@ -56,30 +56,29 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defclass object () ())
+
+(defparameter *object-properties* '())
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *Acad-Object-class-marker* "OBJECT")
 
 (defparameter *Acad-Object-subclass-marker* "AcDbObject")
 
-(defclass acad-object (dxf-pairs object)
-  ((Application      :documentation "Gets the Application object.")
-   (Document)
-   (Object-Name      :accessor Object-Name   :initarg :Object-Name   :initform nil :documentation "")
-   (Object-ID        :accessor Object-ID     :initarg :Object-ID     :initform nil :documentation "")
-   (Owner-ID         :accessor Owner-ID      :initarg :Owner-ID      :initform nil :documentation "Код 330.  object-owner -> Owner-ID")
-   (Handle           :accessor Handle        :initarg :object-handle :initform nil :documentation "Код   5. Дескриптор object-handle -> Handle")
-   (HasExtensionDictionary)
+(defclass acad-object (object)
+  ((ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
+   (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
+   (ac-handle                   :accessor ac-handle                   :initarg :ac-handle                   :initform nil :documentation "Код   5. Дескриптор ac-handle  -> Handle") 
+   (ac-has-extension-dictionary :accessor ac-has-extension-dictionary :initarg :ac-has-extension-dictionary :initform nil :documentation "ac-has-extension-dictionary")
+   (ac-object-id                :accessor ac-object-id                :initarg :ac-object-id                :initform nil :documentation "ac-object-id")
+   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
+   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "Код 330. ac-owner-id -> Owner-ID")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    (next-handle      :accessor next-handle   :initarg :next-handle   :initform 1   :allocation :class))
-  (:documentation "
-db-object -> Acad-Object
-См. ./dbmain.h:class ADESK_NO_VTABLE AcDbObject: public AcGiDrawable, public AcHeapOperators
-
-"))
+  (:documentation "The standard interface for a basic AutoCAD object."))
 
 (defparameter *acad-object-properties* '(Application Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
 
-(mapcar #'make-slot (set-difference *acad-object-properties* nil))
+(mapcar #'make-slot (set-difference *acad-object-properties* *object-properties*))
 
 (export 'dxf-out-text)
 
