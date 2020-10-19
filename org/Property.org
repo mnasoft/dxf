@@ -1,0 +1,70 @@
+** Circle Object (ActiveX)
+
+A full circle.
+
+Supported Platforms: Windows only
+*** Class Information
+
+**** Class Name
+#+name: cl-AcadCircle
+| cl-nm      |
+|------------|
+| AcadCircle |
+**** Object Inheritance
+#+name: o-i-AcadCircle
+| Object     |
+| AcadObject |
+| AcadEntity |
+| AcadCircle |
+
+**** Create Using
+
+    VBA
+
+    ModelSpace.AddCircle
+    PaperSpace.AddCircle
+    Block.AddCircle
+
+**** Access Via
+
+    VBA
+
+    ModelSpace.Item
+    PaperSpace.Item
+    Block.Item
+    SelectionSet.Item
+    Group.Item
+
+*** Members
+
+These members are part of this object:
+
+| Methods                | Properties             | Events   |
+|------------------------+------------------------+----------|
+| ArrayPolar             | Application            | Modified |
+| ArrayRectangular       | Area                   |          |
+| Copy                   | Center                 |          |
+| Delete                 | Circumference          |          |
+| GetBoundingBox         | Diameter               |          |
+| GetExtensionDictionary | Document               |          |
+| GetXData               | EntityTransparency     |          |
+| Highlight              | Handle                 |          |
+| IntersectWith          | HasExtensionDictionary |          |
+| Mirror                 | Hyperlinks             |          |
+| Mirror3D               | Layer                  |          |
+| Move                   | Linetype               |          |
+| Offset                 | LinetypeScale          |          |
+| Rotate                 | Lineweight             |          |
+| Rotate3D               | Material               |          |
+| ScaleEntity            | Normal                 |          |
+| SetXData               | ObjectID               |          |
+| TransformBy            | ObjectName             |          |
+| Update                 | OwnerID                |          |
+|                        | PlotStyleName          |          |
+|                        | Radius                 |          |
+|                        | Thickness              |          |
+|                        | TrueColor              |          |
+|                        | Visible                |          |
+*** Remarks
+
+To create a circle, use the AddCircle method.
