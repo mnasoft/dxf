@@ -1,4 +1,5 @@
 
+
 https://help.autodesk.com/view/OARX/2021/ENU/
 
 * ToDo
@@ -70,7 +71,7 @@ https://help.autodesk.com/view/OARX/2021/ENU/
 #+RESULTS: code
 : MAKE-DEFCLASS
 
-* Classes
+* Objects
 ** Application Object (ActiveX)
 #+name: des-AcadApplication
 | Description                             |
@@ -10405,3 +10406,89 @@ If you are familiar with the ObjectARX environment, you will see that IAcadObjec
 
 #+RESULTS: AcadObject
 [[file:AcadObject.lisp]]
+* Properties
+** Application Property (ActiveX)
+
+Gets the Application object.
+
+Supported platforms: Windows only
+Signature
+
+VBA:
+
+object.Application
+
+object
+
+    Type: All objects
+
+    The object this property applies to.
+
+Property Value
+
+Read-only: Yes
+
+Type: Application
+
+The Application object that is the owner of the object.
+Remarks
+
+The Application object represents the application's frame controls and path settings, and provides the means to navigate down the object hierarchy.
+Release Information
+
+Releases: AutoCAD 2000 through AutoCAD 2017
+
+    This property is no longer supported for use with the FileDependency and FileDependencies objects.
+
+Examples
+
+VBA:
+
+Sub Example_Application()
+    ' This example creates a line and then uses the
+    ' Application property of the line to return the
+    ' application name.
+    Dim lineObj As AcadLine
+    Dim startPoint(0 To 2) As Double
+    Dim endPoint(0 To 2) As Double
+    Dim myApp As AcadApplication
+    
+    ' Create a new line reference
+    startPoint(0) = 0: startPoint(1) = 0: startPoint(2) = 0
+    endPoint(0) = 2: endPoint(1) = 2: endPoint(2) = 0
+    Set lineObj = ThisDrawing.ModelSpace.AddLine(startPoint, endPoint)
+    lineObj.Update
+
+    ' Return the application for the object
+    Set myApp = lineObj.Application
+    
+    ' Display the name of the application
+    MsgBox "The application name is: " & myApp.name, vbInformation, "Application Example"
+End Sub
+
+Visual LISP:
+
+(vl-load-com)
+(defun c:Example_Application()
+    ;; This example creates a line and then uses the
+    ;; Application property of the line to return the
+    ;; application name.
+    (setq acadObj (vlax-get-acad-object))
+    (setq doc (vla-get-ActiveDocument acadObj))
+  
+    ;; Create a new line reference
+    (setq startPoint (vlax-3d-point 0 0 0)
+          endPoint (vlax-3d-point 2 2 0))
+
+    (setq modelSpace (vla-get-ModelSpace doc))  
+    (setq lineObj (vla-AddLine modelSpace startPoint endPoint))
+    (vla-Update lineObj)
+
+    ;; Return the application for the object
+    (setq myApp (vla-get-Application lineObj))
+    
+    ;; Display the name of the application
+    (alert (strcat "The application name is: " (vla-get-Name myApp)))
+)
+
+
