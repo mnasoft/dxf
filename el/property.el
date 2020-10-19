@@ -202,6 +202,39 @@
   (org-shifttab)
   (org-table-transpose-table-at-point))
 
+(defun object-section (name-type)
+  (beginning-of-buffer)
+  (search-forward "Object (ActiveX)")
+  (move-beginning-of-line 2)
+  (insert "#+name: " "des-" name-type "\n| Description |\n|----------------|")
+  (move-beginning-of-line 2)
+  (insert "| ")
+  (org-shifttab))
+
+(defun object-create-using-section ()
+  (beginning-of-buffer)
+  (search-forward "**** Create Using")
+  (search-forward "    VBA")
+  (move-beginning-of-line 1)
+  (insert "#+BEGIN_SRC VBA")
+  (kill-line)
+  (delete-blank-lines)
+  (search-forward "**** Access Via")
+  (move-beginning-of-line 0)
+  (insert "#END_SRC"))
+
+(defun object-access-via-section ()
+  (beginning-of-buffer)
+  (search-forward "**** Access Via")
+  (search-forward "    VBA")
+  (move-beginning-of-line 1)
+  (insert "#+BEGIN_SRC VBA")
+  (kill-line)
+  (delete-blank-lines)
+  (search-forward "*** Members")
+  (move-beginning-of-line 0)
+  (insert "#END_SRC"))
+
 (defun object-to-org ()
   (interactive)
   (beginning-of-buffer)
@@ -213,6 +246,34 @@
           '("Class Name" "Object Inheritance" "Create Using" "Access Via" ))
   (object-members-section)
   (class-name-section)
-  (object-inheritance-section class-name))
+  (object-inheritance-section class-name)
+  (object-section class-name)
+  (object-create-using-section)
+  (object-access-via-section)
+  (object-methods-section class-name)
+  (object-code-section class-name)
+  )
+
+(defun object-methods-section (name)
+  (beginning-of-buffer)
+  (search-forward "| Methods")
+  (move-beginning-of-line 1)
+  (insert "#+name: m-p-" name "\n")
+  )
+
+(defun object-code-section (name)
+  (end-of-buffer)
+  (insert "\n"
+	  "*** Code" "\n"
+	  "#+name:AcadCircle" "\n"
+	  "#+header: :var m-p=m-p-" name "\n"
+	  "#+header: :var o-i=o-i-" name "\n"
+	  "#+header: :var des=des-" name "\n"
+	  "#+header: :var code=code" "\n"
+	  "#+header: :results output file" "\n"
+	  "#+header: :file " name ".lisp" "\n"
+	  "#+begin_src lisp" "\n"
+	  " (make-defclass m-p o-i des)" "\n"
+	  "#+end_src" "\n"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

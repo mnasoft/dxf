@@ -1,22 +1,21 @@
-** Circle Object (ActiveX)
+Circle Object (ActiveX)
 
 A full circle.
 
 Supported Platforms: Windows only
-*** Class Information
+Class Information
 
-**** Class Name
-#+name: cl-AcadCircle
-| cl-nm |
-|-------|
+Class Name
+
     AcadCircle
-**** Object Inheritance
-#+name: o-i-AcadCircle
-| Object     |
-| AcadObject |
-| AcadEntity |
-| AcadCircle |
-**** Create Using
+Object Inheritance
+
+    Object
+       AcadObject
+          AcadEntity
+             AcadCircle
+
+Create Using
 
     VBA
 
@@ -24,7 +23,7 @@ Supported Platforms: Windows only
     PaperSpace.AddCircle
     Block.AddCircle
 
-**** Access Via
+Access Via
 
     VBA
 
@@ -34,36 +33,107 @@ Supported Platforms: Windows only
     SelectionSet.Item
     Group.Item
 
-*** Members
+Members
 
 These members are part of this object:
 
-| Methods                | Properties             | Events   |
-|------------------------+------------------------+----------|
-| ArrayPolar             | Application            | Modified |
-| ArrayRectangular       | Area                   |          |
-| Copy                   | Center                 |          |
-| Delete                 | Circumference          |          |
-| GetBoundingBox         | Diameter               |          |
-| GetExtensionDictionary | Document               |          |
-| GetXData               | EntityTransparency     |          |
-| Highlight              | Handle                 |          |
-| IntersectWith          | HasExtensionDictionary |          |
-| Mirror                 | Hyperlinks             |          |
-| Mirror3D               | Layer                  |          |
-| Move                   | Linetype               |          |
-| Offset                 | LinetypeScale          |          |
-| Rotate                 | Lineweight             |          |
-| Rotate3D               | Material               |          |
-| ScaleEntity            | Normal                 |          |
-| SetXData               | ObjectID               |          |
-| TransformBy            | ObjectName             |          |
-| Update                 | OwnerID                |          |
-|                        | PlotStyleName          |          |
-|                        | Radius                 |          |
-|                        | Thickness              |          |
-|                        | TrueColor              |          |
-|                        | Visible                |          |
-*** Remarks
+Methods
+	
+
+Properties
+	
+
+Events
+
+ArrayPolar
+
+ArrayRectangular
+
+Copy
+
+Delete
+
+GetBoundingBox
+
+GetExtensionDictionary
+
+GetXData
+
+Highlight
+
+IntersectWith
+
+Mirror
+
+Mirror3D
+
+Move
+
+Offset
+
+Rotate
+
+Rotate3D
+
+ScaleEntity
+
+SetXData
+
+TransformBy
+
+Update
+	
+
+Application
+
+Area
+
+Center
+
+Circumference
+
+Diameter
+
+Document
+
+EntityTransparency
+
+Handle
+
+HasExtensionDictionary
+
+Hyperlinks
+
+Layer
+
+Linetype
+
+LinetypeScale
+
+Lineweight
+
+Material
+
+Normal
+
+ObjectID
+
+ObjectName
+
+OwnerID
+
+PlotStyleName
+
+Radius
+
+Thickness
+
+TrueColor
+
+Visible
+	
+
+Modified
+Remarks
 
 To create a circle, use the AddCircle method.
