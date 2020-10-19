@@ -7,16 +7,15 @@ Supported Platforms: Windows only
 
 **** Class Name
 #+name: cl-AcadCircle
-| cl-nm      |
-|------------|
-| AcadCircle |
+| cl-nm |
+|-------|
+    AcadCircle
 **** Object Inheritance
 #+name: o-i-AcadCircle
 | Object     |
 | AcadObject |
 | AcadEntity |
 | AcadCircle |
-
 **** Create Using
 
     VBA
