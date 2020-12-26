@@ -1,3 +1,5 @@
+;;; (load "~/quicklisp/local-projects/acad/dxf/el/property.el")
+
 (defun ow () (other-window 1) )
 
 (defun search-insert-before (str-search str-ins)
@@ -133,9 +135,11 @@
   (backward-char (length str))
   (move-beginning-of-line 1)
   (setf pe (point))
-  (delete-indentation nil ps pe)
+  (while (< (line-number-at-pos ps) (line-number-at-pos))
+    (delete-indentation nil))
   (delete-blank-lines)
-  (move-beginning-of-line 2))
+  (move-beginning-of-line 2)
+  )
 
 (defun object-members-section ()
   (beginning-of-buffer )
@@ -165,7 +169,8 @@
   (search-backward "\n\n")
   (move-beginning-of-line 2)
   (insert "|-")
-  (org-shifttab))
+  (org-shifttab)
+  )
 
 (defun class-name-section ()
   (beginning-of-buffer)
@@ -173,23 +178,10 @@
   (move-end-of-line 3)
   (setf class-name (current-word))
   (move-beginning-of-line 0)
-  (insert (concat "#+name: cl-" class-name "\n| cl-nm      |\n|------------|\n| "))
-  (delete-indentation 1)
+  (insert (concat "#+name: cl-" class-name "\n| cl-nm      |\n|------------|"))
+  (move-beginning-of-line 2)
+  (insert  "| ")
   (org-shifttab))
-
-(defun object-to-org ()
-  (interactive)
-  (beginning-of-buffer)
-  (search-insert-before "Object (ActiveX)" "** ")
-  (mapcar '(lambda (el) (search-insert-before el "*** "))
-          '("Class Information" "Members" "Remarks"))
-  (beginning-of-buffer)
-  (mapcar '(lambda (el) (search-insert-before el "**** "))
-          '("Class Name" "Object Inheritance" "Create Using" "Access Via" ))
-  (object-members-section)
-  (class-name-section)
-  (object-inheritance-section class-name)
-  )
 
 (defun object-inheritance-section (cl-name)
   (beginning-of-buffer)
@@ -197,10 +189,8 @@
   (move-beginning-of-line 2)
   (insert (concat "#+name: o-i-" cl-name "\n"))
   (move-beginning-of-line 1)
-  (setf ps (point))
-  (search-forward cl-name)
-  (setf pe (point))
-  (delete-indentation nil ps pe)
+  (del-iden-by-str (concat cl-name "\n"))
+  (move-end-of-line 0)
   (setf ps (point))
   (move-end-of-line 1)
   (setf pe (point))
@@ -211,8 +201,79 @@
   (insert "|")
   (move-end-of-line 1)
   (org-shifttab)
-  (org-table-transpose-table-at-point)
+  (org-table-transpose-table-at-point))
+
+(defun object-section (name-type)
+  (beginning-of-buffer)
+  (search-forward "Object (ActiveX)")
+  (move-beginning-of-line 2)
+  (insert "#+name: " "des-" name-type "\n| Description |\n|----------------|")
+  (move-beginning-of-line 2)
+  (insert "| ")
+  (org-shifttab))
+
+(defun object-create-using-section ()
+  (beginning-of-buffer)
+  (search-forward "**** Create Using")
+  (search-forward "    VBA")
+  (move-beginning-of-line 1)
+  (insert "#+BEGIN_SRC VBA")
+  (kill-line)
+  (delete-blank-lines)
+  (search-forward "**** Access Via")
+  (move-beginning-of-line 0)
+  (insert "#END_SRC"))
+
+(defun object-access-via-section ()
+  (beginning-of-buffer)
+  (search-forward "**** Access Via")
+  (search-forward "    VBA")
+  (move-beginning-of-line 1)
+  (insert "#+BEGIN_SRC VBA")
+  (kill-line)
+  (delete-blank-lines)
+  (search-forward "*** Members")
+  (move-beginning-of-line 0)
+  (insert "#END_SRC"))
+
+(defun object-methods-section (name)
+  (beginning-of-buffer)
+  (search-forward "| Methods")
+  (move-beginning-of-line 1)
+  (insert "#+name: m-p-" name "\n")
   )
 
+(defun object-code-section (name)
+  (end-of-buffer)
+  (insert "\n"
+	  "*** Code" "\n"
+	  "#+name:AcadCircle" "\n"
+	  "#+header: :var m-p=m-p-" name "\n"
+	  "#+header: :var o-i=o-i-" name "\n"
+	  "#+header: :var des=des-" name "\n"
+	  "#+header: :var code=code" "\n"
+	  "#+header: :results output file" "\n"
+	  "#+header: :file " name ".lisp" "\n"
+	  "#+begin_src lisp" "\n"
+	  " (make-defclass m-p o-i des)" "\n"
+	  "#+end_src" "\n"))
 
+(defun object-to-org ()
+  (interactive)
+  (beginning-of-buffer)
+  (search-insert-before "Object (ActiveX)" "** ")
+  (mapcar '(lambda (el) (search-insert-before el "*** "))
+	  '("Class Information" "Members" "Remarks"))
+  (beginning-of-buffer)
+  (mapcar '(lambda (el) (search-insert-before el "**** "))
+          '("Class Name" "Object Inheritance" "Create Using" "Access Via" ))
+  (object-members-section)
+  (class-name-section)
+  (object-inheritance-section class-name)
+  (object-section class-name)
+  (object-create-using-section)
+  (object-access-via-section)
+  (object-methods-section class-name)
+  (object-code-section class-name)
+  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
