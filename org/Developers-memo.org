@@ -1,14 +1,6 @@
-* Ссылки
-1) Операции git  [[file:~/org/sbcl/Git-memo.org][Git-memo.org]]
-2) [[file:~/org/sbcl/codex.org][Генерирование документации при помощи Codex]]
-3) http://commondoc.github.io/codex/docs/tutorial.html
-4) [[/home/namatv/.slynkrc]]
-5) Тестирование при помощи FiveAm
-   - [[https://common-lisp.net/project/fiveam/][FiveAm]]
-   - [[http://turtleware.eu/posts/Tutorial-Working-with-FiveAM.html][Tutorial]]
-   - [[https://www.darkchestnut.com/2018/how-to-write-5am-test-fixtures/][Fixtures]]
- 
-* Генерироване документациин
+* Ссылки [[~/org/sbcl/sbcl-referencies.org][Ссылки]]
+
+* Генерирование документации
 #+name: codex
 #+BEGIN_SRC lisp
   (codex:document :dxf)
@@ -20,7 +12,7 @@
     :for i :in
     '(:dxf
       )
-    :do (mnas-package:make-codex-documentation i i))
+    :do (mnas-package:make-codex-graphs i i))
 #+END_SRC
 
 #+RESULTS: make-html
@@ -45,37 +37,3 @@
 	rsync -Pazh --delete ../docs/build/$CDIR/html/ $CPL/$CDIR
      fi
 #+END_SRC
-
-#+RESULTS: publish
-| sending                 | incremental | file | list       |         |   |         |      |            |         |          |               |
-| ./                      |             |      |            |         |   |         |      |            |         |          |               |
-| api-reference.html      |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 4.51K       | 100% | 0.00kB/s   | 0:00:00 |   | 4.51K   | 100% | 0.00kB/s   | 0:00:00 | (xfr#1,  | to-chk=14/16) |
-| call-graph-dxf.gv       |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 8.42K       | 100% | 8.03MB/s   | 0:00:00 |   | 8.42K   | 100% | 8.03MB/s   | 0:00:00 | (xfr#2,  | to-chk=13/16) |
-| call-graph-dxf.gv.png   |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 32.77K      |   0% | 31.25MB/s  | 0:00:00 |   | 4.80M   | 100% | 83.18MB/s  | 0:00:00 | (xfr#3,  | to-chk=12/16) |
-| class-graph-dxf.gv      |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 1.25K       | 100% | 22.28kB/s  | 0:00:00 |   | 1.25K   | 100% | 22.28kB/s  | 0:00:00 | (xfr#4,  | to-chk=11/16) |
-| class-graph-dxf.gv.png  |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 32.77K      |  12% | 581.82kB/s | 0:00:00 |   | 270.64K | 100% | 2.87MB/s   | 0:00:00 | (xfr#5,  | to-chk=10/16) |
-| symbol-graph-dxf.gv     |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 8.74K       | 100% | 94.84kB/s  | 0:00:00 |   | 8.74K   | 100% | 94.84kB/s  | 0:00:00 | (xfr#6,  | to-chk=9/16)  |
-| symbol-graph-dxf.gv.png |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 32.77K      |   1% | 355.56kB/s | 0:00:05 |   | 1.97M   | 100% | 16.47MB/s  | 0:00:00 | (xfr#7,  | to-chk=8/16)  |
-| system-graph-dxf.gv     |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 275         | 100% | 2.36kB/s   | 0:00:00 |   | 275     | 100% | 2.36kB/s   | 0:00:00 | (xfr#8,  | to-chk=7/16)  |
-| system-graph-dxf.gv.png |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 32.77K      |  55% | 280.70kB/s | 0:00:00 |   | 59.17K  | 100% | 502.45kB/s | 0:00:00 | (xfr#9,  | to-chk=6/16)  |
-| графы-dxf.html          |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 1.87K       | 100% | 15.89kB/s  | 0:00:00 |   | 1.87K   | 100% | 15.89kB/s  | 0:00:00 | (xfr#10, | to-chk=5/16)  |
-| обзор.html              |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 1.78K       | 100% | 15.12kB/s  | 0:00:00 |   | 1.78K   | 100% | 15.12kB/s  | 0:00:00 | (xfr#11, | to-chk=4/16)  |
-| static/                 |             |      |            |         |   |         |      |            |         |          |               |
-| static/highlight.css    |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 1.57K       | 100% | 13.34kB/s  | 0:00:00 |   | 1.57K   | 100% | 13.34kB/s  | 0:00:00 | (xfr#12, | to-chk=2/16)  |
-| static/highlight.js     |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 22.99K      | 100% | 195.22kB/s | 0:00:00 |   | 22.99K  | 100% | 195.22kB/s | 0:00:00 | (xfr#13, | to-chk=1/16)  |
-| static/style.css        |             |      |            |         |   |         |      |            |         |          |               |
-|                         | 4.32K       | 100% | 36.67kB/s  | 0:00:00 |   | 4.32K   | 100% | 36.67kB/s  | 0:00:00 | (xfr#14, | to-chk=0/16)  |
-| mnasoft-00              |             |      |            |         |   |         |      |            |         |          |               |
