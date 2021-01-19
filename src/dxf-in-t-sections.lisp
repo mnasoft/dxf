@@ -35,9 +35,9 @@
  (read-from-string-double \"1.0e10\")
  (read-from-string-double \"1.0E5\")
 "
-  (let ((s-e-d (mnas-string:string-replace-all
-		(mnas-string:string-replace-all
-		 (mnas-string:string-replace-all str "e" "d") "E" "d")"D" "d")))
+  (let ((s-e-d (mnas-string:replace-all
+		(mnas-string:replace-all
+		 (mnas-string:replace-all str "e" "d") "E" "d")"D" "d")))
     (if (member #\d (coerce  s-e-d 'list ))
 	(read-from-string s-e-d)
 	(read-from-string (concatenate 'string s-e-d "d0")))))
