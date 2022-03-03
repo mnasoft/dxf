@@ -288,7 +288,6 @@ LINE (DXF)
 |      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
 |---------------+---------------------------------------------------------------------------|
 
-
 ;   Angle (RO) = 2.54047
 ;   Application (RO) = #<VLA-OBJECT IAcadApplication 00007ff77d4470f8>
 ;   Delta (RO) = (-1.58936 1.08997 0.0)
@@ -313,8 +312,6 @@ LINE (DXF)
 ;   Thickness = 0.0
 ;   TrueColor = #<VLA-OBJECT IAcadAcCmColor 00000142eeebf020>
 ;   Visible = -1
-
-
 "))
 
 (defmethod dxf-out-text ((x Acad-Line) stream)

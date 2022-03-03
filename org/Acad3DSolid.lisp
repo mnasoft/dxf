@@ -1,4 +1,4 @@
-(defclass acad3-d-solid (acad-entity)
+(defclass acad-3d-solid (acad-entity)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-centroid                 :accessor ac-centroid                 :initarg :ac-centroid                 :initform nil :documentation "ac-centroid")
@@ -31,6 +31,6 @@
   )
   (:documentation "A solid object with free-form surface support."))
 
-(defparameter *acad3-d-solid-properties* '(ac-application ac-centroid ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-history ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-moment-of-inertia ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-principal-directions ac-principal-moments ac-product-of-inertia ac-radii-of-gyration ac-show-history ac-solid-type ac-true-color ac-visible ac-volume))
+(defparameter *acad-3d-solid-properties* '(ac-application ac-centroid ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-history ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-moment-of-inertia ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-principal-directions ac-principal-moments ac-product-of-inertia ac-radii-of-gyration ac-show-history ac-solid-type ac-true-color ac-visible ac-volume))
 
-(mapcar #'make-slot (set-difference *acad3-d-solid-properties* *acad-entity-properties*))
+(mapcar #'make-slot (set-difference *acad-3d-solid-properties* *acad-entity-properties*))
