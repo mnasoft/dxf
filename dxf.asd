@@ -10,7 +10,6 @@
   :components ((:module "src"
 		:serial t
                 :components ((:file "package")
-	                     (:file "db-classes")
                              (:file "db-symbol-table-record-classes")
  	                     (:file "dxf-in-t-sections")
 	                     (:file "test-color")
