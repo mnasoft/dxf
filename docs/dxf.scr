@@ -1,17 +1,29 @@
 @begin(section) @title(Обзор)
 
-Проект определяет функции для чтения и записи файлов в формате 
-@link[uri="https://en.wikipedia.org/wiki/AutoCAD_DXF"](DXF).
+Describe dxf here@end(section)
+@begin(section) @title(DXF)
 
+@begin(section)
+ @title(Переменные)
+ @cl:with-package[name="DXF"](
+  @cl:doc(variable *section-names*))
 @end(section)
-
-@begin(section) @title(API Reference)
- @cl:with-package[name="dxf"](
+@begin(section)
+ @title(Функции)
+ @cl:with-package[name="DXF"](
+  @cl:doc(function color-index)
+  @cl:doc(function color-index-to-rgb)
+  @cl:doc(function color-rgb)
+  @cl:doc(function color-rgb-to-index)
+  @cl:doc(function color-rgb-to-truecolor)
+  @cl:doc(function color-truecolor-to-rgb)
   @cl:doc(function dxf-in-t-fname)
-  @cl:doc(function split-entities)
-  @cl:doc(variable *section-names*)
+  @cl:doc(function split-entities))
+@end(section)
+@begin(section)
+ @title(Обобщенные функции)
+ @cl:with-package[name="DXF"](
   @cl:doc(generic dxf-in-text)
-  @cl:doc(generic dxf-out-text)
-  @cl:doc(generic dxf-out-binary)
- )
+  @cl:doc(generic dxf-out-text))
+@end(section)
 @end(section)

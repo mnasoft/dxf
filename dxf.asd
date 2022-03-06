@@ -7,11 +7,10 @@
   :serial nil
   :in-order-to ((test-op (test-op "dxf/tests")))
   :depends-on ("babel" "ieee-floats" "mnas-string")
-  :components ((:file "package")
-               (:module "src"
+  :components ((:module "src"
 		:serial t
-                :depends-on ("package")
-                :components ((:file "dxf-string")
+                :components ((:file "package")
+                             (:file "dxf-string")
 	                     (:file "colors")
 	                     (:file "line-weights")
 	                     (:file "byte-array")
@@ -45,4 +44,7 @@
   :description "Зависимости для сборки документации"
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
-  :depends-on ("dxf" "mnas-package"))
+  :depends-on ("dxf" "codex" "mnas-package")
+  :components ((:module "src/docs"
+		:serial nil
+                :components ((:file "docs")))))

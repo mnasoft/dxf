@@ -1,4 +1,4 @@
- @begin(section) @title(Графы dxf)
+  @begin(section) @title(Графы dxf)
   @begin(list)
    @item(system-graph @image[src=./system-graph-dxf.gv.png]())
    @item(call-graph   @image[src=./call-graph-dxf.gv.png]())
