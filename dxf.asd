@@ -10,7 +10,6 @@
   :components ((:module "src"
 		:serial t
                 :components ((:file "package")
- 	                     (:file "dxf-in-t-sections")
 	                     (:file "test-color")
 	                     (:file "test-dxf")
                              ;;(:file "test")	       
