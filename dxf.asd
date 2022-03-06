@@ -10,9 +10,6 @@
   :components ((:module "src"
 		:serial t
                 :components ((:file "package")
-                             (:file "dxf-string")
-	                     (:file "colors")
-	                     (:file "line-weights")
 	                     (:file "byte-array")
 	                     (:file "code-by-value-range")
 	                     (:file "dxf")	       
