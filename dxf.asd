@@ -10,8 +10,6 @@
   :components ((:module "src"
 		:serial t
                 :components ((:file "package")
-	                     (:file "header-section-group-codes")
-	                     (:file "header-section-group-codes-list")
 	                     (:file "db-classes")
                              (:file "db-symbol-table-record-classes")
  	                     (:file "dxf-in-t-sections")
