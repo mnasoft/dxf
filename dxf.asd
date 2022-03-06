@@ -10,7 +10,6 @@
   :components ((:module "src"
 		:serial t
                 :components ((:file "package")
-	                     (:file "code-by-value-range")
 	                     (:file "dxf")	       
 	                     (:file "header-section-group-codes")
 	                     (:file "header-section-group-codes-list")
