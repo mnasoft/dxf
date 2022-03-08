@@ -30,3 +30,11 @@
 
 (table-and-items "LAYER" (split-tables *Drawing-sty*))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Тестирование секции заголовка
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defparameter *hdr* (make-instance 'db-header))
+(dxf-out-text *hdr* t)
+(defparameter *hdr-min* (make-instance 'db-header :header-vars *h-vars-list-min* ))
+(dxf-out-text *hdr-min* t)

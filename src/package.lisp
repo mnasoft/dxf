@@ -10,20 +10,314 @@
 	   dxf-in-text
 	   split-entities
 	   )
-;;;; color
-  (:export *color-index-to-rgb*
-           *color-bylayer*
-           *color-byblock*)
-  (:export
-   color-index-to-rgb
-   color-rgb-to-index
-   color-rgb-to-truecolor
-   color-truecolor-to-rgb
-   color-rgb
-   color-index)
-  )
+;;;; dxf-string.lisp
+  (:export *section*
+           *endsec*
+           *eof*
+           *section-classes*
+           *section-header*
+           *section-classes*
+           *section-tables*
+           *section-blocks*
+           *section-entities*
+           *section-objects*
+           *section-acdsdata*
+           *end-tab*)
+;;;; colors.lisp
+  (:export *color-bylayer*
+           *color-byblock*
+           *color-index-to-rgb*
+           )
+  (:export color-index-to-rgb
+           color-rgb-to-index
+           color-rgb-to-truecolor
+           color-truecolor-to-rgb
+           color-rgb
+           color-index)
+  (:export *line-weight-enum*
 
-;;;; (declaim (optimize (compilation-speed 0) (debug 3) (safety 0) (space 0) (speed 0)))
+           *byte-aray-2*
+           *byte-aray-4*
+           *byte-aray-8*
+           *byte-aray-16*
+           *dxf-header*
+
+           *dxf-code-overal-length*)
+           
+;;;; header-section-group-codes.lisp
+  (:export *$ACADMAINTVER*
+           *$ACADVER*
+           *$ANGBASE*
+           *$ANGDIR*
+           *$ATTMODE*
+           *$AUNITS*
+           *$AUPREC*
+           *$CECOLOR*
+           *$CELTSCALE*
+           *$CELTYPE*
+           *$CELWEIGHT*
+           *$CEPSNID*
+           *$CEPSNTYPE*
+           *$CHAMFERA*
+           *$CHAMFERB*
+           *$CHAMFERC*
+           *$CHAMFERD*
+           *$CLAYER*
+           *$CMLJUST*
+           *$CMLSCALE*
+           *$CMLSTYLE*
+           *$CSHADOW*
+           *$DIMADEC*
+           *$DIMALT*
+           *$DIMALTD*
+           *$DIMALTF*
+           *$DIMALTRND*
+           *$DIMALTTD*
+           *$DIMALTTZ*
+           *$DIMALTU*
+           *$DIMALTZ*
+           *$DIMAPOST*
+           *$DIMASO*
+           *$DIMASSOC*
+           *$DIMASZ*
+           *$DIMATFIT*
+           *$DIMAUNIT*
+           *$DIMAZIN*
+           *$DIMBLK*
+           *$DIMBLK1*
+           *$DIMBLK2*
+           *$DIMCEN*
+           *$DIMCLRD*
+           *$DIMCLRE*
+           *$DIMCLRT*
+           *$DIMDEC*
+           *$DIMDLE*
+           *$DIMDLI*
+           *$DIMDSEP*
+           *$DIMEXE*
+           *$DIMEXO*
+           *$DIMFAC*
+           *$DIMGAP*
+           *$DIMJUST*
+           *$DIMLDRBLK*
+           *$DIMLFAC*
+           *$DIMLIM*
+           *$DIMLUNIT*
+           *$DIMLWD*
+           *$DIMLWE*
+           *$DIMPOST*
+           *$DIMRND*
+           *$DIMSAH*
+           *$DIMSCALE*
+           *$DIMSD1*
+           *$DIMSD2*
+           *$DIMSE1*
+           *$DIMSE2*
+           *$DIMSHO*
+           *$DIMSOXD*
+           *$DIMSTYLE*
+           *$DIMTAD*
+           *$DIMTDEC*
+           *$DIMTFAC*
+           *$DIMTIH*
+           *$DIMTIX*
+           *$DIMTM*
+           *$DIMTMOVE*
+           *$DIMTOFL*
+           *$DIMTOH*
+           *$DIMTOL*
+           *$DIMTOLJ*
+           *$DIMTP*
+           *$DIMTSZ*
+           *$DIMTVP*
+           *$DIMTXSTY*
+           *$DIMTXT*
+           *$DIMTZIN*
+           *$DIMUPT*
+           *$DIMZIN*
+           *$DISPSILH*
+           *$DRAGVS*
+           *$DWGCODEPAGE*
+           *$ELEVATION*
+           *$ENDCAPS*
+           *$EXTMAX*
+           *$EXTMIN*
+           *$EXTNAMES*
+           *$FILLETRAD*
+           *$FILLMODE*
+           *$FINGERPRINTGUID*
+           *$HALOGAP*
+           *$HANDSEED*
+           *$HIDETEXT*
+           *$HYPERLINKBASE*
+           *$INDEXCTL*
+           *$INSBASE*
+           *$INSUNITS*
+           *$INTERFERECOLOR*
+           *$INTERFEREOBJVS*
+           *$INTERFEREVPVS*
+           *$INTERSECTIONCOLOR*
+           *$INTERSECTIONDISPLAY*
+           *$JOINSTYLE*
+           *$LIMCHECK*
+           *$LIMMAX*
+           *$LIMMIN*
+           *$LTSCALE*
+           *$LUNITS*
+           *$LUPREC*
+           *$LWDISPLAY*
+           *$MAXACTVP*
+           *$MEASUREMENT*
+           *$MENU*
+           *$MIRRTEXT*
+           *$OBSCOLOR*
+           *$OBSLTYPE*
+           *$ORTHOMODE*
+           *$PDMODE*
+           *$PDSIZE*
+           *$PELEVATION*
+           *$PEXTMAX*
+           *$PEXTMIN*
+           *$PINSBASE*
+           *$PLIMCHECK*
+           *$PLIMMAX*
+           *$PLIMMIN*
+           *$PLINEGEN*
+           *$PLINEWID*
+           *$PROJECTNAME*
+           *$PROXYGRAPHICS*
+           *$PSLTSCALE*
+           *$PSTYLEMODE*
+           *$PSVPSCALE*
+           *$PUCSBASE*
+           *$PUCSNAME*
+           *$PUCSORG*
+           *$PUCSORGBACK*
+           *$PUCSORGBOTTOM*
+           *$PUCSORGFRONT*
+           *$PUCSORGLEFT*
+           *$PUCSORGRIGHT*
+           *$PUCSORGTOP*
+           *$PUCSORTHOREF*
+           *$PUCSORTHOVIEW*
+           *$PUCSXDIR*
+           *$PUCSYDIR*
+           *$QTEXTMODE*
+           *$REGENMODE*
+           *$SHADEDGE*
+           *$SHADEDIF*
+           *$SHADOWPLANELOCATION*
+           *$SKETCHINC*
+           *$SKPOLY*
+           *$SORTENTS*
+           *$SPLINESEGS*
+           *$SPLINETYPE*
+           *$SURFTAB1*
+           *$SURFTAB2*
+           *$SURFTYPE*
+           *$SURFU*
+           *$SURFV*
+           *$TDCREATE*
+           *$TDINDWG*
+           *$TDUCREATE*
+           *$TDUPDATE*
+           *$TDUSRTIMER*
+           *$TDUUPDATE*
+           *$TEXTSIZE*
+           *$TEXTSTYLE*
+           *$THICKNESS*
+           *$TILEMODE*
+           *$TRACEWID*
+           *$TREEDEPTH*
+           *$UCSBASE*
+           *$UCSNAME*
+           *$UCSORG*
+           *$UCSORGBACK*
+           *$UCSORGBOTTOM*
+           *$UCSORGFRONT*
+           *$UCSORGLEFT*
+           *$UCSORGRIGHT*
+           *$UCSORGTOP*
+           *$UCSORTHOREF*
+           *$UCSORTHOVIEW*
+           *$UCSXDIR*
+           *$UCSYDIR*
+           *$UNITMODE*
+           *$USERI1*
+           *$USERI2*
+           *$USERI3*
+           *$USERI4*
+           *$USERI5*
+           *$USERR1*
+           *$USERR2*
+           *$USERR3*
+           *$USERR4*
+           *$USERR5*
+           *$USRTIMER*
+           *$VERSIONGUID*
+           *$VISRETAIN*
+           *$WORLDVIEW*
+           *$XCLIPFRAME*
+           *$XEDIT*)
+  (:export *h-vars-list-min*
+           *h-vars-list*
+           *h-vars*
+           *hdr*
+           *hdr-min*)
+  (:export *radian-to-degree*
+           *degree-to-radian*
+           *object-properties*
+           *Acad-Object-class-marker*
+           *Acad-Object-subclass-marker*
+           *acad-object-properties*
+           *acad-entity-class-marker*
+           *acad-entity-subclass-marker*
+           *acad-entity-properties*
+           *db-curve-class-marker*
+           *db-curve-subclass-marker*
+           *acad-line-class-marker*
+           *acad-line-subclass-marker*
+           *acad-point-class-marker*
+           *acad-point-subclass-marker*
+           *acad-point-properties*
+           *acad-ray-class-marker*
+           *acad-ray-subclass-marker*
+           *acad-ray-properties*
+           *acad-xline-class-marker*
+           *acad-xline-subclass-marker*
+           *acad-xline-properties*
+           *Acad-Circle-class-marker*
+           *Acad-Circle-subclass-marker*
+           *acad-arc-class-marker*
+           *acad-arc-subclass-marker*
+           *acad-arc-properties*
+           *acad-text-class-marker*
+           *acad-text-subclass-marker*
+           *acad-text-properties*
+           *acad-ellipse-class-marker*
+           *acad-ellipse-subclass-marker*
+           *acad-acad-ellipse-properties*
+           *acad-symboltablerecord-subclass-marker*
+           *acad-layer-class-marker*
+           *acad-layer-subclass-marker*
+           *acad-layer-properties*
+           *acad-symboltable-subclass-marker*
+           *acad-layers-properties*
+           *acad-database-properties*
+           *acad-document-properties*
+           *acad-linetype-class-marker*
+           *acad-linetype-subclass-marker*
+           *acad-linetype-properties*
+           *acad-linetypes-properties*
+           *symbol-tbl-class-marker*
+           *symbol-tbl-subclass-marker*
+           *db-symbol-tr-class-marker*
+           *db-symbol-tr-subclass-marker*
+           *db-block-tr-class-marker*
+           *db-block-tr-subclass-marker*
+           *section-names*
+
+           *table-names*))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; dxf-string.lisp
@@ -834,7 +1128,7 @@ AC1024 = AutoCAD 2010")
 
 (defparameter *$ANGDIR* '("$ANGDIR" 70 ) "1 = Clockwise angles; 0 = Counterclockwise angles")
 
-(defparameter *$ATTMODE* '("$ATTMODE"70 ) "Attribute visibility: 0 = None; 1 = Normal; 2 = All")
+(defparameter *$ATTMODE* '("$ATTMODE" 70 ) "Attribute visibility: 0 = None; 1 = Normal; 2 = All")
 
 (defparameter *$AUNITS* '("$AUNITS" 70 ) "Units format for angles")
 
@@ -1618,7 +1912,8 @@ SORTENTS uses the following bitcodes: 0 = Disables SORTENTS
 (defparameter *h-vars-list-min*
   '(("ACADVER"  1 "AC1027")
     ("HANDSEED" 5 97))
-  "Мининмальный файл заголовка")
+  "@b(Описание:) переменная @b(*h-vars-list-min*) содержит список с
+именами системных переменных для минимальной секции заголовка.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1875,18 +2170,34 @@ SORTENTS uses the following bitcodes: 0 = Disables SORTENTS
     ("INTERFEREOBJVS"      345   249)
     ("INTERFEREVPVS"       346   246)
     ("CSHADOW"             280   0)
-    ("SHADOWPLANELOCATION"  40   0.0)))
+    ("SHADOWPLANELOCATION"  40   0.0))
+  "@b(Описание:) переменная @b(*h-vars-list*) содержит список с
+именами системных переменных для полной секции заголовка.")
 
-(defparameter *h-vars* (make-hash-table :test 'equal))
+(defparameter *h-vars* (make-hash-table :test 'equal)
+  "@b(Описание:) хешированная таблица @b(*h-vars*) содержит имена
+  системных переменных и соответствующие им список, состояший из кода
+  dxf и значения системной переменной.
 
-(mapc #'(lambda (el) (setf (gethash (first el) *h-vars*) (list (second el) (third el)))) *h-vars-list*)
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (gethash \"DIMSE1\" *h-vars* )
+@end(code)
+")
 
+(mapc #'(lambda (el)
+          (setf
+           (gethash (first el) *h-vars*)
+           (list (second el) (third el))))
+      *h-vars-list*)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass db-header ()
   ((header-vars :accessor header-vars :initarg :header-vars :initform *h-vars-list*
 		:documentation "
+@b(Описание:) класс @b(<db-header>) 
+
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
 ")))
