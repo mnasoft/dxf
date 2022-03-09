@@ -1,10 +1,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; package.lisp
+;;;; ./src/dxf.lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:dxf
   (:use #:cl #:mnas-string)
-  (:export *section-names*)
+  (:export *section-names*
+           )
   (:export dxf-in-t-fname
 	   dxf-out-text
 	   dxf-in-text
@@ -22,7 +23,8 @@
            *section-entities*
            *section-objects*
            *section-acdsdata*
-           *end-tab*)
+           *end-tab*
+           )
 ;;;; colors.lisp
   (:export *color-bylayer*
            *color-byblock*
@@ -33,7 +35,8 @@
            color-rgb-to-truecolor
            color-truecolor-to-rgb
            color-rgb
-           color-index)
+           color-index
+           )
   (:export *line-weight-enum*
 
            *byte-aray-2*
@@ -43,230 +46,18 @@
            *dxf-header*
 
            *dxf-code-overal-length*)
-           
-;;;; header-section-group-codes.lisp
-  (:export *$ACADMAINTVER*
-           *$ACADVER*
-           *$ANGBASE*
-           *$ANGDIR*
-           *$ATTMODE*
-           *$AUNITS*
-           *$AUPREC*
-           *$CECOLOR*
-           *$CELTSCALE*
-           *$CELTYPE*
-           *$CELWEIGHT*
-           *$CEPSNID*
-           *$CEPSNTYPE*
-           *$CHAMFERA*
-           *$CHAMFERB*
-           *$CHAMFERC*
-           *$CHAMFERD*
-           *$CLAYER*
-           *$CMLJUST*
-           *$CMLSCALE*
-           *$CMLSTYLE*
-           *$CSHADOW*
-           *$DIMADEC*
-           *$DIMALT*
-           *$DIMALTD*
-           *$DIMALTF*
-           *$DIMALTRND*
-           *$DIMALTTD*
-           *$DIMALTTZ*
-           *$DIMALTU*
-           *$DIMALTZ*
-           *$DIMAPOST*
-           *$DIMASO*
-           *$DIMASSOC*
-           *$DIMASZ*
-           *$DIMATFIT*
-           *$DIMAUNIT*
-           *$DIMAZIN*
-           *$DIMBLK*
-           *$DIMBLK1*
-           *$DIMBLK2*
-           *$DIMCEN*
-           *$DIMCLRD*
-           *$DIMCLRE*
-           *$DIMCLRT*
-           *$DIMDEC*
-           *$DIMDLE*
-           *$DIMDLI*
-           *$DIMDSEP*
-           *$DIMEXE*
-           *$DIMEXO*
-           *$DIMFAC*
-           *$DIMGAP*
-           *$DIMJUST*
-           *$DIMLDRBLK*
-           *$DIMLFAC*
-           *$DIMLIM*
-           *$DIMLUNIT*
-           *$DIMLWD*
-           *$DIMLWE*
-           *$DIMPOST*
-           *$DIMRND*
-           *$DIMSAH*
-           *$DIMSCALE*
-           *$DIMSD1*
-           *$DIMSD2*
-           *$DIMSE1*
-           *$DIMSE2*
-           *$DIMSHO*
-           *$DIMSOXD*
-           *$DIMSTYLE*
-           *$DIMTAD*
-           *$DIMTDEC*
-           *$DIMTFAC*
-           *$DIMTIH*
-           *$DIMTIX*
-           *$DIMTM*
-           *$DIMTMOVE*
-           *$DIMTOFL*
-           *$DIMTOH*
-           *$DIMTOL*
-           *$DIMTOLJ*
-           *$DIMTP*
-           *$DIMTSZ*
-           *$DIMTVP*
-           *$DIMTXSTY*
-           *$DIMTXT*
-           *$DIMTZIN*
-           *$DIMUPT*
-           *$DIMZIN*
-           *$DISPSILH*
-           *$DRAGVS*
-           *$DWGCODEPAGE*
-           *$ELEVATION*
-           *$ENDCAPS*
-           *$EXTMAX*
-           *$EXTMIN*
-           *$EXTNAMES*
-           *$FILLETRAD*
-           *$FILLMODE*
-           *$FINGERPRINTGUID*
-           *$HALOGAP*
-           *$HANDSEED*
-           *$HIDETEXT*
-           *$HYPERLINKBASE*
-           *$INDEXCTL*
-           *$INSBASE*
-           *$INSUNITS*
-           *$INTERFERECOLOR*
-           *$INTERFEREOBJVS*
-           *$INTERFEREVPVS*
-           *$INTERSECTIONCOLOR*
-           *$INTERSECTIONDISPLAY*
-           *$JOINSTYLE*
-           *$LIMCHECK*
-           *$LIMMAX*
-           *$LIMMIN*
-           *$LTSCALE*
-           *$LUNITS*
-           *$LUPREC*
-           *$LWDISPLAY*
-           *$MAXACTVP*
-           *$MEASUREMENT*
-           *$MENU*
-           *$MIRRTEXT*
-           *$OBSCOLOR*
-           *$OBSLTYPE*
-           *$ORTHOMODE*
-           *$PDMODE*
-           *$PDSIZE*
-           *$PELEVATION*
-           *$PEXTMAX*
-           *$PEXTMIN*
-           *$PINSBASE*
-           *$PLIMCHECK*
-           *$PLIMMAX*
-           *$PLIMMIN*
-           *$PLINEGEN*
-           *$PLINEWID*
-           *$PROJECTNAME*
-           *$PROXYGRAPHICS*
-           *$PSLTSCALE*
-           *$PSTYLEMODE*
-           *$PSVPSCALE*
-           *$PUCSBASE*
-           *$PUCSNAME*
-           *$PUCSORG*
-           *$PUCSORGBACK*
-           *$PUCSORGBOTTOM*
-           *$PUCSORGFRONT*
-           *$PUCSORGLEFT*
-           *$PUCSORGRIGHT*
-           *$PUCSORGTOP*
-           *$PUCSORTHOREF*
-           *$PUCSORTHOVIEW*
-           *$PUCSXDIR*
-           *$PUCSYDIR*
-           *$QTEXTMODE*
-           *$REGENMODE*
-           *$SHADEDGE*
-           *$SHADEDIF*
-           *$SHADOWPLANELOCATION*
-           *$SKETCHINC*
-           *$SKPOLY*
-           *$SORTENTS*
-           *$SPLINESEGS*
-           *$SPLINETYPE*
-           *$SURFTAB1*
-           *$SURFTAB2*
-           *$SURFTYPE*
-           *$SURFU*
-           *$SURFV*
-           *$TDCREATE*
-           *$TDINDWG*
-           *$TDUCREATE*
-           *$TDUPDATE*
-           *$TDUSRTIMER*
-           *$TDUUPDATE*
-           *$TEXTSIZE*
-           *$TEXTSTYLE*
-           *$THICKNESS*
-           *$TILEMODE*
-           *$TRACEWID*
-           *$TREEDEPTH*
-           *$UCSBASE*
-           *$UCSNAME*
-           *$UCSORG*
-           *$UCSORGBACK*
-           *$UCSORGBOTTOM*
-           *$UCSORGFRONT*
-           *$UCSORGLEFT*
-           *$UCSORGRIGHT*
-           *$UCSORGTOP*
-           *$UCSORTHOREF*
-           *$UCSORTHOVIEW*
-           *$UCSXDIR*
-           *$UCSYDIR*
-           *$UNITMODE*
-           *$USERI1*
-           *$USERI2*
-           *$USERI3*
-           *$USERI4*
-           *$USERI5*
-           *$USERR1*
-           *$USERR2*
-           *$USERR3*
-           *$USERR4*
-           *$USERR5*
-           *$USRTIMER*
-           *$VERSIONGUID*
-           *$VISRETAIN*
-           *$WORLDVIEW*
-           *$XCLIPFRAME*
-           *$XEDIT*)
+
   (:export *h-vars-list-min*
            *h-vars-list*
            *h-vars*
            *hdr*
            *hdr-min*)
+  (:export <db-header>
+           )
   (:export *radian-to-degree*
            *degree-to-radian*
            *object-properties*
+           
            *Acad-Object-class-marker*
            *Acad-Object-subclass-marker*
            *acad-object-properties*
@@ -318,6 +109,35 @@
            *section-names*
 
            *table-names*))
+
+'(<acad-documents>
+  <acad-document>
+  <acad-database>
+  
+  <acad-linetypes>
+  <acad-layers>
+
+  <acad-linetype>
+  <acad-layer>
+  
+  <ge-point-3d>
+  <rx-object>
+  <dxf-pairs>
+  
+  <acad-object>
+  <acad-entity>
+  
+  <db-curve>
+  
+  <acad-line>
+  <acad-point>
+  <acad-ray>
+  <acad-xline>
+  <acad-circle>
+  <acad-arc>
+  <acad-text>
+  acad-ellipse
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; dxf-string.lisp
@@ -900,7 +720,6 @@
 	(write-sequence (babel:string-to-octets (concatenate 'string string (format nil "~C" #\NUL))) stream))
 ;;;;      (break "dxf-b-string: code=~A; ~A~%" code string)
       ))
-
 ;;;;
 
 (defun dxf-out-b-double (code x stream)
@@ -913,8 +732,6 @@
 	 (write-sequence *byte-aray-8* stream))
 ;;;;       (break "dxf-out-b-double: (numberp x) : code=~A x=~A" code x)
        ))
-
-;;;;
 
 (defun dxf-out-b-point-2d (code point-2d stream)
   (dxf-out-b-double (+ 0 code) (svref point-2d 0) stream)
@@ -1108,801 +925,6 @@
  (dxf-code 123456) -> \"123456\"
 @end(code)"
   (format nil (format nil "~~~A,' d" overal-length) code))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; header-section-group-codes.lisp
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defparameter *$ACADMAINTVER* '("$ACADMAINTVER" 70 ) "Maintenance version number (should be ignored)")
-
-(defparameter *$ACADVER* '("$ACADVER" 1 ) "The AutoCAD drawing database version number: 
-AC1006 = R10;
-AC1009 = R11 and R12;                                                                                              
-AC1012 = R13; AC1014 = R14;
-AC1015 = AutoCAD 2000;
-AC1018 = AutoCAD 2004;
-AC1021 = AutoCAD 2007;
-AC1024 = AutoCAD 2010")
-
-(defparameter *$ANGBASE* '("$ANGBASE" 50 ) "Angle 0 direction")
-
-(defparameter *$ANGDIR* '("$ANGDIR" 70 ) "1 = Clockwise angles; 0 = Counterclockwise angles")
-
-(defparameter *$ATTMODE* '("$ATTMODE" 70 ) "Attribute visibility: 0 = None; 1 = Normal; 2 = All")
-
-(defparameter *$AUNITS* '("$AUNITS" 70 ) "Units format for angles")
-
-(defparameter *$AUPREC* '("$AUPREC" 70 ) "Units precision for angles")
-
-(defparameter *$CECOLOR* '("$CECOLOR" 62 ) "Current entity color number: 0 = BYBLOCK; 256 = BYLAYER")
-
-(defparameter *$CELTSCALE* '("$CELTSCALE" 40 ) "Current entity linetype scale")
-
-(defparameter *$CELTYPE* '("$CELTYPE" 6 ) "Entity linetype name, or BYBLOCK or BYLAYER")
-
-(defparameter *$CELWEIGHT* '("$CELWEIGHT" 370 ) "Lineweight of new objects")
-
-(defparameter *$CEPSNID* '("$CEPSNID" 390 ) "Plotstyle handle of new objects; if CEPSNTYPE is 3, then this value indicates the handle")
-
-(defparameter *$CEPSNTYPE* '("$CEPSNTYPE" 380 ) "Plot style type of new objects:  0 = Plot style by layer; 1 = Plot style by block; 2 = Plot style by dictionary default; 3 = Plot style by object ID/handle")
-
-
-(defparameter *$CHAMFERA* '("$CHAMFERA" 40 ) "First chamfer distance")
-
-(defparameter *$CHAMFERB* '("$CHAMFERB" 40 )  "Second chamfer distance")
-
-(defparameter *$CHAMFERC* '("$CHAMFERC" 40 ) "Chamfer length")
-
-(defparameter *$CHAMFERD* '("$CHAMFERD" 40 ) "Chamfer angle")
-
-(defparameter *$CLAYER* '("$CLAYER" 8 ) "Current layer name")
-
-(defparameter *$CMLJUST* '("$CMLJUST" 70 ) "Current multiline justification: 0 = Top; 1 = Middle; 2 = Bottom")
-
-(defparameter *$CMLSCALE* '("$CMLSCALE" 40 ) "Current multiline scale")
-
-(defparameter *$CMLSTYLE* '("$CMLSTYLE" 2 ) "Current multiline style name")
-
-(defparameter *$CSHADOW* '("$CSHADOW" 280 ) "Shadow mode for a 3D object: 
-  0 = Casts and receives shadows 
-  1 = Casts shadows 
-  2 = Receives shadows 
-  3 = Ignores shadows")
-
-
-(defparameter *$DIMADEC* '("$DIMADEC" 70 )
-  "Number of precision places displayed in angular dimensions")
-
-(defparameter *$DIMALT* '("$DIMALT" 70 )
-  "Alternate unit dimensioning performed if nonzero")
-
-(defparameter *$DIMALTD* '("$DIMALTD" 70 )
-  "Alternate unit decimal places")
-
-(defparameter *$DIMALTF* '("$DIMALTF" 40 )
-  "Alternate unit scale factor")
-
-(defparameter *$DIMALTRND* '("$DIMALTRND" 40 )
-  "Determines rounding of alternate units")
-
-(defparameter *$DIMALTTD* '("$DIMALTTD" 70 )
-  "Number of decimal places for tolerance values of an alternate units dimension")
-
-(defparameter *$DIMALTTZ* '("$DIMALTTZ" 70 )
-  "Controls suppression of zeros for alternate tolerance values:
-0 = Suppresses zero feet and precisely zero inches
-1 = Includes zero feet and precisely zero inches
-2 = Includes zero feet and suppresses zero inches                                                                  
-3 = Includes zero inches and suppresses zero feet")
-
-
-(defparameter *$DIMALTU* '("$DIMALTU" 70 )
-  "Units format for alternate units of all dimension style family members except angular: 
-1 = Scientific; 2 = Decimal; 3 = Engineering;
-4 = Architectural (stacked); 5 = Fractional (stacked);
-6 = Architectural; 7 = Fractional")
-
-
-(defparameter *$DIMALTZ* '("$DIMALTZ" 70 )
-  "Controls suppression of zeros for alternate unit dimension values: 
-0 = Suppresses zero feet and precisely zero inches
-1 = Includes zero feet and precisely zero inches
-2 = Includes zero feet and suppresses zero inches
-3 = Includes zero inches and suppresses zero feet")
-
-
-(defparameter *$DIMAPOST* '("$DIMAPOST"1 )
-  " Alternate dimensioning suffix")
-
-(defparameter *$DIMASO* '("$DIMASO"70 )
-  "1 = Create associative dimensioning
-0 = Draw individual entities")
-
-
-(defparameter *$DIMASSOC* '("$DIMASSOC" 280 )
-  "Controls the associativity of dimension objects
-0 = Creates exploded dimensions; there is no association between elements of the dimension, and the lines, arcs, arrowheads, and text of a dimension are drawn as separate objects;
-1 = Creates non-associative dimension objects; the elements of the dimension are formed into a single object, and if the definition point on the object moves,then the dimension value is updated;
-2 = Creates associative dimension objects; the elements of the dimension are formed into a single object and one or more definition points of the dimension are coupled with association points on geometric objects")
-
-
-(defparameter *$DIMASZ* '("$DIMASZ" 40 )
-  "Dimensioning arrow size")
-
-(defparameter *$DIMATFIT* '("$DIMATFIT" 70 )
-  "Controls dimension text and arrow placement when space is not sufficient to place both within the extension lines:
-0 = Places both text and arrows outside extension lines
-1 = Moves arrows first, then text
-2 = Moves text first, then arrows
-3 = Moves either text or arrows, whichever fits best
-AutoCAD adds a leader to moved dimension text when DIMTMOVE is set to 1")
-
-
-(defparameter *$DIMAUNIT* '("$DIMAUNIT" 70 )
-  "Angle format for angular dimensions: 
-0 = Decimal degrees; 1 = Degrees/minutes/seconds;
-2 = Gradians; 
-3 = Radians; 
-4 = Surveyor's units")
-
-
-(defparameter *$DIMAZIN* '("$DIMAZIN" 70 )
-  "Controls suppression of zeros for angular dimensions: 
-0 = Displays all leading and trailing zeros
-1 = Suppresses leading zeros in decimal dimensions
-2 = Suppresses trailing zeros in decimal dimensions
-3 = Suppresses leading and trailing zeros")
-
-
-(defparameter *$DIMBLK* '("$DIMBLK" 1 )
-  "Arrow block name")
-
-(defparameter *$DIMBLK1* '("$DIMBLK1" 1 )
-  "First arrow block name")
-
-(defparameter *$DIMBLK2* '("$DIMBLK2" 1 )
-  "Second arrow block name")
-
-(defparameter *$DIMCEN* '("$DIMCEN" 40 )
-  "Size of center mark/lines")
-
-(defparameter *$DIMCLRD* '("$DIMCLRD" 70 )
-  "Dimension line color: range is 0 = BYBLOCK; 256 = BYLAYER")
-
-
-(defparameter *$DIMCLRE* '("$DIMCLRE" 70 )
-  "Dimension extension line color: range is 0 = BYBLOCK; 256 = BYLAYER")
-
-
-(defparameter *$DIMCLRT* '("$DIMCLRT" 70 )
-  "Dimension text color: range is 0 = BYBLOCK; 256 = BYLAYER")
-
-
-(defparameter *$DIMDEC* '("$DIMDEC" 70 )
-  "Number of decimal places for the tolerance values of a primary units dimension")
-
-(defparameter *$DIMDLE* '("$DIMDLE" 40 )
-  "Dimension line extension")
-
-(defparameter *$DIMDLI* '("$DIMDLI" 40 )
-  "Dimension line increment")
-
-(defparameter *$DIMDSEP* '("$DIMDSEP" 70 )
-  "Single-character decimal separator used when creating dimensions whose unit format is decimal")
-
-(defparameter *$DIMEXE* '("$DIMEXE" 40 )
-  "Extension line extension")
-
-(defparameter *$DIMEXO* '("$DIMEXO" 40 )
-  "Extension line offset")
-
-(defparameter *$DIMFAC* '("$DIMFAC" 40 )
-  "Scale factor used to calculate the height of text for dimension fractions and tolerances. 
-AutoCAD multiplies DIMTXT by DIMTFAC to set the fractional or tolerance text height")
-
-
-(defparameter *$DIMGAP* '("$DIMGAP" 40 )
-  "Dimension line gap")
-
-(defparameter *$DIMJUST* '("$DIMJUST" 70 )
-  "Horizontal dimension text position: 
-0 = Above dimension line and center-justified between extension lines
-1 = Above dimension line and next to first extension line
-2 = Above dimension line and next to second extension line
-3 = Above and center-justified to first extension line
-4 = Above and center-justified to second extension line")
-
-
-(defparameter *$DIMLDRBLK* '("$DIMLDRBLK" 1 )
-  "Arrow block name for leaders")
-
-(defparameter *$DIMLFAC* '("$DIMLFAC" 40 )
-  "Linear measurements scale factor")
-
-(defparameter *$DIMLIM* '("$DIMLIM" 70 )
-  "Dimension limits generated if nonzero")
-
-(defparameter *$DIMLUNIT* '("$DIMLUNIT" 70 )
-  "Sets units for all dimension types except Angular: 
-1 = Scientific; 2 = Decimal; 3 = Engineering;
-4 = Architectural; 5 = Fractional; 6 = Windows desktop")
-
-(defparameter *$DIMLWD* '("$DIMLWD" 70 )
-  "Dimension line lineweight: 
--3 = Standard
--2 = ByLayer
--1 = ByBlock
-0-211 = an integer representing 100th of mm")
-
-
-(defparameter *$DIMLWE* '("$DIMLWE" 70 )
-  "Extension line lineweight: 
--3 = Standard
--2 = ByLayer
--1 = ByBlock
-0-211 = an integer representing 100th of mm")
-
-
-(defparameter *$DIMPOST* '("$DIMPOST" 1 ) "General dimensioning suffix")
-
-(defparameter *$DIMRND* '("$DIMRND" 40 ) "Rounding value for dimension distances")
-
-(defparameter *$DIMSAH* '("$DIMSAH" 70 ) "Use separate arrow blocks if nonzero")
-
-(defparameter *$DIMSCALE* '("$DIMSCALE" 40 ) "Overall dimensioning scale factor")
-
-(defparameter *$DIMSD1* '("$DIMSD1" 70 ) "Suppression of first extension line: 0 = Not suppressed; 1 = Suppressed")
-
-
-(defparameter *$DIMSD2* '("$DIMSD2" 70 ) "Suppression of second extension line: 0 = Not suppressed; 1 = Suppressed")
-
-
-
-
-(defparameter *$DIMSE1* '("$DIMSE1" 70 )
-    " First extension line suppressed if nonzero")
-
-(defparameter *$DIMSE2* '("$DIMSE2" 70 )
-  " Second extension line suppressed if nonzero")
-
-(defparameter *$DIMSHO* '("$DIMSHO" 70 )
-  " 1 = Recompute dimensions while dragging 0 = Drag original image")
-
-
-(defparameter *$DIMSOXD* '("$DIMSOXD" 70 )
-  " Suppress outside-extensions dimension lines if nonzero")
-
-(defparameter *$DIMSTYLE* '("$DIMSTYLE" 2 )
-  " Dimension style name")
-
-(defparameter *$DIMTAD* '("$DIMTAD" 70 )
-  " Text above dimension line if nonzero")
-
-(defparameter *$DIMTDEC* '("$DIMTDEC" 70 )
-  " Number of decimal places to display the tolerance values")
-
-(defparameter *$DIMTFAC* '("$DIMTFAC" 40 )
-  " Dimension tolerance display scale factor")
-
-(defparameter *$DIMTIH* '("$DIMTIH" 70 )
-  " Text inside horizontal if nonzero")
-
-(defparameter *$DIMTIX* '("$DIMTIX" 70 )
-  " Force text inside extensions if nonzero")
-
-(defparameter *$DIMTM* '("$DIMTM" 40 )
-  " Minus tolerance")
-
-(defparameter *$DIMTMOVE* '("$DIMTMOVE" 70 )
-  " Dimension text movement rules: 
-0 = Moves the dimension line with dimension text
-1 = Adds a leader when dimension text is moved
-2 = Allows text to be moved freely without a leader")
-
-
-(defparameter *$DIMTOFL* '("$DIMTOFL" 70 )
-  " If text is outside extensions, force line extensions between extensions if nonzero")
-
-(defparameter *$DIMTOH* '("$DIMTOH" 70 )
-  " Text outside horizontal if nonzero")
-
-(defparameter *$DIMTOL* '("$DIMTOL" 70 )
-  " Dimension tolerances generated if nonzero")
-
-(defparameter *$DIMTOLJ* '("$DIMTOLJ" 70 )
-  " Vertical justification for tolerance values: 
-0 = Top; 1 = Middle; 2 = Bottom")
-
-
-(defparameter *$DIMTP* '("$DIMTP" 40 )
-  " Plus tolerance")
-
-(defparameter *$DIMTSZ* '("$DIMTSZ" 40 )
-  " Dimensioning tick size: 0 = No ticks")
-
-
-(defparameter *$DIMTVP* '("$DIMTVP" 40 )
-  " Text vertical position")
-
-(defparameter *$DIMTXSTY* '("$DIMTXSTY" 7 )
-  " Dimension text style")
-
-(defparameter *$DIMTXT* '("$DIMTXT" 40 )
-  " Dimensioning text height")
-
-(defparameter *$DIMTZIN* '("$DIMTZIN" 70 )
-  " Controls suppression of zeros for tolerance values: 
-0 = Suppresses zero feet and precisely zero inches
-1 = Includes zero feet and precisely zero inches
-2 = Includes zero feet and suppresses zero inches
-3 = Includes zero inches and suppresses zero feet")
-
-(defparameter *$DIMUPT* '("$DIMUPT" 70 )
-  " Cursor functionality for user-positioned text: 
-0 = Controls only the dimension line location
-1 = Controls the text position as well as the dimension line location")
-
-
-(defparameter *$DIMZIN* '("$DIMZIN" 70 )
-  " Controls suppression of zeros for primary unit values: 
-0 = Suppresses zero feet and precisely zero inches
-1 = Includes zero feet and precisely zero inches
-2 = Includes zero feet and suppresses zero inches
-3 = Includes zero inches and suppresses zero feet")
-
-
-(defparameter *$DISPSILH* '("$DISPSILH" 70 )
-  " Controls the display of silhouette curves of body objects in Wireframe mode: 
-0 = Off; 1 = On")
-
-
-(defparameter *$DRAGVS* '("$DRAGVS" 349 )
-  " Hard-pointer ID to visual style while creating 3D solid primitives. 
-The defualt value is NULL")
-
-
-(defparameter *$DWGCODEPAGE* '("$DWGCODEPAGE" 3 )
-  " Drawing code page; set to the system code page when a new drawing is created, but not otherwise maintained by AutoCAD")
-
-
-(defparameter *$ELEVATION* '("$ELEVATION" 40 )
-  " Current elevation set by ELEV command")
-
-(defparameter *$ENDCAPS* '("$ENDCAPS" 280 )
-  " Lineweight endcaps setting for new objects: 0 = none; 1 = round; 2 = angle; 3 = square")
-
-
-(defparameter *$EXTMAX* '("$EXTMAX" '(10 20 30) )
-  " X, Y, and Z drawing extents upper-right corner (in WCS)")
-
-(defparameter *$EXTMIN* '("$EXTMIN" '(10 20 30) )
-  " X, Y, and Z drawing extents lower-left corner (in WCS)")
-
-(defparameter *$EXTNAMES* '("$EXTNAMES" 290 )
-  " Controls symbol table naming: 
-0 = Release 14 compatibility. Limits names to 31 characters in length.
-Names can include the letters A to Z, the numerals 0 to 9, and the special
-characters dollar sign ($), underscore (_), and hyphen (-).
-1 = AutoCAD 2000. Names can be up to 255 characters in length, and can include
-the letters A to Z, the numerals 0 to 9, spaces, and any special characters not
-used for other purposes by Microsoft Windows and AutoCAD")
-
-
-(defparameter *$FILLETRAD* '("$FILLETRAD" 40 )
-  " Fillet radius")
-
-(defparameter *$FILLMODE* '("$FILLMODE" 70 )
-  " Fill mode on if nonzero")
-
-(defparameter *$FINGERPRINTGUID* '("$FINGERPRINTGUID" 2 )
-  " Set at creation time, uniquely identifies a particular drawing")
-
-(defparameter *$HALOGAP* '("$HALOGAP" 280 )
-  " Specifies a gap to be displayed where an object is hidden by another object; 
-the value is specified as a percent of one unit and is independent of the
-zoom level. A haloed line is shortened at the point where it is hidden when
-HIDE or the Hidden option of SHADEMODE is used")
-
-
-(defparameter *$HANDSEED* '("$HANDSEED" 5 )
-  " Next available handle")
-
-(defparameter *$HIDETEXT* '("$HIDETEXT" 290 )
-  " Specifies HIDETEXT system variable: 
-0 = HIDE ignores text objects when producing the hidden view
-1 = HIDE does not ignore text objects")
-
-
-(defparameter *$HYPERLINKBASE* '("$HYPERLINKBASE" 1 )
-  " Path for all relative hyperlinks in the drawing. If null, the drawing path is used")
-
-(defparameter *$INDEXCTL* '("$INDEXCTL" 280 )
-  " Controls whether layer and spatial indexes are created and saved in drawing files: 
-0 = No indexes are created
-1 = Layer index is created
-2 = Spatial index is created
-3 = Layer and spatial indexes are created")
-
-
-(defparameter *$INSBASE* '("$INSBASE" '(10 20 30) )
-  " Insertion base set by BASE command (in WCS)")
-
-(defparameter *$INSUNITS* '("$INSUNITS" 70 )
-  "Default drawing units for AutoCAD DesignCenter blocks: 
-0 = Unitless; 1 = Inches; 2 = Feet; 3 = Miles; 4 = Millimeters;
-5 = Centimeters; 6 = Meters; 7 = Kilometers; 8 = Microinches;
-9 = Mils; 10 = Yards; 11 = Angstroms; 12 = Nanometers;
-13 = Microns; 14 = Decimeters; 15 = Decameters;
-16 = Hectometers; 17 = Gigameters; 18 = Astronomical units;
-19 = Light years; 20 = Parsecs")
-
-
-(defparameter *$INTERFERECOLOR* '("$INTERFERECOLOR" 62 )
-  "Represents the ACI color index of the \"interference objects\" created during the interfere command.Default value is 1")
-
-
-(defparameter *$INTERFEREOBJVS* '("$INTERFEREOBJVS" 345 )
-  " Hard-pointer ID to the visual style for interference objects. Default visual style is Conceptual.")
-
-
-(defparameter *$INTERFEREVPVS* '("$INTERFEREVPVS" 346 )
-  " Hard-pointer ID to the visual style for the viewport during interference checking. Default visual style is 3d Wireframe.")
-
-
-(defparameter *$INTERSECTIONCOLOR* '("$INTERSECTIONCOLOR" 70 )
-  " Specifies the entity color of intersection polylines: 
-Values 1-255 designate an AutoCAD color index (ACI)
-0 = Color BYBLOCK
-256 = Color BYLAYER
-257 = Color BYENTITY")
-
-
-(defparameter *$INTERSECTIONDISPLAY* '("$INTERSECTIONDISPLAY" 290 )
-  " Specifies the display of intersection polylines: 
-0 = Turns off the display of intersection polylines
-1 = Turns on the display of intersection polylines")
-
-
-(defparameter *$JOINSTYLE* '("$JOINSTYLE" 280 )
-  " Lineweight joint setting for new objects: 0=none; 1= round; 2 = angle; 3 = flat")
-
-
-(defparameter *$LIMCHECK* '("$LIMCHECK" 70 )
-  " Nonzero if limits checking is on")
-
-(defparameter *$LIMMAX* '("$LIMMAX"  '(10 20) )
-  " XY drawing limits upper-right corner (in WCS)")
-
-(defparameter *$LIMMIN* '("$LIMMIN"  '(10 20) )
-  " XY drawing limits lower-left corner (in WCS)")
-
-(defparameter *$LTSCALE* '("$LTSCALE" 40 )
-  " Global linetype scale")
-
-(defparameter *$LUNITS* '("$LUNITS" 70 )
-  " Units format for coordinates and distances")
-
-(defparameter *$LUPREC* '("$LUPREC" 70 )
-  " Units precision for coordinates and distances")
-
-(defparameter *$LWDISPLAY* '("$LWDISPLAY" 290 )
-  " Controls the display of lineweights on the Model or Layout tab: 
-0 = Lineweight is not displayed
-1 = Lineweight is displayed")
-
-
-(defparameter *$MAXACTVP* '("$MAXACTVP" 70 )
-  " Sets maximum number of viewports to be regenerated")
-
-(defparameter *$MEASUREMENT* '("$MEASUREMENT" 70 )
-  " Sets drawing units: 0 = English; 1 = Metric")
-
-(defparameter *$MENU* '("$MENU" 1 )
-  " Name of menu file")
-
-(defparameter *$MIRRTEXT* '("$MIRRTEXT" 70 )
-  " Mirror text if nonzero")
-
-(defparameter *$OBSCOLOR* '("$OBSCOLOR" 70 )
-  " Specifies the color of obscured lines. An obscured line is a hidden line made visible by changing its color and linetype and is visible only when the HIDE or SHADEMODE command is used. The OBSCUREDCOLOR setting is visible only if the OBSCUREDLTYPE is turned ON by setting it to a value other than 0.
-0 and 256 = Entity color 1-255 = An AutoCAD color index (ACI)")
-
-
-(defparameter *$OBSLTYPE* '("$OBSLTYPE" 280 )
-  " Specifies the linetype of obscured lines. Obscured linetypes are independent of zoom level, unlike regular AutoCAD linetypes. Value 0 turns off display of obscured lines and is the default.
-Linetype values are defined as follows: 0 = Off 1 = Solid
-2 = Dashed
-3 = Dotted
-4 = Short Dash
-5 = Medium Dash
-6 = Long Dash
-7 = Double Short Dash
-8 = Double Medium Dash
-9 = Double Long Dash
-10 = Medium Long Dash
-11 = Sparse Dot")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defparameter *$ORTHOMODE* '("$ORTHOMODE" 70 )
-  " Ortho mode on if nonzero")
-
-(defparameter *$PDMODE* '("$PDMODE" 70 )
-  " Point display mode")
-
-(defparameter *$PDSIZE* '("$PDSIZE" 40 )
-  " Point display size")
-
-(defparameter *$PELEVATION* '("$PELEVATION" 40 )
-  " Current paper space elevation")
-
-(defparameter *$PEXTMAX* '("$PEXTMAX" '(10 20 30) )
-  " Maximum X, Y, and Z extents for paper space")
-
-(defparameter *$PEXTMIN* '("$PEXTMIN" '(10 20 30) )
-  " Minimum X, Y, and Z extents for paper space")
-
-(defparameter *$PINSBASE* '("$PINSBASE" '(10 20 30) )
-  " Paper space insertion base point")
-
-(defparameter *$PLIMCHECK* '("$PLIMCHECK" 70 )
-  " Limits checking in paper space when nonzero")
-
-(defparameter *$PLIMMAX* '("$PLIMMAX"  '(10 20) )
-  " Maximum X and Y limits in paper space")
-
-(defparameter *$PLIMMIN* '("$PLIMMIN"  '(10 20) )
-  " Minimum X and Y limits in paper space")
-
-(defparameter *$PLINEGEN* '("$PLINEGEN" 70 )
-  " Governs the generation of linetype patterns around the vertices of a 2D polyline: 
-1 = Linetype is generated in a continuous pattern around vertices of the polyline
-0 = Each segment of the polyline starts and ends with a dash")
-
-
-(defparameter *$PLINEWID* '("$PLINEWID" 40 )
-  " Default polyline width")
-
-(defparameter *$PROJECTNAME* '("$PROJECTNAME" 1 )
-  " Assigns a project name to the current drawing. Used when an external reference or image is not found on its original path. The project name points to a section in
-the registry that can contain one or more search paths for each project name defined.
-Project names and their search directories are created from the Files tab of the Options dialog box")
-
-
-(defparameter *$PROXYGRAPHICS* '("$PROXYGRAPHICS" 70 )
-  " Controls the saving of proxy object images")
-
-(defparameter *$PSLTSCALE* '("$PSLTSCALE" 70 )
-  " Controls paper space linetype scaling: 
-1 = No special linetype scaling
-0 = Viewport scaling governs linetype scaling")
-
-
-(defparameter *$PSTYLEMODE* '("$PSTYLEMODE" 290 )
-  " Indicates whether the current drawing is in a Color-Dependent or Named Plot Style mode: 
-0 = Uses named plot style tables in the current drawing
-1 = Uses color-dependent plot style tables in the current drawing")
-
-
-(defparameter *$PSVPSCALE* '("$PSVPSCALE" 40 )
-  " View scale factor for new viewports: 
-0 = Scaled to fit
->0 = Scale factor (a positive real value)")
-
-
-(defparameter *$PUCSBASE* '("$PUCSBASE" 2 )
-  " Name of the UCS that defines the origin and orientation of orthographic UCS settings (paper space only)")
-
-(defparameter *$PUCSNAME* '("$PUCSNAME" 2 )
-  " Current paper space UCS name")
-
-(defparameter *$PUCSORG* '("$PUCSORG" '(10 20 30) )
-  " Current paper space UCS origin")
-
-(defparameter *$PUCSORGBACK* '("$PUCSORGBACK" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing paper space UCS to BACK when PUCSBASE is set to WORLD")
-
-(defparameter *$PUCSORGBOTTOM* '("$PUCSORGBOTTOM" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing paper space UCS to BOTTOM when PUCSBASE is set to WORLD")
-
-(defparameter *$PUCSORGFRONT* '("$PUCSORGFRONT" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing paper space UCS to FRONT when PUCSBASE is set to WORLD")
-
-(defparameter *$PUCSORGLEFT* '("$PUCSORGLEFT" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing paper space UCS to LEFT when PUCSBASE is set to WORLD")
-
-(defparameter *$PUCSORGRIGHT* '("$PUCSORGRIGHT" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing paper space UCS to RIGHT when PUCSBASE is set to WORLD")
-
-(defparameter *$PUCSORGTOP* '("$PUCSORGTOP" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing paper space UCS to TOP when PUCSBASE is set to WORLD")
-
-(defparameter *$PUCSORTHOREF* '("$PUCSORTHOREF" 2 )
-  " If paper space UCS is orthographic (PUCSORTHOVIEW not equal to 0), this is the name of the UCS that the orthographic UCS is relative to. If blank, UCS is relative to WORLD")
-
-
-(defparameter *$PUCSORTHOVIEW* '("$PUCSORTHOVIEW" 70 )
-  " Orthographic view type of paper space UCS: 0 = UCS is not orthographic;
-1 = Top; 2 = Bottom;
-3 = Front; 4 = Back;
-5 = Left; 6 = Right")
-
-
-(defparameter *$PUCSXDIR* '("$PUCSXDIR" '(10 20 30) )
-  " Current paper space UCS X axis")
-
-(defparameter *$PUCSYDIR* '("$PUCSYDIR" '(10 20 30) )
-  " Current paper space UCS Y axis")
-
-(defparameter *$QTEXTMODE* '("$QTEXTMODE" 70 )
-  " Quick Text mode on if nonzero")
-
-(defparameter *$REGENMODE* '("$REGENMODE" 70 )
-  " REGENAUTO mode on if nonzero")
-
-(defparameter *$SHADEDGE* '("$SHADEDGE" 70 )
-  " 0 = Faces shaded, edges not highlighted 
-1 = Faces shaded, edges highlighted in black
-2 = Faces not filled, edges in entity color
-3 = Faces in entity color, edges in black")
-
-
-(defparameter *$SHADEDIF* '("$SHADEDIF" 70 )
-  " Percent ambient/diffuse light; range 1-100; default 70")
-
-(defparameter *$SHADOWPLANELOCATION* '("$SHADOWPLANELOCATION" 40 )
-  " Location of the ground shadow plane. This is a Z axis ordinate.")
-
-(defparameter *$SKETCHINC* '("$SKETCHINC" 40 )
-  " Sketch record increment")
-
-(defparameter *$SKPOLY* '("$SKPOLY" 70 )
-  " 0 = Sketch lines; 1 = Sketch polylines")
-
-(defparameter *$SORTENTS* '("$SORTENTS" 280 )
-  " Controls the object sorting methods; accessible from the Options dialog box User Preferences tab. 
-SORTENTS uses the following bitcodes: 0 = Disables SORTENTS
-1 = Sorts for object selection
-2 = Sorts for object snap
-4 = Sorts for redraws
-8 = Sorts for MSLIDE command slide creation
-16 = Sorts for REGEN commands
-32 = Sorts for plotting
-64 = Sorts for PostScript output")
-
-
-(defparameter *$SPLINESEGS* '("$SPLINESEGS" 70 )
-  " Number of line segments per spline patch")
-
-(defparameter *$SPLINETYPE* '("$SPLINETYPE" 70 )
-  " Spline curve type for PEDIT Spline")
-
-(defparameter *$SURFTAB1* '("$SURFTAB1" 70 )
-  " Number of mesh tabulations in first direction")
-
-(defparameter *$SURFTAB2* '("$SURFTAB2" 70 )
-  " Number of mesh tabulations in second direction")
-
-(defparameter *$SURFTYPE* '("$SURFTYPE" 70 )
-  " Surface type for PEDIT Smooth")
-
-(defparameter *$SURFU* '("$SURFU" 70 )
-  " Surface density (for PEDIT Smooth) in M direction")
-
-(defparameter *$SURFV* '("$SURFV" 70 )
-  " Surface density (for PEDIT Smooth) in N direction")
-
-(defparameter *$TDCREATE* '("$TDCREATE" 40 )
-  " Local date/time of drawing creation (see Special Handling of Date/Time Variables)")
-
-(defparameter *$TDINDWG* '("$TDINDWG" 40 )
-  " Cumulative editing time for this drawing (see Special Handling of Date/Time Variables)")
-
-(defparameter *$TDUCREATE* '("$TDUCREATE" 40 )
-  " Universal date/time the drawing was created (see Special Handling of Date/Time Variables)")
-
-(defparameter *$TDUPDATE* '("$TDUPDATE" 40 )
-  " Local date/time of last drawing update (see Special Handling of Date/Time Variables)")
-
-(defparameter *$TDUSRTIMER* '("$TDUSRTIMER" 40 )
-  " User-elapsed timer")
-
-(defparameter *$TDUUPDATE* '("$TDUUPDATE" 40 )
-  " Universal date/time of the last update/save (see Special Handling of Date/Time Variables)")
-
-(defparameter *$TEXTSIZE* '("$TEXTSIZE" 40 )
-  " Default text height")
-
-(defparameter *$TEXTSTYLE* '("$TEXTSTYLE" 7 )
-  " Current text style name")
-
-(defparameter *$THICKNESS* '("$THICKNESS" 40 )
-  " Current thickness set by ELEV command")
-
-(defparameter *$TILEMODE* '("$TILEMODE" 70 )
-  " 1 for previous release compatibility mode; 0 otherwise")
-
-(defparameter *$TRACEWID* '("$TRACEWID" 40 )
-  " Default trace width")
-
-(defparameter *$TREEDEPTH* '("$TREEDEPTH" 70 )
-  " Specifies the maximum depth of the spatial index")
-
-(defparameter *$UCSBASE* '("$UCSBASE" 2 )
-  " Name of the UCS that defines the origin and orientation of orthographic UCS settings")
-
-(defparameter *$UCSNAME* '("$UCSNAME" 2 )
-  " Name of current UCS")
-
-(defparameter *$UCSORG* '("$UCSORG" '(10 20 30) )
-  " Origin of current UCS (in WCS)")
-
-(defparameter *$UCSORGBACK* '("$UCSORGBACK" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing model space UCS to BACK when UCSBASE is set to WORLD")
-
-(defparameter *$UCSORGBOTTOM* '("$UCSORGBOTTOM" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing model space UCS to BOTTOM when UCSBASE is set to WORLD")
-
-(defparameter *$UCSORGFRONT* '("$UCSORGFRONT" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing model space UCS to FRONT when UCSBASE is set to WORLD")
-
-(defparameter *$UCSORGLEFT* '("$UCSORGLEFT" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing model space UCS to LEFT when UCSBASE is set to WORLD")
-
-(defparameter *$UCSORGRIGHT* '("$UCSORGRIGHT" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing model space UCS to RIGHT when UCSBASE is set to WORLD")
-
-(defparameter *$UCSORGTOP* '("$UCSORGTOP" '(10 20 30) )
-  " Point which becomes the new UCS origin after changing model space UCS to TOP when UCSBASE is set to WORLD")
-
-(defparameter *$UCSORTHOREF* '("$UCSORTHOREF" 2 )
-  " If model space UCS is orthographic (UCSORTHOVIEW not equal to 0), this is the name of the UCS that the orthographic UCS is relative to. If blank, UCS is relative to WORLD")
-
-
-(defparameter *$UCSORTHOVIEW* '("$UCSORTHOVIEW" 70 )
-  " Orthographic view type of model space UCS: 
-0 = UCS is not orthographic;
-1 = Top; 2 = Bottom;
-3 = Front; 4 = Back;
-5 = Left; 6 = Right")
-
-
-(defparameter *$UCSXDIR* '("$UCSXDIR" '(10 20 30) )
-  " Direction of the current UCS X axis (in WCS)")
-
-(defparameter *$UCSYDIR* '("$UCSYDIR" '(10 20 30) )
-  " Direction of the current UCS Y axis (in WCS)")
-
-(defparameter *$UNITMODE* '("$UNITMODE" 70 )
-  " Low bit set = Display fractions, feet-and-inches, and surveyor's angles in input format")
-
-(defparameter *$USERI1* '("$USERI1" 70) "Five integer variables intended for use by third-party developers")
-(defparameter *$USERI2* '("$USERI2" 70) "Five integer variables intended for use by third-party developers")
-(defparameter *$USERI3* '("$USERI3" 70) "Five integer variables intended for use by third-party developers")
-(defparameter *$USERI4* '("$USERI4" 70) "Five integer variables intended for use by third-party developers")
-(defparameter *$USERI5* '("$USERI5" 70) "Five integer variables intended for use by third-party developers")
-
-(defparameter *$USERR1* '("$USERR1" 40) "Five real variables intended for use by third-party developers")
-(defparameter *$USERR2* '("$USERR2" 40) "Five real variables intended for use by third-party developers")
-(defparameter *$USERR3* '("$USERR3" 40) "Five real variables intended for use by third-party developers")
-(defparameter *$USERR4* '("$USERR4" 40) "Five real variables intended for use by third-party developers")
-(defparameter *$USERR5* '("$USERR5" 40) "Five real variables intended for use by third-party developers")
-
-(defparameter *$USRTIMER* '("$USRTIMER" 70 ) "0 = Timer off; 1 = Timer on")
-
-(defparameter *$VERSIONGUID* '("$VERSIONGUID" 2 ) "Uniquely identifies a particular version of a drawing. Updated when the drawing is modified")
-
-(defparameter *$VISRETAIN* '("$VISRETAIN" 70 ) "0 = Don't retain xref-dependent visibility settings; 1 = Retain xref-dependent visibility settings")
-
-(defparameter *$WORLDVIEW* '("$WORLDVIEW" 70 ) "1 = Set UCS to WCS during DVIEW/VPOINT; 0 = Don't change UCS")
-
-
-(defparameter *$XCLIPFRAME* '("$XCLIPFRAME" 290 ) "Controls the visibility of xref clipping boundaries: 
-0 = Clipping boundary is not visible
-1 = Clipping boundary is visible")
-
-
-(defparameter *$XEDIT* '("$XEDIT" 290 ) "Controls whether the current drawing can be edited in-place when being referenced by another drawing. 1 = Can use in-place reference editing")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2193,7 +1215,7 @@ SORTENTS uses the following bitcodes: 0 = Disables SORTENTS
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass db-header ()
+(defclass <db-header> ()
   ((header-vars :accessor header-vars :initarg :header-vars :initform *h-vars-list*
 		:documentation "
 @b(Описание:) класс @b(<db-header>) 
@@ -2202,18 +1224,18 @@ http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
 ")))
 
-(defmethod dxf-out-text :before ((x Db-Header) stream)
+(defmethod dxf-out-text :before ((x <db-header>) stream)
   (dxf-out-t-string 0 *section* stream)
   (dxf-out-t-string 2 *section-header* stream))
 
-(defmethod dxf-out-text ((x Db-Header) stream)
+(defmethod dxf-out-text ((x <db-header>) stream)
   (mapc #'(lambda (el)
 	    (when (third el)
 	      (dxf-out-t-string 9 (concatenate 'string "$" (first el)) stream)
 	      (dxf-out-t (second el) (third el) stream)))
 	(header-vars x)))
 
-(defmethod dxf-out-text :after ((x Db-Header) stream)
+(defmethod dxf-out-text :after ((x <db-header>) stream)
     (dxf-out-t-string 0 *endsec* stream))
 
 
@@ -2233,28 +1255,27 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (defparameter *degree-to-radian* (/ pi 180))
 
-(defclass ge-point-3d ()
+(defclass <ge-point-3d> ()
     ((point-3d :accessor point-3d :initarg :point-3d :initform (vector 0 0 0))))
 
-(defmethod write-dxf-binary (code (point-3d ge-point-3d) stream)
+(defmethod write-dxf-binary (code (point-3d <ge-point-3d>) stream)
   (dxf-out-binary-double (+ 00 code) (svref (point-3d point-3d) 0) stream)
   (dxf-out-binary-double (+ 10 code) (svref (point-3d point-3d) 1) stream)
   (dxf-out-binary-double (+ 20 code) (svref (point-3d point-3d) 2) stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass rx-object ()
+(defclass <rx-object> ()
   ((name :accessor name :initarg :name :initform "")))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass dxf-pairs ()
+(defclass <dxf-pairs> ()
   ((pairs :accessor pairs        :initarg :pairs        :initform nil :documentation "pairs"))
   (:documentation
    "Содержит dxf-представление объекта"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(export 'dxf-in-text)
 
 (defgeneric dxf-in-text (object pairs)
   (:documentation
@@ -2263,16 +1284,16 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 ")
   )
 
-(defmethod  dxf-in-text ((object dxf-pairs) (pairs cons))
-;;; (break "dxf-in-text ((object dxf-pairs) (pairs cons))")
+(defmethod  dxf-in-text ((object <dxf-pairs>) (pairs cons))
+;;; (break "dxf-in-text ((object <dxf-pairs>) (pairs cons))")
   object)
 
-(defmethod  dxf-in-text :after ((object dxf-pairs) (pairs cons))
-;;; (break "dxf-in-text :after ((object dxf-pairs) (pairs cons))")
+(defmethod  dxf-in-text :after ((object <dxf-pairs>) (pairs cons))
+;;; (break "dxf-in-text :after ((object <dxf-pairs>) (pairs cons))")
   (setf (pairs object) (copy-list pairs)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defclass object () ())
+(defclass <object> () ())
 
 (defparameter *object-properties* '())
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2281,7 +1302,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (defparameter *Acad-Object-subclass-marker* "AcDbObject")
 
-(defclass acad-object (object)
+(defclass <acad-object> (<object>)
   ((ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
    (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
    (ac-handle                   :accessor ac-handle                   :initarg :ac-handle                   :initform nil :documentation "Код   5. Дескриптор ac-handle  -> Handle") 
@@ -2289,7 +1310,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
    (ac-object-id                :accessor ac-object-id                :initarg :ac-object-id                :initform nil :documentation "ac-object-id")
    (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
    (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "Код 330. ac-owner-id -> Owner-ID")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
    (next-handle      :accessor next-handle   :initarg :next-handle   :initform 1   :allocation :class))
   (:documentation "The standard interface for a basic AutoCAD object."))
 
@@ -2297,17 +1318,15 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (mapcar #'make-slot (set-difference *acad-object-properties* *object-properties*))
 
-(export 'dxf-out-text)
-
 (defgeneric dxf-out-text (object stream)
   (:documentation
    "@b(Описание:) обобщенная функция @b(dxf-out-text) выводит содержимое 
 объекта @b(object) в поток @b(stream) в текстовом формате."))
 
-(defmethod dxf-out-text ((x Acad-Object) stream)
+(defmethod dxf-out-text ((x <Acad-Object>) stream)
   (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x Acad-Object) stream)
+(defmethod dxf-out-text :after ((x <Acad-Object>) stream)
   (let (
 	(hdl (Handle x))
 	(own (Owner-ID x)))
@@ -2321,10 +1340,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
    "@b(Описание:) обобщенная функция @b(dxf-out-text) выводит содержимое 
 объекта @b(object) в поток @b(stream) в двоичном формате."))
 
-(defmethod dxf-out-binary ((x Acad-Object) stream)
+(defmethod dxf-out-binary ((x <Acad-Object>) stream)
   (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x Acad-Object) stream)
+(defmethod dxf-out-binary :after ((x <Acad-Object>) stream)
   (let ((own (Owner-ID  x))
 	(hdl (Handle x)))
     (when own (dxf-out-t-hex 330 own stream))
@@ -2332,12 +1351,12 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text ((object acad-object) (pairs cons))
-;;; (break "dxf-in-text ((object acad-object) (pairs cons))")
+(defmethod  dxf-in-text ((object <acad-object>) (pairs cons))
+;;; (break "dxf-in-text ((object <acad-object>) (pairs cons))")
     )
 
-(defmethod  dxf-in-text :after ((object acad-object) (pairs cons))
-;;; (break "dxf-in-text :after ((object acad-object) (pairs cons))")
+(defmethod  dxf-in-text :after ((object <acad-object>) (pairs cons))
+;;; (break "dxf-in-text :after ((object <acad-object>) (pairs cons))")
 
   (let ((c-5   (cadr (assoc   5 pairs :test #'equal)))
 	(c-330 (cadr (assoc 330 pairs :test #'equal))))
@@ -2351,7 +1370,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (defparameter *acad-entity-subclass-marker* "AcDbEntity")
 
-(defclass acad-entity (acad-object)
+(defclass <acad-entity> (<acad-object>)
   ((layer                :accessor layer           :initarg :layer  :initform "0" :documentation "Код   8. Имя слоя  entity-layer -> Layer" )
    (entity-transparency)
    (line-type            :accessor line-type       :initarg :line-type  :initform "BYLAYER" :documentation "Код   6. Linetype name (present if not BYLAYER). The special name BYBLOCK indicates a floating linetype (optional) | BYLAYER |" )
@@ -2375,10 +1394,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-text ((x acad-entity) stream)
+(defmethod dxf-out-text ((x <acad-entity>) stream)
   (dxf-out-t-string 0 *acad-entity-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x acad-entity) stream)
+(defmethod dxf-out-text :after ((x <acad-entity>) stream)
   (dxf-out-t-string 100 *acad-entity-subclass-marker* stream)
   (let ((la  (Layer  x))
 	(cl  (truecolor x))
@@ -2404,10 +1423,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;LLLL;;
 
-(defmethod dxf-out-binary ((x acad-entity) stream)
+(defmethod dxf-out-binary ((x <acad-entity>) stream)
   (dxf-out-b-string 0 *acad-entity-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x acad-entity) stream)
+(defmethod dxf-out-binary :after ((x <acad-entity>) stream)
   (dxf-out-b-string 100 *acad-entity-subclass-marker* stream)
   (let ((hdl (Handle x))
 	(la (Layer x))
@@ -2418,7 +1437,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text :after ((object acad-entity) (pairs cons))
+(defmethod  dxf-in-text :after ((object <acad-entity>) (pairs cons))
   (let ((c-8   (cadr (assoc   8 pairs :test #'equal)))
 	(c-6   (cadr (assoc   6 pairs :test #'equal)))
 	(c-62  (cadr (assoc  62 pairs :test #'equal)))
@@ -2441,16 +1460,16 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     (cond
       ((numberp c-48) (setf (line-type-scale  object) c-48))
       ((null    c-48) (setf (line-type-scale  object) 1.d0))
-      (t (error "dxf-in-text :after ((object acad-entity) (pairs cons)): wrong c-48 value ~A" c-48)))
+      (t (error "dxf-in-text :after ((object <acad-entity>) (pairs cons)): wrong c-48 value ~A" c-48)))
     (cond
       ((null    c-370) (setf (line-weight object) -1))
       ((numberp c-370) (setf (line-weight object) c-370))
-      (t (error "dxf-in-text :after ((object acad-entity) (pairs cons)): wrong c-370 value ~A" c-370)))
+      (t (error "dxf-in-text :after ((object <acad-entity>) (pairs cons)): wrong c-370 value ~A" c-370)))
     (cond
       ((null c-60)           (setf (visible object) t))
       ((and c-60 (= c-60 0)) (setf (visible object) t))
       ((and c-60 (= c-60 1)) (setf (visible object) nil))
-      (t (error "dxf-in-text :after ((object acad-entity) (pairs cons)): wrong c-60 value ~A" c-60)))))
+      (t (error "dxf-in-text :after ((object <acad-entity>) (pairs cons)): wrong c-60 value ~A" c-60)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2458,7 +1477,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (defparameter *db-curve-subclass-marker* "AcDbCurve")
 
-(defclass db-curve (acad-entity) ())
+(defclass <db-curve> (<acad-entity>) ())
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2466,7 +1485,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (defparameter *acad-line-subclass-marker* "AcDbLine")
 
-(defclass acad-line (acad-entity)
+(defclass <acad-line> (<acad-entity>)
   ((StartPoint :accessor StartPoint  :initarg :StartPoint  :initform (vector 0d0 0d0 0d0 ) :documentation "Код 10. Начальная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (EndPoint   :accessor EndPoint    :initarg :EndPoint    :initform (vector 0d0 0d0 0d0 ) :documentation "Код 11. Конечная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (Thickness  :accessor Thickness   :initarg :thickness   :initform 0d0                   :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
@@ -2531,10 +1550,10 @@ LINE (DXF)
 ;   Visible = -1
 "))
 
-(defmethod dxf-out-text ((x Acad-Line) stream)
+(defmethod dxf-out-text ((x <Acad-Line>) stream)
   (dxf-out-t-string 0 *Acad-Line-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x Acad-Line) stream)
+(defmethod dxf-out-text :after ((x <Acad-Line>) stream)
   (dxf-out-t-string 100 *Acad-Line-subclass-marker* stream)
   (let ((th  (thickness x))
         (p-s (StartPoint x))
@@ -2551,10 +1570,10 @@ LINE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Acad-Line) stream)
+(defmethod dxf-out-binary ((x <Acad-Line>) stream)
   (dxf-out-b-string 0 *Acad-Line-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x Acad-Line) stream)
+(defmethod dxf-out-binary :after ((x <Acad-Line>) stream)
   (dxf-out-b-string 100 *Acad-Line-subclass-marker* stream)
   (let ((th (thickness x))
         (p-s (StartPoint x))
@@ -2571,10 +1590,10 @@ LINE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object acad-line) (pairs cons))
+(defmethod  dxf-in-text  ((object <acad-line>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-line-class-marker*)))
 
-(defmethod  dxf-in-text :after ((object Acad-Line) (pairs cons))
+(defmethod  dxf-in-text :after ((object <Acad-Line>) (pairs cons))
   (let (
 	(c-10  (cadr (assoc  10 pairs :test #'equal)))
 	(c-20  (cadr (assoc  20 pairs :test #'equal)))
@@ -2609,7 +1628,7 @@ LINE (DXF)
 
 (defparameter *acad-point-subclass-marker* "AcDbPoint")
 
-(defclass acad-point (acad-entity)
+(defclass <acad-point> (<acad-entity>)
   ((coordinates :accessor coordinates :initarg :coordinates    :initform (vector 0.0d0 0.0d0 0.0d0) :documentation "Код  10. Положение точки")
    (thickness   :accessor thickness   :initarg :thickness      :initform 0.0d0                      :documentation "Код  39. Высота выдавливания")
    (normal      :accessor normal      :initarg :normal         :initform (vector 0.0d0 0.0d0 1.0d0) :documentation "Код 210. Направление выдавливания")
@@ -2647,10 +1666,10 @@ POINT (DXF)
 
 (mapcar #'make-slot (set-difference *acad-point-properties* *acad-entity-properties*))
 
-(defmethod dxf-out-text ((x acad-point) stream)
+(defmethod dxf-out-text ((x <acad-point>) stream)
     (dxf-out-t-string 0 *acad-point-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x acad-point) stream)
+(defmethod dxf-out-text :after ((x <acad-point>) stream)
   (dxf-out-t-string 100 *acad-point-subclass-marker* stream)
   (let ((th  (thickness x))
         (pos (coordinates x))
@@ -2666,10 +1685,10 @@ POINT (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x acad-point) stream)
+(defmethod dxf-out-binary ((x <acad-point>) stream)
   (dxf-out-b-string 0 *acad-point-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x acad-point) stream)
+(defmethod dxf-out-binary :after ((x <acad-point>) stream)
   (dxf-out-b-string 100 *acad-point-subclass-marker* stream)
   (let ((th  (thickness x))
         (pos (coordinates x))
@@ -2685,10 +1704,10 @@ POINT (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object acad-point) (pairs cons))
+(defmethod  dxf-in-text  ((object <acad-point>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-point-class-marker*)))
 
-(defmethod  dxf-in-text :after ((object acad-point) (pairs cons))
+(defmethod  dxf-in-text :after ((object <acad-point>) (pairs cons))
   (let ((c-39  (cadr (assoc  39 pairs :test #'equal)))
 	(c-10  (cadr (assoc  10 pairs :test #'equal)))
 	(c-20  (cadr (assoc  20 pairs :test #'equal)))
@@ -2703,14 +1722,14 @@ POINT (DXF)
       ((and c-10 c-20 (null c-30)) (setf  (coordinates object) (vector c-10 c-20 0.d0)))
       (t                           (setf  (coordinates object) (vector 0.d0 0.d0 0.d0))))
     (cond
-      (c-39     (setf  (thickness   object) c-39))
-      (t        (setf  (thickness   object) 0.0d0)))
+      (c-39 (setf  (thickness   object) c-39))
+      (t    (setf  (thickness   object) 0.0d0)))
     (cond
-      ((and c-210 c-220 c-230)     (setf  (normal   object) (vector c-210 c-220 c-230)))
-      (t                           (setf  (normal   object) (vector 0.0d0 0.0d0 1.0d0))))
+      ((and c-210 c-220 c-230) (setf  (normal   object) (vector c-210 c-220 c-230)))
+      (t                       (setf  (normal   object) (vector 0.0d0 0.0d0 1.0d0))))
     (cond
-      (c-50     (setf  (ecs-angle   object) c-50))
-      (t        (setf  (ecs-angle   object) 0.0d0)))))
+      (c-50 (setf  (ecs-angle   object) c-50))
+      (t    (setf  (ecs-angle   object) 0.0d0)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2718,7 +1737,7 @@ POINT (DXF)
 
 (defparameter *acad-ray-subclass-marker* "AcDbRay")
 
-(defclass acad-ray (acad-entity)
+(defclass <acad-ray> (<acad-entity>)
   ((base-point       :accessor base-point       :initarg :base-point       :initform (vector 0.0d0 0.0d0 0.0d0) :documentation "Код 10. Базовая точка")
    (direction-vector :accessor direction-vector :initarg :direction-vector :initform (vector 1.0d0 0.0d0 0.0d0) :documentation "Код 11. Едининчный вектор в МСК, задающий направление")
 ;;;; (second-point :accessor second-point :initarg :second-point :initform nil :documentation "second-point")
@@ -2753,20 +1772,20 @@ RAY (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-text ((x acad-ray) stream)
+(defmethod dxf-out-text ((x <acad-ray>) stream)
   (dxf-out-t-string 0 *acad-ray-class-marker* stream))
 
-(defmethod dxf-out-text  :after ((x acad-ray) stream)
+(defmethod dxf-out-text  :after ((x <acad-ray>) stream)
   (dxf-out-t-string 100 *acad-ray-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
     (dxf-out-t-point-3d 10 b-p stream)
     (dxf-out-t-point-3d 11 u-d stream)))
 
-(defmethod dxf-out-binary ((x acad-ray) stream)
+(defmethod dxf-out-binary ((x <acad-ray>) stream)
   (dxf-out-b-string 0 *acad-ray-class-marker* stream))
 
-(defmethod dxf-out-binary  :after ((x acad-ray) stream)
+(defmethod dxf-out-binary  :after ((x <acad-ray>) stream)
   (dxf-out-b-string 100 *acad-ray-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
@@ -2775,10 +1794,10 @@ RAY (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object acad-ray) (pairs cons))
+(defmethod  dxf-in-text  ((object <acad-ray>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-ray-class-marker*)))
 
-(defmethod  dxf-in-text :after ((object acad-ray) (pairs cons))
+(defmethod  dxf-in-text :after ((object <acad-ray>) (pairs cons))
   (let (
 	(c-10  (cadr (assoc  10 pairs :test #'equal)))
 	(c-20  (cadr (assoc  20 pairs :test #'equal)))
@@ -2803,7 +1822,7 @@ RAY (DXF)
 
 (defparameter *acad-xline-subclass-marker* "AcDbXline")
 
-(defclass acad-xline (acad-entity)
+(defclass <acad-xline> (<acad-entity>)
   ((base-point :accessor base-point :initarg :base-point :initform (vector 0 0 0) :documentation "Код 10. Первая точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
    (direction-vector   :accessor direction-vector   :initarg :direction-vector   :initform (vector 1 0 0) :documentation "Код 40. Вектор единичного направления (в МСК). Файл DXF: значение X; приложение: 3D-вектор")
 ;;; (secondpoint :accessor secondpoint :initarg :secondpoint :initform nil :documentation "secondpoint")
@@ -2837,20 +1856,20 @@ XLINE (DXF)
 
 (reverse (mapcar #'make-slot (set-difference *acad-xline-properties* *acad-entity-properties*)))
 
-(defmethod dxf-out-text ((x acad-xline) stream)
+(defmethod dxf-out-text ((x <acad-xline>) stream)
   (dxf-out-t-string 0 *acad-xline-class-marker* stream))
 
-(defmethod dxf-out-text  :after ((x acad-xline) stream)
+(defmethod dxf-out-text  :after ((x <acad-xline>) stream)
   (dxf-out-t-string 100 *acad-xline-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
     (dxf-out-t-point-3d 10 b-p stream)
     (dxf-out-t-point-3d 11 u-d stream)))
 
-(defmethod dxf-out-binary ((x acad-xline) stream)
+(defmethod dxf-out-binary ((x <acad-xline>) stream)
   (dxf-out-b-string 0 *acad-xline-class-marker* stream))
 
-(defmethod dxf-out-binary  :after ((x acad-xline) stream)
+(defmethod dxf-out-binary  :after ((x <acad-xline>) stream)
   (dxf-out-b-string 100 *acad-xline-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
@@ -2859,10 +1878,10 @@ XLINE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object acad-xline) (pairs cons))
+(defmethod  dxf-in-text  ((object <acad-xline>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-xline-class-marker*)))
 
-(defmethod  dxf-in-text :after ((object acad-xline) (pairs cons))
+(defmethod  dxf-in-text :after ((object <acad-xline>) (pairs cons))
   (let (
 	(c-10  (cadr (assoc  10 pairs :test #'equal)))
 	(c-20  (cadr (assoc  20 pairs :test #'equal)))
@@ -2886,7 +1905,7 @@ XLINE (DXF)
 
 (defparameter *Acad-Circle-subclass-marker* "AcDbCircle")
 
-(defclass  acad-circle (acad-entity) 
+(defclass  <acad-circle> (<acad-entity>) 
   ((center    :accessor center     :initarg :center    :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
    (radius    :accessor radius     :initarg :radius    :initform 1              :documentation "Код 40. Радиус")
    (thickness :accessor thickness  :initarg :thickness :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
@@ -2921,10 +1940,10 @@ CIRCLE (DXF)
 |---------------+---------------------------------------------------------------------------|
 "))
 
-(defmethod dxf-out-text ((x Acad-Circle) stream)
+(defmethod dxf-out-text ((x <Acad-Circle>) stream)
   (dxf-out-t-string 0 *Acad-Circle-class-marker*  stream))
 
-(defmethod dxf-out-text  :after ((x Acad-Circle) stream)
+(defmethod dxf-out-text  :after ((x <Acad-Circle>) stream)
   (dxf-out-t-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
         (p-c (center x))
@@ -2940,10 +1959,10 @@ CIRCLE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x Acad-Circle) stream)
+(defmethod dxf-out-binary ((x <Acad-Circle>) stream)
   (dxf-out-b-string 0 *Acad-Circle-class-marker*  stream))
 
-(defmethod dxf-out-binary :after ((x Acad-Circle) stream)
+(defmethod dxf-out-binary :after ((x <Acad-Circle>) stream)
   (dxf-out-b-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
         (p-c (center x))
@@ -2959,10 +1978,10 @@ CIRCLE (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object Acad-Circle) (pairs cons))
+(defmethod  dxf-in-text  ((object <Acad-Circle>) (pairs cons))
   (assert (equal (assoc 0 pairs :test #'equal) (list 0 *Acad-Circle-class-marker*))))
 
-(defmethod  dxf-in-text :after ((object Acad-Circle) (pairs cons))
+(defmethod  dxf-in-text :after ((object <Acad-Circle>) (pairs cons))
   (let ((c-39  (cadr (assoc  39 pairs :test #'equal)))
 	(c-10  (cadr (assoc  10 pairs :test #'equal)))
 	(c-20  (cadr (assoc  20 pairs :test #'equal)))
@@ -2989,7 +2008,7 @@ CIRCLE (DXF)
 
 (defparameter *acad-arc-subclass-marker* "AcDbArc")
 
-(defclass acad-arc (acad-entity)
+(defclass <acad-arc> (<acad-entity>)
   ((center      :accessor center      :initarg :center      :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
    (radius      :accessor radius      :initarg :radius      :initform 1              :documentation "Код 40. Радиус")
    (thickness   :accessor thickness   :initarg :thickness   :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
@@ -3042,10 +2061,10 @@ ARC (DXF)
 
 (reverse (mapcar #'make-slot (set-difference *acad-arc-properties* *acad-entity-properties*)))
 
-(defmethod dxf-out-text ((x acad-arc) stream)
+(defmethod dxf-out-text ((x <acad-arc>) stream)
   (dxf-out-t-string 0 *acad-arc-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x acad-arc) stream)
+(defmethod dxf-out-text :after ((x <acad-arc>) stream)
   (dxf-out-t-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-c (center x))
@@ -3067,10 +2086,10 @@ ARC (DXF)
 (dxf-out-t-point-3d 210 (vector 1 2 3)t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x acad-arc) stream)
+(defmethod dxf-out-binary ((x <acad-arc>) stream)
   (dxf-out-b-string 0 *acad-arc-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x acad-arc) stream)
+(defmethod dxf-out-binary :after ((x <acad-arc>) stream)
   (dxf-out-b-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-c (center x))
@@ -3091,10 +2110,10 @@ ARC (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object acad-arc) (pairs cons))
+(defmethod  dxf-in-text  ((object <acad-arc>) (pairs cons))
   (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-arc-class-marker*))))
 
-(defmethod  dxf-in-text :after ((object acad-arc) (pairs cons))
+(defmethod  dxf-in-text :after ((object <acad-arc>) (pairs cons))
   (let (
 	(c-39  (cadr (assoc  39 pairs :test #'equal)))
 	(c-10  (cadr (assoc  10 pairs :test #'equal)))
@@ -3113,13 +2132,13 @@ ARC (DXF)
        (setf  (center object) (vector c-10 c-20 c-30)))
       ((and c-10 c-20 (null c-30))
        (setf  (center object) (vector c-10 c-20 0.d0)))
-      (t (error "dxf-in-text :after ((object acad-arc) (pairs cons)): wrong values c-10 c-20 c-30 ~A ~A ~A" c-10 c-20 c-30)))
+      (t (error "dxf-in-text :after ((object <acad-arc>) (pairs cons)): wrong values c-10 c-20 c-30 ~A ~A ~A" c-10 c-20 c-30)))
     (if  c-40 (setf  (radius object) c-40)
 	 (setf  (radius object) 1.0d0))
     (if  c-50 (setf  (start-angle object) c-50)
-	 (error "dxf-in-text :after ((object acad-arc) (pairs cons)) c-50 not defined"))
+	 (error "dxf-in-text :after ((object <acad-arc>) (pairs cons)) c-50 not defined"))
     (if  c-51 (setf  (end-angle object) c-51)
-	 (error "dxf-in-text :after ((object acad-arc) (pairs cons)) c-51 not defined"))
+	 (error "dxf-in-text :after ((object <acad-arc>) (pairs cons)) c-51 not defined"))
     (if (and c-210 c-220 c-230)
 	(setf  (normal object) (vector c-210 c-220 c-230))
 	(setf  (normal object) (vector 0.0d0 0.0d0 1.0d0)))))
@@ -3129,7 +2148,7 @@ ARC (DXF)
 
 (defparameter *acad-text-subclass-marker* "AcDbText")
 
-(defclass acad-text (acad-entity)
+(defclass <acad-text> (<acad-entity>)
   ((thickness            :accessor thickness            :initarg :thickness            :initform 0              :documentation "Код  39. Thickness (optional; default = 0)")
    (insertion-point      :accessor insertion-point      :initarg :insertion-point      :initform (vector 0 0 0) :documentation "Код  10. First alignment point (in OCS) DXF: X value; APP: 3D point")
    (height               :accessor height               :initarg :height               :initform 3.5            :documentation "Код  40. Text height")
@@ -3241,10 +2260,10 @@ TEXT (DXF)
 (mapcar #'make-slot (set-difference *acad-text-properties* *acad-entity-properties*))
 
 
-(defmethod dxf-out-text ((x acad-text) stream)
+(defmethod dxf-out-text ((x <acad-text>) stream)
     (dxf-out-t-string 0 *acad-text-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x acad-text) stream)
+(defmethod dxf-out-text :after ((x <acad-text>) stream)
   (dxf-out-t-string 100 *acad-text-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-p (insertion-point x))
@@ -3282,10 +2301,10 @@ TEXT (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x acad-text) stream)
+(defmethod dxf-out-binary ((x <acad-text>) stream)
   (dxf-out-b-string 0 *acad-text-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x acad-text) stream)
+(defmethod dxf-out-binary :after ((x <acad-text>) stream)
   (dxf-out-b-string 100 *acad-text-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-p (insertion-point x))
@@ -3327,7 +2346,7 @@ TEXT (DXF)
 
 (defparameter *acad-ellipse-subclass-marker* "AcDbEllipse")
 
-(defclass acad-ellipse (acad-entity)
+(defclass acad-ellipse (<acad-entity>)
   (
 ;;;(area         :accessor area         :initarg :area         :initform nil            :documentation "area")
    (center       :accessor center       :initarg :center       :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
@@ -3481,7 +2500,7 @@ ELLIPSE (DXF)
 
 (defparameter *acad-layer-subclass-marker* "AcDbLayerTableRecord")
 
-(defclass acad-layer (acad-object)
+(defclass <acad-layer> (<acad-object>)
 ;;;;"AcDbLayerTableRecord"
   ((name             :accessor name            :initarg :name            :initform "LAYER1"       :documentation "name")
    (description      :accessor description     :initarg :description     :initform nil            :documentation "description")
@@ -3512,10 +2531,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-text ((x acad-layer) stream)
+(defmethod dxf-out-text ((x <acad-layer>) stream)
   (dxf-out-t-string 0 *acad-layer-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x acad-layer) stream)
+(defmethod dxf-out-text :after ((x <acad-layer>) stream)
   (dxf-out-t-string 100 *acad-symboltablerecord-subclass-marker* stream)
   (dxf-out-t-string 100 *acad-layer-subclass-marker* stream)
   (let ((name            (name            x))
@@ -3558,13 +2577,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object acad-layer) (pairs cons))
+(defmethod  dxf-in-text  ((object <acad-layer>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-layer-class-marker*))
-;;; (break "dxf-in-text  ((object acad-layer) (pairs cons))")
+;;; (break "dxf-in-text  ((object <acad-layer>) (pairs cons))")
   )
 
-(defmethod  dxf-in-text :after ((object acad-layer) (pairs cons))
-;;; (break "dxf-in-text :after ((object acad-layer) (pairs cons))")
+(defmethod  dxf-in-text :after ((object <acad-layer>) (pairs cons))
+;;; (break "dxf-in-text :after ((object <acad-layer>) (pairs cons))")
   (let ((c-2   (cadr (assoc   2 pairs :test #'equal)))
 	(c-70  (cadr (assoc  70 pairs :test #'equal)))
 	(c-62  (cadr (assoc  62 pairs :test #'equal)))
@@ -3578,13 +2597,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 	)
     (cond
       (c-2 (setf  (name object) c-2))
-      ((error "dxf-in-text :after ((object acad-layer) (pairs cons)): c-2 not exist.")))
+      ((error "dxf-in-text :after ((object <acad-layer>) (pairs cons)): c-2 not exist.")))
     (cond
       (c-390 (setf  (plotstylename object) c-390))
-      ((error "dxf-in-text :after ((object acad-layer) (pairs cons)): c-390 not exist.")))
+      ((error "dxf-in-text :after ((object <acad-layer>) (pairs cons)): c-390 not exist.")))
     (cond
       (c-347 (setf  (material object) c-347))
-      ((error "dxf-in-text :after ((object acad-layer) (pairs cons)): c-347 not exist.")))
+      ((error "dxf-in-text :after ((object <acad-layer>) (pairs cons)): c-347 not exist.")))
     (when c-70
       (setf  (freeze          object) (= 1 (ldb (byte 1 0) c-70)))
       (setf  (viewportdefault object) (= 1 (ldb (byte 1 1) c-70)))
@@ -3607,14 +2626,14 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
     (cond
       ((null    c-370) (setf (line-weight object) -3))
       ((numberp c-370) (setf (line-weight object) c-370))
-      (t (error "dxf-in-text :after ((object acad-entity) (pairs cons)): wrong c-370 value ~A" c-370)))
+      (t (error "dxf-in-text :after ((object <acad-entity>) (pairs cons)): wrong c-370 value ~A" c-370)))
     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *acad-symboltable-subclass-marker* "AcDbSymbolTable")
 
-(defclass acad-layers (acad-object)
+(defclass <acad-layers> (<acad-object>)
   ((count  :accessor a-count :initarg :count :initform 0   :documentation "70 count -> a-count переимновано из-за ошибки")
    (items  :accessor items                   :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)")
    )
@@ -3625,10 +2644,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 (reverse (mapcar #'make-slot (set-difference *acad-layers-properties* *acad-object-properties*)))
 
-(defmethod dxf-out-text ((x acad-layers) stream)
+(defmethod dxf-out-text ((x <acad-layers>) stream)
   (dxf-out-t-string 2 *acad-layer-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x acad-layers) stream)
+(defmethod dxf-out-text :after ((x <acad-layers>) stream)
   (dxf-out-t-string 100 *acad-symboltable-subclass-marker* stream)
   (let ((a-count (a-count x))
 	(items   (items   x)))
@@ -3637,16 +2656,16 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-in-text  ((object acad-layers) (tables cons))
+(defmethod dxf-in-text  ((object <acad-layers>) (tables cons))
 ;;;  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*)))
   object)
 
-(defmethod dxf-in-text :after ((object acad-layers) (tables cons))
+(defmethod dxf-in-text :after ((object <acad-layers>) (tables cons))
   (multiple-value-bind (items-data list-item-data) (table-and-items *acad-layer-class-marker* tables)
     (setf (items object)
 	  (mapcar
 	   #'(lambda (item-data)
-	       (let ((it (make-instance 'acad-layer)))
+	       (let ((it (make-instance '<acad-layer>)))
 		 (dxf-in-text it item-data)
 		 it))
 	   list-item-data)
@@ -3654,22 +2673,22 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass acad-documents (acad-object)
+(defclass <acad-documents> (<acad-object>)
   ((ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
    (ac-count                    :accessor ac-count                    :initarg :ac-count                    :initform nil :documentation "ac-count"))
   (:documentation "The collection of all AutoCAD drawings that are open in the current session."))
 
-(defclass acad-database (object)
+(defclass <acad-database> (<object>)
   ((ac-blocks                   :accessor ac-blocks                   :initarg :ac-blocks                   :initform nil :documentation "ac-blocks")
    (ac-dictionaries             :accessor ac-dictionaries             :initarg :ac-dictionaries             :initform nil :documentation "ac-dictionaries")
    (ac-dim-styles               :accessor ac-dim-styles               :initarg :ac-dim-styles               :initform nil :documentation "ac-dim-styles")
    (ac-elevation-model-space    :accessor ac-elevation-model-space    :initarg :ac-elevation-model-space    :initform nil :documentation "ac-elevation-model-space")
    (ac-elevation-paper-space    :accessor ac-elevation-paper-space    :initarg :ac-elevation-paper-space    :initform nil :documentation "ac-elevation-paper-space")
    (ac-groups                   :accessor ac-groups                   :initarg :ac-groups                   :initform nil :documentation "ac-groups")
-   (ac-layers                   :accessor ac-layers                   :initarg :ac-layers                   :initform (make-instance 'acad-layers) :documentation "ac-layers")
+   (ac-layers                   :accessor ac-layers                   :initarg :ac-layers                   :initform (make-instance '<acad-layers>) :documentation "ac-layers")
    (ac-layouts                  :accessor ac-layouts                  :initarg :ac-layouts                  :initform nil :documentation "ac-layouts")
    (ac-limits                   :accessor ac-limits                   :initarg :ac-limits                   :initform nil :documentation "ac-limits")
-   (ac-linetypes                :accessor ac-linetypes                :initarg :ac-linetypes                :initform (make-instance 'acad-linetypes) :documentation "ac-linetypes")
+   (ac-linetypes                :accessor ac-linetypes                :initarg :ac-linetypes                :initform (make-instance '<acad-linetypes>) :documentation "ac-linetypes")
    (ac-material                 :accessor ac-material                 :initarg :ac-material                 :initform nil :documentation "ac-material")
    (ac-model-space              :accessor ac-model-space              :initarg :ac-model-space              :initform nil :documentation "ac-model-space")
    (ac-paper-space              :accessor ac-paper-space              :initarg :ac-paper-space              :initform nil :documentation "ac-paper-space")
@@ -3690,7 +2709,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 (mapcar #'make-slot (set-difference *acad-database-properties* nil))
 
-(defclass acad-document (acad-database)
+(defclass <acad-document> (<acad-database>)
   ((active                :accessor active                :initarg :active                :initform nil :documentation "active")
    (activedimstyle        :accessor activedimstyle        :initarg :activedimstyle        :initform nil :documentation "activedimstyle")
    (activelayer           :accessor activelayer           :initarg :activelayer           :initform nil :documentation "activelayer")
@@ -3736,12 +2755,12 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 (reverse (mapcar #'make-slot (set-difference *acad-document-properties* *acad-database-properties*)) )
 
 
-(defmethod  dxf-in-text  ((object acad-document) (sections cons))
+(defmethod  dxf-in-text  ((object <acad-document>) (sections cons))
 ;;;  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*)))
   object
   )
 
-(defmethod  dxf-in-text :after ((object acad-document) (sections cons))
+(defmethod  dxf-in-text :after ((object <acad-document>) (sections cons))
 	    (let ((header  (split-header   sections))
 		  (classes (split-classes  sections))
 		  (tables  (split-tables   sections))
@@ -3766,9 +2785,9 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
       	      (setf  (sec-classes object) classes)
 	      ))
 
-(defmethod dxf-out-text ((x acad-document) stream))
+(defmethod dxf-out-text ((x <acad-document>) stream))
 
-(defmethod dxf-out-text :after ((x acad-document) stream)
+(defmethod dxf-out-text :after ((x <acad-document>) stream)
   (block section-header
     (dxf-out-t 0 "SECTION" stream)
     (dxf-out-t 2 "HEADER"  stream)
@@ -3823,7 +2842,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 (defparameter *acad-linetype-subclass-marker* "AcDbLinetypeTableRecord")
 
-(defclass acad-linetype  (acad-object)
+(defclass <acad-linetype>  (<acad-object>)
   ((name        :accessor name        :initarg :name        :initform "CONTINUOUS" :documentation "name")
    (description :accessor description :initarg :description :initform ""           :documentation "description"))
   (:documentation "./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
@@ -3837,10 +2856,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 (mapcar #'make-slot (set-difference *acad-linetype-properties* *acad-object-properties*))
 
-(defmethod dxf-out-text ((x acad-linetype) stream)
+(defmethod dxf-out-text ((x <acad-linetype>) stream)
   (dxf-out-t-string 0 *acad-linetype-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x acad-linetype) stream)
+(defmethod dxf-out-text :after ((x <acad-linetype>) stream)
   (dxf-out-t-string 100 *acad-symboltablerecord-subclass-marker* stream)
   (dxf-out-t-string 100 *acad-linetype-subclass-marker* stream)
   (let ((name            (name            x))
@@ -3856,10 +2875,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x acad-linetype) stream)
+(defmethod dxf-out-binary ((x <acad-linetype>) stream)
   (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x acad-linetype) stream)
+(defmethod dxf-out-binary :after ((x <acad-linetype>) stream)
   (let ((own (Owner-ID  x))
 	(hdl (Handle x)))
     (when own (dxf-out-t-hex 330 own stream))
@@ -3867,10 +2886,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object acad-linetype) (pairs cons))
+(defmethod  dxf-in-text  ((object <acad-linetype>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-linetype-class-marker*)))
 
-(defmethod  dxf-in-text :after ((object acad-linetype) (pairs cons))
+(defmethod  dxf-in-text :after ((object <acad-linetype>) (pairs cons))
   (setf (pairs object) (copy-list pairs))
   (let ((c-2   (cadr (assoc   2 pairs :test #'equal)))
 	(c-3   (cadr (assoc   3 pairs :test #'equal))))
@@ -3879,7 +2898,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass acad-linetypes (acad-object)
+(defclass <acad-linetypes> (<acad-object>)
   ((count  :accessor a-count :initarg :count :initform 0   :documentation "70 count -> a-count переимновано из-за ошибки")
    (items  :accessor items                   :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)"))
   (:documentation "
@@ -3889,54 +2908,23 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 (reverse (mapcar #'make-slot (set-difference *acad-linetypes-properties* *acad-object-properties*)))
 
-(defmethod dxf-in-text  ((object acad-linetypes) (tables cons))
+(defmethod dxf-in-text  ((object <acad-linetypes>) (tables cons))
 ;;;  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*)))
   object)
 
-(defmethod dxf-in-text :after ((object acad-linetypes) (tables cons))
+(defmethod dxf-in-text :after ((object <acad-linetypes>) (tables cons))
       (multiple-value-bind (items-data list-item-data) (table-and-items *acad-linetype-class-marker* tables)
       (setf (items object)
 	    (mapcar
 	     #'(lambda (item-data)
-		 (let ((it (make-instance 'acad-linetype)))
+		 (let ((it (make-instance '<acad-linetype>)))
 		   (dxf-in-text it item-data)
 		   it))
 	     list-item-data)
 	    (a-count  object ) (length (items object)))))
 
-(defmethod dxf-in-text :after ((object acad-linetypes) (pairs cons))
+(defmethod dxf-in-text :after ((object <acad-linetypes>) (pairs cons))
 )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-'(
-  acad-documents
-  acad-document
-  acad-database
-  
-  acad-linetypes
-  acad-layers
-
-  acad-layer
-  acad-linetype
-  
-  ge-point-3d
-  rx-object
-  dxf-pairs
-  
-  acad-object
-  acad-entity
-  
-  db-curve
-  acad-line
-  acad-point
-  acad-ray
-  acad-xline
-  acad-circle
-  acad-arc
-  acad-text
-  acad-ellipse
-  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; db-symbol-table-record-classes.lisp
@@ -3950,7 +2938,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 (defparameter *symbol-tbl-subclass-marker* "AcDbSymbolTable")
 
-(defclass db-symbol-tbl ( acad-object )
+(defclass db-symbol-tbl (<acad-object>)
   ((Object-Name  :accessor Object-Name       :initarg :Object-Name  :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
    (Count        :accessor symbol-tbl-flag   :initarg :Count  :initform 0              :documentation "Код  70. Стандартные флаги")
    (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil            :documentation "Записи таблицы."))
@@ -4718,8 +3706,6 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 	(push (cdr (nreverse (cdr section))) sections)
 	(setf section nil)))))
 
-(export 'dxf-in-t-fname)
-
 (defun dxf-in-t-fname (fname)
   "@b(Описание:) функция @b(dxf-in-t-fname) выполняет
 попытку считывания текстового dxf-файла в формате:
@@ -4816,8 +3802,6 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(export  '*section-names*)
 
 (defparameter *section-names*
   '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS" "ACDSDATA")
@@ -4947,8 +3931,6 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
   "split-blocks - not yet defined")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(export 'split-entities)
 
 (defun split-entities (sections)
   "@b(Описание:) функция @b(split-entities) выделяет

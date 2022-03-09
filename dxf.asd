@@ -1,19 +1,36 @@
 ;;;; dxf.asd
 
 (defsystem "dxf"
-  :description "Describe dxf here"
+  :description
+  "@b(Описание:) система @b(dxf) проект определяет функции для чтения
+  и записи файлов в формате
+  [[https://en.wikipedia.org/wiki/AutoCAD_DXF][DXF]]."
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
   :serial nil
   :in-order-to ((test-op (test-op "dxf/tests")))
-  :depends-on ("babel" "ieee-floats" "mnas-string")
+  :depends-on ("babel" "ieee-floats" "mnas-string"
+                       "dxf/vars")
   :components ((:module "src"
 		:serial t
-                :components ((:file "package")
+                :components ((:file "dxf")
 	                     (:file "test-color")
 	                     (:file "test-dxf")
                              ;;(:file "test")	       
                              ))))
+
+(defsystem "dxf/vars"
+  :description
+  "@b(Описание:) система @b(dxf/vars) содержит системные переменные
+   AutoCAD. Её назначение состоит исключительно для документирования
+   системных переменных."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :perform (test-op (o s)
+		    (uiop:symbol-call :dxf/vars :tests))
+  :components ((:module "src/vars"
+		:serial t
+		:components ((:file "vars")))))
 
 (defsystem "dxf/tests"
   :description "Тестирование систем, входящих  в проект Dfx"

@@ -13,11 +13,9 @@
   (loop
     :for i :in
     '((:dxf          :dxf)
-      #+nil (:dxf/parse    nil)
-      #+nil (:dxf/print    nil)
-      #+nil (:dxf/translit nil)
-      #+nil (:dxf/db       nil)
-      (:dxf/docs     nil)
+      (:dxf/vars      nil)
+      
+      (:dxf/docs      nil)
       )
     :do (apply #'mnas-package:document i)))
 
@@ -25,10 +23,8 @@
   (loop
     :for i :in
     '(:dxf
-      #+nil :dxf/parse
-      #+nil :dxf/print
-      #+nil :dxf/translit
-      #+nil :dxf/db
+      :dxf/vars
+      
       :dxf/docs 
       )
     :do (mnas-package:make-codex-graphs i i)))

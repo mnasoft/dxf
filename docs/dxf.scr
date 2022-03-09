@@ -1,11 +1,17 @@
 @begin(section) @title(Обзор)
 
-Describe dxf here@end(section)
+@b(Описание:) система @b(dxf) проект определяет функции для чтения
+  и записи файлов в формате
+  [[https://en.wikipedia.org/wiki/AutoCAD_DXF][DXF]].@end(section)
 @begin(section) @title(DXF)
 
 @begin(section)
  @title(Переменные)
  @cl:with-package[name="DXF"](
+  @cl:doc(variable *dxf-code-overal-length*)
+  @cl:doc(variable *h-vars*)
+  @cl:doc(variable *h-vars-list*)
+  @cl:doc(variable *h-vars-list-min*)
   @cl:doc(variable *section-names*))
 @end(section)
 @begin(section)

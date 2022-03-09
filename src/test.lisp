@@ -11,18 +11,18 @@
 
 (defparameter *model-space*
   (list
-   (make-instance 'acad-point)
-   (make-instance 'acad-point :coordinates (vector 35 45 15) :ecs-angle (/ pi 6) :layer "Points"
+   (make-instance '<acad-point>)
+   (make-instance '<acad-point> :coordinates (vector 35 45 15) :ecs-angle (/ pi 6) :layer "Points"
                               :truecolor (color-index 6)
                               :normal (vector 0 1 0))
-   (make-instance 'acad-line)
-   (make-instance 'acad-line  :startpoint (vector 10. 30. 50.0) :endpoint (vector 20. 40. 10.0) :layer "Lines" :truecolor (color-index 3))
-   (make-instance 'acad-circle)
-   (make-instance 'acad-circle :center (vector 51 65 0) :radius 48.6 :truecolor (color-index 75) :layer "Circles")
-   (make-instance 'acad-arc)
-   (make-instance 'acad-arc :center (vector 25 15 0) :radius 18.6 :truecolor (color-index 70) :start-angle (* 1.9999 pi) :end-angle (* 3.999 pi))
-   (make-instance 'acad-text :insertion-point (vector 30 20 0) :rotation (* *degree-to-radian* 120)
-                             :text-string "This is the TEXT string!" :scale-factor 1/3 :oblique-angle (* *degree-to-radian* 15))
+   (make-instance '<acad-line>)
+   (make-instance '<acad-line>  :startpoint (vector 10. 30. 50.0) :endpoint (vector 20. 40. 10.0) :layer "Lines" :truecolor (color-index 3))
+   (make-instance '<acad-circle>)
+   (make-instance '<acad-circle> :center (vector 51 65 0) :radius 48.6 :truecolor (color-index 75) :layer "Circles")
+   (make-instance '<acad-arc>)
+   (make-instance '<acad-arc> :center (vector 25 15 0) :radius 18.6 :truecolor (color-index 70) :start-angle (* 1.9999 pi) :end-angle (* 3.999 pi))
+   (make-instance '<acad-text> :insertion-point (vector 30 20 0) :rotation (* *degree-to-radian* 120)
+                               :text-string "This is the TEXT string!" :scale-factor 1/3 :oblique-angle (* *degree-to-radian* 15))
    ;;(make-instance 'Db-Ellipse)
    ;;(make-instance 'Db-Ellipse :center (vector 10 20 0) :entity-color 3 :entity-layer "Ellipses" :major-axis (vector 2 0 0) :radius-ratio 0.5D0 :start-param (* *degree-to-radian* 120) :end-param (* *degree-to-radian* 390))
    (make-instance 'acad-ray)
@@ -61,7 +61,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Тестирование для секции заголовка
-(let ((h (make-instance 'Db-Header))) (header-vars h) (dxf-out-text h t))
+(let ((h (make-instance '<db-header>))) (header-vars h) (dxf-out-text h t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -125,10 +125,10 @@
 	    lst) #'<  :key #'third))
       (when (= code 5) (push (list code str) lst)))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование Acad-Line
+;;;; Тестирование <Acad-Line>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (progn
-  (defparameter *line* (make-instance 'acad-line))
+  (defparameter *line* (make-instance '<acad-line>))
   (dxf-in-text *line* '((0 "LINE") (5 2499) (330 112)
 			(100 "AcDbEntity") (8 "0") (6 "158-2 Трамвайные линии") (62 0)
 			(100 "AcDbLine") (10 -52.76377270404833d0) (20 2.063090847165234d0) (30 0.0d0)
@@ -142,10 +142,10 @@
   (dxf-out-text *line* t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование acad-circle
+;;;; Тестирование <acad-circle>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (progn
-  (defparameter *circle* (make-instance 'acad-circle))
+  (defparameter *circle* (make-instance '<acad-circle>))
   (dxf-out-text *circle* t)
   (dxf-in-text *circle*
 	       '((0 "CIRCLE") (5 1227) (330 112)
@@ -169,11 +169,11 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование acad-arc
+;;;; Тестирование <acad-arc>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter *arc* (make-instance 'acad-arc))
+  (defparameter *arc* (make-instance '<acad-arc>))
   (dxf-out-text *arc* t)
   (dxf-in-text *arc*)
   (dxf-in-text *arc*
@@ -187,11 +187,11 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование acad-point
+;;;; Тестирование <acad-point>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter *point* (make-instance 'acad-point))
+  (defparameter *point* (make-instance '<acad-point>))
   (dxf-out-text *point* t)
   (dxf-in-text *point*
 	       '((0 "POINT") (5 3379) (330 112)
@@ -243,11 +243,11 @@
 (line-type-scale *ray*)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование acad-xline
+;;;; Тестирование <acad-xline>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter *xline* (make-instance 'acad-xline))
+  (defparameter *xline* (make-instance '<acad-xline>))
   (dxf-out-text *xline* t)
   (dxf-in-text *xline*
 	       '((0 "XLINE") (5 3454) (330 112)
@@ -289,19 +289,19 @@
 		 (40 0.5139533603459778d0) (41 0.0d0) (42 6.283185307179586d0))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование acad-database
+;;;; Тестирование <acad-database>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defparameter *database* (make-instance 'acad-database))
+(defparameter *database* (make-instance '<acad-database>))
 
 (elevationmodelspace *database*)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование acad-layer
+;;;; Тестирование <acad-layer>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter *layer* (make-instance 'acad-layer))
+  (defparameter *layer* (make-instance '<acad-layer>))
   (dxf-out-text *layer* t)
   (dxf-in-text *layer*
 	       '((0 "LAYER") (5 4055) (330 2) (100 "AcDbSymbolTableRecord")
@@ -328,11 +328,11 @@
 (pairs             *layer*)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование acad-layers
+;;;; Тестирование <acad-layers>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter *layers* (make-instance 'acad-layers))
+  (defparameter *layers* (make-instance '<acad-layers>))
   (dxf-in-text *layers* (split-tables *Drawing-sty*))
   (items *layers*)
   )
@@ -353,13 +353,13 @@
 '((2 "LTYPE") (5 5) (330 0) (100 "AcDbSymbolTable") (70 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Тестирование acad-linetype
+;; Тестирование <acad-linetype>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (table-and-items "LTYPE" (split-tables *Drawing-sty*))
 
 (progn 
-  (defparameter *linetype* (make-instance 'acad-linetype))
+  (defparameter *linetype* (make-instance '<acad-linetype>))
   (dxf-in-text *linetype*
 	       '((0 "LTYPE") (5 91) (330 5) (100 "AcDbSymbolTableRecord")
 		 (100 "AcDbLinetypeTableRecord") (2 "ByBlock") (70 0) (3 "") (72 65) (73 0)
@@ -384,11 +384,11 @@
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Тестирование acad-linetypes
+;;;; Тестирование <acad-linetypes>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter *linetypes* (make-instance 'acad-linetypes))
+  (defparameter *linetypes* (make-instance '<acad-linetypes>))
   (dxf-in-text *linetypes* (split-tables *Drawing-sty*))
   (items *linetypes*)
   )
@@ -400,11 +400,11 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Тестирование acad-document
+;; Тестирование <acad-document>
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter *document* (make-instance 'acad-document))
+  (defparameter *document* (make-instance '<acad-document>))
 
   (dxf-in-text *document* *Drawing-sty*)
   
