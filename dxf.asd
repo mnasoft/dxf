@@ -10,7 +10,7 @@
   :serial nil
   :in-order-to ((test-op (test-op "dxf/tests")))
   :depends-on ("mnas-string"
-;;;; "dxf/b-arr"
+               "dxf/color"
                "dxf/out"
                "dxf/vars")
 ;;;; "babel" "ieee-floats"
@@ -21,6 +21,18 @@
 	                     (:file "test-dxf")
                              ;;(:file "test")	       
                              ))))
+
+(defsystem "dxf/color"
+  :description
+  "@b(Описание:) система @b(dxf/color) определяет базовые операции с
+ цветом."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :perform (test-op (o s)
+		    (uiop:symbol-call :dxf/b-arr :tests))
+  :components ((:module "src/color"
+		:serial t
+		:components ((:file "color")))))
 
 (defsystem "dxf/b-arr"
   :description

@@ -220,7 +220,6 @@
 
 (in-package :dxf/vars)
 
-
 (defparameter *$ACADMAINTVER* '("$ACADMAINTVER" 70 ) "Maintenance version number (should be ignored)")
 
 (defparameter *$ACADVER* '("$ACADVER" 1 ) "The AutoCAD drawing database version number: 
