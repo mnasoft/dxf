@@ -9,8 +9,11 @@
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
   :serial nil
   :in-order-to ((test-op (test-op "dxf/tests")))
-  :depends-on ("babel" "ieee-floats" "mnas-string"
-                       "dxf/vars")
+  :depends-on ("mnas-string"
+;;;; "dxf/b-arr"
+               "dxf/out"
+               "dxf/vars")
+;;;; "babel" "ieee-floats"
   :components ((:module "src"
 		:serial t
                 :components ((:file "dxf")
@@ -18,6 +21,31 @@
 	                     (:file "test-dxf")
                              ;;(:file "test")	       
                              ))))
+
+(defsystem "dxf/b-arr"
+  :description
+  "@b(Описание:) система @b(dxf/b-arr) определяет низкоуровневые
+   функции чтения записи dxf - файла AutoCAD."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :perform (test-op (o s)
+		    (uiop:symbol-call :dxf/b-arr :tests))
+  :components ((:module "src/b-arr"
+		:serial t
+		:components ((:file "b-arr")))))
+
+(defsystem "dxf/out"
+  :description
+  "@b(Описание:) система @b(dxf/b-arr) определяет низкоуровневые
+   функции чтения записи dxf - файла AutoCAD."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
+  :depends-on ("babel" "ieee-floats" "dxf/b-arr")
+  :perform (test-op (o s)
+		    (uiop:symbol-call :dxf/b-arr :tests))
+  :components ((:module "src/out"
+		:serial t
+		:components ((:file "out")))))
 
 (defsystem "dxf/vars"
   :description

@@ -13,6 +13,7 @@
   (loop
     :for i :in
     '((:dxf          :dxf)
+      (:dxf/b-arr     nil)
       (:dxf/vars      nil)
       
       (:dxf/docs      nil)

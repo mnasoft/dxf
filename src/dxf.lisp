@@ -1,11 +1,7 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; ./src/dxf.lisp
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defpackage #:dxf
   (:use #:cl #:mnas-string)
-  (:export *section-names*
-           )
   (:export dxf-in-t-fname
 	   dxf-out-text
 	   dxf-in-text
@@ -38,14 +34,8 @@
            color-index
            )
   (:export *line-weight-enum*
-
-           *byte-aray-2*
-           *byte-aray-4*
-           *byte-aray-8*
-           *byte-aray-16*
            *dxf-header*
-
-           *dxf-code-overal-length*)
+           )
 
   (:export *h-vars-list-min*
            *h-vars-list*
@@ -56,88 +46,87 @@
            )
   (:export *radian-to-degree*
            *degree-to-radian*
-           *object-properties*
-           
-           *Acad-Object-class-marker*
-           *Acad-Object-subclass-marker*
-           *acad-object-properties*
-           *acad-entity-class-marker*
-           *acad-entity-subclass-marker*
-           *acad-entity-properties*
-           *db-curve-class-marker*
-           *db-curve-subclass-marker*
-           *acad-line-class-marker*
-           *acad-line-subclass-marker*
-           *acad-point-class-marker*
-           *acad-point-subclass-marker*
-           *acad-point-properties*
-           *acad-ray-class-marker*
-           *acad-ray-subclass-marker*
-           *acad-ray-properties*
-           *acad-xline-class-marker*
-           *acad-xline-subclass-marker*
-           *acad-xline-properties*
-           *Acad-Circle-class-marker*
-           *Acad-Circle-subclass-marker*
-           *acad-arc-class-marker*
-           *acad-arc-subclass-marker*
-           *acad-arc-properties*
-           *acad-text-class-marker*
-           *acad-text-subclass-marker*
-           *acad-text-properties*
-           *acad-ellipse-class-marker*
-           *acad-ellipse-subclass-marker*
-           *acad-acad-ellipse-properties*
-           *acad-symboltablerecord-subclass-marker*
-           *acad-layer-class-marker*
-           *acad-layer-subclass-marker*
-           *acad-layer-properties*
-           *acad-symboltable-subclass-marker*
-           *acad-layers-properties*
-           *acad-database-properties*
-           *acad-document-properties*
-           *acad-linetype-class-marker*
-           *acad-linetype-subclass-marker*
-           *acad-linetype-properties*
-           *acad-linetypes-properties*
-           *symbol-tbl-class-marker*
-           *symbol-tbl-subclass-marker*
-           *db-symbol-tr-class-marker*
-           *db-symbol-tr-subclass-marker*
-           *db-block-tr-class-marker*
-           *db-block-tr-subclass-marker*
-           *section-names*
+           *object-properties*)
+  
+  (:export <acad-documents>
+           <acad-document>
+           <acad-database>
+  
+           <acad-linetypes>
+           <acad-layers>
 
-           *table-names*))
+           <acad-linetype>
+           <acad-layer>
+  
+           <ge-point-3d>
+           <rx-object>
+           <dxf-pairs>
+  
+           <acad-object>
+           <acad-entity>
+  
+           <db-curve>
+  
+           <acad-line>
+           <acad-point>
+           <acad-ray>
+           <acad-xline>
+           <acad-circle>
+           <acad-arc>
+           <acad-text>
+           <acad-ellipse>)
+  (:export 
+   *Acad-Object-class-marker*
+   *Acad-Object-subclass-marker*
+   *acad-object-properties*
+   *acad-entity-class-marker*
+   *acad-entity-subclass-marker*
+   *acad-entity-properties*
+   *db-curve-class-marker*
+   *db-curve-subclass-marker*
+   *acad-line-class-marker*
+   *acad-line-subclass-marker*
+   *acad-point-class-marker*
+   *acad-point-subclass-marker*
+   *acad-point-properties*
+   *acad-ray-class-marker*
+   *acad-ray-subclass-marker*
+   *acad-ray-properties*
+   *acad-xline-class-marker*
+   *acad-xline-subclass-marker*
+   *acad-xline-properties*
+   *Acad-Circle-class-marker*
+   *Acad-Circle-subclass-marker*
+   *acad-arc-class-marker*
+   *acad-arc-subclass-marker*
+   *acad-arc-properties*
+   *acad-text-class-marker*
+   *acad-text-subclass-marker*
+   *acad-text-properties*
+   *acad-ellipse-class-marker*
+   *acad-ellipse-subclass-marker*
+   *acad-acad-ellipse-properties*
+   *acad-symboltablerecord-subclass-marker*
+   *acad-layer-class-marker*
+   *acad-layer-subclass-marker*
+   *acad-layer-properties*
+   *acad-symboltable-subclass-marker*
+   *acad-layers-properties*
+   *acad-database-properties*
+   *acad-document-properties*
+   *acad-linetype-class-marker*
+   *acad-linetype-subclass-marker*
+   *acad-linetype-properties*
+   *acad-linetypes-properties*
+   *symbol-tbl-class-marker*
+   *symbol-tbl-subclass-marker*
+   *db-symbol-tr-class-marker*
+   *db-symbol-tr-subclass-marker*
+   *db-block-tr-class-marker*
+   *db-block-tr-subclass-marker*
+   *section-names*
 
-'(<acad-documents>
-  <acad-document>
-  <acad-database>
-  
-  <acad-linetypes>
-  <acad-layers>
-
-  <acad-linetype>
-  <acad-layer>
-  
-  <ge-point-3d>
-  <rx-object>
-  <dxf-pairs>
-  
-  <acad-object>
-  <acad-entity>
-  
-  <db-curve>
-  
-  <acad-line>
-  <acad-point>
-  <acad-ray>
-  <acad-xline>
-  <acad-circle>
-  <acad-arc>
-  <acad-text>
-  acad-ellipse
-  )
+   *table-names*))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; dxf-string.lisp
@@ -506,8 +495,6 @@
 	 (r    (+ 256 -256 (second r-))))
     (list r g b )))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defun color-rgb (rgb)
   "@b(Описание:) функция @b(rgb) 
 
@@ -597,301 +584,6 @@
     (t (line-weight-ByLwDefault))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; byte-array.lisp
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defparameter *byte-aray-2* (make-array 2 :element-type 'unsigned-byte))
-
-(defparameter *byte-aray-4* (make-array 4 :element-type 'unsigned-byte))
-
-(defparameter *byte-aray-8* (make-array 8 :element-type 'unsigned-byte))
-
-(defparameter *byte-aray-16* (make-array 16 :element-type 'unsigned-byte))
-
-(defun put-u2 (int)
-  (setf (aref *byte-aray-2* #x0) (ldb (byte 8 #x00) int))
-  (setf (aref *byte-aray-2* #x1) (ldb (byte 8 #x08) int)))
- 
-(defun put-u4 (int)
-  (setf (aref *byte-aray-4* #x0) (ldb (byte 8 #x00) int))
-  (setf (aref *byte-aray-4* #x1) (ldb (byte 8 #x08) int))
-  (setf (aref *byte-aray-4* #x2) (ldb (byte 8 #x10) int))
-  (setf (aref *byte-aray-4* #x3) (ldb (byte 8 #x18) int)))
-
-(defun put-u8 (int)
-  (setf (aref *byte-aray-8* #x0) (ldb (byte 8 #x00) int))
-  (setf (aref *byte-aray-8* #x1) (ldb (byte 8 #x08) int))
-  (setf (aref *byte-aray-8* #x2) (ldb (byte 8 #x10) int))
-  (setf (aref *byte-aray-8* #x3) (ldb (byte 8 #x18) int))
-  (setf (aref *byte-aray-8* #x4) (ldb (byte 8 #x20) int))
-  (setf (aref *byte-aray-8* #x5) (ldb (byte 8 #x28) int))
-  (setf (aref *byte-aray-8* #x6) (ldb (byte 8 #x30) int))
-  (setf (aref *byte-aray-8* #x7) (ldb (byte 8 #x38) int)))
-
-(defun put-u16 (int)
-  (setf (aref *byte-aray-16* #x0) (ldb (byte 8 #x00) int))
-  (setf (aref *byte-aray-16* #x1) (ldb (byte 8 #x08) int))
-  (setf (aref *byte-aray-16* #x2) (ldb (byte 8 #x10) int))
-  (setf (aref *byte-aray-16* #x3) (ldb (byte 8 #x18) int))
-  (setf (aref *byte-aray-16* #x4) (ldb (byte 8 #x20) int))
-  (setf (aref *byte-aray-16* #x5) (ldb (byte 8 #x28) int))
-  (setf (aref *byte-aray-16* #x6) (ldb (byte 8 #x30) int))
-  (setf (aref *byte-aray-16* #x7) (ldb (byte 8 #x38) int))
-  (setf (aref *byte-aray-16* #x8) (ldb (byte 8 #x40) int))
-  (setf (aref *byte-aray-16* #x9) (ldb (byte 8 #x48) int))
-  (setf (aref *byte-aray-16* #xa) (ldb (byte 8 #x50) int))
-  (setf (aref *byte-aray-16* #xb) (ldb (byte 8 #x58) int))
-  (setf (aref *byte-aray-16* #xc) (ldb (byte 8 #x60) int))
-  (setf (aref *byte-aray-16* #xd) (ldb (byte 8 #x68) int))
-  (setf (aref *byte-aray-16* #xe) (ldb (byte 8 #x70) int))
-  (setf (aref *byte-aray-16* #xf) (ldb (byte 8 #x78) int)))
-
-;;; "dxf" goes here. Hacks and glory await!
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; code-by-value-range.lisp
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun dxf-out-t-string (code string stream &key (max-octet-length 2048))
-    (if (and (stringp string)
-	     (<= (length (babel:string-to-octets string)) max-octet-length))
-	(format stream "~A~%~A~%" (dxf-code code) string)
-;;;;	(break "dxf-t-string: code=~A; ~A~%" code string)
-	))
-;;;;
-
-(defun dxf-out-t-double (code x stream)
-  (if  (numberp x)
-       (format stream "~A~%~,12F~%" (dxf-code code) x)
-;;;;   (break "dxf-out-t-double: (numberp x) : code=~A x=~A" code x)
-       ))
-;;;;
-
-(defun dxf-out-t-point-2d (code point-2d stream)
-  (dxf-out-t-double (+ 0 code) (svref point-2d 0) stream)
-  (dxf-out-t-double (+ 10 code) (svref point-2d 1) stream))
-
-(defun dxf-out-t-point-3d (code point-3d stream)
-  (dxf-out-t-double (+ 0 code) (svref point-3d 0) stream)
-  (dxf-out-t-double (+ 10 code) (svref point-3d 1) stream)
-  (dxf-out-t-double (+ 20 code) (svref point-3d 2) stream))
-
-(defun dxf-out-t-point (code point stream)
-  (cond
-    ((and (vectorp point)
-	  (= 2 (array-dimension point 0)))
-     (dxf-out-t-point-2d code point stream))
-    ((and (vectorp point)
-	  (= 3 (array-dimension point 0))) 
-     (dxf-out-t-point-3d code point stream))))
-
-;;;;
-
-(defun dxf-out-t-hex (code hex stream)
-  (if  (and (integerp hex) (< (integer-length hex) 128))
-       (format stream "~A~%~X~%" (dxf-code code) hex)))
-
-;;;;
-
-(defun dxf-out-t-int16 (code int16 stream)
-  (if  (and (integerp int16) (< (integer-length int16) 16))
-       (format stream "~A~%~D~%" (dxf-code code) int16)))
-
-(defun dxf-out-t-int32 (code int32 stream)
-  (if  (and (integerp int32) (< (integer-length int32) 32))
-       (format stream "~A~%~D~%" (dxf-code code) int32)))
-
-(defun dxf-out-t-int64 (code int64 stream)
-  (if  (and (integerp int64) (< (integer-length int64)  64))
-       (format stream "~A~%~D~%" (dxf-code code) int64)))
-
-(defun dxf-out-t-int128 (code int128 stream)
-  (if  (and (integerp int128) (< (integer-length int128) 128))
-       (format stream "~A~%~D~%" (dxf-code code) int128)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  
-(defun dxf-out-b-string (code string stream &key (max-octet-length 2048))
-  (if (and (stringp string)
-	   (<= (length (babel:string-to-octets string)) max-octet-length))
-      (progn
-	(put-u2 code)
-	(write-sequence *byte-aray-2* stream)
-	(write-sequence (babel:string-to-octets (concatenate 'string string (format nil "~C" #\NUL))) stream))
-;;;;      (break "dxf-b-string: code=~A; ~A~%" code string)
-      ))
-;;;;
-
-(defun dxf-out-b-double (code x stream)
-  (if  (numberp x)
-       (progn
-	 (put-u2 code)
-	 (write-sequence *byte-aray-2* stream)
-;;;;	 (put-u8 (ie3fp:encode-ieee-double (coerce x 'double-float)))
-	 (put-u8 (ieee-floats:encode-float64 (coerce x 'double-float)))	 
-	 (write-sequence *byte-aray-8* stream))
-;;;;       (break "dxf-out-b-double: (numberp x) : code=~A x=~A" code x)
-       ))
-
-(defun dxf-out-b-point-2d (code point-2d stream)
-  (dxf-out-b-double (+ 0 code) (svref point-2d 0) stream)
-  (dxf-out-b-double (+ 10 code) (svref point-2d 1) stream))
-
-(defun dxf-out-b-point-3d (code point-3d stream)
-  (dxf-out-b-double (+ 0 code) (svref point-3d 0) stream)
-  (dxf-out-b-double (+ 10 code) (svref point-3d 1) stream)
-  (dxf-out-b-double (+ 20 code) (svref point-3d 2) stream))
-
-(defun dxf-out-b-point (code point stream)
-  (cond
-    ((and (vectorp point)
-	  (= 2 (array-dimension point 0))) 
-     (dxf-out-b-point-2d code point stream))
-    ((and (vectorp point)
-	  (= 3 (array-dimension point 0))) 
-     (dxf-out-b-point-3d code point stream))))
-
-;;;;
-
-(defun dxf-out-b-hex (code hex stream)
-  (if  (and (integerp hex) (< (integer-length hex) 128))
-       (dxf-out-b-string code (format nil "~X" hex) stream)))
-
-;;;;
-
-(defun dxf-out-b-int16 (code int16 stream)
-  (if  (and (integerp int16) (< (integer-length int16) 16))
-       (progn
-	 (put-u2 code)
-	 (write-sequence *byte-aray-2* stream)
- 	 (put-u2 int16)
-	 (write-sequence *byte-aray-2* stream))))
-
-(defun dxf-out-b-int32 (code int32 stream)
-  (if  (and (integerp int32) (< (integer-length int32) 32))
-       (progn
-	 (put-u2 code)
-	 (write-sequence *byte-aray-2* stream)
-	 (put-u4 int32)
-	 (write-sequence *byte-aray-4* stream))))
-
-(defun dxf-out-b-int64 (code int64 stream)
-  (if  (and (integerp int64) (< (integer-length int64)  64))
-       (progn
-	 (put-u2 code)
- 	 (write-sequence *byte-aray-2* stream)
- 	 (put-u8 int64)
-	 (write-sequence *byte-aray-8* stream))))
-
-(defun dxf-out-b-int128 (code int128 stream)
-  (if  (and (integerp int128) (< (integer-length int128) 128))
-       (progn
-	 (put-u2 code)
-  	 (write-sequence *byte-aray-2* stream)
- 	 (put-u16 int128)
-	 (write-sequence *byte-aray-16* stream))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun dxf-out-t (code value stream)
-  ""
-  (cond
-    ((or (<= 0 code 4)
-	 (<= 6 code 9))  (dxf-out-t-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
-    ((=  5  code)        (dxf-out-t-hex    code value stream))
-    ((<= 10 code 19)     (dxf-out-t-double code value stream)) ;;;; Double precision 3D point value
-    ((<= 20 code 39)     (dxf-out-t-double code value stream)) 
-    ((<= 40 code 59)     (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 60 code 79)     (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 90 code 99)     (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
-    ((= 100 code)        (dxf-out-t-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 102 code)        (dxf-out-t-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 105 code)        (dxf-out-t-string code value stream :max-octet-length 127)) ;;;; String representing hexadecimal (hex) handle value
-    ((<= 110 code 119)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 120 code 129)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 130 code 139)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 140 code 149)   (dxf-out-t-double code value stream)) ;;;; Double precision scalar floating-point value
-    ((<= 160 code 169)   (dxf-out-t-int64  code value stream)) ;;;; 64-bit integer value
-    ((<= 170 code 179)   (dxf-out-t-int64  code value stream)) ;;;; 16-bit integer value
-    ((<= 210 code 239)   (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 270 code 279)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 280 code 289)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 290 code 299)   (dxf-out-t-int16  code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
-    ((<= 300 code 309)   (dxf-out-t-string code value stream)) ;;;; Arbitrary text string
-    ((<= 310 code 319)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex value of b chunk
-    ((<= 320 code 329)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
-    ((<= 330 code 369)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex object IDs
-    ((<= 370 code 379)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 380 code 389)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 390 code 399)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
-    ((<= 400 code 409)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 410 code 419)   (dxf-out-t-string code value stream)) ;;;; String
-    ((<= 420 code 429)   (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 430 code 439)   (dxf-out-t-string code value stream)) ;;;; String
-    ((<= 440 code 449)   (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 450 code 459)   (dxf-out-t-int64  code value stream)) ;;;; Long
-    ((<= 460 code 469)   (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 470 code 479)   (dxf-out-t-string code value stream)) ;;;; String
-    ((<= 480 code 481)   (dxf-out-t-string code value stream :max-octet-length 127)) ;;;; String representing hex handle value
-    ((= 999 code)        (dxf-out-t-string code value stream)) ;;;; string)
-    ((<= 1000 code 1009) (dxf-out-t-string code value stream)) ;;;; String (same limits as indicated with 0-9 code range)
-    ((<= 1010 code 1059) (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 1060 code 1070) (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((= 1071 code)       (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
-    ))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun dxf-out-b (code value stream)
-  ""
-  (cond
-    ((or (<= 0 code 4)
-	 (<= 6 code 9))  (dxf-out-b-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
-    ((=  5  code)        (dxf-out-b-hex    code value stream))
-    ((<= 10 code 19)     (dxf-out-b-point  code value stream)) ;;;; Double precision 3D point value
-    ((<= 20 code 39)     (dxf-out-b-double code value stream)) 
-    ((<= 40 code 59)     (dxf-out-b-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 60 code 79)     (dxf-out-b-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 90 code 99)     (dxf-out-b-int32  code value stream)) ;;;; 32-bit integer value
-    ((= 100 code)        (dxf-out-b-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 102 code)        (dxf-out-b-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 105 code)        (dxf-out-b-string code value stream :max-octet-length 127)) ;;;; String representing hexadecimal (hex) handle value
-    ((<= 110 code 119)   (dxf-out-b-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 120 code 129)   (dxf-out-b-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 130 code 139)   (dxf-out-b-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 140 code 149)   (dxf-out-b-double code value stream)) ;;;; Double precision scalar floating-point value
-    ((<= 160 code 169)   (dxf-out-b-int64  code value stream)) ;;;; 64-bit integer value
-    ((<= 170 code 179)   (dxf-out-b-int64  code value stream)) ;;;; 16-bit integer value
-    ((<= 210 code 239)   (dxf-out-b-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 270 code 279)   (dxf-out-b-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 280 code 289)   (dxf-out-b-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 290 code 299)   (dxf-out-b-int16  code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
-    ((<= 300 code 309)   (dxf-out-b-string code value stream)) ;;;; Arbitrary text string
-    ((<= 310 code 319)   (dxf-out-b-hex    code value stream)) ;;;; String representing hex value of b chunk
-    ((<= 320 code 329)   (dxf-out-b-hex    code value stream)) ;;;; String representing hex handle value
-    ((<= 330 code 369)   (dxf-out-b-hex    code value stream)) ;;;; String representing hex object IDs
-    ((<= 370 code 379)   (dxf-out-b-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 380 code 389)   (dxf-out-b-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 390 code 399)   (dxf-out-b-string code value stream :max-octet-length 127)) ;;;; String representing hex handle value
-    ((<= 400 code 409)   (dxf-out-b-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 410 code 419)   (dxf-out-b-string code value stream)) ;;;; String
-    ((<= 420 code 429)   (dxf-out-b-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 430 code 439)   (dxf-out-b-string code value stream)) ;;;; String
-    ((<= 440 code 449)   (dxf-out-b-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 450 code 459)   (dxf-out-b-int64  code value stream)) ;;;; Long
-    ((<= 460 code 469)   (dxf-out-b-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 470 code 479)   (dxf-out-b-string code value stream)) ;;;; String
-    ((<= 480 code 481)   (dxf-out-b-string code value stream :max-octet-length 127)) ;;;; String representing hex handle value
-    ((= 999 code)        (dxf-out-b-string code value stream)) ;;;; string)
-    ((<= 1000 code 1009) (dxf-out-b-string code value stream)) ;;;; String (same limits as indicated with 0-9 code range)
-    ((<= 1010 code 1059) (dxf-out-b-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 1060 code 1070) (dxf-out-b-int16  code value stream)) ;;;; 16-bit integer value
-    ((= 1071 code)       (dxf-out-b-int32  code value stream)) ;;;; 32-bit integer value
-    ))
-
-;;;; (defun dxf-in-b(code value stream) "")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; dxf.lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -906,26 +598,6 @@
 (defun dxf-out-b-header (stream)
   (write-sequence (babel:string-to-octets *dxf-header*)
                   stream))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defparameter *dxf-code-overal-length* 3
-  "@b(Описание:) переменная @b(dxf-code-overal-length) задает
-минримальую ширину поля для вывода dxf кода в текстовом режиме.")
-
-(defun dxf-code (code &optional (overal-length *dxf-code-overal-length*))
-  "@b(Описание:) функция @b(dxf-code) возвращает строку,
-  представляющую @b(code) dxf. @b(Code) печатается смещенным вправо с
-  пробельными заполнителяи. Параметр @b(overal-length) задает
-  минимальную ширину поля вывода.
-
- @b(Пример использования:)
-@begin[lang=lisp](code)
- (dxf-code 4) -> \"  4\"
- (dxf-code 123456) -> \"123456\"
-@end(code)"
-  (format nil (format nil "~~~A,' d" overal-length) code))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; header-section-group-codes-list.lisp
@@ -1225,18 +897,18 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 ")))
 
 (defmethod dxf-out-text :before ((x <db-header>) stream)
-  (dxf-out-t-string 0 *section* stream)
-  (dxf-out-t-string 2 *section-header* stream))
+  (dxf/out:txt-string 0 *section* stream)
+  (dxf/out:txt-string 2 *section-header* stream))
 
 (defmethod dxf-out-text ((x <db-header>) stream)
   (mapc #'(lambda (el)
 	    (when (third el)
-	      (dxf-out-t-string 9 (concatenate 'string "$" (first el)) stream)
-	      (dxf-out-t (second el) (third el) stream)))
+	      (dxf/out:txt-string 9 (concatenate 'string "$" (first el)) stream)
+	      (dxf/out:txt (second el) (third el) stream)))
 	(header-vars x)))
 
 (defmethod dxf-out-text :after ((x <db-header>) stream)
-    (dxf-out-t-string 0 *endsec* stream))
+    (dxf/out:txt-string 0 *endsec* stream))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1324,14 +996,14 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 объекта @b(object) в поток @b(stream) в текстовом формате."))
 
 (defmethod dxf-out-text ((x <Acad-Object>) stream)
-  (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
+  (dxf/out:txt-string 0 *Acad-Object-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <Acad-Object>) stream)
   (let (
 	(hdl (Handle x))
 	(own (Owner-ID x)))
-    (when hdl (dxf-out-t-hex   5 hdl stream))
-    (when own (dxf-out-t-hex 330 own stream))))
+    (when hdl (dxf/out:txt-hex   5 hdl stream))
+    (when own (dxf/out:txt-hex 330 own stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1341,13 +1013,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 объекта @b(object) в поток @b(stream) в двоичном формате."))
 
 (defmethod dxf-out-binary ((x <Acad-Object>) stream)
-  (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
+  (dxf/out:txt-string 0 *Acad-Object-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <Acad-Object>) stream)
   (let ((own (Owner-ID  x))
 	(hdl (Handle x)))
-    (when own (dxf-out-t-hex 330 own stream))
-    (when hdl (dxf-out-t-hex   5 hdl stream))))
+    (when own (dxf/out:txt-hex 330 own stream))
+    (when hdl (dxf/out:txt-hex   5 hdl stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1395,10 +1067,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-text ((x <acad-entity>) stream)
-  (dxf-out-t-string 0 *acad-entity-class-marker* stream))
+  (dxf/out:txt-string 0 *acad-entity-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <acad-entity>) stream)
-  (dxf-out-t-string 100 *acad-entity-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-entity-subclass-marker* stream)
   (let ((la  (Layer  x))
 	(cl  (truecolor x))
 	(lt  (line-type  x))
@@ -1406,34 +1078,34 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 	(lts (line-type-scale x))
 	(lw  (line-weight x))
 	)
-    (dxf-out-t-string 8 la stream)
+    (dxf/out:txt-string 8 la stream)
     (unless (string= "BYLAYER" lt ) (dxf-out-t 6 lt stream))
     (cond
       ((= 256 (first cl)))
-      ((= 0   (first cl)) (dxf-out-t 62 (first cl) stream))
+      ((= 0   (first cl)) (dxf/out:txt 62 (first cl) stream))
       ((and (< 0 (first cl) 256) (null (second cl)))
-       (dxf-out-t-int16 62 (first cl) stream))
+       (dxf/out:txt-int16 62 (first cl) stream))
       ((and (< 0 (first cl) 256) (second cl))
-       (dxf-out-t-int16 62  (first cl) stream)
-       (dxf-out-t-int32 420 (color-rgb-to-truecolor (second cl)) stream)))
-    (unless (= lts 1.d0) (dxf-out-t 48 lts stream))
-    (unless (= lw -1) (dxf-out-t-int16  370 lw stream))
-    (unless vi  (dxf-out-t 60 1   stream))))
+       (dxf/out:txt-int16 62  (first cl) stream)
+       (dxf/out:txt-int32 420 (color-rgb-to-truecolor (second cl)) stream)))
+    (unless (= lts 1.d0) (dxf/out:txt 48 lts stream))
+    (unless (= lw -1) (dxf/out:txt-int16  370 lw stream))
+    (unless vi  (dxf/out:txt 60 1   stream))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;LLLL;;
 
 (defmethod dxf-out-binary ((x <acad-entity>) stream)
-  (dxf-out-b-string 0 *acad-entity-class-marker* stream))
+  (dxf/out:bin-string 0 *acad-entity-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-entity>) stream)
-  (dxf-out-b-string 100 *acad-entity-subclass-marker* stream)
+  (dxf/out:bin-string 100 *acad-entity-subclass-marker* stream)
   (let ((hdl (Handle x))
 	(la (Layer x))
 	(cl (truecolor x)))
-    (when hdl (dxf-out-b-hex 5 hdl stream))
-    (dxf-out-b-string 8 la stream)
-    (unless (= 256 cl) (dxf-out-b-int16 62  cl stream))))
+    (when hdl (dxf/out:bin-hex 5 hdl stream))
+    (dxf/out:bin-string 8 la stream)
+    (unless (= 256 cl) (dxf/out:bin-int16 62  cl stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1490,9 +1162,8 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
    (EndPoint   :accessor EndPoint    :initarg :EndPoint    :initform (vector 0d0 0d0 0d0 ) :documentation "Код 11. Конечная точка (в МСК) Файл DXF: значение X; приложение: 3D-точка")
    (Thickness  :accessor Thickness   :initarg :thickness   :initform 0d0                   :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
    (Normal     :accessor Normal      :initarg :Normal      :initform (vector 0d0 0d0 1d0)  :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
-   (Angle)
-   (Delta)
-   (Length))
+   ;;;; (Angle) (Delta) (Length)
+   )
 
   (:documentation "См. ./dbents.h:class AcDbLine: public AcDbCurve
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66
@@ -1551,10 +1222,10 @@ LINE (DXF)
 "))
 
 (defmethod dxf-out-text ((x <Acad-Line>) stream)
-  (dxf-out-t-string 0 *Acad-Line-class-marker* stream))
+  (dxf/out:txt-string 0 *Acad-Line-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <Acad-Line>) stream)
-  (dxf-out-t-string 100 *Acad-Line-subclass-marker* stream)
+  (dxf/out:txt-string 100 *Acad-Line-subclass-marker* stream)
   (let ((th  (thickness x))
         (p-s (StartPoint x))
 	(p-e (EndPoint x))
@@ -1562,19 +1233,19 @@ LINE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th 0) (dxf-out-t-double 39 th stream))
-    (dxf-out-t-point-3d 10 p-s stream)
-    (dxf-out-t-point-3d 11 p-e stream)
+    (unless (= th 0) (dxf/out:txt-double 39 th stream))
+    (dxf/out:txt-point-3d 10 p-s stream)
+    (dxf/out:txt-point-3d 11 p-e stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1))
-      (dxf-out-t-point-3d nrm 210 stream))))
+      (dxf/out:txt-point-3d nrm 210 stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x <Acad-Line>) stream)
-  (dxf-out-b-string 0 *Acad-Line-class-marker* stream))
+  (dxf/out:bin-string 0 *Acad-Line-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <Acad-Line>) stream)
-  (dxf-out-b-string 100 *Acad-Line-subclass-marker* stream)
+  (dxf/out:bin-string 100 *Acad-Line-subclass-marker* stream)
   (let ((th (thickness x))
         (p-s (StartPoint x))
 	(p-e (EndPoint x))
@@ -1582,11 +1253,11 @@ LINE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th 0) (dxf-out-b-double 39 th stream))
-    (dxf-out-b-point-3d 10 p-s stream)
-    (dxf-out-b-point-3d 11 p-e stream)
+    (unless (= th 0) (dxf/out:bin-double 39 th stream))
+    (dxf/out:bin-point-3d 10 p-s stream)
+    (dxf/out:bin-point-3d 11 p-e stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1))
-      (dxf-out-b-point-3d nrm 210 stream))))
+      (dxf/out:bin-point-3d nrm 210 stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1667,10 +1338,10 @@ POINT (DXF)
 (mapcar #'make-slot (set-difference *acad-point-properties* *acad-entity-properties*))
 
 (defmethod dxf-out-text ((x <acad-point>) stream)
-    (dxf-out-t-string 0 *acad-point-class-marker* stream))
+    (dxf/out:txt-string 0 *acad-point-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <acad-point>) stream)
-  (dxf-out-t-string 100 *acad-point-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-point-subclass-marker* stream)
   (let ((th  (thickness x))
         (pos (coordinates x))
 	(ecs (ecs-angle x))
@@ -1678,18 +1349,18 @@ POINT (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th  0) (dxf-out-t-double  39 th stream))
-    (dxf-out-t-point-3d 10 pos stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-t-point-3d 210 nrm stream))
-    (unless (= ecs 0) (dxf-out-t-double 50 ecs stream))))
+    (unless (= th  0) (dxf/out:txt-double  39 th stream))
+    (dxf/out:txt-point-3d 10 pos stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:txt-point-3d 210 nrm stream))
+    (unless (= ecs 0) (dxf/out:txt-double 50 ecs stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x <acad-point>) stream)
-  (dxf-out-b-string 0 *acad-point-class-marker* stream))
+  (dxf/out:bin-string 0 *acad-point-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-point>) stream)
-  (dxf-out-b-string 100 *acad-point-subclass-marker* stream)
+  (dxf/out:bin-string 100 *acad-point-subclass-marker* stream)
   (let ((th  (thickness x))
         (pos (coordinates x))
 	(ecs (ecs-angle x))
@@ -1697,10 +1368,10 @@ POINT (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th 0) (dxf-out-b-double 39 th stream))
-    (dxf-out-b-point-3d 10 pos stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))
-    (unless (= ecs 0) (dxf-out-b-double 50 ecs stream))))
+    (unless (= th 0) (dxf/out:bin-double 39 th stream))
+    (dxf/out:bin-point-3d 10 pos stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:bin-point-3d 210 nrm stream))
+    (unless (= ecs 0) (dxf/out:bin-double 50 ecs stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1773,24 +1444,24 @@ RAY (DXF)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-text ((x <acad-ray>) stream)
-  (dxf-out-t-string 0 *acad-ray-class-marker* stream))
+  (dxf/out:txt-string 0 *acad-ray-class-marker* stream))
 
 (defmethod dxf-out-text  :after ((x <acad-ray>) stream)
-  (dxf-out-t-string 100 *acad-ray-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-ray-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
-    (dxf-out-t-point-3d 10 b-p stream)
-    (dxf-out-t-point-3d 11 u-d stream)))
+    (dxf/out:txt-point-3d 10 b-p stream)
+    (dxf/out:txt-point-3d 11 u-d stream)))
 
 (defmethod dxf-out-binary ((x <acad-ray>) stream)
-  (dxf-out-b-string 0 *acad-ray-class-marker* stream))
+  (dxf/out:bin-string 0 *acad-ray-class-marker* stream))
 
 (defmethod dxf-out-binary  :after ((x <acad-ray>) stream)
-  (dxf-out-b-string 100 *acad-ray-subclass-marker* stream)
+  (dxf/out:bin-string 100 *acad-ray-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
-    (dxf-out-b-point-3d 10 b-p stream)
-    (dxf-out-b-point-3d 11 u-d stream)))
+    (dxf/out:bin-point-3d 10 b-p stream)
+    (dxf/out:bin-point-3d 11 u-d stream)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1857,24 +1528,24 @@ XLINE (DXF)
 (reverse (mapcar #'make-slot (set-difference *acad-xline-properties* *acad-entity-properties*)))
 
 (defmethod dxf-out-text ((x <acad-xline>) stream)
-  (dxf-out-t-string 0 *acad-xline-class-marker* stream))
+  (dxf/out:txt-string 0 *acad-xline-class-marker* stream))
 
 (defmethod dxf-out-text  :after ((x <acad-xline>) stream)
-  (dxf-out-t-string 100 *acad-xline-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-xline-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
-    (dxf-out-t-point-3d 10 b-p stream)
-    (dxf-out-t-point-3d 11 u-d stream)))
+    (dxf/out:txt-point-3d 10 b-p stream)
+    (dxf/out:txt-point-3d 11 u-d stream)))
 
 (defmethod dxf-out-binary ((x <acad-xline>) stream)
-  (dxf-out-b-string 0 *acad-xline-class-marker* stream))
+  (dxf/out:bin-string 0 *acad-xline-class-marker* stream))
 
 (defmethod dxf-out-binary  :after ((x <acad-xline>) stream)
-  (dxf-out-b-string 100 *acad-xline-subclass-marker* stream)
+  (dxf/out:bin-string 100 *acad-xline-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
-    (dxf-out-b-point-3d 10 b-p stream)
-    (dxf-out-b-point-3d 11 u-d stream)))
+    (dxf/out:bin-point-3d 10 b-p stream)
+    (dxf/out:bin-point-3d 11 u-d stream)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1906,13 +1577,22 @@ XLINE (DXF)
 (defparameter *Acad-Circle-subclass-marker* "AcDbCircle")
 
 (defclass  <acad-circle> (<acad-entity>) 
-  ((center    :accessor center     :initarg :center    :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в ОСК). Файл DXF: значение X; приложение: 3D-точка")
-   (radius    :accessor radius     :initarg :radius    :initform 1              :documentation "Код 40. Радиус")
-   (thickness :accessor thickness  :initarg :thickness :initform 0              :documentation "Код 39. Толщина (необязательно; значение по умолчанию = 0)")
-   (normal    :accessor normal     :initarg :normal    :initform (vector 0 0 1) :documentation "Код 210. Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение: 3D-вектор")
-   (area)
-   (circumference)
-   (diameter) 
+  ((center    :accessor center     :initarg :center    :initform (vector 0 0 0)
+              :documentation
+              "Код 10. Центральная точка (в ОСК). Файл DXF: значение
+              X; приложение: 3D-точка")
+   (radius    :accessor radius     :initarg :radius    :initform 1
+              :documentation "Код 40. Радиус")
+   (thickness :accessor thickness  :initarg :thickness :initform 0
+              :documentation
+              "Код 39. Толщина (необязательно; значение по умолчанию =
+              0)")
+   (normal    :accessor normal     :initarg :normal    :initform (vector 0 0 1)
+              :documentation
+              "Код 210. Направление выдавливания (необязательно;
+   значение по умолчанию = 0, 0, 1). Файл DXF: значение X; приложение:
+   3D-вектор")
+   ;;;; (area)  (circumference)  (diameter)
    )
   (:documentation
    "См. ./dbents.h:class AcDbCircle: public AcDbCurve
@@ -1941,10 +1621,10 @@ CIRCLE (DXF)
 "))
 
 (defmethod dxf-out-text ((x <Acad-Circle>) stream)
-  (dxf-out-t-string 0 *Acad-Circle-class-marker*  stream))
+  (dxf/out:txt-string 0 *Acad-Circle-class-marker*  stream))
 
 (defmethod dxf-out-text  :after ((x <Acad-Circle>) stream)
-  (dxf-out-t-string 100 *Acad-Circle-subclass-marker* stream)
+  (dxf/out:txt-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
         (p-c (center x))
 	(rad (radius x))
@@ -1952,18 +1632,18 @@ CIRCLE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th 0) (dxf-out-t-double 39 th stream))
-    (dxf-out-t-point-3d 10 p-c stream)
-    (dxf-out-t-double 40 rad stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-t-point-3d 210 nrm stream))))
+    (unless (= th 0) (dxf/out:txt-double 39 th stream))
+    (dxf/out:txt-point-3d 10 p-c stream)
+    (dxf/out:txt-double 40 rad stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:txt-point-3d 210 nrm stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x <Acad-Circle>) stream)
-  (dxf-out-b-string 0 *Acad-Circle-class-marker*  stream))
+  (dxf/out:bin-string 0 *Acad-Circle-class-marker*  stream))
 
 (defmethod dxf-out-binary :after ((x <Acad-Circle>) stream)
-  (dxf-out-b-string 100 *Acad-Circle-subclass-marker* stream)
+  (dxf/out:bin-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
         (p-c (center x))
 	(rad (radius x))
@@ -1971,10 +1651,10 @@ CIRCLE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th 0) (dxf-out-b-double 39 th stream))
-    (dxf-out-b-point-3d 10 p-c stream)
-    (dxf-out-b-double 40 rad stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))))
+    (unless (= th 0) (dxf/out:bin-double 39 th stream))
+    (dxf/out:bin-point-3d 10 p-c stream)
+    (dxf/out:bin-double 40 rad stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:bin-point-3d 210 nrm stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2062,10 +1742,10 @@ ARC (DXF)
 (reverse (mapcar #'make-slot (set-difference *acad-arc-properties* *acad-entity-properties*)))
 
 (defmethod dxf-out-text ((x <acad-arc>) stream)
-  (dxf-out-t-string 0 *acad-arc-class-marker* stream))
+  (dxf/out:txt-string 0 *acad-arc-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <acad-arc>) stream)
-  (dxf-out-t-string 100 *Acad-Circle-subclass-marker* stream)
+  (dxf/out:txt-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-c (center x))
 	(rad (radius x))
@@ -2075,22 +1755,22 @@ ARC (DXF)
 	(z-n (svref (normal x) 2))
 	(s-a (* *radian-to-degree* (start-angle x)))
 	(e-a (* *radian-to-degree* (end-angle x))))
-    (unless (= th 0) (dxf-out-t-double 39 th stream))
-    (dxf-out-t-point-3d 10 p-c stream)
-    (dxf-out-t-double 40 rad stream)
-    (dxf-out-t-string 100 *acad-arc-subclass-marker* stream)
-    (dxf-out-t-double 50 s-a stream)
-    (dxf-out-t-double 51 e-a stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-t-point-3d 210 nrm stream))))
+    (unless (= th 0) (dxf/out:txt-double 39 th stream))
+    (dxf/out:txt-point-3d 10 p-c stream)
+    (dxf/out:txt-double 40 rad stream)
+    (dxf/out:txt-string 100 *acad-arc-subclass-marker* stream)
+    (dxf/out:txt-double 50 s-a stream)
+    (dxf/out:txt-double 51 e-a stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:txt-point-3d 210 nrm stream))))
 
-(dxf-out-t-point-3d 210 (vector 1 2 3)t)
+(dxf/out:txt-point-3d 210 (vector 1 2 3)t)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x <acad-arc>) stream)
-  (dxf-out-b-string 0 *acad-arc-class-marker* stream))
+  (dxf/out:bin-string 0 *acad-arc-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-arc>) stream)
-  (dxf-out-b-string 100 *Acad-Circle-subclass-marker* stream)
+  (dxf/out:bin-string 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-c (center x))
 	(rad (radius x))
@@ -2100,13 +1780,13 @@ ARC (DXF)
 	(z-n (svref (normal x) 2))
 	(s-a (* *radian-to-degree* (start-angle x)))
 	(e-a (* *radian-to-degree* (end-angle x))))
-    (unless (= th 0) (dxf-out-b-double 39 th stream))
-    (dxf-out-b-point-3d 10 p-c stream)
-    (dxf-out-b-double 40 rad stream)
-    (dxf-out-b-string 100 *acad-arc-subclass-marker* stream)
-    (dxf-out-b-double 50 s-a stream)
-    (dxf-out-b-double 51 e-a stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))))
+    (unless (= th 0) (dxf/out:bin-double 39 th stream))
+    (dxf/out:bin-point-3d 10 p-c stream)
+    (dxf/out:bin-double 40 rad stream)
+    (dxf/out:bin-string 100 *acad-arc-subclass-marker* stream)
+    (dxf/out:bin-double 50 s-a stream)
+    (dxf/out:bin-double 51 e-a stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:bin-point-3d 210 nrm stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2156,7 +1836,7 @@ ARC (DXF)
    (rotation             :accessor rotation             :initarg :rotation             :initform 0              :documentation "Код  50. Text rotation (optional; default = 0)")
    (scale-factor         :accessor scale-factor         :initarg :scale-factor         :initform 1              :documentation "Код  41. Relative X scale factor-width (optional; default = 1) This value is also adjusted when fit-type text is used")
    (oblique-angle        :accessor oblique-angle        :initarg :oblique-angle        :initform 0              :documentation "Код  51. Relative X scale factor-width (optional; default = 1) This value is also adjusted when fit-type text is used")
-   (style-name           :accessor style-name           :initarg :style-name           :initform "STANDARD"     :documentation "Код   7. Text style name (optional, default = STANDARD")
+   (style-name           :accessor style-name           :initarg :style-name           :initform "STANDARD"     :documentation "Код   7. Text style name (optional, default = STANDARD)")
    (mirror-in-xy         :accessor mirror-in-xy         :initarg :mirror-in-xy         :initform 0              :documentation "Код  71. Text generation flags (optional, default = 0): 2 = Text is backward (mirrored in X) ; 4 = Text is upside down (mirrored in Y)")
 ;;;(backward :accessor backward :initarg :backward :initform nil :documentation "backward")  
 ;;;(upsidedown :accessor upsidedown :initarg :upsidedown :initform nil :documentation "upsidedown")
@@ -2261,10 +1941,10 @@ TEXT (DXF)
 
 
 (defmethod dxf-out-text ((x <acad-text>) stream)
-    (dxf-out-t-string 0 *acad-text-class-marker* stream))
+    (dxf/out:txt-string 0 *acad-text-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <acad-text>) stream)
-  (dxf-out-t-string 100 *acad-text-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-text-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-p (insertion-point x))
 	(h   (height x))
@@ -2284,28 +1964,28 @@ TEXT (DXF)
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(v-j (ver-justification x)))
-    (unless (= th 0) (dxf-out-t-double 39 th stream))
-    (dxf-out-t-point-3d 10 p-p stream)
-    (dxf-out-t-double 40 h stream)
-    (dxf-out-t-string 1 t-s stream)
-    (dxf-out-t-double 50 (* *radian-to-degree* rot) stream)
-    (dxf-out-t-double 41 w-f stream)
-    (dxf-out-t-double 51 (* *radian-to-degree* ob) stream)
-    (dxf-out-t-string 7 st stream)
-    (unless (= mir 0) (dxf-out-t-int16 71 mir stream))
-    (unless (= h-j 0) (dxf-out-t-int16 72 h-j stream))
-    (when   (or (/= h-j 0) (/= v-j 0)) (dxf-out-t-point-3d 11 a-p stream))
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-t-point-3d 210 nrm stream))
-    (dxf-out-t-string 100 *acad-text-subclass-marker* stream)
-    (unless (= v-j 0) (dxf-out-t-int16 73 v-j stream))))
+    (unless (= th 0) (dxf/out:txt-double 39 th stream))
+    (dxf/out:txt-point-3d 10 p-p stream)
+    (dxf/out:txt-double 40 h stream)
+    (dxf/out:txt-string 1 t-s stream)
+    (dxf/out:txt-double 50 (* *radian-to-degree* rot) stream)
+    (dxf/out:txt-double 41 w-f stream)
+    (dxf/out:txt-double 51 (* *radian-to-degree* ob) stream)
+    (dxf/out:txt-string 7 st stream)
+    (unless (= mir 0) (dxf/out:txt-int16 71 mir stream))
+    (unless (= h-j 0) (dxf/out:txt-int16 72 h-j stream))
+    (when   (or (/= h-j 0) (/= v-j 0)) (dxf/out:txt-point-3d 11 a-p stream))
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:txt-point-3d 210 nrm stream))
+    (dxf/out:txt-string 100 *acad-text-subclass-marker* stream)
+    (unless (= v-j 0) (dxf/out:txt-int16 73 v-j stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x <acad-text>) stream)
-  (dxf-out-b-string 0 *acad-text-class-marker* stream))
+  (dxf/out:bin-string 0 *acad-text-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-text>) stream)
-  (dxf-out-b-string 100 *acad-text-subclass-marker* stream)
+  (dxf/out:bin-string 100 *acad-text-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-p (insertion-point x))
 	(h   (height x))
@@ -2325,20 +2005,20 @@ TEXT (DXF)
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(v-j (ver-justification x)))
-    (unless (= th 0) (dxf-out-b-double 39 th stream))
-    (dxf-out-b-point-3d 10 p-p stream)
-    (dxf-out-b-double 40 h stream)
-    (dxf-out-b-string 1 t-s stream)
-    (dxf-out-b-double 50 (* *radian-to-degree* rot) stream)
-    (dxf-out-b-double 41 w-f stream)
-    (dxf-out-b-double 51 (* *radian-to-degree* ob) stream)
-    (dxf-out-b-string 7 st stream)
-    (unless (= mir 0) (dxf-out-b-int16 71 mir stream))
-    (unless (= h-j 0) (dxf-out-b-int16 72 h-j stream))
-    (when   (or (/= h-j 0) (/= v-j 0)) (dxf-out-b-point-3d 11 a-p stream))
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf-out-b-point-3d 210 nrm stream))
-    (dxf-out-b-string 100 *acad-text-subclass-marker* stream)
-    (unless (= v-j 0) (dxf-out-b-int16 73 v-j stream))))
+    (unless (= th 0) (dxf/out:bin-double 39 th stream))
+    (dxf/out:bin-point-3d 10 p-p stream)
+    (dxf/out:bin-double 40 h stream)
+    (dxf/out:bin-string 1 t-s stream)
+    (dxf/out:bin-double 50 (* *radian-to-degree* rot) stream)
+    (dxf/out:bin-double 41 w-f stream)
+    (dxf/out:bin-double 51 (* *radian-to-degree* ob) stream)
+    (dxf/out:bin-string 7 st stream)
+    (unless (= mir 0) (dxf/out:bin-int16 71 mir stream))
+    (unless (= h-j 0) (dxf/out:bin-int16 72 h-j stream))
+    (when   (or (/= h-j 0) (/= v-j 0)) (dxf/out:bin-point-3d 11 a-p stream))
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:bin-point-3d 210 nrm stream))
+    (dxf/out:bin-string 100 *acad-text-subclass-marker* stream)
+    (unless (= v-j 0) (dxf/out:bin-int16 73 v-j stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2346,7 +2026,7 @@ TEXT (DXF)
 
 (defparameter *acad-ellipse-subclass-marker* "AcDbEllipse")
 
-(defclass acad-ellipse (<acad-entity>)
+(defclass <acad-ellipse> (<acad-entity>)
   (
 ;;;(area         :accessor area         :initarg :area         :initform nil            :documentation "area")
    (center       :accessor center       :initarg :center       :initform (vector 0 0 0) :documentation "Код 10. Центральная точка (в МСК). Файл DXF: значение X; приложение: 3D-точка")
@@ -2404,11 +2084,11 @@ ELLIPSE (DXF)
 
 (reverse (mapcar #'make-slot (set-difference *acad-acad-ellipse-properties* *acad-entity-properties*)))
 
-(defmethod dxf-out-text ((x acad-ellipse) stream)
-  (dxf-out-t-string 0 *acad-ellipse-class-marker* stream))
+(defmethod dxf-out-text ((x <acad-ellipse>) stream)
+  (dxf/out:txt-string 0 *acad-ellipse-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x acad-ellipse) stream)
-  (dxf-out-t-string 100 *acad-ellipse-subclass-marker* stream)
+(defmethod dxf-out-text :after ((x <acad-ellipse>) stream)
+  (dxf/out:txt-string 100 *acad-ellipse-subclass-marker* stream)
   (let ((p-c   (center x))
 	(p-ma  (map 'vector #'+ (center x) (major-axis x)))
 	(u-n   (normal x))
@@ -2418,20 +2098,20 @@ ELLIPSE (DXF)
 	(r-r (radius-ratio x))
 	(s-p (start-parameter x))
 	(e-p (end-parameter   x)))
-    (dxf-out-t-point-3d 10 p-c stream)
-    (dxf-out-t-point-3d 11 p-ma stream)
-    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf-out-t-point-3d 210 u-n stream))
-    (dxf-out-t-double 40 r-r stream)
-    (dxf-out-t-double 41 s-p stream)
-    (dxf-out-t-double 42 e-p stream)))
+    (dxf/out:txt-point-3d 10 p-c stream)
+    (dxf/out:txt-point-3d 11 p-ma stream)
+    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf/out:txt-point-3d 210 u-n stream))
+    (dxf/out:txt-double 40 r-r stream)
+    (dxf/out:txt-double 41 s-p stream)
+    (dxf/out:txt-double 42 e-p stream)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod dxf-out-binary ((x acad-ellipse) stream)
-  (dxf-out-b-string 0 *acad-ellipse-class-marker* stream))
+(defmethod dxf-out-binary ((x <acad-ellipse>) stream)
+  (dxf/out:bin-string 0 *acad-ellipse-class-marker* stream))
 
-(defmethod dxf-out-binary :after ((x acad-ellipse) stream)
-  (dxf-out-b-string 100 *acad-ellipse-subclass-marker* stream)
+(defmethod dxf-out-binary :after ((x <acad-ellipse>) stream)
+  (dxf/out:bin-string 100 *acad-ellipse-subclass-marker* stream)
   (let ((p-c   (center x))
 	(p-ma  (map 'vector #'+ (center x) (major-axis x)))
 	(u-n   (normal x))
@@ -2441,19 +2121,19 @@ ELLIPSE (DXF)
 	(r-r (radius-ratio x))
 	(s-p (start-parameter x))
 	(e-p (end-parameter   x)))
-    (dxf-out-b-point-3d 10 p-c stream)
-    (dxf-out-b-point-3d 11 p-ma stream)
-    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf-out-b-point-3d 210 u-n stream))
-    (dxf-out-b-double 40 r-r stream)
-    (dxf-out-b-double 41 s-p stream)
-    (dxf-out-b-double 42 e-p stream)))
+    (dxf/out:bin-point-3d 10 p-c stream)
+    (dxf/out:bin-point-3d 11 p-ma stream)
+    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf/out:bin-point-3d 210 u-n stream))
+    (dxf/out:bin-double 40 r-r stream)
+    (dxf/out:bin-double 41 s-p stream)
+    (dxf/out:bin-double 42 e-p stream)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defmethod  dxf-in-text  ((object acad-ellipse) (pairs cons))
+(defmethod  dxf-in-text  ((object <acad-ellipse>) (pairs cons))
   (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*))))
 
-(defmethod  dxf-in-text :after ((object acad-ellipse) (pairs cons))
+(defmethod  dxf-in-text :after ((object <acad-ellipse>) (pairs cons))
   (let ((c-10  (cadr (assoc  10 pairs :test #'equal)))
 	(c-20  (cadr (assoc  20 pairs :test #'equal)))
 	(c-30  (cadr (assoc  30 pairs :test #'equal)))
@@ -2471,21 +2151,21 @@ ELLIPSE (DXF)
        (setf  (center object) (vector c-10 c-20 c-30)))
       ((and c-10 c-20 (null c-30))
        (setf  (center object) (vector c-10 c-20 0.d0)))
-      (t (error "dxf-in-text :after ((object acad-ellipse) (pairs cons)): wrong values c-10 c-20 c-30 ~A ~A ~A" c-10 c-20 c-30)))
+      (t (error "dxf-in-text :after ((object <acad-ellipse>) (pairs cons)): wrong values c-10 c-20 c-30 ~A ~A ~A" c-10 c-20 c-30)))
     (cond
       ((and c-11 c-21 c-31)
        (setf  (major-axis object) (vector c-10 c-20 c-30)))
       ((and c-11 c-21 (null c-31))
        (setf  (major-axis object) (vector c-10 c-20 0.d0)))
-      (t (error "dxf-in-text :after ((object acad-ellipse) (pairs cons)): wrong values c-11 c-21 c-31 ~A ~A ~A" c-11 c-21 c-31)))
+      (t (error "dxf-in-text :after ((object <acad-ellipse>) (pairs cons)): wrong values c-11 c-21 c-31 ~A ~A ~A" c-11 c-21 c-31)))
     (if  c-40
 	 (setf  (radius-ratio object) c-40)
-	 (error "dxf-in-text :after ((object acad-ellipse) (pairs cons)): c-40 not defined"))
+	 (error "dxf-in-text :after ((object <acad-ellipse>) (pairs cons)): c-40 not defined"))
     (if  c-41
 	 (setf  (start-parameter object) c-41)
-	 (error "dxf-in-text :after ((object acad-ellipse) (pairs cons)): c-41 not defined"))
+	 (error "dxf-in-text :after ((object <acad-ellipse>) (pairs cons)): c-41 not defined"))
     (if  c-42   (setf  (end-parameter object) c-42)
-	 (error "dxf-in-text :after ((object acad-ellipse) (pairs cons)): c-42 not defined"))
+	 (error "dxf-in-text :after ((object <acad-ellipse>) (pairs cons)): c-42 not defined"))
     (if (and c-210 c-220 c-230)
 	(setf  (normal object) (vector c-210 c-220 c-230))
 	(setf  (normal object) (vector 0.0d0 0.0d0 1.0d0)))))
@@ -2532,11 +2212,11 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-text ((x <acad-layer>) stream)
-  (dxf-out-t-string 0 *acad-layer-class-marker* stream))
+  (dxf/out:txt-string 0 *acad-layer-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <acad-layer>) stream)
-  (dxf-out-t-string 100 *acad-symboltablerecord-subclass-marker* stream)
-  (dxf-out-t-string 100 *acad-layer-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-symboltablerecord-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-layer-subclass-marker* stream)
   (let ((name            (name            x))
 	(freeze          (freeze          x))
 	(viewportdefault (viewportdefault x))
@@ -2558,21 +2238,21 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 ;;; (when lock            (setf c-70 (dpb 1 (byte 1 3) c-70)))
 ;;; (when lock            (setf c-70 (dpb 1 (byte 1 4) c-70)))
       (when used            (setf c-70 (dpb 1 (byte 1 5) c-70))))
-    (dxf-out-t-string  2 name   stream)
-    (dxf-out-t-int16  70 c-70   stream)
+    (dxf/out:txt-string  2 name   stream)
+    (dxf/out:txt-int16  70 c-70   stream)
     (cond
-      ((= 0   (first cl)) (dxf-out-t 62 (first cl) stream))
+      ((= 0   (first cl)) (dxf/out:txt 62 (first cl) stream))
       ((and (< 0 (first cl) 256) (null (second cl)))
-       (dxf-out-t-int16 62 (* (first cl) layeron) stream))
+       (dxf/out:txt-int16 62 (* (first cl) layeron) stream))
       ((and (< 0 (first cl) 256) (second cl))
-       (dxf-out-t-int16 62  (* (first cl) layeron) stream)
-       (dxf-out-t-int32 420 (color-rgb-to-truecolor (second cl)) stream)))
-    (dxf-out-t         6 l-ltype   stream)
-    (dxf-out-t       290 plottable stream)
-    (dxf-out-t       370 l-lweight stream)
-    (dxf-out-t       390 l-pstyle  stream)
-    (dxf-out-t       347 l-mat     stream)
-;;; (dxf-out-t       348 l-vstyle  stream)
+       (dxf/out:txt-int16 62  (* (first cl) layeron) stream)
+       (dxf/out:txt-int32 420 (color-rgb-to-truecolor (second cl)) stream)))
+    (dxf/out:txt         6 l-ltype   stream)
+    (dxf/out:txt       290 plottable stream)
+    (dxf/out:txt       370 l-lweight stream)
+    (dxf/out:txt       390 l-pstyle  stream)
+    (dxf/out:txt       347 l-mat     stream)
+;;; (dxf/out:txt       348 l-vstyle  stream)
     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2645,13 +2325,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 (reverse (mapcar #'make-slot (set-difference *acad-layers-properties* *acad-object-properties*)))
 
 (defmethod dxf-out-text ((x <acad-layers>) stream)
-  (dxf-out-t-string 2 *acad-layer-class-marker* stream))
+  (dxf/out:txt-string 2 *acad-layer-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <acad-layers>) stream)
-  (dxf-out-t-string 100 *acad-symboltable-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-symboltable-subclass-marker* stream)
   (let ((a-count (a-count x))
 	(items   (items   x)))
-    (dxf-out-t-int16  70 a-count   stream)
+    (dxf/out:txt-int16  70 a-count   stream)
     (mapc #'(lambda (el) (dxf-out-text el stream)) items)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2789,51 +2469,51 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 (defmethod dxf-out-text :after ((x <acad-document>) stream)
   (block section-header
-    (dxf-out-t 0 "SECTION" stream)
-    (dxf-out-t 2 "HEADER"  stream)
+    (dxf/out:txt 0 "SECTION" stream)
+    (dxf/out:txt 2 "HEADER"  stream)
     (mapc #'(lambda (header)
-	      (mapc #'(lambda (el) (dxf-out-t (first el) (second el) stream)) header))
+	      (mapc #'(lambda (el) (dxf/out:txt (first el) (second el) stream)) header))
 	  (sec-header x))
-    (dxf-out-t 0 "ENDSEC" stream))
+    (dxf/out:txt 0 "ENDSEC" stream))
   (block section-classes
-    (dxf-out-t 0 "SECTION" stream)
-    (dxf-out-t 2 "CLASSES" stream)
+    (dxf/out:txt 0 "SECTION" stream)
+    (dxf/out:txt 2 "CLASSES" stream)
     (mapc #'(lambda (class)
-	      (mapc #'(lambda (el) (dxf-out-t (first el) (second el) stream)) class))
+	      (mapc #'(lambda (el) (dxf/out:txt (first el) (second el) stream)) class))
 	  (sec-classes x))
-    (dxf-out-t 0 "ENDSEC" stream))
+    (dxf/out:txt 0 "ENDSEC" stream))
   (block section-tables
-    (dxf-out-t 0 "SECTION" stream)
-    (dxf-out-t 2 "TABLES" stream)
+    (dxf/out:txt 0 "SECTION" stream)
+    (dxf/out:txt 2 "TABLES" stream)
 ;;;
-    (dxf-out-t 0 "ENDSEC" stream)
+    (dxf/out:txt 0 "ENDSEC" stream)
     )
   (block section-blocks
-    (dxf-out-t 0 "SECTION" stream)
-    (dxf-out-t 2 "BLOCKS" stream)
+    (dxf/out:txt 0 "SECTION" stream)
+    (dxf/out:txt 2 "BLOCKS" stream)
 ;;;
-    (dxf-out-t 0 "ENDSEC" stream)
+    (dxf/out:txt 0 "ENDSEC" stream)
     )
   (block section-entities
-    (dxf-out-t 0 "SECTION" stream)
-    (dxf-out-t 2 "ENTITIES" stream)
+    (dxf/out:txt 0 "SECTION" stream)
+    (dxf/out:txt 2 "ENTITIES" stream)
 ;;;
-    (dxf-out-t 0 "ENDSEC" stream)
+    (dxf/out:txt 0 "ENDSEC" stream)
     )
   (block section-objects
-    (dxf-out-t 0 "SECTION" stream)
-    (dxf-out-t 2 "OBJECTS" stream)
+    (dxf/out:txt 0 "SECTION" stream)
+    (dxf/out:txt 2 "OBJECTS" stream)
 ;;;
-    (dxf-out-t 0 "ENDSEC" stream)
+    (dxf/out:txt 0 "ENDSEC" stream)
     )
     (block section-objects
-    (dxf-out-t 0 "SECTION" stream)
-    (dxf-out-t 2 "ACDSDATA" stream)
+    (dxf/out:txt 0 "SECTION" stream)
+    (dxf/out:txt 2 "ACDSDATA" stream)
 ;;;
-    (dxf-out-t 0 "ENDSEC" stream)
+    (dxf/out:txt 0 "ENDSEC" stream)
     )
     
-    (dxf-out-t 0 "EOF" stream)
+    (dxf/out:txt 0 "EOF" stream)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2857,32 +2537,32 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 (mapcar #'make-slot (set-difference *acad-linetype-properties* *acad-object-properties*))
 
 (defmethod dxf-out-text ((x <acad-linetype>) stream)
-  (dxf-out-t-string 0 *acad-linetype-class-marker* stream))
+  (dxf/out:txt-string 0 *acad-linetype-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x <acad-linetype>) stream)
-  (dxf-out-t-string 100 *acad-symboltablerecord-subclass-marker* stream)
-  (dxf-out-t-string 100 *acad-linetype-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-symboltablerecord-subclass-marker* stream)
+  (dxf/out:txt-string 100 *acad-linetype-subclass-marker* stream)
   (let ((name            (name            x))
 	(description     (description     x))
 	(pairs           (pairs           x)))
-    (dxf-out-t-string  2 name   stream)
-    (dxf-out-t-int16  70 (cadr (assoc 70 pairs))   stream)
-    (dxf-out-t-string  3 description stream)
+    (dxf/out:txt-string  2 name   stream)
+    (dxf/out:txt-int16  70 (cadr (assoc 70 pairs))   stream)
+    (dxf/out:txt-string  3 description stream)
     (mapcar
      #'(lambda (el)
-	 (dxf-out-t (car el) (cadr el) t))
+	 (dxf/out:txt (car el) (cadr el) t))
      (member (assoc 72 pairs) pairs))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmethod dxf-out-binary ((x <acad-linetype>) stream)
-  (dxf-out-t-string 0 *Acad-Object-class-marker* stream))
+  (dxf/out:txt-string 0 *Acad-Object-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-linetype>) stream)
   (let ((own (Owner-ID  x))
 	(hdl (Handle x)))
-    (when own (dxf-out-t-hex 330 own stream))
-    (when hdl (dxf-out-t-hex   5 hdl stream))))
+    (when own (dxf/out:txt-hex 330 own stream))
+    (when hdl (dxf/out:txt-hex   5 hdl stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -2992,17 +2672,17 @@ None
 
 
 (defmethod dxf-out-text ((x db-symbol-tbl) stream)
-  (dxf-out-t-string 0 *symbol-tbl-class-marker* stream)
+  (dxf/out:txt-string 0 *symbol-tbl-class-marker* stream)
     (let ((st-name (Object-Name x)))
-    (dxf-out-t-string 2 st-name stream)))
+    (dxf/out:txt-string 2 st-name stream)))
 
 (defmethod dxf-out-text :after ((x db-symbol-tbl) stream)
-  (dxf-out-t-string 100 *db-symbol-tr-subclass-marker* stream)
+  (dxf/out:txt-string 100 *db-symbol-tr-subclass-marker* stream)
   (let ((st-flag  (symbol-tbl-flag x))
 	(st-items (reverse (symbol-tbl-items x))))
-    (dxf-out-t-int16 70 st-flag stream)
+    (dxf/out:txt-int16 70 st-flag stream)
     (mapc #'(lambda (el) (dxf-out-text el stream)) st-items)
-    (dxf-out-t-string 0 *end-tab* stream)))
+    (dxf/out:txt-string 0 *end-tab* stream)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass db-block-rec ( db-e symbol-tbl )
@@ -3106,10 +2786,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-5926A569-3E40-4ED2-AE06-6A
 "))
 
 (defmethod dxf-out-text ((x db-symbol-tr) stream)
-  (dxf-out-t-string 0 *db-symbol-tr-class-marker* stream))
+  (dxf/out:txt-string 0 *db-symbol-tr-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x db-symbol-tr) stream)
-  (dxf-out-t-string 100 *db-symbol-tr-subclass-marker* stream))
+  (dxf/out:txt-string 100 *db-symbol-tr-subclass-marker* stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3223,22 +2903,22 @@ BLOCK_RECORD (DXF)
 "))
 
 (defmethod dxf-out-text ((x db-block-tr) stream)
-  (dxf-out-t-string 0 *db-block-tr-class-marker* stream))
+  (dxf/out:txt-string 0 *db-block-tr-class-marker* stream))
 
 (defmethod dxf-out-text :after ((x db-block-tr) stream)
-  (dxf-out-t-string 100 *db-block-tr-subclass-marker* stream)
+  (dxf/out:txt-string 100 *db-block-tr-subclass-marker* stream)
   (let ((st-name (symbol-tr-name x))
 	(st-flag (symbol-tr-flag x))
 	(lay (block-tr-layout x))
 	(e-ty (block-tr-explodability x))
 	(s-ty (block-tr-scalability x))
 	(b-p  (block-tr-bitmap x)))
-    (dxf-out-t-string 2 st-name stream)
-    (when lay (dxf-out-t-hex 340 lay stream))
-    (dxf-out-t-int16 70 st-flag stream)
-    (dxf-out-t-int16 280 e-ty stream)
-    (dxf-out-t-int16 281 s-ty stream)
-    (when b-p (dxf-out-t-hex 310 b-p stream))))
+    (dxf/out:txt-string 2 st-name stream)
+    (when lay (dxf/out:txt-hex 340 lay stream))
+    (dxf/out:txt-int16 70 st-flag stream)
+    (dxf/out:txt-int16 280 e-ty stream)
+    (dxf/out:txt-int16 281 s-ty stream)
+    (when b-p (dxf/out:txt-hex 310 b-p stream))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -3734,48 +3414,48 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
   ""
   (cond
     ((or (<= 0 code 4)
-	 (<= 6 code 9))  (dxf-out-t-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
-    ((=  5  code)        (dxf-out-t-hex    code value stream))
-    ((<= 10 code 19)     (dxf-out-t-double code value stream)) ;;;; Double precision 3D point value
-    ((<= 20 code 39)     (dxf-out-t-double code value stream)) 
-    ((<= 40 code 59)     (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 60 code 79)     (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 90 code 99)     (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
-    ((= 100 code)        (dxf-out-t-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 101 code)        (dxf-out-t-string code value stream :max-octet-length 255)) 
-    ((= 102 code)        (dxf-out-t-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 105 code)        (dxf-out-t-hex    code value stream)) ;;;; String representing hexadecimal (hex) handle value
-    ((<= 110 code 119)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 120 code 129)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 130 code 139)   (dxf-out-t-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 140 code 149)   (dxf-out-t-double code value stream)) ;;;; Double precision scalar floating-point value
-    ((<= 160 code 169)   (dxf-out-t-int64  code value stream)) ;;;; 64-bit integer value
-    ((<= 170 code 179)   (dxf-out-t-int64  code value stream)) ;;;; 16-bit integer value
-    ((<= 210 code 239)   (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 270 code 279)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 280 code 289)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 290 code 299)   (dxf-out-t-int16  code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
-    ((<= 300 code 309)   (dxf-out-t-string code value stream)) ;;;; Arbitrary text string
-    ((<= 310 code 319)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex value of b chunk
-    ((<= 320 code 329)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
-    ((<= 330 code 369)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex object IDs
-    ((<= 370 code 379)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 380 code 389)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 390 code 399)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
-    ((<= 400 code 409)   (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 410 code 419)   (dxf-out-t-string code value stream)) ;;;; String
-    ((<= 420 code 429)   (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 430 code 439)   (dxf-out-t-string code value stream)) ;;;; String
-    ((<= 440 code 449)   (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 450 code 459)   (dxf-out-t-int64  code value stream)) ;;;; Long
-    ((<= 460 code 469)   (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 470 code 479)   (dxf-out-t-string code value stream)) ;;;; String
-    ((<= 480 code 481)   (dxf-out-t-hex    code value stream)) ;;;; String representing hex handle value
-    ((= 999 code)        (dxf-out-t-string code value stream)) ;;;; string)
-    ((<= 1000 code 1009) (dxf-out-t-string code value stream)) ;;;; String (same limits as indicated with 0-9 code range)
-    ((<= 1010 code 1059) (dxf-out-t-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 1060 code 1070) (dxf-out-t-int16  code value stream)) ;;;; 16-bit integer value
-    ((= 1071 code)       (dxf-out-t-int32  code value stream)) ;;;; 32-bit integer value
+	 (<= 6 code 9))  (dxf/out:txt-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
+    ((=  5  code)        (dxf/out:txt-hex    code value stream))
+    ((<= 10 code 19)     (dxf/out:txt-double code value stream)) ;;;; Double precision 3D point value
+    ((<= 20 code 39)     (dxf/out:txt-double code value stream)) 
+    ((<= 40 code 59)     (dxf/out:txt-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 60 code 79)     (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 90 code 99)     (dxf/out:txt-int32  code value stream)) ;;;; 32-bit integer value
+    ((= 100 code)        (dxf/out:txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((= 101 code)        (dxf/out:txt-string code value stream :max-octet-length 255)) 
+    ((= 102 code)        (dxf/out:txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((= 105 code)        (dxf/out:txt-hex    code value stream)) ;;;; String representing hexadecimal (hex) handle value
+    ((<= 110 code 119)   (dxf/out:txt-double code value stream)) ;;;; Double precision floating-point value
+    ((<= 120 code 129)   (dxf/out:txt-double code value stream)) ;;;; Double precision floating-point value
+    ((<= 130 code 139)   (dxf/out:txt-double code value stream)) ;;;; Double precision floating-point value
+    ((<= 140 code 149)   (dxf/out:txt-double code value stream)) ;;;; Double precision scalar floating-point value
+    ((<= 160 code 169)   (dxf/out:txt-int64  code value stream)) ;;;; 64-bit integer value
+    ((<= 170 code 179)   (dxf/out:txt-int64  code value stream)) ;;;; 16-bit integer value
+    ((<= 210 code 239)   (dxf/out:txt-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 270 code 279)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 280 code 289)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 290 code 299)   (dxf/out:txt-int16  code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
+    ((<= 300 code 309)   (dxf/out:txt-string code value stream)) ;;;; Arbitrary text string
+    ((<= 310 code 319)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex value of b chunk
+    ((<= 320 code 329)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex handle value
+    ((<= 330 code 369)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex object IDs
+    ((<= 370 code 379)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 380 code 389)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 390 code 399)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex handle value
+    ((<= 400 code 409)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 410 code 419)   (dxf/out:txt-string code value stream)) ;;;; String
+    ((<= 420 code 429)   (dxf/out:txt-int32  code value stream)) ;;;; 32-bit integer value
+    ((<= 430 code 439)   (dxf/out:txt-string code value stream)) ;;;; String
+    ((<= 440 code 449)   (dxf/out:txt-int32  code value stream)) ;;;; 32-bit integer value
+    ((<= 450 code 459)   (dxf/out:txt-int64  code value stream)) ;;;; Long
+    ((<= 460 code 469)   (dxf/out:txt-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 470 code 479)   (dxf/out:txt-string code value stream)) ;;;; String
+    ((<= 480 code 481)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex handle value
+    ((= 999 code)        (dxf/out:txt-string code value stream)) ;;;; string)
+    ((<= 1000 code 1009) (dxf/out:txt-string code value stream)) ;;;; String (same limits as indicated with 0-9 code range)
+    ((<= 1010 code 1059) (dxf/out:txt-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 1060 code 1070) (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((= 1071 code)       (dxf/out:txt-int32  code value stream)) ;;;; 32-bit integer value
     (t (error "dxf-out-t-pairs code=~a str=~a~%Ucnoun code." code value))))
 
 (defun dxf-out-by-sections (sections stream)
