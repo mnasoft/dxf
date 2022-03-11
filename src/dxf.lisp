@@ -7,30 +7,20 @@
 	   dxf-in-text
 	   split-entities
 	   )
-;;;; dxf-string.lisp
-  (:export *section*
-           *endsec*
-           *eof*
-           *section-classes*
-           *section-header*
-           *section-classes*
-           *section-tables*
-           *section-blocks*
-           *section-entities*
-           *section-objects*
-           *section-acdsdata*
-           *end-tab*
-           )
+
   (:export *line-weight-enum*
            *dxf-header*
            )
+  
   (:export *h-vars-list-min*
            *h-vars-list*
            *h-vars*
            *hdr*
            *hdr-min*)
+  
   (:export <db-header>
            )
+  
   (:export *radian-to-degree*
            *degree-to-radian*
            *object-properties*)
@@ -114,36 +104,7 @@
 
    *table-names*))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; dxf-string.lisp
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (in-package #:dxf)
-
-(defparameter *section*          "SECTION")
-
-(defparameter *endsec*           "ENDSEC")
-
-(defparameter *eof*              "EOF")
-
-(defparameter *section-classes*  "CLASSES")
-
-(defparameter *section-header*   "HEADER")
-
-(defparameter *section-classes*  "CLASSES")
-
-(defparameter *section-tables*   "TABLES")
-
-(defparameter *section-blocks*   "BLOCKS")
-
-(defparameter *section-entities* "ENTITIES")
-
-(defparameter *section-objects*  "OBJECTS")
-
-(defparameter *section-acdsdata* "ACDSDATA")
-
-(defparameter *end-tab*          "ENDTAB")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; line-weights.lisp
@@ -530,8 +491,8 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 ")))
 
 (defmethod dxf-out-text :before ((x <db-header>) stream)
-  (dxf/out:txt-string 0 *section* stream)
-  (dxf/out:txt-string 2 *section-header* stream))
+  (dxf/out:txt-string 0 dxf/sec:*section* stream)
+  (dxf/out:txt-string 2 dxf/sec:*section-header* stream))
 
 (defmethod dxf-out-text ((x <db-header>) stream)
   (mapc #'(lambda (el)
@@ -541,8 +502,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 	(header-vars x)))
 
 (defmethod dxf-out-text :after ((x <db-header>) stream)
-    (dxf/out:txt-string 0 *endsec* stream))
-
+    (dxf/out:txt-string 0 dxf/sec:*endsec* stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; db-classes.lisp
@@ -3093,13 +3053,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 (defun dxf-out-by-sections (sections stream)
   (mapc #'(lambda (sectoin)
-	    (dxf-out-t-pairs 0 *section* stream)
+	    (dxf-out-t-pairs 0 dxf/sec:*section* stream)
 	    (mapc #'(lambda (el)
 		      (dxf-out-t-pairs (first el) (second el) stream))
 		  sectoin)
-	    (dxf-out-t-pairs 0 *endsec* stream))
+	    (dxf-out-t-pairs 0 dxf/sec:*endsec* stream))
 	sections)
-  (dxf-out-t-pairs 0 *eof* stream))
+  (dxf-out-t-pairs 0 dxf/sec:*eof* stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

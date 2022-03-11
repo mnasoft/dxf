@@ -11,6 +11,7 @@
   :in-order-to ((test-op (test-op "dxf/tests")))
   :depends-on ("mnas-string"
                "dxf/color"
+               "dxf/sec"
                "dxf/out"
                "dxf/vars")
 ;;;; "babel" "ieee-floats"
@@ -21,6 +22,16 @@
 	                     (:file "test-dxf")
                              ;;(:file "test")	       
                              ))))
+
+(defsystem "dxf/sec"
+  :description
+  "@b(Описание:) система @b(dxf/sec) содержит строковые константы,
+ используемые для текстового представления dxf файла."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :components ((:module "src/sec"
+		:serial t
+		:components ((:file "sec")))))
 
 (defsystem "dxf/color"
   :description
