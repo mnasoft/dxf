@@ -13,23 +13,57 @@
   (list
    (make-instance '<acad-point>)
    (make-instance '<acad-point> :coordinates (vector 35 45 15) :ecs-angle (/ pi 6) :layer "Points"
-                              :truecolor (color-index 6)
-                              :normal (vector 0 1 0))
+                                :true-color (dxf/color:index 6)
+                                :normal (vector 0 1 0))
    (make-instance '<acad-line>)
-   (make-instance '<acad-line>  :startpoint (vector 10. 30. 50.0) :endpoint (vector 20. 40. 10.0) :layer "Lines" :truecolor (color-index 3))
+   (make-instance '<acad-line>  :startpoint (vector 10. 30. 50.0) :endpoint (vector 20. 40. 10.0) :layer "Lines" :true-color (dxf/color:index 3))
    (make-instance '<acad-circle>)
-   (make-instance '<acad-circle> :center (vector 51 65 0) :radius 48.6 :truecolor (color-index 75) :layer "Circles")
+   (make-instance '<acad-circle> :center (vector 51 65 0) :radius 48.6 :true-color (dxf/color:index 75) :layer "Circles")
    (make-instance '<acad-arc>)
-   (make-instance '<acad-arc> :center (vector 25 15 0) :radius 18.6 :truecolor (color-index 70) :start-angle (* 1.9999 pi) :end-angle (* 3.999 pi))
+   (make-instance '<acad-arc> :center (vector 25 15 0) :radius 18.6 :true-color (dxf/color:index 70) :start-angle (* 1.9999 pi) :end-angle (* 3.999 pi))
    (make-instance '<acad-text> :insertion-point (vector 30 20 0) :rotation (* *degree-to-radian* 120)
                                :text-string "This is the TEXT string!" :scale-factor 1/3 :oblique-angle (* *degree-to-radian* 15))
-   ;;(make-instance 'Db-Ellipse)
-   ;;(make-instance 'Db-Ellipse :center (vector 10 20 0) :entity-color 3 :entity-layer "Ellipses" :major-axis (vector 2 0 0) :radius-ratio 0.5D0 :start-param (* *degree-to-radian* 120) :end-param (* *degree-to-radian* 390))
-   (make-instance 'acad-ray)
-   ;;(make-instance 'Db-Ray :base-point (vector 51 65 0) :unit-dir (vector 1 0 0))
+   (make-instance '<acad-ellipse>)
+   (make-instance '<acad-ellipse>
+                  :center (vector 10 20 0)
+                  :true-color 3
+                  :layer "Ellipses"
+                  :major-axis (vector 2 0 0)
+                  :radius-ratio 0.5D0
+                  :start-parameter (* *degree-to-radian* 120)
+                  :end-parameter (* *degree-to-radian* 390))
+   
+   (make-instance '<acad-ray>)
+   (make-instance '<acad-ray> :base-point (vector 51 65 0) :direction-vector (vector 1 0 0))
    ))
-   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(dxf-out-text (make-instance '<acad-point>) t)
+
+(defparameter *ap* (make-instance '<acad-point>))
+(layer                *ap*)
+(line-type            *ap*)
+(line-type-scale      *ap*)
+(line-weight          *ap*) ;;;; -1 это странно
+(true-color           *ap*)
+(visible              *ap*)
+
+(entity-transparency)
+(hyperlinks)
+(material)
+(PlotStyleName)
+
+(normal *ap* )
+(ecs-angle *ap*)
+(coordinates *ap*)
+(thickness *ap*)
+
+
+
+(mapcar #'(lambda (el)
+            (dxf-out-text el t)) 
+        *model-space*)
+
+;;;;
 
 (defun test-bin ()
   (defparameter *o* (open (concatenate 'string *dxf-path* "12345-bin.dxf" )  :direction :output :element-type 'unsigned-byte :if-exists :supersede))
@@ -322,7 +356,7 @@
   (layeron         *layer*)
   (line-type       *layer*)
   (line-weight     *layer*)
-  (truecolor       *layer*)
+  (true-color      *layer*)
   )
 
 (pairs             *layer*)

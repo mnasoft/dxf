@@ -3,27 +3,30 @@
 (defpackage #:dxf
   (:use #:cl #:mnas-string)
   (:export dxf-in-t-fname
-	   dxf-out-text
+           )
+  (:export dxf-out-text
 	   dxf-in-text
-	   split-entities
-	   )
-
+           )
+  (:export dxf-out-binary
+           dxf-in-binary
+           )
+  (:export split-entities
+           )
   (:export *line-weight-enum*
            *dxf-header*
            )
-  
   (:export *h-vars-list-min*
            *h-vars-list*
            *h-vars*
            *hdr*
-           *hdr-min*)
-  
+           *hdr-min*
+           )
   (:export <db-header>
            )
-  
   (:export *radian-to-degree*
            *degree-to-radian*
-           *object-properties*)
+           *object-properties*
+           )
   (:export <acad-documents>
            <acad-document>
            <acad-database>
@@ -593,8 +596,8 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (defmethod dxf-out-text :after ((x <Acad-Object>) stream)
   (let (
-	(hdl (Handle x))
-	(own (Owner-ID x)))
+	(hdl (ac-handle x))
+	(own (ac-owner-id x)))
     (when hdl (dxf/out:txt-hex   5 hdl stream))
     (when own (dxf/out:txt-hex 330 own stream))))
 
@@ -636,18 +639,45 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 (defparameter *acad-entity-subclass-marker* "AcDbEntity")
 
 (defclass <acad-entity> (<acad-object>)
-  ((layer                :accessor layer           :initarg :layer  :initform "0" :documentation "Код   8. Имя слоя  entity-layer -> Layer" )
+  ((layer
+    :accessor layer
+    :initarg :layer
+    :initform "0"
+    :documentation
+    "Код   8. Имя слоя  entity-layer -> Layer" )
    (entity-transparency)
-   (line-type            :accessor line-type       :initarg :line-type  :initform "BYLAYER" :documentation "Код   6. Linetype name (present if not BYLAYER). The special name BYBLOCK indicates a floating linetype (optional) | BYLAYER |" )
+   (line-type
+    :accessor line-type
+    :initarg :line-type  :initform "BYLAYER"
+    :documentation
+    "Код 6. Linetype name (present if not BYLAYER). The special name
+    BYBLOCK indicates a floating linetype (optional) | BYLAYER |" )
    (hyperlinks)
-   (line-type-scale      :accessor line-type-scale :initarg :line-type-scale  :initform 1.0d0 :documentation "Код 48")
-   (line-weight          :accessor line-weight     :initarg :line-weight      :initform -1    :documentation "| 370 | Lineweight enum value. Stored and moved around as a 16-bit integer. | not omitted |")
+   (line-type-scale
+    :accessor line-type-scale
+    :initarg :line-type-scale
+    :initform 1.0d0
+    :documentation "Код 48")
+   (line-weight
+    :accessor line-weight
+    :initarg :line-weight
+    :initform -1
+    :documentation
+    "| 370 | Lineweight enum value. Stored and moved around as a 16-bit integer. | not omitted |")
    (material)
    (PlotStyleName)
-   (truecolor            :accessor truecolor       :initarg :truecolor :initform dxf/color:*bylayer* :documentation "Код   62 и 420" )
-   (visible              :accessor visible         :initarg :visible :initform t :documentation " 60 | Object visibility (optional): 0 = Visible 1 = Invisible | 0"))
-; (plotstylename :accessor plotstylename :initarg :plotstylename :initform nil :documentation "plotstylename")
-; (material :accessor material :initarg :material :initform nil :documentation "material")
+   (true-color
+    :accessor true-color
+    :initarg :true-color :initform dxf/color:*bylayer*
+    :documentation
+    "Код   62 и 420" )
+   (visible
+    :accessor visible
+    :initarg :visible :initform t
+    :documentation
+    " 60 | Object visibility (optional): 0 = Visible 1 = Invisible | 0"))
+  #+nil (plotstylename :accessor plotstylename :initarg :plotstylename :initform nil :documentation "plotstylename")
+  #+nil (material :accessor material :initarg :material :initform nil :documentation "material")
 
   (:documentation "См. ./dbmain.h:class ADESK_NO_VTABLE AcDbEntity: public AcDbObject
 
@@ -665,7 +695,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 (defmethod dxf-out-text :after ((x <acad-entity>) stream)
   (dxf/out:txt-string 100 *acad-entity-subclass-marker* stream)
   (let ((la  (Layer  x))
-	(cl  (truecolor x))
+	(cl  (true-color x))
 	(lt  (line-type  x))
 	(vi  (visible   x))
 	(lts (line-type-scale x))
@@ -695,7 +725,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
   (dxf/out:bin-string 100 *acad-entity-subclass-marker* stream)
   (let ((hdl (Handle x))
 	(la (Layer x))
-	(cl (truecolor x)))
+	(cl (true-color x)))
     (when hdl (dxf/out:bin-hex 5 hdl stream))
     (dxf/out:bin-string 8 la stream)
     (unless (= 256 cl) (dxf/out:bin-int16 62  cl stream))))
@@ -715,13 +745,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     (when c-6   (setf (line-type  object) c-6))
     (cond
       ((and c-62 c-420)
-       (setf (truecolor object)
-	     (list c-62 (dxf/color:true-to-rgb   c-420))))
+       (setf (true-color object)
+	     (list c-62 (dxf/color:true->rgb   c-420))))
       (c-62
-       (setf (truecolor object)
+       (setf (true-color object)
 	     (list c-62 nil)))
       (t
-       (setf (truecolor object) (list 256 nil))))
+       (setf (true-color object) (list 256 nil))))
     (cond
       ((numberp c-48) (setf (line-type-scale  object) c-48))
       ((null    c-48) (setf (line-type-scale  object) 1.d0))
@@ -1777,7 +1807,7 @@ ELLIPSE (DXF)
 ;;;;"AcDbLayerTableRecord"
   ((name             :accessor name            :initarg :name            :initform "LAYER1"       :documentation "name")
    (description      :accessor description     :initarg :description     :initform nil            :documentation "description")
-   (truecolor        :accessor truecolor       :initarg :truecolor       :initform '(7 nil)       :documentation "Код  62. Номер цвета (если значение отрицательное, слой отключен)")
+   (true-color        :accessor true-color       :initarg :true-color       :initform '(7 nil)       :documentation "Код  62. Номер цвета (если значение отрицательное, слой отключен)")
    (line-type        :accessor line-type       :initarg :line-type       :initform "Continuous"   :documentation "Код   6. Имя типа линий")
    (plottable        :accessor plottable       :initarg :plottable       :initform t              :documentation "Код 290. Флаг печати. Если задано значение 0, этот слой не выводится на печать")
    (plotstylename    :accessor plotstylename   :initarg :plotstylename   :initform nil            :documentation "Код 390. Идентификатор/дескриптор жесткого указателя на объект PlotStyleName")
@@ -1817,7 +1847,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 	(used            (used            x))
 	(layeron         (if (layeron x) 1 -1))
 	(plottable       (if (null (plottable x)) 0 1))
-	(cl              (truecolor x))
+	(cl              (true-color x))
         (l-ltype         (line-type x))
 	(l-lweight       (line-weight x))
 	(l-pstyle        (plotstylename x))
@@ -1886,13 +1916,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
       (setf  (used            object) (= 1 (ldb (byte 1 5) c-70))))
     (cond
       ((and c-62 c-420)
-       (setf (truecolor object)
-	     (list (abs c-62) (dxf/color:true-to-rgb   c-420))))
+       (setf (true-color object)
+	     (list (abs c-62) (dxf/color:true->rgb   c-420))))
       (c-62
-       (setf (truecolor object)
+       (setf (true-color object)
 	     (list (abs c-62) nil)))
       (t
-       (setf (truecolor object) (list 256 nil))))
+       (setf (true-color object) (list 256 nil))))
     (when c-62  (setf (layeron    object) (not (minusp c-62))))
     (when c-6   (setf (line-type  object) c-6))
     (when c-290 (setf (plottable  object) (if (/= 0 c-290) t nil)))
