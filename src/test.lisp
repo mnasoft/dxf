@@ -37,7 +37,42 @@
    (make-instance '<acad-ray> :base-point (vector 51 65 0) :direction-vector (vector 1 0 0))
    ))
 
-(dxf-out-text (make-instance '<acad-point>) t)
+(dxf-out-text
+ (make-instance '<acad-point>
+                :coordinates #(10 20 30)
+                :true-color
+                #+nil (dxf/color:index->entity 4)
+                (dxf/color:rgb->entity '(255 0 255)))
+ t)
+
+;   0
+; POINT
+; 100
+; AcDbEntity
+;   8
+; 0
+;  62
+; 6
+; 420
+; 16711935
+; 100
+; AcDbPoint
+;  10
+; 10.000000000000
+;  20
+; 20.000000000000
+;  30
+; 30.000000000000
+                                        ;  => NIL
+
+ 62
+     6
+420
+ 16711935
+
+
+
+
 
 (defparameter *ap* (make-instance '<acad-point>))
 (layer                *ap*)

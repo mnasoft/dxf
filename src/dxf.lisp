@@ -704,19 +704,19 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     (dxf/out:txt-string 8 la stream)
     (unless (string= "BYLAYER" lt ) (dxf/out:txt 6 lt stream))
     (cond
-      ((= 256 (first cl)))
-      ((= 0   (first cl)) (dxf/out:txt 62 (first cl) stream))
-      ((and (< 0 (first cl) 256) (null (second cl)))
-       (dxf/out:txt-int16 62 (first cl) stream))
-      ((and (< 0 (first cl) 256) (second cl))
-       (dxf/out:txt-int16 62  (first cl) stream)
-       (dxf/out:txt-int32 420 (dxf/color:rgb->true (second cl)) stream)))
+      ((= dxf/color:+ac-Color-Method-ByLayer+ (dxf/color:color-method cl)))
+      ((= dxf/color:+ac-color-method-byblock+ (dxf/color:color-method cl))
+       (dxf/out:txt 62 (dxf/color:color-index cl) stream))
+      ((= dxf/color:+ac-color-method-byaci+ (dxf/color:color-method cl))
+       (dxf/out:txt-int16 62 (dxf/color:color-index cl) stream))
+      ((= dxf/color:+ac-color-method-byrgb+ (dxf/color:color-method cl))
+       (dxf/out:txt-int16 62  (dxf/color:color-index cl) stream)
+       (dxf/out:txt-int32 420 (dxf/color:rgb->true (dxf/color:rgb cl)) stream)))
     (unless (= lts 1.d0) (dxf/out:txt 48 lts stream))
     (unless (= lw -1) (dxf/out:txt-int16  370 lw stream))
-    (unless vi  (dxf/out:txt 60 1   stream))))
+    (unless vi  (dxf/out:txt 60 1 stream))))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;LLLL;;
+;;;;
 
 (defmethod dxf-out-binary ((x <acad-entity>) stream)
   (dxf/out:bin-string 0 *acad-entity-class-marker* stream))
