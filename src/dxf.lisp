@@ -571,13 +571,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 (defparameter *Acad-Object-subclass-marker* "AcDbObject")
 
 (defclass <acad-object> (<object>)
-  ((ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
-   (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
-   (ac-handle                   :accessor ac-handle                   :initarg :ac-handle                   :initform nil :documentation "Код   5. Дескриптор ac-handle  -> Handle") 
-   (ac-has-extension-dictionary :accessor ac-has-extension-dictionary :initarg :ac-has-extension-dictionary :initform nil :documentation "ac-has-extension-dictionary")
-   (ac-object-id                :accessor ac-object-id                :initarg :ac-object-id                :initform nil :documentation "ac-object-id")
-   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
-   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "Код 330. ac-owner-id -> Owner-ID")
+  ((application              :accessor application              :initarg :application              :initform nil :documentation "application")
+   (document                 :accessor document                 :initarg :document                 :initform nil :documentation "document")
+   (handle                   :accessor handle                   :initarg :handle                   :initform nil :documentation "Код   5. Дескриптор handle  -> Handle") 
+   (has-extension-dictionary :accessor has-extension-dictionary :initarg :has-extension-dictionary :initform nil :documentation "has-extension-dictionary")
+   (object-id                :accessor object-id                :initarg :object-id                :initform nil :documentation "object-id")
+   (object-name              :accessor object-name              :initarg :object-name              :initform nil :documentation "object-name")
+   (owner-id                 :accessor owner-id                 :initarg :owner-id                 :initform nil :documentation "Код 330. owner-id -> Owner-ID")
 ;;;;
    (next-handle      :accessor next-handle   :initarg :next-handle   :initform 1   :allocation :class))
   (:documentation "The standard interface for a basic AutoCAD object."))
@@ -596,8 +596,8 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (defmethod dxf-out-text :after ((x <Acad-Object>) stream)
   (let (
-	(hdl (ac-handle x))
-	(own (ac-owner-id x)))
+	(hdl (handle x))
+	(own (owner-id x)))
     (when hdl (dxf/out:txt-hex   5 hdl stream))
     (when own (dxf/out:txt-hex 330 own stream))))
 
@@ -1937,13 +1937,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 (defparameter *acad-symboltable-subclass-marker* "AcDbSymbolTable")
 
 (defclass <acad-layers> (<acad-object>)
-  ((count  :accessor a-count :initarg :count :initform 0   :documentation "70 count -> a-count переимновано из-за ошибки")
+  ((a-count  :accessor a-count :initarg :a-count :initform 0   :documentation "70 a-count -> a-count переимновано из-за ошибки")
    (items  :accessor items                   :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)")
    )
   (:documentation "
 "))
 
-(defparameter *acad-layers-properties* '(Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
+(defparameter *acad-layers-properties* '(Application A-Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
 
 (reverse (mapcar #'make-slot (set-difference *acad-layers-properties* *acad-object-properties*)))
 
@@ -1977,33 +1977,41 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass <acad-documents> (<acad-object>)
-  ((ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
-   (ac-count                    :accessor ac-count                    :initarg :ac-count                    :initform nil :documentation "ac-count"))
+  ((application              :accessor application              :initarg :application              :initform nil :documentation "application")
+   (a-count                    :accessor a-count                    :initarg :a-count                    :initform nil :documentation "a-count"))
   (:documentation "The collection of all AutoCAD drawings that are open in the current session."))
 
 (defclass <acad-database> (<object>)
-  ((ac-blocks                   :accessor ac-blocks                   :initarg :ac-blocks                   :initform nil :documentation "ac-blocks")
-   (ac-dictionaries             :accessor ac-dictionaries             :initarg :ac-dictionaries             :initform nil :documentation "ac-dictionaries")
-   (ac-dim-styles               :accessor ac-dim-styles               :initarg :ac-dim-styles               :initform nil :documentation "ac-dim-styles")
-   (ac-elevation-model-space    :accessor ac-elevation-model-space    :initarg :ac-elevation-model-space    :initform nil :documentation "ac-elevation-model-space")
-   (ac-elevation-paper-space    :accessor ac-elevation-paper-space    :initarg :ac-elevation-paper-space    :initform nil :documentation "ac-elevation-paper-space")
-   (ac-groups                   :accessor ac-groups                   :initarg :ac-groups                   :initform nil :documentation "ac-groups")
-   (ac-layers                   :accessor ac-layers                   :initarg :ac-layers                   :initform (make-instance '<acad-layers>) :documentation "ac-layers")
-   (ac-layouts                  :accessor ac-layouts                  :initarg :ac-layouts                  :initform nil :documentation "ac-layouts")
-   (ac-limits                   :accessor ac-limits                   :initarg :ac-limits                   :initform nil :documentation "ac-limits")
-   (ac-linetypes                :accessor ac-linetypes                :initarg :ac-linetypes                :initform (make-instance '<acad-linetypes>) :documentation "ac-linetypes")
-   (ac-material                 :accessor ac-material                 :initarg :ac-material                 :initform nil :documentation "ac-material")
-   (ac-model-space              :accessor ac-model-space              :initarg :ac-model-space              :initform nil :documentation "ac-model-space")
-   (ac-paper-space              :accessor ac-paper-space              :initarg :ac-paper-space              :initform nil :documentation "ac-paper-space")
-   (ac-plot-configurations      :accessor ac-plot-configurations      :initarg :ac-plot-configurations      :initform nil :documentation "ac-plot-configurations")
-   (ac-preferences              :accessor ac-preferences              :initarg :ac-preferences              :initform nil :documentation "ac-preferences")
-   (ac-registered-applications  :accessor ac-registered-applications  :initarg :ac-registered-applications  :initform nil :documentation "ac-registered-applications")
-   (ac-section-manager          :accessor ac-section-manager          :initarg :ac-section-manager          :initform nil :documentation "ac-section-manager")
-   (ac-summary-info             :accessor ac-summary-info             :initarg :ac-summary-info             :initform nil :documentation "ac-summary-info")
-   (ac-text-styles              :accessor ac-text-styles              :initarg :ac-text-styles              :initform nil :documentation "ac-text-styles")
-   (ac-user-coordinate-systems  :accessor ac-user-coordinate-systems  :initarg :ac-user-coordinate-systems  :initform nil :documentation "ac-user-coordinate-systems")
-   (ac-viewports                :accessor ac-viewports                :initarg :ac-viewports                :initform nil :documentation "ac-viewports")
-   (ac-views                    :accessor ac-views                    :initarg :ac-views                    :initform nil :documentation "ac-views"))
+  ((blocks                   :accessor blocks                   :initarg :blocks                   :initform nil :documentation "blocks")
+   (dictionaries             :accessor dictionaries             :initarg :dictionaries             :initform nil :documentation "dictionaries")
+   (dim-styles               :accessor dim-styles               :initarg :dim-styles               :initform nil :documentation "dim-styles")
+   (elevation-model-space    :accessor elevation-model-space    :initarg :elevation-model-space    :initform nil :documentation "elevation-model-space")
+   (elevation-paper-space    :accessor elevation-paper-space    :initarg :elevation-paper-space    :initform nil :documentation "elevation-paper-space")
+   (groups                   :accessor groups                   :initarg :groups                   :initform nil :documentation "groups")
+   (layers
+    :accessor layers
+    :initarg :layers
+    :initform (make-instance '<acad-layers>)
+    :documentation "layers")
+   (layouts                  :accessor layouts                  :initarg :layouts                  :initform nil :documentation "layouts")
+   (limits                   :accessor limits                   :initarg :limits                   :initform nil :documentation "limits")
+   (linetypes
+    :accessor linetypes
+    :initarg :linetypes
+    :initform (make-instance '<acad-linetypes>)
+    :documentation "linetypes")
+   (material                 :accessor material                 :initarg :material                 :initform nil :documentation "material")
+   (model-space              :accessor model-space              :initarg :model-space              :initform nil :documentation "model-space")
+   (paper-space              :accessor paper-space              :initarg :paper-space              :initform nil :documentation "paper-space")
+   (plot-configurations      :accessor plot-configurations      :initarg :plot-configurations      :initform nil :documentation "plot-configurations")
+   (preferences              :accessor preferences              :initarg :preferences              :initform nil :documentation "preferences")
+   (registered-applications  :accessor registered-applications  :initarg :registered-applications  :initform nil :documentation "registered-applications")
+   (section-manager          :accessor section-manager          :initarg :section-manager          :initform nil :documentation "section-manager")
+   (summary-info             :accessor summary-info             :initarg :summary-info             :initform nil :documentation "summary-info")
+   (text-styles              :accessor text-styles              :initarg :text-styles              :initform nil :documentation "text-styles")
+   (user-coordinate-systems  :accessor user-coordinate-systems  :initarg :user-coordinate-systems  :initform nil :documentation "user-coordinate-systems")
+   (viewports                :accessor viewports                :initarg :viewports                :initform nil :documentation "viewports")
+   (views                    :accessor views                    :initarg :views                    :initform nil :documentation "views"))
   (:documentation "The contents of an XRef block."))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2202,12 +2210,12 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass <acad-linetypes> (<acad-object>)
-  ((count  :accessor a-count :initarg :count :initform 0   :documentation "70 count -> a-count переимновано из-за ошибки")
+  ((a-count  :accessor a-count :initarg :a-count :initform 0   :documentation "70 a-count -> a-count переимновано из-за ошибки")
    (items  :accessor items                   :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)"))
   (:documentation "
 "))
 
-(defparameter *acad-linetypes-properties* '(Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
+(defparameter *acad-linetypes-properties* '(Application A-Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
 
 (reverse (mapcar #'make-slot (set-difference *acad-linetypes-properties* *acad-object-properties*)))
 
@@ -2242,9 +2250,9 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 (defparameter *symbol-tbl-subclass-marker* "AcDbSymbolTable")
 
 (defclass db-symbol-tbl (<acad-object>)
-  ((Object-Name  :accessor Object-Name       :initarg :Object-Name  :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
-   (Count        :accessor symbol-tbl-flag   :initarg :Count  :initform 0              :documentation "Код  70. Стандартные флаги")
-   (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil            :documentation "Записи таблицы."))
+  ((Object-Name      :accessor Object-Name       :initarg :Object-Name      :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
+   (A-Count            :accessor symbol-tbl-flag   :initarg :A-Count            :initform 0              :documentation "Код  70. Стандартные флаги")
+   (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil :documentation "Записи таблицы."))
   (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295
 http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295
@@ -2280,7 +2288,7 @@ Item
 SetXData
 * Properties
 Application
-Count
+A-Count
 Document
 Handle
 HasExtensionDictionary
@@ -2338,7 +2346,7 @@ None
 
 | Methods    | Add         | GetExtensionDictionary | GetXData | Item   | SetXData               |          |            |         |
 
-| Properties | Application | Count                  | Document | Handle | HasExtensionDictionary | ObjectID | ObjectName | OwnerID |
+| Properties | Application | A-Count                  | Document | Handle | HasExtensionDictionary | ObjectID | ObjectName | OwnerID |
 
 | Events     | None        |                        |          |        |                        |          |            |         |
 

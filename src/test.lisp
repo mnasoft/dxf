@@ -45,27 +45,48 @@
                 (dxf/color:rgb->entity '(255 0 255)))
  t)
 
-;   0
-; POINT
-; 100
-; AcDbEntity
-;   8
-; 0
-;  62
-; 6
-; 420
-; 16711935
-; 100
-; AcDbPoint
-;  10
-; 10.000000000000
-;  20
-; 20.000000000000
-;  30
-; 30.000000000000
+(loop :for r :from 0 :to 255 :do
+  (loop :for g :from 0 :to 255 :do
+    (loop :for b :from 0 :to 255 :do
+          )))
+
+(with-open-file (os "~/points-rgb.dxf" :direction :output :if-exists :supersede)
+  (loop :for r :from 0 :to 255 :do
+    (loop :for g :from 0 :to 255 :do
+      (loop :for b :from 11 :to 20  :do
+        (dxf-out-text
+         (make-instance '<acad-point>
+                        :coordinates (vector (* r 10) (* g 10) (* b 10))
+                        :true-color (dxf/color:rgb->entity `(,r ,g ,b)) #+nil (dxf/color:index->entity 4))
+         os)))))
+
+
+(dxf/color:rgb->entity `(0 0 255))
+
+
+
+
+                                        ;   0
+                                        ; POINT
+                                        ; 100
+                                        ; AcDbEntity
+                                        ;   8
+                                        ; 0
+                                        ;  62
+                                        ; 6
+                                        ; 420
+                                        ; 16711935
+                                        ; 100
+                                        ; AcDbPoint
+                                        ;  10
+                                        ; 10.000000000000
+                                        ;  20
+                                        ; 20.000000000000
+                                        ;  30
+                                        ; 30.000000000000
                                         ;  => NIL
 
- 62
+62
      6
 420
  16711935
