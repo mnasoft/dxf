@@ -13,7 +13,8 @@
                "dxf/color"
                "dxf/sec"
                "dxf/out"
-               "dxf/vars")
+               "dxf/vars"
+               "dxf/in/txt")
 ;;;; "babel" "ieee-floats"
   :components ((:module "src"
 		:serial t
@@ -22,6 +23,16 @@
 	                     (:file "test-dxf")
                              ;;(:file "test")	       
                              ))))
+
+(defsystem "dxf/in/txt"
+  :description
+  "@b(Описание:) система @b(dxf/in/txt) содержит низкоуровневые
+ функции для преобразования dxf-файла в перечень dxf-пар."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :components ((:module "src/in/txt"
+		:serial t
+		:components ((:file "txt")))))
 
 (defsystem "dxf/sec"
   :description

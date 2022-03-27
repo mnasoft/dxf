@@ -38,3 +38,16 @@
 (defparameter *section-acdsdata* "ACDSDATA")
 
 (defparameter *end-tab*          "ENDTAB")
+
+(defparameter *section-names*
+  '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS" "ACDSDATA")
+  "Наименования секций dxf-файла.
+@begin(list)
+ @item(HEADER   - системные переменные.)
+ @item(CLASSES  - классы;) 
+ @item(TABLES   - таблицы;) 
+ @item(BLOCKS   - блоки;) 
+ @item(ENTITIES - графические примитивы;) 
+ @item(OBJECTS  - объекты (неграфические);)
+ @item(ACDSDATA - )
+@end(list)" )

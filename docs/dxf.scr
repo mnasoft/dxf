@@ -8,7 +8,6 @@
 @begin(section)
  @title(Переменные)
  @cl:with-package[name="DXF"](
-  @cl:doc(variable *dxf-code-overal-length*)
   @cl:doc(variable *h-vars*)
   @cl:doc(variable *h-vars-list*)
   @cl:doc(variable *h-vars-list-min*)
@@ -17,12 +16,6 @@
 @begin(section)
  @title(Функции)
  @cl:with-package[name="DXF"](
-  @cl:doc(function color-index)
-  @cl:doc(function color-index-to-rgb)
-  @cl:doc(function color-rgb)
-  @cl:doc(function color-rgb-to-index)
-  @cl:doc(function color-rgb-to-truecolor)
-  @cl:doc(function color-truecolor-to-rgb)
   @cl:doc(function dxf-in-t-fname)
   @cl:doc(function split-entities))
 @end(section)
@@ -30,6 +23,7 @@
  @title(Обобщенные функции)
  @cl:with-package[name="DXF"](
   @cl:doc(generic dxf-in-text)
+  @cl:doc(generic dxf-out-binary)
   @cl:doc(generic dxf-out-text))
 @end(section)
 @begin(section)

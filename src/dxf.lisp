@@ -2,15 +2,14 @@
 
 (defpackage #:dxf
   (:use #:cl #:mnas-string)
-  (:export dxf-in-t-fname
-           )
   (:export dxf-out-text
 	   dxf-in-text
            )
   (:export dxf-out-binary
            dxf-in-binary
            )
-  (:export split-entities
+  (:export split-header
+           split-entities
            )
   (:export *line-weight-enum*
            *dxf-header*
@@ -54,6 +53,8 @@
            <acad-arc>
            <acad-text>
            <acad-ellipse>)
+  (:export 
+   )
   (:export 
    *Acad-Object-class-marker*
    *Acad-Object-subclass-marker*
@@ -482,7 +483,7 @@
            (list (second el) (third el))))
       *h-vars-list*)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defclass <db-header> ()
   ((header-vars :accessor header-vars :initarg :header-vars :initform *h-vars-list*
@@ -509,7 +510,6 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; db-classes.lisp
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun make-slot (el)
   "Вспмогательная функция для формирования слотов"
@@ -531,19 +531,19 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
   (dxf-out-binary-double (+ 10 code) (svref (point-3d point-3d) 1) stream)
   (dxf-out-binary-double (+ 20 code) (svref (point-3d point-3d) 2) stream))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defclass <rx-object> ()
   ((name :accessor name :initarg :name :initform "")))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defclass <dxf-pairs> ()
   ((pairs :accessor pairs        :initarg :pairs        :initform nil :documentation "pairs"))
   (:documentation
    "Содержит dxf-представление объекта"))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defgeneric dxf-in-text (object pairs)
   (:documentation
@@ -560,11 +560,13 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 ;;; (break "dxf-in-text :after ((object <dxf-pairs>) (pairs cons))")
   (setf (pairs object) (copy-list pairs)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
+
 (defclass <object> () ())
 
 (defparameter *object-properties* '())
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;
 
 (defparameter *Acad-Object-class-marker* "OBJECT")
 
@@ -601,7 +603,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     (when hdl (dxf/out:txt-hex   5 hdl stream))
     (when own (dxf/out:txt-hex 330 own stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defgeneric dxf-out-binary (object stream)
   (:documentation
@@ -617,7 +619,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     (when own (dxf/out:txt-hex 330 own stream))
     (when hdl (dxf/out:txt-hex   5 hdl stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text ((object <acad-object>) (pairs cons))
 ;;; (break "dxf-in-text ((object <acad-object>) (pairs cons))")
@@ -632,7 +634,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     (when c-5   (setf (Handle   object) c-5))
     (when c-330 (setf (Owner-ID object) c-330))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; <acad-entity>
 
 (defparameter *acad-entity-class-marker* "ENTITY")
 
@@ -687,7 +689,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (reverse (mapcar #'make-slot (set-difference *acad-entity-properties* *acad-object-properties*)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-text ((x <acad-entity>) stream)
   (dxf/out:txt-string 0 *acad-entity-class-marker* stream))
@@ -730,7 +732,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     (dxf/out:bin-string 8 la stream)
     (unless (= 256 cl) (dxf/out:bin-int16 62  cl stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text :after ((object <acad-entity>) (pairs cons))
   (let ((c-8   (cadr (assoc   8 pairs :test #'equal)))
@@ -766,7 +768,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
       ((and c-60 (= c-60 1)) (setf (visible object) nil))
       (t (error "dxf-in-text :after ((object <acad-entity>) (pairs cons)): wrong c-60 value ~A" c-60)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; <db-curve>
 
 (defparameter *db-curve-class-marker* "CURVE")
 
@@ -774,7 +776,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 
 (defclass <db-curve> (<acad-entity>) ())
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defparameter *acad-line-class-marker* "LINE")
 
@@ -862,7 +864,7 @@ LINE (DXF)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1))
       (dxf/out:txt-point-3d nrm 210 stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-binary ((x <Acad-Line>) stream)
   (dxf/out:bin-string 0 *Acad-Line-class-marker* stream))
@@ -882,7 +884,7 @@ LINE (DXF)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1))
       (dxf/out:bin-point-3d nrm 210 stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <acad-line>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-line-class-marker*)))
@@ -916,7 +918,7 @@ LINE (DXF)
       (t                           (setf  (normal   object) (vector 0.0d0 0.0d0 1.0d0))))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; <acad-point>
 
 (defparameter *acad-point-class-marker* "POINT")
 
@@ -977,7 +979,7 @@ POINT (DXF)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:txt-point-3d 210 nrm stream))
     (unless (= ecs 0) (dxf/out:txt-double 50 ecs stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-binary ((x <acad-point>) stream)
   (dxf/out:bin-string 0 *acad-point-class-marker* stream))
@@ -996,7 +998,7 @@ POINT (DXF)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:bin-point-3d 210 nrm stream))
     (unless (= ecs 0) (dxf/out:bin-double 50 ecs stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <acad-point>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-point-class-marker*)))
@@ -1025,7 +1027,7 @@ POINT (DXF)
       (c-50 (setf  (ecs-angle   object) c-50))
       (t    (setf  (ecs-angle   object) 0.0d0)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; <acad-ray>
 
 (defparameter *acad-ray-class-marker* "RAY")
 
@@ -1064,7 +1066,7 @@ RAY (DXF)
 
 (mapcar #'make-slot (set-difference *acad-ray-properties* *acad-entity-properties*))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-text ((x <acad-ray>) stream)
   (dxf/out:txt-string 0 *acad-ray-class-marker* stream))
@@ -1086,7 +1088,7 @@ RAY (DXF)
     (dxf/out:bin-point-3d 10 b-p stream)
     (dxf/out:bin-point-3d 11 u-d stream)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <acad-ray>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-ray-class-marker*)))
@@ -1110,7 +1112,7 @@ RAY (DXF)
       (t                           (setf  (direction-vector object) (vector 1.d0 0.d0 0.d0))))))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-xline-class-marker* "XLINE")
 
@@ -1170,7 +1172,7 @@ XLINE (DXF)
     (dxf/out:bin-point-3d 10 b-p stream)
     (dxf/out:bin-point-3d 11 u-d stream)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <acad-xline>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-xline-class-marker*)))
@@ -1193,7 +1195,7 @@ XLINE (DXF)
       ((and c-11 c-21 (null c-31)) (setf  (direction-vector object) (vector c-11 c-21 0.d0)))
       (t                           (setf  (direction-vector object) (vector 1.d0 0.d0 0.d0))))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *Acad-Circle-class-marker* "CIRCLE")
 
@@ -1260,7 +1262,7 @@ CIRCLE (DXF)
     (dxf/out:txt-double 40 rad stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:txt-point-3d 210 nrm stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-binary ((x <Acad-Circle>) stream)
   (dxf/out:bin-string 0 *Acad-Circle-class-marker*  stream))
@@ -1279,7 +1281,7 @@ CIRCLE (DXF)
     (dxf/out:bin-double 40 rad stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:bin-point-3d 210 nrm stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <Acad-Circle>) (pairs cons))
   (assert (equal (assoc 0 pairs :test #'equal) (list 0 *Acad-Circle-class-marker*))))
@@ -1305,7 +1307,7 @@ CIRCLE (DXF)
 	(setf  (normal object) (vector 0.0d0 0.0d0 1.0d0)))
     ))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-arc-class-marker* "ARC")
 
@@ -1387,7 +1389,7 @@ ARC (DXF)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:txt-point-3d 210 nrm stream))))
 
 (dxf/out:txt-point-3d 210 (vector 1 2 3)t)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-binary ((x <acad-arc>) stream)
   (dxf/out:bin-string 0 *acad-arc-class-marker* stream))
@@ -1411,7 +1413,7 @@ ARC (DXF)
     (dxf/out:bin-double 51 e-a stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out:bin-point-3d 210 nrm stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <acad-arc>) (pairs cons))
   (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-arc-class-marker*))))
@@ -1445,7 +1447,7 @@ ARC (DXF)
     (if (and c-210 c-220 c-230)
 	(setf  (normal object) (vector c-210 c-220 c-230))
 	(setf  (normal object) (vector 0.0d0 0.0d0 1.0d0)))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-text-class-marker* "TEXT")
 
@@ -1602,7 +1604,7 @@ TEXT (DXF)
     (dxf/out:txt-string 100 *acad-text-subclass-marker* stream)
     (unless (= v-j 0) (dxf/out:txt-int16 73 v-j stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-binary ((x <acad-text>) stream)
   (dxf/out:bin-string 0 *acad-text-class-marker* stream))
@@ -1643,7 +1645,7 @@ TEXT (DXF)
     (dxf/out:bin-string 100 *acad-text-subclass-marker* stream)
     (unless (= v-j 0) (dxf/out:bin-int16 73 v-j stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-ellipse-class-marker* "ELLIPSE")
 
@@ -1728,7 +1730,7 @@ ELLIPSE (DXF)
     (dxf/out:txt-double 41 s-p stream)
     (dxf/out:txt-double 42 e-p stream)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-binary ((x <acad-ellipse>) stream)
   (dxf/out:bin-string 0 *acad-ellipse-class-marker* stream))
@@ -1751,7 +1753,7 @@ ELLIPSE (DXF)
     (dxf/out:bin-double 41 s-p stream)
     (dxf/out:bin-double 42 e-p stream)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <acad-ellipse>) (pairs cons))
   (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*))))
@@ -1793,11 +1795,11 @@ ELLIPSE (DXF)
 	(setf  (normal object) (vector c-210 c-220 c-230))
 	(setf  (normal object) (vector 0.0d0 0.0d0 1.0d0)))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-symboltablerecord-subclass-marker* "AcDbSymbolTableRecord")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-layer-class-marker* "LAYER")
 
@@ -1832,7 +1834,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
 (reverse (mapcar #'make-slot (set-difference *acad-layer-properties* *acad-object-properties*)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-text ((x <acad-layer>) stream)
   (dxf/out:txt-string 0 *acad-layer-class-marker* stream))
@@ -1878,7 +1880,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 ;;; (dxf/out:txt       348 l-vstyle  stream)
     ))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <acad-layer>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-layer-class-marker*))
@@ -1932,7 +1934,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
       (t (error "dxf-in-text :after ((object <acad-entity>) (pairs cons)): wrong c-370 value ~A" c-370)))
     ))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-symboltable-subclass-marker* "AcDbSymbolTable")
 
@@ -1957,7 +1959,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
     (dxf/out:txt-int16  70 a-count   stream)
     (mapc #'(lambda (el) (dxf-out-text el stream)) items)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-in-text  ((object <acad-layers>) (tables cons))
 ;;;  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*)))
@@ -1974,7 +1976,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 	   list-item-data)
 	  (a-count  object ) (length (items object)))))
  
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defclass <acad-documents> (<acad-object>)
   ((application              :accessor application              :initarg :application              :initform nil :documentation "application")
@@ -2014,7 +2016,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
    (views                    :accessor views                    :initarg :views                    :initform nil :documentation "views"))
   (:documentation "The contents of an XRef block."))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-database-properties* '(Blocks Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace Groups Layers Layouts Limits Linetypes Material ModelSpace PaperSpace PlotConfigurations Preferences RegisteredApplications SectionManager SummaryInfo TextStyles UserCoordinateSystems Viewports Views))
 
@@ -2052,7 +2054,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
    (width                 :accessor width                 :initarg :width                 :initform nil :documentation "width")
    (windowstate           :accessor windowstate           :initarg :windowstate           :initform nil :documentation "windowstate")
    (windowtitle           :accessor windowtitle           :initarg :windowtitle           :initform nil :documentation "windowtitle")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
    (sec-header            :accessor sec-header            :initarg :sec-header            :initform nil :documentation "header      - Представление секции HEADER")
    (sec-classes           :accessor sec-classes           :initarg :sec-classes           :initform nil :documentation "classes     - Представление секции CLASSES")
    (sec-table-appid       :accessor sec-table-appid       :initarg :sec-table-appid       :initform nil :documentation "table-appid - Представление секции TABLE-APPID")
@@ -2072,29 +2074,29 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
   )
 
 (defmethod  dxf-in-text :after ((object <acad-document>) (sections cons))
-	    (let ((header  (split-header   sections))
-		  (classes (split-classes  sections))
-		  (tables  (split-tables   sections))
-		  )
-	      (setf (activedimstyle  object) (get-acad-variable-as-list "DIMSTYLE"   header))
-	      (setf (activelayer     object) (get-acad-variable-as-list "CLAYER"     header))
+  (let ((header  (split-header   sections))
+	(classes (split-classes  sections))
+	(tables  (split-tables   sections))
+	)
+    (setf (activedimstyle  object) (get-acad-variable-as-list "DIMSTYLE"   header))
+    (setf (activelayer     object) (get-acad-variable-as-list "CLAYER"     header))
 
-	      (setf (activelinetype  object) (get-acad-variable-as-list "CELTYPE"    header))
-	      (setf (activematerial  object) (get-acad-variable-as-list "CMATERIAL"  header))
-	      (setf (activespace     object) (get-acad-variable-as-list "TILEMODE"   header))
-	      (setf (activetextstyle object) (get-acad-variable-as-list "TEXTSTYLE"  header))
+    (setf (activelinetype  object) (get-acad-variable-as-list "CELTYPE"    header))
+    (setf (activematerial  object) (get-acad-variable-as-list "CMATERIAL"  header))
+    (setf (activespace     object) (get-acad-variable-as-list "TILEMODE"   header))
+    (setf (activetextstyle object) (get-acad-variable-as-list "TEXTSTYLE"  header))
 ;;;;
 ;;;    (setf (activelayout       object) (get-acad-variable-as-list "CLAYOUT"  header))    
 ;;;    (setf (activeviewport     object) (get-acad-variable-as-list "CLAYOUT"  header))
 ;;;    (setf (activepviewport    object) (get-acad-variable-as-list "CLAYOUT"  header))    
 ;;;    (setf (activeselectionset object) (get-acad-variable-as-list "CLAYOUT"  header))
 ;;;;	      
-	      (setf  (layers      object) (dxf-in-text (layers    object) tables))
-	      (setf  (linetypes   object) (dxf-in-text (linetypes object) tables))
+    (setf  (layers      object) (dxf-in-text (layers    object) tables))
+    (setf  (linetypes   object) (dxf-in-text (linetypes object) tables))
 ;;;;	      
-	      (setf  (sec-header  object) header)
-      	      (setf  (sec-classes object) classes)
-	      ))
+    (setf  (sec-header  object) header)
+    (setf  (sec-classes object) classes)
+    ))
 
 (defmethod dxf-out-text ((x <acad-document>) stream))
 
@@ -2147,7 +2149,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
     (dxf/out:txt 0 "EOF" stream)
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defparameter *acad-linetype-class-marker* "LTYPE")
 
@@ -2184,7 +2186,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 	 (dxf/out:txt (car el) (cadr el) t))
      (member (assoc 72 pairs) pairs))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod dxf-out-binary ((x <acad-linetype>) stream)
   (dxf/out:txt-string 0 *Acad-Object-class-marker* stream))
@@ -2195,7 +2197,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
     (when own (dxf/out:txt-hex 330 own stream))
     (when hdl (dxf/out:txt-hex   5 hdl stream))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;
 
 (defmethod  dxf-in-text  ((object <acad-linetype>) (pairs cons))
   (assert (string= (second (assoc 0 pairs :test #'equal)) *acad-linetype-class-marker*)))
@@ -2207,7 +2209,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
     (when c-2   (setf (name        object) c-2))
     (when c-3   (setf (description object) c-3))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;
 
 (defclass <acad-linetypes> (<acad-object>)
   ((a-count  :accessor a-count :initarg :a-count :initform 0   :documentation "70 a-count -> a-count переимновано из-за ошибки")
@@ -2243,13 +2245,11 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 ;;;;/run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 (defparameter *symbol-tbl-class-marker* "TABLE")
 
 (defparameter *symbol-tbl-subclass-marker* "AcDbSymbolTable")
 
-(defclass db-symbol-tbl (<acad-object>)
+(defclass <db-symbol-tbl> (<acad-object>)
   ((Object-Name      :accessor Object-Name       :initarg :Object-Name      :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
    (A-Count            :accessor symbol-tbl-flag   :initarg :A-Count            :initform 0              :documentation "Код  70. Стандартные флаги")
    (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil :documentation "Записи таблицы."))
@@ -2277,7 +2277,7 @@ Group codes that apply to all symbol tables
    (0 \"ENDTAB\")
 "))
 
-(defclass acad-blocks()
+(defclass <acad-blocks> ()
     ((Object-Name ))
   (:documentation "
 * Methods
@@ -2301,13 +2301,12 @@ None
 
 "))
 
-
-(defmethod dxf-out-text ((x db-symbol-tbl) stream)
+(defmethod dxf-out-text ((x <db-symbol-tbl>) stream)
   (dxf/out:txt-string 0 *symbol-tbl-class-marker* stream)
     (let ((st-name (Object-Name x)))
     (dxf/out:txt-string 2 st-name stream)))
 
-(defmethod dxf-out-text :after ((x db-symbol-tbl) stream)
+(defmethod dxf-out-text :after ((x <db-symbol-tbl>) stream)
   (dxf/out:txt-string 100 *db-symbol-tr-subclass-marker* stream)
   (let ((st-flag  (symbol-tbl-flag x))
 	(st-items (reverse (symbol-tbl-items x))))
@@ -2901,145 +2900,16 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 ;;;; dxf-in-t-sections.lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun read-dxf-code-value-t (is-dxf-t)
-  "Считывает пару:
-@begin(list)
- @item(dxf-код - в виде целого значения;)
- @item(значение, присоединенное к коду dxf - в виде строки.)
-@end(list)
-"
-  (let ((code (parse-integer (string-trim "" (read-line is-dxf-t))))
-	(str  (string-trim "" (read-line is-dxf-t))))
-  (list code  str)))
-
-(defun read-from-string-string (str) str)
-
-(defun read-from-string-int16 (str) (parse-integer str))
-
-(defun read-from-string-int32 (str) (parse-integer str))
-
-(defun read-from-string-int64 (str) (parse-integer str))
-
-(defun read-from-string-hex   (str)
-  (if (string/= str "")
-      (parse-integer str :radix 16)
-      0))
-
-(defun read-from-string-double (str)
-  "Выполняет чтение из строки вещественного числа.
-Если число не удалось считать - возвращается default.
-Пример использования:
-
- (read-from-string-double \"1.0\")
- (read-from-string-double \"1.0e10\")
- (read-from-string-double \"1.0E5\")
-"
-  (let ((s-e-d (mnas-string:replace-all
-		(mnas-string:replace-all
-		 (mnas-string:replace-all str "e" "d") "E" "d")"D" "d")))
-    (if (member #\d (coerce  s-e-d 'list ))
-	(read-from-string s-e-d)
-	(read-from-string (concatenate 'string s-e-d "d0")))))
 
 
-(defun dxf-in-t-read-from-string (code str)
-;;  (format t "~A ~A~%" code str)
-  (cond
-    ((or (<= 0 code 4)
-	 (<= 6 code 9))  (read-from-string-string str)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
-    ((=  5  code)        (read-from-string-hex    str))
-    ((<= 10 code 19)     (read-from-string-double str)) ;;;; Double precision 3D point value
-    ((<= 20 code 39)     (read-from-string-double str)) 
-    ((<= 40 code 59)     (read-from-string-double str)) ;;;; Double-precision floating-point value
-    ((<= 60 code 79)     (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 90 code 99)     (read-from-string-int32  str)) ;;;; 32-bit integer value
-    ((= 100 code)        (read-from-string-string str)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 101 code)        (read-from-string-string str)) ;;;; ACDSRECORD
-    ((= 102 code)        (read-from-string-string str)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 105 code)        (read-from-string-hex    str)) ;;;; String representing hexadecimal (hex) handle value
-    ((<= 110 code 119)   (read-from-string-double str)) ;;;; Double precision floating-point value
-    ((<= 120 code 129)   (read-from-string-double str)) ;;;; Double precision floating-point value
-    ((<= 130 code 139)   (read-from-string-double str)) ;;;; Double precision floating-point value
-    ((<= 140 code 149)   (read-from-string-double str)) ;;;; Double precision scalar floating-point value
-    ((<= 160 code 169)   (read-from-string-int64  str)) ;;;; 64-bit integer value
-    ((<= 170 code 179)   (read-from-string-int64  str)) ;;;; 16-bit integer value
-    ((<= 210 code 239)   (read-from-string-double str)) ;;;; Double-precision floating-point value
-    ((<= 270 code 279)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 280 code 289)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 290 code 299)   (read-from-string-int16  str)) ;;;; Boolean flag value (0 - off 1 - on)
-    ((<= 300 code 309)   (read-from-string-string str)) ;;;; Arbitrary text string
-    ((<= 310 code 319)   (read-from-string-hex    str)) ;;;; String representing hex value of b chunk
-    ((<= 320 code 329)   (read-from-string-hex    str)) ;;;; String representing hex handle value
-    ((<= 330 code 369)   (read-from-string-hex    str)) ;;;; String representing hex object IDs
-    ((<= 370 code 379)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 380 code 389)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 390 code 399)   (read-from-string-hex    str)) ;;;; String representing hex handle value
-    ((<= 400 code 409)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 410 code 419)   (read-from-string-string str)) ;;;; String
-    ((<= 420 code 429)   (read-from-string-int32  str)) ;;;; 32-bit integer value
-    ((<= 430 code 439)   (read-from-string-string str)) ;;;; String
-    ((<= 440 code 449)   (read-from-string-int32  str)) ;;;; 32-bit integer value
-    ((<= 450 code 459)   (read-from-string-int64  str)) ;;;; Long
-    ((<= 460 code 469)   (read-from-string-double str)) ;;;; Double-precision floating-point value
-    ((<= 470 code 479)   (read-from-string-string str)) ;;;; String
-    ((<= 480 code 481)   (read-from-string-hex    str)) ;;;; String representing hex handle value
-    ((= 999 code)        (read-from-string-string str)) ;;;; string)
-    ((<= 1000 code 1009) (read-from-string-string str)) ;;;; String (same limits as indicated with 0-9 code range)
-    ((<= 1010 code 1059) (read-from-string-double str)) ;;;; Double-precision floating-point value
-    ((<= 1060 code 1070) (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((= 1071 code)       (read-from-string-int32  str)) ;;;; 32-bit integer value
-    (t (error "dxf-in-t-read-from-string code=~a str=~a~%Ucnoun code." code str  ))))
 
-(defun dxf-in-t-pair (stream)
-  "Считываете одной dxf пары - ключ и значение из потока stream.
-Возврвщает в виде списка."
-  (let* ((code-string (read-dxf-code-value-t stream))
-	 (code (first code-string))
-	 (str (second code-string))
-	 (val (dxf-in-t-read-from-string code str)))
-;;    (format t "~A ~A ~A~%" code str val)
-    (list code val)))
 
-(defun dxf-in-t-pairs (stream)
-  "(with-open-file (stream \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\") (dxf-in-t-pairs stream))"
-      (let ((pairs-lst nil))
-      (do ((pair (dxf-in-t-pair stream) (dxf-in-t-pair stream)))
-	  ((and (= 0 (first pair )) (string= (second pair) "EOF")) (nreverse pairs-lst))
-	(push pair pairs-lst))))
 
-(defun dxf-in-t-split-by-sections (stream)
-  (let ((pairs-list (dxf-in-t-pairs stream))
-	(sections nil)
-	(section  nil))
-    (dolist (i pairs-list (nreverse sections))
-      (push i section)
-      (when (equal i '(0 "ENDSEC"))
-	(push (cdr (nreverse (cdr section))) sections)
-	(setf section nil)))))
 
-(defun dxf-in-t-fname (fname)
-  "@b(Описание:) функция @b(dxf-in-t-fname) выполняет
-попытку считывания текстового dxf-файла в формате:
-@begin(list)
- @item(версий с 2000 по 2004 [:external-format :cp1251])
- @item(версий с 2007 по 2018 [:external-format :utf8].)
 
-Возвращает список, каждый подсписок, которого содержит пары - код и значение.
-@end(list)
 
-Пример использования:
-@begin[lang=lisp](code)
- (dxf-in-t-fname \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\")
-@end(code)
-"
-  (cond
-    ((ignore-errors
-       (with-open-file (stream fname :external-format :cp1251)
-	 (dxf-in-t-split-by-sections stream))))
-    ((ignore-errors
-       (with-open-file (stream fname :external-format :utf8)
-	 (dxf-in-t-split-by-sections stream))))
-    (t (error "Cannot read file ~a." fname))))
+
+
 
 (defun dxf-out-t-pairs (code value stream)
   ""
@@ -3111,24 +2981,6 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 		  (assoc '(2 "HEADER") sections :test #'equal)
 		  :test #'equal)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defparameter *section-names*
-  '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS" "ACDSDATA")
-  "Наименования секций dxf-файла.
-@begin(list)
- @item(HEADER   - содержит системные переменные.)
- @item(CLASSES  - ) 
- @item(TABLES   - ) 
- @item(BLOCKS   - ) 
- @item(ENTITIES - ) 
- @item(OBJECTS  - )
- @item(ACDSDATA - )
-@end(list)
-"
-  )
-  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun split-header (sections)
