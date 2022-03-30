@@ -243,7 +243,7 @@
     ((<= 40 code  59)     (txt-double code value stream)) ;;;; Double-precision floating-point value
     ((<= 60 code  79)     (txt-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 90 code  99)     (txt-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 100 code 102)        (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((<= 100 code 102)    (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
     #+nil
     ((= 105 code)        (txt-string code value stream :max-octet-length 127)) ;;;; String representing hexadecimal (hex) handle value
     ((=  105 code)       (txt-hex    code value stream))
@@ -292,8 +292,7 @@
     ((<= 40 code 59)     (bin-double code value stream)) ;;;; Double-precision floating-point value
     ((<= 60 code 79)     (bin-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 90 code 99)     (bin-int32  code value stream)) ;;;; 32-bit integer value
-    ((= 100 code)        (bin-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 102 code)        (bin-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((<= 100 code 102)   (bin-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
     #+nil
     ((= 105 code)        (bin-string code value stream :max-octet-length 127)) ;;;; String representing hexadecimal (hex) handle value
     ((=  105 code)       (bin-hex    code value stream))
@@ -302,7 +301,7 @@
     ((<= 130 code 139)   (bin-double code value stream)) ;;;; Double precision floating-point value
     ((<= 140 code 149)   (bin-double code value stream)) ;;;; Double precision scalar floating-point value
     ((<= 160 code 169)   (bin-int64  code value stream)) ;;;; 64-bit integer value
-    ((<= 170 code 179)   (bin-int64  code value stream)) ;;;; 16-bit integer value
+    ((<= 170 code 179)   (bin-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 210 code 239)   (bin-double code value stream)) ;;;; Double-precision floating-point value
     ((<= 270 code 279)   (bin-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 280 code 289)   (bin-int16  code value stream)) ;;;; 16-bit integer value
