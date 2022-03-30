@@ -56,17 +56,51 @@
 ;;;;
 
 (defun txt-string (code string stream &key (max-octet-length 2048))
-    (if (and (stringp string)
+    (when (and (stringp string)
 	     (<= (length (babel:string-to-octets string)) max-octet-length))
-	(format stream "~A~%~A~%" (dxf-code code) string)
-;;;;	(break "dxf-t-string: code=~A; ~A~%" code string)
-	))
+	(format stream "~A~%~A~%" (dxf-code code) string)))
+
+;;;;
+
+(defun order (val)
+  "@b(Описание:) функция @b(order) возвращает порядок величины @b(val).
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (order 5.55) => 0, 0.744293
+ (order -55.5) => 1, 0.744293
+@end(code)
+"
+  (let ((x (abs val)))
+    (when (zerop x) (return-from order  0))
+    (floor (log x 10))))
+
+(defun print-number (val &optional (digits 16))
+  "@b(Описание:) функция @b(print-number) осуществляет вывод числа с
+  плавающей точкой в формате dxf-AutoCAD.
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (print-number -156.123456789012345678D0) 
+@end(code)"
+  (let* ((od (- (order val)))
+         (str-0 (format nil 
+                        (format nil "~~,~AF" (+ -1 od digits))     
+                        val))
+         (str-1 (if (find #\. str-0)
+                    (string-right-trim "0" str-0)
+                    str-0))
+         (str-2 (if (eq #\. (char str-1 (1- (length str-1))))
+                    (concatenate 'string str-1 "0")
+                    str-1)))
+    str-2))
 
 (defun txt-double (code x stream)
-  (if  (numberp x)
-       (format stream "~A~%~,12F~%" (dxf-code code) x)
-;;;;   (break "txt-double: (numberp x) : code=~A x=~A" code x)
-       ))
+  (when (numberp x)
+    (format stream "~A~%~A~%" (dxf-code code) (print-number x))
+    #+nil (format stream "~A~%~,12F~%" (dxf-code code) x)))
+
+;;;;
 
 (defun txt-point-2d (code point-2d stream)
   (txt-double (+ 0 code) (svref point-2d 0) stream)
@@ -218,7 +252,7 @@
     ((<= 130 code 139)   (txt-double code value stream)) ;;;; Double precision floating-point value
     ((<= 140 code 149)   (txt-double code value stream)) ;;;; Double precision scalar floating-point value
     ((<= 160 code 169)   (txt-int64  code value stream)) ;;;; 64-bit integer value
-    ((<= 170 code 179)   (txt-int64  code value stream)) ;;;; 16-bit integer value
+    ((<= 170 code 179)   (txt-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 210 code 239)   (txt-double code value stream)) ;;;; Double-precision floating-point value
     ((<= 270 code 279)   (txt-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 280 code 289)   (txt-int16  code value stream)) ;;;; 16-bit integer value

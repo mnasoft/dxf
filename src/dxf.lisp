@@ -534,10 +534,9 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     ((point-3d :accessor point-3d :initarg :point-3d :initform (vector 0 0 0))))
 
 (defmethod write-dxf-binary (code (point-3d <ge-point-3d>) stream)
-  (dxf-out-binary-double (+ 00 code) (svref (point-3d point-3d) 0) stream)
-  (dxf-out-binary-double (+ 10 code) (svref (point-3d point-3d) 1) stream)
-  (dxf-out-binary-double (+ 20 code) (svref (point-3d point-3d) 2) stream))
-
+  (dxf/out:bin-double (+ 00 code) (svref (point-3d point-3d) 0) stream)
+  (dxf/out:bin-double (+ 10 code) (svref (point-3d point-3d) 1) stream)
+  (dxf/out:bin-double (+ 20 code) (svref (point-3d point-3d) 2) stream))
 ;;;;
 
 (defclass <rx-object> ()
@@ -3011,7 +3010,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
  (table-and-items \"BLOCK_RECORD\" *s-tbl*)
 "
   (assert (member tbl-name *table-names* :test #'string=  ))
-  (assert (consp tables-pairs))
+  #+nil (assert (consp tables-pairs))
   (let ((pairs-list  (assoc
 			  (list 2 tbl-name)
 			  tables-pairs
