@@ -2,7 +2,7 @@
 
 (defpackage #:dxf/in/txt
   (:use #:cl #:mnas-string)
-  (:export read-from-string-string
+  (:intern read-from-string-string
            read-from-string-int16
            read-from-string-int32
            read-from-string-int64
@@ -13,7 +13,14 @@
            dxf-in-t-pair
            dxf-in-t-pairs
            dxf-in-t-split-by-sections
-           dxf-in-t-fname))
+           )
+  (:export dxf-in-t-fname
+           )
+  (:documentation "@b(Описание:) пакет @b(dxf/in/txt) позволяет
+  преобразовать dxf-файл, сохраненный в текстовом формате в его
+  посекционное представление.
+ Главная функция проекта - @b(dxf-in-t-fname).
+"))
 
 (in-package #:dxf/in/txt)
 
@@ -147,13 +154,22 @@
  @item(версий с 2007 по 2018 [:external-format :utf8].)
 @end(list)
 
- Возвращает список, каждый подсписок, которого содержит пары - код и
- значение.
+ Возвращает посекционное представление dxf-файда:
+ список секций, каждый подсписок, которого содержит
+ пары - код и значение.
 
-Пример использования:
+ @b(Пример использования:)
 @begin[lang=lisp](code)
+
  (dxf-in-t-fname 
    \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\")
+ => (((2 \"HEADER\") (9 \"$ACADVER\") (1 \"AC1027\") (9 \"$ACADMAINTVER\") (70 20) ...)
+     ((2 \"CLASSES\") (0 \"CLASS\") (1 \"ACDBDICTIONARYWDFLT\") ...)
+     ((2 \"TABLES\") (0 \"TABLE\") (2 \"VPORT\") (5 8) (330 0) (100 \"AcDbSymbolTable\") ...)
+     ((2 \"BLOCKS\") (0 \"BLOCK\") (5 32) (330 31) (100 \"AcDbEntity\") (8 \"0\") ...)
+     ((2 \"ENTITIES\") (0 \"LINE\") (5 628) (330 31) (100 \"AcDbEntity\") (8 \"0\") ...)
+     ((2 \"OBJECTS\") (0 \"DICTIONARY\") (5 12) (330 0) (100 \"AcDbDictionary\") (281 1) ...)
+     ((2 \"ACDSDATA\") (70 2) (71 7) (0 \"ACDSSCHEMA\") (90 0) ...))
 @end(code)
 "
   (cond

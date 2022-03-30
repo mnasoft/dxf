@@ -26,25 +26,8 @@
            *degree-to-radian*
            *object-properties*
            )
-  (:export <acad-documents>
-           <acad-document>
-           <acad-database>
-  
-           <acad-linetypes>
-           <acad-layers>
-
-           <acad-linetype>
-           <acad-layer>
-  
-           <ge-point-3d>
-           <rx-object>
-           <dxf-pairs>
-  
-           <acad-object>
+  (:export <acad-object>
            <acad-entity>
-  
-           <db-curve>
-  
            <acad-line>
            <acad-point>
            <acad-ray>
@@ -52,9 +35,34 @@
            <acad-circle>
            <acad-arc>
            <acad-text>
-           <acad-ellipse>)
-  (:export 
-   )
+           <acad-ellipse>
+           <acad-layer>
+           <acad-layers>
+           <acad-documents>
+           <acad-database>
+           <acad-document>
+           <acad-linetype>
+           <acad-linetypes>
+
+           <db-header>
+           <ge-point-3d>
+           <rx-object>
+           <dxf-pairs>
+           <object>
+           <db-curve>
+           <db-symbol-tbl>
+           <acad-blocks>
+           <db-block-rec>
+           <db-object>
+           <db-symbol-tr>
+           <db-regapp-tr>
+           <db-block-tr>
+           <db-dimstyle-tr>
+           <db-textstyle-tr>
+           <db-ucs-tr>
+           <db-view-tr>
+           <db-vport-tr>
+           )
   (:export 
    *Acad-Object-class-marker*
    *Acad-Object-subclass-marker*
@@ -105,7 +113,6 @@
    *db-block-tr-class-marker*
    *db-block-tr-subclass-marker*
    *section-names*
-
    *table-names*))
 
 (in-package #:dxf)
@@ -2315,7 +2322,7 @@ None
     (dxf/out:txt-string 0 *end-tab* stream)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass db-block-rec ( db-e symbol-tbl )
+(defclass <db-block-rec> (<db-symbol-tbl>)
   ((block-tbl-name  :accessor block-tbl-name    :initarg :block-tbl-name :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
    )
   (:documentation "
@@ -2360,7 +2367,9 @@ None
 
 (defparameter *db-symbol-tr-subclass-marker* "AcDbSymbolTableRecord")
 
-(defclass db-symbol-tr ( db-object )
+(defclass <db-object> () ())
+
+(defclass <db-symbol-tr> (<db-object>)
   ((symbol-tr-name :accessor symbol-tr-name  :initarg :symbol-tr-name :initform "Undefined"    :documentation "Код   2. Имя таблицы")
    (symbol-tr-flag :accessor symbol-tr-flag  :initarg :symbol-tr-flag :initform 0              :documentation "Код  70. Стандартные флаги"))
   (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
@@ -2415,17 +2424,17 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-5926A569-3E40-4ED2-AE06-6A
 
 "))
 
-(defmethod dxf-out-text ((x db-symbol-tr) stream)
+(defmethod dxf-out-text ((x <db-symbol-tr>) stream)
   (dxf/out:txt-string 0 *db-symbol-tr-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x db-symbol-tr) stream)
+(defmethod dxf-out-text :after ((x <db-symbol-tr>) stream)
   (dxf/out:txt-string 100 *db-symbol-tr-subclass-marker* stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass db-regapp-tr (db-symbol-tr)
+(defclass <db-regapp-tr> (<db-symbol-tr>)
   ()
   (:documentation "./dbsymtb.h:class AcDbRegAppTableRecord: public  AcDbSymbolTableRecord
 http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-6E3140E9-E560-4C77-904E-480382F0553E
@@ -2457,7 +2466,7 @@ APPID (DXF)
 
 (defparameter *db-block-tr-subclass-marker* "AcDbBlockTableRecord")
 
-(defclass db-block-tr (db-symbol-tr)
+(defclass <db-block-tr> (<db-symbol-tr>)
   ((block-tr-layout            :accessor block-tr-layout              :initarg :block-tr-layout            :initform nil                 :documentation "Код  340. Идентификатор/дескриптор жесткого указателя на связанный объект LAYOUT")
    (block-tr-explodability     :accessor block-tr-explodability       :initarg :block-tr-explodability     :initform 0                   :documentation "Код  280. Расчленяемость блока")
    (block-tr-scalability       :accessor block-tr-scalability         :initarg :block-tr-scalability       :initform 1                   :documentation "Код  281. Масштабируемость блока")
@@ -2532,10 +2541,10 @@ BLOCK_RECORD (DXF)
 |---------------+---------------------------------------------------------------------------------------------|
 "))
 
-(defmethod dxf-out-text ((x db-block-tr) stream)
+(defmethod dxf-out-text ((x <db-block-tr>) stream)
   (dxf/out:txt-string 0 *db-block-tr-class-marker* stream))
 
-(defmethod dxf-out-text :after ((x db-block-tr) stream)
+(defmethod dxf-out-text :after ((x <db-block-tr>) stream)
   (dxf/out:txt-string 100 *db-block-tr-subclass-marker* stream)
   (let ((st-name (symbol-tr-name x))
 	(st-flag (symbol-tr-flag x))
@@ -2554,7 +2563,7 @@ BLOCK_RECORD (DXF)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass db-dimstyle-tr (db-symbol-tr)
+(defclass <db-dimstyle-tr> (<db-symbol-tr>)
   ((dimstyle-tr-dimpost   :accessor dimstyle-tr-dimpost   :initarg :dimstyle-tr-dimpost   :initform nil :documentation "Код  3. DIMPOST")
    (dimstyle-tr-dimapost  :accessor dimstyle-tr-dimapost  :initarg :dimstyle-tr-dimapost  :initform nil :documentation "Код  4. DIMAPOST")
 ;   (dimstyle-tr-dimblk    :accessor dimstyle-tr-dimblk    :initarg :dimstyle-tr-dimblk    :initform nil :documentation "Код  5. DIMBLK (устарело, теперь это идентификатор объекта)")
@@ -2794,7 +2803,7 @@ DIMSTYLE (DXF)
 
 
 
-(defclass db-textstyle-tr (db-symbol-tr)
+(defclass <db-textstyle-tr> (<db-symbol-tr>)
   (
    (textstyle-tr-text-height      :accessor textstyle-tr-text-height       :initarg :textstyle-tr-text-height       :initform 0     :documentation "Код   40. Фиксированная высота текста; значение 0, если нефиксированная")
    (textstyle-tr-width-factor     :accessor textstyle-tr-width-factor      :initarg :textstyle-tr-width-factor      :initform 0     :documentation "Код   41. Коэффициент сжатия")
@@ -2811,7 +2820,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 ====================================================================================================
 "))
 
-(defclass db-ucs-tr (db-symbol-tr)
+(defclass <db-ucs-tr> (<db-symbol-tr>)
   ((ucs-tr-origin           :accessor ucs-tr-origin           :initarg :ucs-tr-origin           :initform (vector 0 0 0) :documentation "Код   10. Начало координат (в МСК)")
    (ucs-tr-x-axis-direction :accessor ucs-tr-x-axis-direction :initarg :ucs-tr-x-axis-direction :initform (vector 1 0 0) :documentation "Код   11. Направление оси X (в МСК)")
    (ucs-tr-y-axis-direction :accessor ucs-tr-y-axis-direction :initarg :ucs-tr-y-axis-direction :initform (vector 0 1 0) :documentation "Код   12. Направление оси Y (в МСК)")
@@ -2824,7 +2833,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 ==================================================================================================== 
 "))
 
-(defclass db-view-tr (db-symbol-tr)
+(defclass <db-view-tr> (<db-symbol-tr>)
   ((view-tr-height          :accessor view-tr-height         :initarg :view-tr-height         :initform 0              :documentation "Код  40. Высота вида (в РСК)")
    (view-tr-center-point    :accessor view-tr-center-point   :initarg :view-tr-center-point   :initform (vector 0 0)   :documentation "Код  10. Центральная точка вида (в РСК).  2D-точка")
    (view-tr-width           :accessor view-tr-width          :initarg :view-tr-width          :initform 420.0          :documentation "Код  41. Ширина вида (в РСК)")
@@ -2847,7 +2856,7 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 ==================================================================================================== 
 "))
 
-(defclass db-vport-tr (db-symbol-tr) 
+(defclass <db-vport-tr> (<db-symbol-tr>) 
   (
 ;  (vport-name  :accessor vport-name  :initarg :vport-name  :initform "*Active" :documentation "Код 2. Имя видового экрана")
 ;  (vport-flags :accessor vport-flags :initarg :vport-flags :initform 0		:documentation "Код 70. Стандартные значения флагов (кодовые битовые значения): 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки; 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается; 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз, на запись таблицы ссылался хотя бы один объект на чертеже. Этот флаг нужен для команд AutoCAD. Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, записывающих файлы DXF")
@@ -2901,73 +2910,6 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-
-
-
-
-
-
-
-
-
-
-(defun dxf-out-t-pairs (code value stream)
-  ""
-  (cond
-    ((or (<= 0 code 4)
-	 (<= 6 code 9))  (dxf/out:txt-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
-    ((=  5  code)        (dxf/out:txt-hex    code value stream))
-    ((<= 10 code 19)     (dxf/out:txt-double code value stream)) ;;;; Double precision 3D point value
-    ((<= 20 code 39)     (dxf/out:txt-double code value stream)) 
-    ((<= 40 code 59)     (dxf/out:txt-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 60 code 79)     (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 90 code 99)     (dxf/out:txt-int32  code value stream)) ;;;; 32-bit integer value
-    ((= 100 code)        (dxf/out:txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 101 code)        (dxf/out:txt-string code value stream :max-octet-length 255)) 
-    ((= 102 code)        (dxf/out:txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 105 code)        (dxf/out:txt-hex    code value stream)) ;;;; String representing hexadecimal (hex) handle value
-    ((<= 110 code 119)   (dxf/out:txt-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 120 code 129)   (dxf/out:txt-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 130 code 139)   (dxf/out:txt-double code value stream)) ;;;; Double precision floating-point value
-    ((<= 140 code 149)   (dxf/out:txt-double code value stream)) ;;;; Double precision scalar floating-point value
-    ((<= 160 code 169)   (dxf/out:txt-int64  code value stream)) ;;;; 64-bit integer value
-    ((<= 170 code 179)   (dxf/out:txt-int64  code value stream)) ;;;; 16-bit integer value
-    ((<= 210 code 239)   (dxf/out:txt-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 270 code 279)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 280 code 289)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 290 code 299)   (dxf/out:txt-int16  code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
-    ((<= 300 code 309)   (dxf/out:txt-string code value stream)) ;;;; Arbitrary text string
-    ((<= 310 code 319)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex value of b chunk
-    ((<= 320 code 329)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex handle value
-    ((<= 330 code 369)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex object IDs
-    ((<= 370 code 379)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 380 code 389)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 390 code 399)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex handle value
-    ((<= 400 code 409)   (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 410 code 419)   (dxf/out:txt-string code value stream)) ;;;; String
-    ((<= 420 code 429)   (dxf/out:txt-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 430 code 439)   (dxf/out:txt-string code value stream)) ;;;; String
-    ((<= 440 code 449)   (dxf/out:txt-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 450 code 459)   (dxf/out:txt-int64  code value stream)) ;;;; Long
-    ((<= 460 code 469)   (dxf/out:txt-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 470 code 479)   (dxf/out:txt-string code value stream)) ;;;; String
-    ((<= 480 code 481)   (dxf/out:txt-hex    code value stream)) ;;;; String representing hex handle value
-    ((= 999 code)        (dxf/out:txt-string code value stream)) ;;;; string)
-    ((<= 1000 code 1009) (dxf/out:txt-string code value stream)) ;;;; String (same limits as indicated with 0-9 code range)
-    ((<= 1010 code 1059) (dxf/out:txt-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 1060 code 1070) (dxf/out:txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((= 1071 code)       (dxf/out:txt-int32  code value stream)) ;;;; 32-bit integer value
-    (t (error "dxf-out-t-pairs code=~a str=~a~%Ucnoun code." code value))))
-
-(defun dxf-out-by-sections (sections stream)
-  (mapc #'(lambda (sectoin)
-	    (dxf-out-t-pairs 0 dxf/sec:*section* stream)
-	    (mapc #'(lambda (el)
-		      (dxf-out-t-pairs (first el) (second el) stream))
-		  sectoin)
-	    (dxf-out-t-pairs 0 dxf/sec:*endsec* stream))
-	sections)
-  (dxf-out-t-pairs 0 dxf/sec:*eof* stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

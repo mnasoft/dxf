@@ -14,7 +14,8 @@
            txt-int16
            txt-int32
            txt-int64
-           txt-int128)
+           txt-int128
+           )
   (:export bin-string
            bin-double
            bin-point-2d
@@ -24,10 +25,14 @@
            bin-int16
            bin-int32
            bin-int64
-           bin-int128)
+           bin-int128
+           )
   (:export txt
-           bin)
-  #+nil dxf-in-b)
+           bin
+           )
+  (:export txt-sections
+           bin-sections
+           ))
 
 (in-package :dxf/out)
 
@@ -89,15 +94,15 @@
 
 (defun txt-int16 (code int16 stream)
   (if  (and (integerp int16) (< (integer-length int16) 16))
-       (format stream "~A~%~D~%" (dxf-code code) int16)))
+       (format stream "~A~%~6D~%" (dxf-code code) int16)))
 
 (defun txt-int32 (code int32 stream)
   (if  (and (integerp int32) (< (integer-length int32) 32))
-       (format stream "~A~%~D~%" (dxf-code code) int32)))
+       (format stream "~A~%~9D~%" (dxf-code code) int32)))
 
 (defun txt-int64 (code int64 stream)
   (if  (and (integerp int64) (< (integer-length int64)  64))
-       (format stream "~A~%~D~%" (dxf-code code) int64)))
+       (format stream "~A~%~18D~%" (dxf-code code) int64)))
 
 (defun txt-int128 (code int128 stream)
   (if  (and (integerp int128) (< (integer-length int128) 128))
@@ -197,7 +202,9 @@
     ((<= 90 code 99)     (txt-int32  code value stream)) ;;;; 32-bit integer value
     ((= 100 code)        (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
     ((= 102 code)        (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    #+nil
     ((= 105 code)        (txt-string code value stream :max-octet-length 127)) ;;;; String representing hexadecimal (hex) handle value
+    ((=  105 code)       (txt-hex    code value stream))
     ((<= 110 code 119)   (txt-double code value stream)) ;;;; Double precision floating-point value
     ((<= 120 code 129)   (txt-double code value stream)) ;;;; Double precision floating-point value
     ((<= 130 code 139)   (txt-double code value stream)) ;;;; Double precision floating-point value
@@ -245,7 +252,9 @@
     ((<= 90 code 99)     (bin-int32  code value stream)) ;;;; 32-bit integer value
     ((= 100 code)        (bin-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
     ((= 102 code)        (bin-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    #+nil
     ((= 105 code)        (bin-string code value stream :max-octet-length 127)) ;;;; String representing hexadecimal (hex) handle value
+    ((=  105 code)       (bin-hex    code value stream))
     ((<= 110 code 119)   (bin-double code value stream)) ;;;; Double precision floating-point value
     ((<= 120 code 129)   (bin-double code value stream)) ;;;; Double precision floating-point value
     ((<= 130 code 139)   (bin-double code value stream)) ;;;; Double precision floating-point value
@@ -279,4 +288,53 @@
     ((= 1071 code)       (bin-int32  code value stream)) ;;;; 32-bit integer value
     ))
 
-;;;; (defun dxf-in-b(code value stream) "")
+;;;;
+
+(defun txt-sections (sections stream)
+  "@b(Описание:) функция @b(txt-sections) выводит в текстовый поток
+ @b(stream) посекционное представление dxf-файла, заданное списком
+ @b(sections).
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (let ((data
+        (dxf/in/txt:dxf-in-t-fname 
+           (concatenate 'string dxf::*dxf-path* \"2018.dxf\"))))
+  (with-open-file (dxf \"txt-sections.dxf\" :direction :output :if-exists :supersede)
+    (txt-sections data dxf)))
+@end(code)
+"
+  (map nil #'(lambda (sectoin)
+	    (txt 0 dxf/sec:*section* stream)
+	    (map nil #'(lambda (el)
+		      (txt (first el) (second el) stream))
+		  sectoin)
+	    (txt 0 dxf/sec:*endsec* stream))
+	sections)
+  (txt 0 dxf/sec:*eof* stream))
+
+(defun bin-sections (sections stream)
+    "@b(Описание:) функция @b(txt-sections) выводит в бинарный поток
+ @b(stream) посекционное представление dxf-файла, заданное списком
+ @b(sections).
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+  (let ((data
+          (dxf/in/txt:dxf-in-t-fname 
+           (concatenate 'string dxf::*dxf-path* \"2018.dxf\"))))
+    (with-open-file (dxf \"bin-sections.dxf\" :direction :output :if-exists :supersede
+                                            :element-type 'unsigned-byte)
+      (bin-sections data dxf)))
+@end(code)
+"
+  (map nil #'(lambda (sectoin)
+	    (bin 0 dxf/sec:*section* stream)
+	    (map nil #'(lambda (el)
+		      (bin (first el) (second el) stream))
+		  sectoin)
+	    (bin 0 dxf/sec:*endsec* stream))
+	sections)
+  (bin 0 dxf/sec:*eof* stream))
+
+
