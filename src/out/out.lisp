@@ -92,6 +92,15 @@
   (if  (and (integerp hex) (< (integer-length hex) 128))
        (format stream "~A~%~X~%" (dxf-code code) hex)))
 
+(defun txt-hex-string (code string stream &key (max-octet-length 2048))
+  "@b(Описание:) функция @b(txt-hex-string) введена для кодов от 310 до 319.
+"
+    (if (and (stringp string)
+	     (<= (length (babel:string-to-octets string)) max-octet-length))
+	(format stream "~A~%~A~%" (dxf-code code) string)
+;;;;	(break "dxf-t-string: code=~A; ~A~%" code string)
+	))
+
 (defun txt-int16 (code int16 stream)
   (if  (and (integerp int16) (< (integer-length int16) 16))
        (format stream "~A~%~6D~%" (dxf-code code) int16)))
@@ -195,13 +204,12 @@
     ((or (<= 0 code 4)
 	 (<= 6 code 9))  (txt-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
     ((=  5  code)        (txt-hex    code value stream))
-    ((<= 10 code 19)     (txt-double code value stream)) ;;;; Double precision 3D point value
-    ((<= 20 code 39)     (txt-double code value stream)) 
-    ((<= 40 code 59)     (txt-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 60 code 79)     (txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 90 code 99)     (txt-int32  code value stream)) ;;;; 32-bit integer value
-    ((= 100 code)        (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 102 code)        (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((<= 10 code  19)     (txt-double code value stream)) ;;;; Double precision 3D point value
+    ((<= 20 code  39)     (txt-double code value stream)) 
+    ((<= 40 code  59)     (txt-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 60 code  79)     (txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 90 code  99)     (txt-int32  code value stream)) ;;;; 32-bit integer value
+    ((<= 100 code 102)        (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
     #+nil
     ((= 105 code)        (txt-string code value stream :max-octet-length 127)) ;;;; String representing hexadecimal (hex) handle value
     ((=  105 code)       (txt-hex    code value stream))
@@ -216,7 +224,7 @@
     ((<= 280 code 289)   (txt-int16  code value stream)) ;;;; 16-bit integer value
     ((<= 290 code 299)   (txt-int16  code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
     ((<= 300 code 309)   (txt-string code value stream)) ;;;; Arbitrary text string
-    ((<= 310 code 319)   (txt-hex    code value stream)) ;;;; String representing hex value of b chunk
+    ((<= 310 code 319)   (txt-hex-string code value stream)) ;;;; String representing hex value of b chunk
     ((<= 320 code 329)   (txt-hex    code value stream)) ;;;; String representing hex handle value
     ((<= 330 code 369)   (txt-hex    code value stream)) ;;;; String representing hex object IDs
     ((<= 370 code 379)   (txt-int16  code value stream)) ;;;; 16-bit integer value

@@ -41,6 +41,9 @@
       (parse-integer str :radix 16)
       0))
 
+(defun read-from-string-hex-string (str)
+  str)
+
 (defun read-from-string-double (str)
   "Выполняет чтение из строки вещественного числа.
 Если число не удалось считать - возвращается default.
@@ -83,8 +86,8 @@
     ((<= 280 code 289)   (read-from-string-int16  str)) ;;;; 16-bit integer value
     ((<= 290 code 299)   (read-from-string-int16  str)) ;;;; Boolean flag value (0 - off 1 - on)
     ((<= 300 code 309)   (read-from-string-string str)) ;;;; Arbitrary text string
-    ((<= 310 code 319)   (read-from-string-hex    str)) ;;;; String representing hex value of b chunk
-    ((<= 320 code 329)   (read-from-string-hex    str)) ;;;; String representing hex handle value
+    ((<= 310 code 319)   (read-from-string-hex-string str)) ;;;; String representing hex value of b chunk
+    ((<= 320 code 329)   (read-from-string-hex str)) ;;;; String representing hex handle value
     ((<= 330 code 369)   (read-from-string-hex    str)) ;;;; String representing hex object IDs
     ((<= 370 code 379)   (read-from-string-int16  str)) ;;;; 16-bit integer value
     ((<= 380 code 389)   (read-from-string-int16  str)) ;;;; 16-bit integer value
