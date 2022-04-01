@@ -287,7 +287,7 @@
     ((or (<= 0 code 4)
 	 (<= 6 code 9))  (bin-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
     ((=  5  code)        (bin-hex    code value stream))
-    ((<= 10 code 19)     (bin-point  code value stream)) ;;;; Double precision 3D point value
+    ((<= 10 code 19)     (bin-double code value stream)) ;;;; Double precision 3D point value
     ((<= 20 code 39)     (bin-double code value stream)) 
     ((<= 40 code 59)     (bin-double code value stream)) ;;;; Double-precision floating-point value
     ((<= 60 code 79)     (bin-int16  code value stream)) ;;;; 16-bit integer value
