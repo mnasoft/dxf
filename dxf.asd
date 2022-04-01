@@ -14,7 +14,8 @@
                "dxf/sec"
                "dxf/out"
                "dxf/vars"
-               "dxf/in/txt")
+               "dxf/in/txt"
+               "dxf/in/bin")
 ;;;; "babel" "ieee-floats"
   :components ((:module "src"
 		:serial t
@@ -33,6 +34,24 @@
   :components ((:module "src/in/txt"
 		:serial t
 		:components ((:file "txt")))))
+
+(defsystem "dxf/in/bin"
+  :description
+  "@b(Описание:) система @b(dxf/in/bin) позволяет преобразовать
+  dxf-файл, сохраненный в бинарном формате в его посекционное
+  представление. Главная функция проекта - @b(dxf-in-b-fname).  
+
+  Кроме того, система содержит низкоуровневые функции чтения:
+@begin(list)
+ @item(знаковых и беззнаковых целых чисел размером 2, 4, 8 и 16 байт;)
+ @item(вещественнх чисел и плавающей точкой размером 4 и 8 байт.)
+@end(list)
+  "
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :components ((:module "src/in/bin"
+		:serial t
+		:components ((:file "bin")))))
 
 (defsystem "dxf/sec"
   :description

@@ -16,6 +16,19 @@
            txt-int64
            txt-int128
            )
+  (:export write-int16
+           write-int32
+           write-int64
+           write-int128
+           )
+  (:export write-uint16
+           write-uint32
+           write-uint64
+           write-uint128
+           )
+  (:export  write-float
+            write-double
+            )
   (:export bin-string
            bin-double
            bin-point-2d
@@ -59,7 +72,6 @@
     (when (and (stringp string)
 	     (<= (length (babel:string-to-octets string)) max-octet-length))
 	(format stream "~A~%~A~%" (dxf-code code) string)))
-
 ;;;;
 
 (defun order (val)
@@ -197,38 +209,103 @@
   (if  (and (integerp hex) (< (integer-length hex) 128))
        (bin-string code (format nil "~X" hex) stream)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun write-int16 (int16 stream)
+  (assert (and (integerp int16)
+               (<= `,(- (/ (expt 2 16) 2))
+                   int16
+                   `,(1- (/ (expt 2 16) 2)))))
+  (dxf/b-arr:put-u2 int16)
+  (write-sequence dxf/b-arr:*byte-aray-2* stream))
+
+(defun write-uint16 (int16 stream)
+  (assert (and (integerp int16)
+               (<= 0
+                   int16
+                   `,(1- (expt 2 16)))))
+  (dxf/b-arr:put-u2 int16)
+  (write-sequence dxf/b-arr:*byte-aray-2* stream))
+
+;;;;
+
+(defun write-int32 (int32 stream)
+  (assert (and (integerp int32)
+               (<= `,(- (/ (expt 2 32) 2))
+                   int32
+                   `,(1- (/ (expt 2 32) 2)))))
+  (dxf/b-arr:put-u4 int32)
+  (write-sequence dxf/b-arr:*byte-aray-4* stream))
+
+(defun write-uint32 (int32 stream)
+  (assert (and (integerp int32)
+               (<= 0
+                   int32
+                   `,(1- (expt 2 32)))))
+  (dxf/b-arr:put-u4 int32)
+  (write-sequence dxf/b-arr:*byte-aray-4* stream))
+
+;;;;
+
+(defun write-int64 (int64 stream)
+  (assert (and (integerp int64)
+               (<= `,(- (/ (expt 2 64) 2))
+                   int64
+                   `,(1- (/ (expt 2 64) 2)))))
+  (dxf/b-arr:put-u8 int64)
+  (write-sequence dxf/b-arr:*byte-aray-8* stream))
+
+(defun write-uint64 (int64 stream)
+  (assert (and (integerp int64)
+               (<= 0
+                   int64
+                   `,(1- (expt 2 64)))))
+  (dxf/b-arr:put-u8 int64)
+  (write-sequence dxf/b-arr:*byte-aray-8* stream))
+
+;;;;
+
+(defun write-int128 (int128 stream)
+  (assert (and (integerp int128)
+               (<= `,(- (/ (expt 2 128) 2))
+                   int128
+                   `,(1- (/ (expt 2 128) 2)))))
+  (dxf/b-arr:put-u16 int128)
+  (write-sequence dxf/b-arr:*byte-aray-16* stream))
+
+(defun write-uint128 (int128 stream)
+  (assert (and (integerp int128)
+               (<= 0
+                   int128
+                   `,(1- (expt 2 128)))))
+  (dxf/b-arr:put-u16 int128)
+  (write-sequence dxf/b-arr:*byte-aray-16* stream))
+
+(defun write-float (val stream)
+  (assert (eq 'single-float (type-of val)))
+  (dxf/out:write-uint32 (ieee-floats:encode-float32 val) stream))
+
+(defun write-double (val stream)
+  (assert (eq 'double-float (type-of val)))
+  (dxf/out:write-uint64 (ieee-floats:encode-float64 val) stream))
+  
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defun bin-int16 (code int16 stream)
-  (if  (and (integerp int16) (< (integer-length int16) 16))
-       (progn
-	 (dxf/b-arr:put-u2 code)
-	 (write-sequence dxf/b-arr:*byte-aray-2* stream)
- 	 (dxf/b-arr:put-u2 int16)
-	 (write-sequence dxf/b-arr:*byte-aray-2* stream))))
+  (write-uint16 code stream)
+  (write-int16 int16 stream))
 
 (defun bin-int32 (code int32 stream)
-  (if  (and (integerp int32) (< (integer-length int32) 32))
-       (progn
-	 (dxf/b-arr:put-u2 code)
-	 (write-sequence dxf/b-arr:*byte-aray-2* stream)
-	 (dxf/b-arr:put-u4 int32)
-	 (write-sequence dxf/b-arr:*byte-aray-4* stream))))
+  (write-uint16 code stream)
+  (write-int32 int32 stream))
 
 (defun bin-int64 (code int64 stream)
-  (if  (and (integerp int64) (< (integer-length int64)  64))
-       (progn
-	 (dxf/b-arr:put-u2 code)
- 	 (write-sequence dxf/b-arr:*byte-aray-2* stream)
- 	 (dxf/b-arr:put-u8 int64)
-	 (write-sequence dxf/b-arr:*byte-aray-8* stream))))
+  (write-uint16 code stream)
+  (write-int64 int64 stream))
 
 (defun bin-int128 (code int128 stream)
-  (if  (and (integerp int128) (< (integer-length int128) 128))
-       (progn
-	 (dxf/b-arr:put-u2 code)
-  	 (write-sequence dxf/b-arr:*byte-aray-2* stream)
- 	 (dxf/b-arr:put-u16 int128)
-	 (write-sequence dxf/b-arr:*byte-aray-16* stream))))
-
+  (write-uint16 code stream)
+  (write-int128 int128 stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
