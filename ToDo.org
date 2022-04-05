@@ -11,19 +11,7 @@
      - [0/1] бинарное посекционое чтение и текстовая посекционная запись;
        - [ ] найти или поределить функции бинарного чтения;
      - [ ] бинарное посекционое чтение и запись;
-4. [12/12] Дать хорошее имя:
-   - [X] dxf-in-txt:dxf-in-t-fname             -> read-file
-   - [X] dxf/in/txt:read-from-string-string    -> read-string
-   - [X] dxf/in/txt:read-from-string-int16     -> read-int16
-   - [X] dxf/in/txt:read-from-string-int32     -> read-int32
-   - [X] dxf/in/txt:read-from-string-int64     -> read-int64
-   - [X] dxf/in/txt:read-from-string-hex       -> read-hex
-   - [X] dxf/in/txt:read-from-string-double    -> read-double
-   - [X] dxf/in/txt:dxf-in-t-read-from-string  -> parse-code-value
-   - [X] dxf/in/txt:read-dxf-code-value-t      -> read-code-value
-   - [X] dxf/in/txt:dxf-in-t-pair              -> read-pair
-   - [X] dxf/in/txt:dxf-in-t-pairs             -> read-pairs
-   - [X] dxf/in/txt:dxf-in-t-split-by-sections -> split-by-sections
+
 
 * DONE
 1. [X] Объединнить файлы системы dxf.
@@ -50,4 +38,16 @@
        остались отличия в последней значащей цифре;
 5. [X] Секцию header-section-group-codes.lisp предположительно можно
    исключить - исключена.
-  
+6. [12/12] Дать хорошее имя:
+   - [X] dxf-in-txt:dxf-in-t-fname             -> read-file
+   - [X] dxf/in/txt:read-from-string-string    -> read-string
+   - [X] dxf/in/txt:read-from-string-int16     -> read-int16
+   - [X] dxf/in/txt:read-from-string-int32     -> read-int32
+   - [X] dxf/in/txt:read-from-string-int64     -> read-int64
+   - [X] dxf/in/txt:read-from-string-hex       -> read-hex
+   - [X] dxf/in/txt:read-from-string-double    -> read-double
+   - [X] dxf/in/txt:dxf-in-t-read-from-string  -> parse-code-value
+   - [X] dxf/in/txt:read-dxf-code-value-t      -> read-code-value
+   - [X] dxf/in/txt:dxf-in-t-pair              -> read-pair
+   - [X] dxf/in/txt:dxf-in-t-pairs             -> read-pairs
+   - [X] dxf/in/txt:dxf-in-t-split-by-sections -> split-by-sections
