@@ -2,57 +2,72 @@
 
 (defpackage #:dxf/in/txt
   (:use #:cl #:mnas-string)
-  (:intern read-from-string-string
-           read-from-string-int16
-           read-from-string-int32
-           read-from-string-int64
-           read-from-string-hex
-           read-from-string-double
-           dxf-in-t-read-from-string
-           read-dxf-code-value-t
-           dxf-in-t-pair
-           dxf-in-t-pairs
-           dxf-in-t-split-by-sections
+  (:intern read-string
+           read-int16
+           read-int32
+           read-int64
+           read-hex
+           read-double
+           read-code-value
+           parse-code-value)
+  (:export read-pair
+           read-pairs
+           split-by-sections
            )
-  (:export dxf-in-t-fname
+  (:export read-file
            )
   (:documentation "@b(Описание:) пакет @b(dxf/in/txt) позволяет
   преобразовать dxf-файл, сохраненный в текстовом формате в его
   посекционное представление.
- Главная функция проекта - @b(dxf-in-t-fname).
+ Главная функция проекта - @b(read-file).
 "))
+
+  (:export read-string
+           read-hex
+           read-int8
+   read-int16
+           read-int32
+           read-int64
+           read-int128
+           )
+  (:export read-float
+           
+           )
+
 
 (in-package #:dxf/in/txt)
 
-(defun read-from-string-string (str)
+(defun read-string (str)
   str)
 
-(defun read-from-string-int16 (str)
+(defun read-int16 (str)
   (parse-integer str))
 
-(defun read-from-string-int32 (str)
+(defun read-int32 (str)
   (parse-integer str))
 
-(defun read-from-string-int64 (str)
+(defun read-int64 (str)
   (parse-integer str))
 
-(defun read-from-string-hex   (str)
+(defun read-hex   (str)
   (if (string/= str "")
       (parse-integer str :radix 16)
       0))
 
-(defun read-from-string-hex-string (str)
+(defun read-hex-string (str)
   str)
 
-(defun read-from-string-double (str)
-  "Выполняет чтение из строки вещественного числа.
-Если число не удалось считать - возвращается default.
-Пример использования:
+(defun read-double (str)
+  "@b(Описание:) функция @b(read-double) возвращает вещественное число
+ двойной точности, считываемое из строки представленной в текстовом
+ формате dxf.
 
- (read-from-string-double \"1.0\")
- (read-from-string-double \"1.0e10\")
- (read-from-string-double \"1.0E5\")
-"
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (read-double \"1.0\")
+ (read-double \"1.0e10\")
+ (read-double \"1.0E5\")
+@end(code)"
   (let ((s-e-d (mnas-string:replace-all
 		(mnas-string:replace-all
 		 (mnas-string:replace-all str "e" "d") "E" "d")"D" "d")))
@@ -60,55 +75,55 @@
 	(read-from-string s-e-d)
 	(read-from-string (concatenate 'string s-e-d "d0")))))
 
-(defun dxf-in-t-read-from-string (code str)
+(defun parse-code-value (code str)
   ;;  (format t "~A ~A~%" code str)
   (cond
     ((or (<= 0 code 4)
-	 (<= 6 code 9))  (read-from-string-string str)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
-    ((=  5  code)        (read-from-string-hex    str))
-    ((<= 10 code 19)     (read-from-string-double str)) ;;;; Double precision 3D point value
-    ((<= 20 code 39)     (read-from-string-double str)) 
-    ((<= 40 code 59)     (read-from-string-double str)) ;;;; Double-precision floating-point value
-    ((<= 60 code 79)     (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 90 code 99)     (read-from-string-int32  str)) ;;;; 32-bit integer value
-    ((= 100 code)        (read-from-string-string str)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 101 code)        (read-from-string-string str)) ;;;; ACDSRECORD
-    ((= 102 code)        (read-from-string-string str)) ;;;; String (255-character maximum; less for Unicode strings)
-    ((= 105 code)        (read-from-string-hex    str)) ;;;; String representing hexadecimal (hex) handle value
-    ((<= 110 code 119)   (read-from-string-double str)) ;;;; Double precision floating-point value
-    ((<= 120 code 129)   (read-from-string-double str)) ;;;; Double precision floating-point value
-    ((<= 130 code 139)   (read-from-string-double str)) ;;;; Double precision floating-point value
-    ((<= 140 code 149)   (read-from-string-double str)) ;;;; Double precision scalar floating-point value
-    ((<= 160 code 169)   (read-from-string-int64  str)) ;;;; 64-bit integer value
-    ((<= 170 code 179)   (read-from-string-int64  str)) ;;;; 16-bit integer value
-    ((<= 210 code 239)   (read-from-string-double str)) ;;;; Double-precision floating-point value
-    ((<= 270 code 279)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 280 code 289)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 290 code 299)   (read-from-string-int16  str)) ;;;; Boolean flag value (0 - off 1 - on)
-    ((<= 300 code 309)   (read-from-string-string str)) ;;;; Arbitrary text string
-    ((<= 310 code 319)   (read-from-string-hex-string str)) ;;;; String representing hex value of b chunk
-    ((<= 320 code 329)   (read-from-string-hex str)) ;;;; String representing hex handle value
-    ((<= 330 code 369)   (read-from-string-hex    str)) ;;;; String representing hex object IDs
-    ((<= 370 code 379)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 380 code 389)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 390 code 399)   (read-from-string-hex    str)) ;;;; String representing hex handle value
-    ((<= 400 code 409)   (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((<= 410 code 419)   (read-from-string-string str)) ;;;; String
-    ((<= 420 code 429)   (read-from-string-int32  str)) ;;;; 32-bit integer value
-    ((<= 430 code 439)   (read-from-string-string str)) ;;;; String
-    ((<= 440 code 449)   (read-from-string-int32  str)) ;;;; 32-bit integer value
-    ((<= 450 code 459)   (read-from-string-int64  str)) ;;;; Long
-    ((<= 460 code 469)   (read-from-string-double str)) ;;;; Double-precision floating-point value
-    ((<= 470 code 479)   (read-from-string-string str)) ;;;; String
-    ((<= 480 code 481)   (read-from-string-hex    str)) ;;;; String representing hex handle value
-    ((= 999 code)        (read-from-string-string str)) ;;;; string)
-    ((<= 1000 code 1009) (read-from-string-string str)) ;;;; String (same limits as indicated with 0-9 code range)
-    ((<= 1010 code 1059) (read-from-string-double str)) ;;;; Double-precision floating-point value
-    ((<= 1060 code 1070) (read-from-string-int16  str)) ;;;; 16-bit integer value
-    ((= 1071 code)       (read-from-string-int32  str)) ;;;; 32-bit integer value
-    (t (error "dxf-in-t-read-from-string code=~a str=~a~%Ucnoun code." code str  ))))
+	 (<= 6 code 9))  (read-string str)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
+    ((=  5  code)        (read-hex    str))
+    ((<= 10 code 19)     (read-double str)) ;;;; Double precision 3D point value
+    ((<= 20 code 39)     (read-double str)) 
+    ((<= 40 code 59)     (read-double str)) ;;;; Double-precision floating-point value
+    ((<= 60 code 79)     (read-int16  str)) ;;;; 16-bit integer value
+    ((<= 90 code 99)     (read-int32  str)) ;;;; 32-bit integer value
+    ((= 100 code)        (read-string str)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((= 101 code)        (read-string str)) ;;;; ACDSRECORD
+    ((= 102 code)        (read-string str)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((= 105 code)        (read-hex    str)) ;;;; String representing hexadecimal (hex) handle value
+    ((<= 110 code 119)   (read-double str)) ;;;; Double precision floating-point value
+    ((<= 120 code 129)   (read-double str)) ;;;; Double precision floating-point value
+    ((<= 130 code 139)   (read-double str)) ;;;; Double precision floating-point value
+    ((<= 140 code 149)   (read-double str)) ;;;; Double precision scalar floating-point value
+    ((<= 160 code 169)   (read-int64  str)) ;;;; 64-bit integer value
+    ((<= 170 code 179)   (read-int64  str)) ;;;; 16-bit integer value
+    ((<= 210 code 239)   (read-double str)) ;;;; Double-precision floating-point value
+    ((<= 270 code 279)   (read-int16  str)) ;;;; 16-bit integer value
+    ((<= 280 code 289)   (read-int16  str)) ;;;; 16-bit integer value
+    ((<= 290 code 299)   (read-int16  str)) ;;;; Boolean flag value (0 - off 1 - on)
+    ((<= 300 code 309)   (read-string str)) ;;;; Arbitrary text string
+    ((<= 310 code 319)   (read-hex-string str)) ;;;; String representing hex value of b chunk
+    ((<= 320 code 329)   (read-hex str)) ;;;; String representing hex handle value
+    ((<= 330 code 369)   (read-hex    str)) ;;;; String representing hex object IDs
+    ((<= 370 code 379)   (read-int16  str)) ;;;; 16-bit integer value
+    ((<= 380 code 389)   (read-int16  str)) ;;;; 16-bit integer value
+    ((<= 390 code 399)   (read-hex    str)) ;;;; String representing hex handle value
+    ((<= 400 code 409)   (read-int16  str)) ;;;; 16-bit integer value
+    ((<= 410 code 419)   (read-string str)) ;;;; String
+    ((<= 420 code 429)   (read-int32  str)) ;;;; 32-bit integer value
+    ((<= 430 code 439)   (read-string str)) ;;;; String
+    ((<= 440 code 449)   (read-int32  str)) ;;;; 32-bit integer value
+    ((<= 450 code 459)   (read-int64  str)) ;;;; Long
+    ((<= 460 code 469)   (read-double str)) ;;;; Double-precision floating-point value
+    ((<= 470 code 479)   (read-string str)) ;;;; String
+    ((<= 480 code 481)   (read-hex    str)) ;;;; String representing hex handle value
+    ((= 999 code)        (read-string str)) ;;;; string)
+    ((<= 1000 code 1009) (read-string str)) ;;;; String (same limits as indicated with 0-9 code range)
+    ((<= 1010 code 1059) (read-double str)) ;;;; Double-precision floating-point value
+    ((<= 1060 code 1070) (read-int16  str)) ;;;; 16-bit integer value
+    ((= 1071 code)       (read-int32  str)) ;;;; 32-bit integer value
+    (t (error "parse-code-value code=~a str=~a~%Ucnoun code." code str  ))))
 
-(defun read-dxf-code-value-t (is-dxf-t)
+(defun read-code-value (is-dxf-t)
   "Считывает пару:
 @begin(list)
  @item(dxf-код - в виде целого значения;)
@@ -117,30 +132,32 @@
 "
   (let ((code (parse-integer (string-trim "" (read-line is-dxf-t))))
 	(str  (string-trim "" (read-line is-dxf-t))))
-  (list code  str)))
+    (list code str)))
 
-(defun dxf-in-t-pair (stream)
-  "Считываете одной dxf пары - ключ и значение из потока stream.
-Возврвщает в виде списка."
-  (let* ((code-string (read-dxf-code-value-t stream))
+(defun read-pair (stream)
+  "@b(Описание:) функция @b(read-pair) возврвщает в виде списка пару
+ ключ-значение, считываемую из потока @b(stream), имеющего текстовый
+ формат dxf.
+"
+  (let* ((code-string (read-code-value stream))
 	 (code (first code-string))
 	 (str (second code-string))
-	 (val (dxf-in-t-read-from-string code str)))
+	 (val (parse-code-value code str)))
 ;;    (format t "~A ~A ~A~%" code str val)
     (list code val)))
 
-(defun dxf-in-t-pairs (stream)
-  "(with-open-file (stream \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\") (dxf-in-t-pairs stream))"
+(defun read-pairs (stream)
+  "(with-open-file (stream \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\") (read-pairs stream))"
   (let ((pairs-lst nil))
-    (do ((pair (dxf-in-t-pair stream)
-               (dxf-in-t-pair stream)))
+    (do ((pair (read-pair stream)
+               (read-pair stream)))
 	((and (= 0 (first pair ))
               (string= (second pair) "EOF"))
          (nreverse pairs-lst))
       (push pair pairs-lst))))
 
-(defun dxf-in-t-split-by-sections (stream)
-  (let ((pairs-list (dxf-in-t-pairs stream))
+(defun split-by-sections (stream)
+  (let ((pairs-list (read-pairs stream))
 	(sections nil)
 	(section  nil))
     (dolist (i pairs-list (nreverse sections))
@@ -149,8 +166,8 @@
 	(push (cdr (nreverse (cdr section))) sections)
 	(setf section nil)))))
 
-(defun dxf-in-t-fname (fname)
-  "@b(Описание:) функция @b(dxf-in-t-fname) выполняет попытку
+(defun read-file (fname)
+  "@b(Описание:) функция @b(read-file) выполняет попытку
  считывания текстового dxf-файла в формате:
 @begin(list)
  @item(версий с 2000 по 2004 [:external-format :cp1251])
@@ -164,7 +181,7 @@
  @b(Пример использования:)
 @begin[lang=lisp](code)
 
- (dxf-in-t-fname 
+ (read-file 
    \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\")
  => (((2 \"HEADER\") (9 \"$ACADVER\") (1 \"AC1027\") (9 \"$ACADMAINTVER\") (70 20) ...)
      ((2 \"CLASSES\") (0 \"CLASS\") (1 \"ACDBDICTIONARYWDFLT\") ...)
@@ -178,8 +195,8 @@
   (cond
     ((ignore-errors
        (with-open-file (stream fname :external-format :cp1251)
-	 (dxf-in-t-split-by-sections stream))))
+	 (split-by-sections stream))))
     ((ignore-errors
        (with-open-file (stream fname :external-format :utf8)
-	 (dxf-in-t-split-by-sections stream))))
+	 (split-by-sections stream))))
     (t (error "Cannot read file ~a." fname))))

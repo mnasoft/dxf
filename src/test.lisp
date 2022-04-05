@@ -6,7 +6,7 @@
 (defparameter *dxf-path* "~/quicklisp/local-projects/acad/dxf/dxf/")
 
 
-(defparameter *Drawing-sty* (dxf/in/txt:dxf-in-t-fname (concatenate 'string *dxf-path* "Drawing-sty.dxf")))
+(defparameter *Drawing-sty* (dxf/in/txt:read-file (concatenate 'string *dxf-path* "Drawing-sty.dxf")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *model-space*
@@ -538,7 +538,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter *Drawing-sty* (dxf/in/txt:dxf-in-t-fname "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf"))
+  (defparameter *Drawing-sty* (dxf/in/txt:read-file "~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf"))
   )
 
 (defparameter *t* nil)

@@ -310,20 +310,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun txt (code value stream)
-  ""
+  "@b(Описание:) функция @b(txt) выводит в поток @b(stream) пару
+  @b(code) и @b(value) в формате текстовом формате dxf."
   (cond
     ((or (<= 0 code 4)
 	 (<= 6 code 9))  (txt-string code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
     ((=  5  code)        (txt-hex    code value stream))
-    ((<= 10 code  19)     (txt-double code value stream)) ;;;; Double precision 3D point value
-    ((<= 20 code  39)     (txt-double code value stream)) 
-    ((<= 40 code  59)     (txt-double code value stream)) ;;;; Double-precision floating-point value
-    ((<= 60 code  79)     (txt-int16  code value stream)) ;;;; 16-bit integer value
-    ((<= 90 code  99)     (txt-int32  code value stream)) ;;;; 32-bit integer value
-    ((<= 100 code 102)    (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
-    #+nil
-    ((= 105 code)        (txt-string code value stream :max-octet-length 127)) ;;;; String representing hexadecimal (hex) handle value
-    ((=  105 code)       (txt-hex    code value stream))
+    ((<= 10 code  19)    (txt-double code value stream)) ;;;; Double precision 3D point value
+    ((<= 20 code  39)    (txt-double code value stream)) 
+    ((<= 40 code  59)    (txt-double code value stream)) ;;;; Double-precision floating-point value
+    ((<= 60 code  79)    (txt-int16  code value stream)) ;;;; 16-bit integer value
+    ((<= 90 code  99)    (txt-int32  code value stream)) ;;;; 32-bit integer value
+    ((<= 100 code 102)   (txt-string code value stream :max-octet-length 255)) ;;;; String (255-character maximum; less for Unicode strings)
+    ((=  105 code)       (txt-hex    code value stream)) ;;;; String representing hexadecimal (hex) handle value
     ((<= 110 code 119)   (txt-double code value stream)) ;;;; Double precision floating-point value
     ((<= 120 code 129)   (txt-double code value stream)) ;;;; Double precision floating-point value
     ((<= 130 code 139)   (txt-double code value stream)) ;;;; Double precision floating-point value
@@ -416,7 +415,7 @@
  @b(Пример использования:)
 @begin[lang=lisp](code)
  (let ((data
-        (dxf/in/txt:dxf-in-t-fname 
+        (dxf/in/txt:read-file 
            (concatenate 'string dxf::*dxf-path* \"2018.dxf\"))))
   (with-open-file (dxf \"txt-sections.dxf\" :direction :output :if-exists :supersede)
     (txt-sections data dxf)))
@@ -439,7 +438,7 @@
  @b(Пример использования:)
 @begin[lang=lisp](code)
   (let ((data
-          (dxf/in/txt:dxf-in-t-fname 
+          (dxf/in/txt:read-file 
            (concatenate 'string dxf::*dxf-path* \"2018.dxf\"))))
     (with-open-file (dxf \"bin-sections.dxf\" :direction :output :if-exists :supersede
                                             :element-type 'unsigned-byte)

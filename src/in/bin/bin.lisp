@@ -2,8 +2,15 @@
 
 (defpackage #:dxf/in/bin
   (:use #:cl #:mnas-string)
+  (:export *AutoCAD-Binary-DXF-18*
+           *AutoCAD-Binary-DXF-21*
+           *AutoCAD-Binary-DXF-22*
+           )
   (:export read-string
            read-hex
+           )
+  (:export read-uint8
+           read-int8
            )
   (:export read-uint16
            read-uint32
@@ -37,11 +44,14 @@
 
 (in-package #:dxf/in/bin)
 
-(defparameter *AutoCAD-Binary-DXF-18* (format nil "~A" "AutoCAD Binary DXF"))
-(defparameter *AutoCAD-Binary-DXF-22* (format nil "~A~C~C~C~C" "AutoCAD Binary DXF" #\CR #\LF #\SUB #\NUL))
-(defparameter *AutoCAD-Binary-DXF-21* (format nil "~A~C~C~C" "AutoCAD Binary DXF" #\CR #\LF #\SUB))
+(defparameter *AutoCAD-Binary-DXF-18*
+  (format nil "~A" "AutoCAD Binary DXF"))
 
+(defparameter *AutoCAD-Binary-DXF-21*
+  (format nil "~A~C~C~C" *AutoCAD-Binary-DXF-18* #\CR #\LF #\SUB))
 
+(defparameter *AutoCAD-Binary-DXF-22*
+  (format nil "~A~C~C~C~C" *AutoCAD-Binary-DXF-18* #\CR #\LF #\SUB #\NUL))
 
 (defun read-string (stream)
   "@b(Описание:) функция @b(read-string) возвращает строку, считывамую
@@ -70,7 +80,8 @@
       ((= bt 0)
        (babel:octets-to-string
         (map '(vector (unsigned-byte 8))
-             #'(lambda (el) el) (nreverse rez))))))
+             #'(lambda (el) el) (nreverse rez))
+        ))))
 
 (defun read-hex (stream)
   (let ((str (read-string stream)))
@@ -86,9 +97,10 @@
        бинарным (предположительно является текстовым);)
 @end(list)
 "
-  (read-string))
+  (read-string stream))
 
-
+(defun read-uint8 (stream)
+  (read-byte stream))
 
 (defun read-uint16 (stream)
   "@b(Описание:) функция @b(read-uint16) целое неотрицательное число в
@@ -151,6 +163,14 @@
           :finally (return rez))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun read-int8 (stream)
+  "@b(Описание:) функция @b(read-int8) чтение символа как короткого
+ знакового целого в диапазоне от -128 до 127."
+  (let ((x (read-uint8 stream)))
+    (if (<= `,(/ (expt 2 8) 2) x)
+        (- x `,(expt 2 8))
+        x)))
 
 (defun read-int16 (stream)
   "@b(Описание:) функция @b(read-int16) 
@@ -219,49 +239,56 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun read-pair (stream)
-  "@b(Описание:) функция @b(read-pair) выполняет считывание пары ключ значение.
+  "@b(Описание:) функция @b(read-pair) выполняет считывание пары ключ
+  значение из бинарного dxf-файла системы AutoCAD.
 "
-  (let ((code (read-uint16 stream)))
-    (cond
-      ((or (<= 0 code 4)
-	   (<= 6 code 9))  (read-string stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
-      ((=  5  code)        (read-hex    stream))
-      ((<= 10 code 19)     (read-double stream)) ;;;; Double precision 3D point value
-      ((<= 20 code 39)     (read-double stream)) 
-      ((<= 40 code 59)     (read-double stream)) ;;;; Double-precision floating-point value
-      ((<= 60 code 79)     (read-int16  stream)) ;;;; 16-bit integer value
-      ((<= 90 code 99)     (read-int32  stream)) ;;;; 32-bit integer value
-      ((<= 100 code 102)   (read-string stream)) ;;;; String (255-character maximum; less for Unicode strings) 
-      ((=  105 code)       (read-hex    stream)) ;;;; String representing hexadecimal (hex) handle value
-      ((<= 110 code 119)   (read-double stream)) ;;;; Double precision floating-point value
-      ((<= 120 code 129)   (read-double stream)) ;;;; Double precision floating-point value
-      ((<= 130 code 139)   (read-double stream)) ;;;; Double precision floating-point value
-      ((<= 140 code 149)   (read-double stream)) ;;;; Double precision scalar floating-point value
-      ((<= 160 code 169)   (read-int64  stream)) ;;;; 64-bit integer value
-      ((<= 170 code 179)   (read-int16  stream)) ;;;; 16-bit integer value
-      ((<= 210 code 239)   (read-double stream)) ;;;; Double-precision floating-point value
-      ((<= 270 code 279)   (read-int16  stream)) ;;;; 16-bit integer value
-      ((<= 280 code 289)   (read-int16  stream)) ;;;; 16-bit integer value
-      ((<= 290 code 299)   (read-int16  stream)) ;;;; Boolean flag value (0 - off 1 - on)
-      ((<= 300 code 309)   (read-string stream)) ;;;; Arbitrary text string
-      ((<= 310 code 319)   (read-string stream)) ;;;; String representing hex value of b chunk
-      ((<= 320 code 329)   (read-hex    stream)) ;;;; String representing hex handle value
-      ((<= 330 code 369)   (read-hex    stream)) ;;;; String representing hex object IDs
-      ((<= 370 code 379)   (read-int16  stream)) ;;;; 16-bit integer value
-      ((<= 380 code 389)   (read-int16  stream)) ;;;; 16-bit integer value
-      ((<= 390 code 399)   (read-string stream)) ;;;; String representing hex handle value
-      ((<= 400 code 409)   (read-int16  stream)) ;;;; 16-bit integer value
-      ((<= 410 code 419)   (read-string stream)) ;;;; String
-      ((<= 420 code 429)   (read-int32  stream)) ;;;; 32-bit integer value
-      ((<= 430 code 439)   (read-string stream)) ;;;; String
-      ((<= 440 code 449)   (read-int32  stream)) ;;;; 32-bit integer value
-      ((<= 450 code 459)   (read-int64  stream)) ;;;; Long
-      ((<= 460 code 469)   (read-double stream)) ;;;; Double-precision floating-point value
-      ((<= 470 code 479)   (read-string stream)) ;;;; String
-      ((<= 480 code 481)   (read-string stream)) ;;;; String representing hex handle value
-      ((= 999 code)        (read-string stream)) ;;;; string строка комментария
-      ((<= 1000 code 1009) (read-string stream)) ;;;; String (same limits as indicated with 0-9 code range)
-      ((<= 1010 code 1059) (read-double stream)) ;;;; Double-precision floating-point value
-      ((<= 1060 code 1070) (read-int16  stream)) ;;;; 16-bit integer value
-      ((= 1071 code)       (read-int32  stream)) ;;;; 32-bit integer value
-      )))
+  (let* ((code (read-uint16 stream))
+         (val (cond
+                ((or (<= 0 code 4)
+	             (<= 6 code 9))  (read-string stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
+                ((=  5  code)        (read-hex    stream))
+                ((<= 10 code 19)     (read-double stream)) ;;;; Double precision 3D point value
+                ((<= 20 code 39)     (read-double stream)) 
+                ((<= 40 code 59)     (read-double stream)) ;;;; Double-precision floating-point value
+                ((<= 60 code 79)     (read-int16  stream)) ;;;; 16-bit integer value
+                ((<= 90 code 99)     (read-int32  stream)) ;;;; 32-bit integer value
+                ((<= 100 code 102)   (read-string stream)) ;;;; String (255-character maximum; less for Unicode strings) 
+                ((=  105 code)       (read-hex    stream)) ;;;; String representing hexadecimal (hex) handle value
+                ((<= 110 code 119)   (read-double stream)) ;;;; Double precision floating-point value
+                ((<= 120 code 129)   (read-double stream)) ;;;; Double precision floating-point value
+                ((<= 130 code 139)   (read-double stream)) ;;;; Double precision floating-point value
+                ((<= 140 code 149)   (read-double stream)) ;;;; Double precision scalar floating-point value
+                ((<= 160 code 169)   (read-int64  stream)) ;;;; 64-bit integer value
+                ((<= 170 code 179)   (read-int16  stream)) ;;;; 16-bit integer value
+                ((<= 210 code 239)   (read-double stream)) ;;;; Double-precision floating-point value
+                ((<= 270 code 279)   (read-int16  stream)) ;;;; 16-bit integer value
+                ((<= 280 code 289)   (read-int16  stream)) ;;;; 16-bit integer value
+                ((<= 290 code 299)   (read-int8   stream)) ;;;; Boolean flag value (0 - off 1 - on)
+                ((<= 300 code 309)   (read-string stream)) ;;;; Arbitrary text string
+                ((<= 310 code 319)   (read-string stream)) ;;;; String representing hex value of b chunk
+                ((<= 320 code 329)   (read-hex    stream)) ;;;; String representing hex handle value
+                ((<= 330 code 369)   (read-hex    stream)) ;;;; String representing hex object IDs
+                ((<= 370 code 379)   (read-int16  stream)) ;;;; 16-bit integer value
+                ((<= 380 code 389)   (read-int16  stream)) ;;;; 16-bit integer value
+                ((<= 390 code 399)   (read-hex    stream)) ;;;; String representing hex handle value
+                ((<= 400 code 409)   (read-int16  stream)) ;;;; 16-bit integer value
+                ((<= 410 code 419)   (read-string stream)) ;;;; String
+                ((<= 420 code 429)   (read-int32  stream)) ;;;; 32-bit integer value
+                ((<= 430 code 439)   (read-string stream)) ;;;; String
+                ((<= 440 code 449)   (read-int32  stream)) ;;;; 32-bit integer value
+                ((<= 450 code 459)   (read-int64  stream)) ;;;; Long
+                ((<= 460 code 469)   (read-double stream)) ;;;; Double-precision floating-point value
+                ((<= 470 code 479)   (read-string stream)) ;;;; String
+                ((<= 480 code 481)   (read-string stream)) ;;;; String representing hex handle value
+                ((= 999 code)        (read-string stream)) ;;;; string строка комментария
+                ((<= 1000 code 1009) (read-string stream)) ;;;; String (same limits as indicated with 0-9 code range)
+                ((<= 1010 code 1059) (read-double stream)) ;;;; Double-precision floating-point value
+                ((<= 1060 code 1070) (read-int16  stream)) ;;;; 16-bit integer value
+                ((= 1071 code)       (read-int32  stream)) ;;;; 32-bit integer value
+                (t nil)
+                )))
+    (list code val)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+2305/9
