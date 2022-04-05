@@ -11,8 +11,8 @@
      - [0/1] бинарное посекционое чтение и текстовая посекционная запись;
        - [ ] найти или поределить функции бинарного чтения;
      - [ ] бинарное посекционое чтение и запись;
-4. [11/12] Дать хорошее имя:
-   - [ ] dxf-in-txt:dxf-in-t-fname             -> read-file
+4. [12/12] Дать хорошее имя:
+   - [X] dxf-in-txt:dxf-in-t-fname             -> read-file
    - [X] dxf/in/txt:read-from-string-string    -> read-string
    - [X] dxf/in/txt:read-from-string-int16     -> read-int16
    - [X] dxf/in/txt:read-from-string-int32     -> read-int32

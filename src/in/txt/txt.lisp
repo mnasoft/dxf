@@ -22,19 +22,6 @@
  Главная функция проекта - @b(read-file).
 "))
 
-  (:export read-string
-           read-hex
-           read-int8
-   read-int16
-           read-int32
-           read-int64
-           read-int128
-           )
-  (:export read-float
-           
-           )
-
-
 (in-package #:dxf/in/txt)
 
 (defun read-string (str)
