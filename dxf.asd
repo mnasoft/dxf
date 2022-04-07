@@ -135,3 +135,23 @@
   :components ((:module "src/docs"
 		:serial nil
                 :components ((:file "docs")))))
+
+(defsystem "dxf/tests"
+  :description "Тестирование систем, входящих  в проект dxf"
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :depends-on ("dxf" "fiveam")
+  :perform (test-op (o s)
+		    (uiop:symbol-call :dxf/tests :run-tests))
+  :components ((:module "src/tests"
+		:serial nil
+                :components ((:file "tests")))
+               (:module "src/tests/suites"
+                :depends-on ("src/tests")
+		:serial nil
+                :components ((:file "core")
+                             ))
+               (:module "src/tests/run"
+                :depends-on ("src/tests/suites")
+		:serial nil
+                :components ((:file "run")))))
