@@ -44,16 +44,15 @@
                namestring))
 
 (def-test test-1 ()
-  (is-true
-   (equalp t
-           (let ((dxf-fn-from (make-path-relative-to-system :dxf "dxf/2018.dxf"))
-                 (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/txt.dxf")))
-             (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
-             (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to))))
-  (is-true
-   (equalp t
-           (let ((dxf-fn-from (make-path-relative-to-system :dxf "/dxf/Line_01.dxf"))
-                 (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/txt.dxf")))
-             (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
-             (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to)))))
-
+  (let ((dxf-fn-from (make-path-relative-to-system :dxf "dxf/2018.dxf"))
+        (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/txt.dxf")))
+    (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
+    (is-true (= (length (uiop:read-file-lines dxf-fn-from))
+                (length (uiop:read-file-lines dxf-fn-to  ))))
+    (is-true (equalp t (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to))))
+  (let ((dxf-fn-from (make-path-relative-to-system :dxf "dxf/Line_01.dxf"))
+        (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/txt.dxf")))
+    (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
+    (is-true (= (length (uiop:read-file-lines dxf-fn-from))
+                (length (uiop:read-file-lines dxf-fn-to  ))))
+    (is-true (equalp t (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to)))))
