@@ -56,10 +56,4 @@
                  (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/txt.dxf")))
              (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
              (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to)))))
-#+nil
-(let ((data
-        (dxf/in/txt:read-file 
-           (concatenate 'string dxf::*dxf-path* "Line_01.dxf"))))
-  (with-open-file (dxf (concatenate 'string dxf::*dxf-path* "_Line_01.dxf")
-                       :direction :output :if-exists :supersede)
-    (txt-sections data dxf)))
+
