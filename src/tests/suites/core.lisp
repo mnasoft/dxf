@@ -56,18 +56,26 @@
  @item(проверка пар ключ-значение для файлов @b(dxf-fn-to) и @b(dxf-fn-from).)
 @end(list)
 "
-  (let ((dxf-fn-from (make-path-relative-to-system :dxf "dxf/2018.dxf"))
-        (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/txt.dxf")))
-    (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
-    (is-true (= (length (uiop:read-file-lines dxf-fn-from))
-                (length (uiop:read-file-lines dxf-fn-to  ))))
-    (is-true (equalp t (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to))))
-  (let ((dxf-fn-from (make-path-relative-to-system :dxf "dxf/Line_01.dxf"))
-        (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/txt.dxf")))
-    (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
-    (is-true (= (length (uiop:read-file-lines dxf-fn-from))
-                (length (uiop:read-file-lines dxf-fn-to  ))))
-    (is-true (equalp t (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to)))))
+  (labels
+      ((txt (from)
+         (let ((dxf-fn-from (make-path-relative-to-system :dxf from))
+               (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/tests/txt.dxf")))
+           (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
+           (is-true (= (length (uiop:read-file-lines dxf-fn-from))
+                       (length (uiop:read-file-lines dxf-fn-to  ))))
+           (is-true (equalp t (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to))))))
+    (loop :for i :in '("dxf/2018.dxf"
+                       "dxf/Line_01.dxf"
+                       "dxf/metric/AutoCAD-2000-LT-2000-metric.dxf"
+                       "dxf/metric/AutoCAD-2004-LT-2004-metric.dxf"
+                       "dxf/metric/AutoCAD-2007-LT-2007-metric.dxf"
+                       "dxf/metric/AutoCAD-2010-LT-2010-metric.dxf"
+                       "dxf/metric/AutoCAD-2013-LT-2013-metric.dxf"
+                       "dxf/metric/AutoCAD-2018-metric.dxf"
+                       "dxf/metric/AutoCAD-R12-LT-2-metric.dxf")
+          :do
+             (txt i))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+  
