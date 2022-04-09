@@ -25,6 +25,9 @@
           (push (list p-1 p-2) rez))))))
 
 (defun copy-dxf-txt-by-sections (fname-dxf-from fname-dxf-to)
+  "@b(Описание:) функция @b(copy-dxf-txt-by-sections) выполняет
+  посекционное копирование dxf-файла с именем fname-dxf-from в
+  текстовом формате в файл с имеем fname-dxf-to."
   (let ((sections (dxf/in/txt:read-file fname-dxf-from)))
     (with-open-file (dxf fname-dxf-to :direction :output :if-exists :supersede)
       (dxf/out:txt-sections sections dxf))))
@@ -44,6 +47,15 @@
                namestring))
 
 (def-test test-1 ()
+  "@b(Описание:) тест @b(test-1) проверка корректности посекционного
+  копирования dxf-файлов в текстовом режиме. Для каждого тестируемого
+  исходного файла с именем @b(dxf-fn-from) выполняется:
+@begin(list)
+ @item(копирование его в файл c именем @b(dxf-fn-to);)
+ @item(проверка количества строк файлов @b(dxf-fn-to) и @b(dxf-fn-from);)
+ @item(проверка пар ключ-значение для файлов @b(dxf-fn-to) и @b(dxf-fn-from).)
+@end(list)
+"
   (let ((dxf-fn-from (make-path-relative-to-system :dxf "dxf/2018.dxf"))
         (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/txt.dxf")))
     (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
@@ -56,3 +68,6 @@
     (is-true (= (length (uiop:read-file-lines dxf-fn-from))
                 (length (uiop:read-file-lines dxf-fn-to  ))))
     (is-true (equalp t (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
