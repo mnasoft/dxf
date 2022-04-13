@@ -8,7 +8,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (let ((data
         (dxf/in/txt:read-file 
-           (concatenate 'string dxf::*dxf-path* "Line_01.dxf"))))
+           (concatenate 'string dxf::*dxf-path* "txt/Line_01.dxf"))))
   (with-open-file (dxf (concatenate 'string dxf::*dxf-path* "_Line_01.dxf")
                        :direction :output :if-exists :supersede)
     (txt-sections data dxf)))
@@ -18,7 +18,7 @@
 
 (let ((data
         (dxf/in/txt:read-file 
-         (concatenate 'string dxf::*dxf-path* "2018.dxf"))))
+         (concatenate 'string dxf::*dxf-path* "txt/2018.dxf"))))
   (with-open-file (dxf (concatenate 'string dxf::*dxf-path* "bin-sections.dxf")
                        :direction :output :if-exists :supersede
                        :element-type 'unsigned-byte)

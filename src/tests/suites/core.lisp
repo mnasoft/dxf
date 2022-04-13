@@ -39,8 +39,8 @@
 
  @b(Пример использования:)
 @begin[lang=lisp](code)
- (make-path-relative-to-system :dxf \"dxf/2018.dxf\")
- => \"D:/PRG/msys64/home/namatv/quicklisp/local-projects/acad/dxf/dxf/2018.dxf\"
+ (make-path-relative-to-system :dxf \"dxf/txt/2018.dxf\")
+ => \"D:/PRG/msys64/home/namatv/quicklisp/local-projects/acad/dxf/dxf/txt/2018.dxf\"
 @end(code)"
   (concatenate 'string
                (namestring (asdf:system-source-directory system))
@@ -64,8 +64,8 @@
            (is-true (= (length (uiop:read-file-lines dxf-fn-from))
                        (length (uiop:read-file-lines dxf-fn-to  ))))
            (is-true (equalp t (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to))))))
-    (loop :for i :in '("dxf/2018.dxf"
-                       "dxf/Line_01.dxf"
+    (loop :for i :in '("dxf/txt/2018.dxf"
+                       "dxf/txt/Line_01.dxf"
                        "dxf/metric/AutoCAD-2000-LT-2000-metric.dxf"
                        "dxf/metric/AutoCAD-2004-LT-2004-metric.dxf"
                        "dxf/metric/AutoCAD-2007-LT-2007-metric.dxf"
@@ -78,4 +78,42 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  
+;#+nil
+(progn 
+  (defparameter bin
+    (open (make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
+          :element-type 'unsigned-byte))
+  (defparameter txt
+    (open (make-path-relative-to-system :dxf "dxf/txt/2018.dxf")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
+  (dxf/in/bin:read-head bin)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (defparameter o-bin
+    (open (make-path-relative-to-system :dxf "dxf/bin-2018.txt")
+          :direction :output :if-exists :supersede))
+  (defparameter o-txt
+    (open (make-path-relative-to-system :dxf "dxf/txt-2018.txt")
+          :direction :output :if-exists :supersede))
+  (loop :for i :from 0 :below 13210/2
+        :do
+           (format o-bin "~S~%" (dxf/in/bin:read-pair bin))
+           (format o-txt "~S~%" (dxf/in/txt:read-pair txt)))
+  (progn (close bin)   (close txt)
+       (close o-bin) (close o-txt)
+       nil))
+
+;;;;
+
+(progn
+  (defparameter bin-in
+    (open (make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
+          :element-type 'unsigned-byte))
+  (defparameter bin-out
+    (open (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")
+          :direction :output :if-exists :supersede :element-type 'unsigned-byte))
+  (loop :for i :from 0 :below 13210/2
+        :do
+           (let ((pair (dxf/in/bin:read-pair bin-in)))
+             (dxf/out:bin (first pair) (second pair) bin-out))))
+
+(progn (close bin-in) (close bin-out))

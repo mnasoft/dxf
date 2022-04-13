@@ -134,7 +134,7 @@
     (list code val)))
 
 (defun read-pairs (stream)
-  "(with-open-file (stream \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\") (read-pairs stream))"
+  "(with-open-file (stream \"~/quicklisp/local-projects/acad/dxf/dxf/txt/Drawing-sty.dxf\") (read-pairs stream))"
   (let ((pairs-lst nil))
     (do ((pair (read-pair stream)
                (read-pair stream)))
@@ -169,7 +169,7 @@
 @begin[lang=lisp](code)
 
  (read-file 
-   \"~/quicklisp/local-projects/acad/dxf/dxf/Drawing-sty.dxf\")
+   \"~/quicklisp/local-projects/acad/dxf/dxf/txt/Drawing-sty.dxf\")
  => (((2 \"HEADER\") (9 \"$ACADVER\") (1 \"AC1027\") (9 \"$ACADMAINTVER\") (70 20) ...)
      ((2 \"CLASSES\") (0 \"CLASS\") (1 \"ACDBDICTIONARYWDFLT\") ...)
      ((2 \"TABLES\") (0 \"TABLE\") (2 \"VPORT\") (5 8) (330 0) (100 \"AcDbSymbolTable\") ...)
