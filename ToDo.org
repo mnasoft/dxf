@@ -48,7 +48,7 @@
      - [X] bin-point-2d  -> 2d-point
      - [X] bin-point-3d  -> 3d-point
      - [X] bin-point     -> nd-point
-     - [ ] bin-sections  -> sections    
+     - [X] bin-sections  -> sections    
            
 * DONE
 1. [X] Объединнить файлы системы dxf.
