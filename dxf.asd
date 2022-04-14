@@ -12,7 +12,9 @@
   :depends-on ("mnas-string"
                "dxf/color"
                "dxf/sec"
-               "dxf/out"
+               #+nil "dxf/out"
+               "dxf/out/txt"
+               "dxf/out/bin"               
                "dxf/vars"
                "dxf/in/txt"
                "dxf/in/bin")
@@ -87,6 +89,7 @@
 		:serial t
 		:components ((:file "b-arr")))))
 
+#+nil
 (defsystem "dxf/out"
   :description
   "@b(Описание:) система @b(dxf/b-arr) определяет низкоуровневые
@@ -99,6 +102,32 @@
   :components ((:module "src/out"
 		:serial t
 		:components ((:file "out")))))
+
+(defsystem "dxf/out/txt"
+  :description
+  "@b(Описание:) система @b(dxf/b-arr) определяет низкоуровневые
+   функции записи dxf в текстовом формате - файла AutoCAD."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
+  :depends-on ("babel" #+nil "ieee-floats" #+nil "dxf/b-arr")
+  :perform (test-op (o s)
+		    (uiop:symbol-call :dxf/b-arr :tests))
+  :components ((:module "src/out/txt"
+		:serial t
+		:components ((:file "txt")))))
+
+(defsystem "dxf/out/bin"
+  :description
+  "@b(Описание:) система @b(dxf/b-arr) определяет низкоуровневые
+   функции записи dxf в бинарном формате - файла AutoCAD."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
+  :depends-on ("babel" "ieee-floats" "dxf/b-arr")
+  :perform (test-op (o s)
+		    (uiop:symbol-call :dxf/b-arr :tests))
+  :components ((:module "src/out/bin"
+		:serial t
+		:components ((:file "bin")))))
 
 (defsystem "dxf/vars"
   :description

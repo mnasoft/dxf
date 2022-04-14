@@ -11,7 +11,7 @@
            (concatenate 'string dxf::*dxf-path* "txt/Line_01.dxf"))))
   (with-open-file (dxf (concatenate 'string dxf::*dxf-path* "_Line_01.dxf")
                        :direction :output :if-exists :supersede)
-    (txt-sections data dxf)))
+    (dxf/out/txt:txt-sections data dxf)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; bin

@@ -30,7 +30,7 @@
   текстовом формате в файл с имеем fname-dxf-to."
   (let ((sections (dxf/in/txt:read-file fname-dxf-from)))
     (with-open-file (dxf fname-dxf-to :direction :output :if-exists :supersede)
-      (dxf/out:txt-sections sections dxf))))
+      (dxf/out/txt:txt-sections sections dxf))))
 
 (defun make-path-relative-to-system (system namestring)
   "@b(Описание:) функция @b(make-path-relative-to-system) возвращает
@@ -114,6 +114,6 @@
   (loop :for i :from 0 :below 13210/2
         :do
            (let ((pair (dxf/in/bin:read-pair bin-in)))
-             (dxf/out:bin (first pair) (second pair) bin-out))))
+             (dxf/out/bin:bin (first pair) (second pair) bin-out))))
 
 (progn (close bin-in) (close bin-out))

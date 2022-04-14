@@ -23,7 +23,20 @@
    - [ ] dxf/out/bin - вывод в бинарном формате.
 5. [0/2] Гармонизировать имена функций в системах:
    - [ ] dxf/out/txt
-   - [ ] dxf/out/bin
+     - [ ] txt -> pair
+   - [-] dxf/out/bin
+     - [ ] bin -> pair
+     - [X] write-uint16  -> wrt-uint16 
+     - [X] write-uint32  -> wrt-uint32
+     - [X] write-uint64  -> wrt-uint64
+     - [X] write-uint128 -> wrt-uint128
+     - [X] write-int16   -> wrt-int16
+     - [X] write-int32   -> wrt-int32
+     - [X] write-int64   -> wrt-int64
+     - [X] write-int128  -> wrt-int128
+     - [X] write-float   -> wrt-float
+     - [X] write-double  -> wrt-double
+     - [X] write-string  -> wrt-string
 
 
 * DONE

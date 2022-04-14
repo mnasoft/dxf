@@ -130,7 +130,7 @@
     (with-open-file (dxf (concatenate 'string dxf::*dxf-path* \"in-bin.dxf\")
                          :direction :output :if-exists :supersede
                          :element-type 'unsigned-byte)
-      (dxf/out:write-uint16 i dxf))
+      (dxf/out/bin:wrt-uint16 i dxf))
     (with-open-file (dxf (concatenate 'string dxf::*dxf-path* \"in-bin.dxf\")
                          :element-type 'unsigned-byte)
       (format t \"~A = ~A~%\" i (read-uint16 dxf))))
@@ -226,7 +226,7 @@
     (with-open-file (dxf fn
                          :direction :output :if-exists :supersede
                          :element-type 'unsigned-byte)
-      (dxf/out:write-float x dxf))
+      (dxf/out/bin:wrt-float x dxf))
     (with-open-file (dxf fn :element-type 'unsigned-byte)
       (format t \"~A = ~A~%\" x (read-float dxf))))
 @end(code)
@@ -244,7 +244,7 @@
     (with-open-file (dxf fn
                          :direction :output :if-exists :supersede
                          :element-type 'unsigned-byte)
-      (dxf/out:write-double x dxf))
+      (dxf/out/bin:wrt-double x dxf))
     (with-open-file (dxf fn :element-type 'unsigned-byte)
       (format t \"~A = ~A~%\" x (read-double dxf))))
 @end(code)
