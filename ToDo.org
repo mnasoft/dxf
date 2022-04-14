@@ -21,11 +21,11 @@
 4. [0/2] Разделить систему dxf/out на:         
    - [ ] dxf/out/txt - вывод в текстовом формате;
    - [ ] dxf/out/bin - вывод в бинарном формате.
-5. [0/2] Гармонизировать имена функций в системах:
+5. [1/2] Гармонизировать имена функций в системах:
    - [ ] dxf/out/txt
      - [ ] txt -> pair
-   - [-] dxf/out/bin
-     - [ ] bin -> pair
+   - [X] dxf/out/bin
+     - [X] bin -> pair
      - [X] write-uint16  -> wrt-uint16 
      - [X] write-uint32  -> wrt-uint32
      - [X] write-uint64  -> wrt-uint64
@@ -37,8 +37,19 @@
      - [X] write-float   -> wrt-float
      - [X] write-double  -> wrt-double
      - [X] write-string  -> wrt-string
-
-
+     - [X] bin-string    -> code-string
+     - [X] bin-double    -> code-double
+     - [X] bin-hex       -> code-hex
+     - [X] bin-b-chunk   -> code-b
+     - [X] bin-int16     -> code-int16
+     - [X] bin-int32     -> code-int32
+     - [X] bin-int64     -> code-int64
+     - [X] bin-int128    -> code-int128
+     - [X] bin-point-2d  -> 2d-point
+     - [X] bin-point-3d  -> 3d-point
+     - [X] bin-point     -> nd-point
+     - [ ] bin-sections  -> sections    
+           
 * DONE
 1. [X] Объединнить файлы системы dxf.
 2. [X] Выполнить переименование классов, обрамляя их угловыми

@@ -114,6 +114,6 @@
   (loop :for i :from 0 :below 13210/2
         :do
            (let ((pair (dxf/in/bin:read-pair bin-in)))
-             (dxf/out/bin:bin (first pair) (second pair) bin-out))))
+             (dxf/out/bin:pair (first pair) (second pair) bin-out))))
 
 (progn (close bin-in) (close bin-out))

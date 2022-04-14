@@ -534,9 +534,9 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     ((point-3d :accessor point-3d :initarg :point-3d :initform (vector 0 0 0))))
 
 (defmethod write-dxf-binary (code (point-3d <ge-point-3d>) stream)
-  (dxf/out/bin:bin-double (+ 00 code) (svref (point-3d point-3d) 0) stream)
-  (dxf/out/bin:bin-double (+ 10 code) (svref (point-3d point-3d) 1) stream)
-  (dxf/out/bin:bin-double (+ 20 code) (svref (point-3d point-3d) 2) stream))
+  (dxf/out/bin:pair (+ 00 code) (svref (point-3d point-3d) 0) stream)
+  (dxf/out/bin:pair (+ 10 code) (svref (point-3d point-3d) 1) stream)
+  (dxf/out/bin:pair (+ 20 code) (svref (point-3d point-3d) 2) stream))
 ;;;;
 
 (defclass <rx-object> ()
@@ -727,16 +727,16 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
 ;;;;
 
 (defmethod dxf-out-binary ((x <acad-entity>) stream)
-  (dxf/out/bin:bin-string 0 *acad-entity-class-marker* stream))
+  (dxf/out/bin:pair 0 *acad-entity-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-entity>) stream)
-  (dxf/out/bin:bin-string 100 *acad-entity-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *acad-entity-subclass-marker* stream)
   (let ((hdl (Handle x))
 	(la (Layer x))
 	(cl (true-color x)))
-    (when hdl (dxf/out/bin:bin-hex 5 hdl stream))
-    (dxf/out/bin:bin-string 8 la stream)
-    (unless (= 256 cl) (dxf/out/bin:bin-int16 62  cl stream))))
+    (when hdl (dxf/out/bin:pair 5 hdl stream))
+    (dxf/out/bin:pair 8 la stream)
+    (unless (= 256 cl) (dxf/out/bin:pair 62  cl stream))))
 
 ;;;;
 
@@ -873,10 +873,10 @@ LINE (DXF)
 ;;;;
 
 (defmethod dxf-out-binary ((x <Acad-Line>) stream)
-  (dxf/out/bin:bin-string 0 *Acad-Line-class-marker* stream))
+  (dxf/out/bin:pair 0 *Acad-Line-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <Acad-Line>) stream)
-  (dxf/out/bin:bin-string 100 *Acad-Line-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *Acad-Line-subclass-marker* stream)
   (let ((th (thickness x))
         (p-s (StartPoint x))
 	(p-e (EndPoint x))
@@ -884,11 +884,11 @@ LINE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th 0) (dxf/out/bin:bin-double 39 th stream))
-    (dxf/out/bin:bin-point-3d 10 p-s stream)
-    (dxf/out/bin:bin-point-3d 11 p-e stream)
+    (unless (= th 0) (dxf/out/bin:pair 39 th stream))
+    (dxf/out/bin:3d-point 10 p-s stream)
+    (dxf/out/bin:3d-point 11 p-e stream)
     (unless (and (= x-n 0) (= y-n 0) (= z-n 1))
-      (dxf/out/bin:bin-point-3d nrm 210 stream))))
+      (dxf/out/bin:3d-point nrm 210 stream))))
 
 ;;;;
 
@@ -988,10 +988,10 @@ POINT (DXF)
 ;;;;
 
 (defmethod dxf-out-binary ((x <acad-point>) stream)
-  (dxf/out/bin:bin-string 0 *acad-point-class-marker* stream))
+  (dxf/out/bin:pair 0 *acad-point-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-point>) stream)
-  (dxf/out/bin:bin-string 100 *acad-point-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *acad-point-subclass-marker* stream)
   (let ((th  (thickness x))
         (pos (coordinates x))
 	(ecs (ecs-angle x))
@@ -999,10 +999,10 @@ POINT (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th 0) (dxf/out/bin:bin-double 39 th stream))
-    (dxf/out/bin:bin-point-3d 10 pos stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out/bin:bin-point-3d 210 nrm stream))
-    (unless (= ecs 0) (dxf/out/bin:bin-double 50 ecs stream))))
+    (unless (= th 0) (dxf/out/bin:pair 39 th stream))
+    (dxf/out/bin:3d-point 10 pos stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out/bin:3d-point 210 nrm stream))
+    (unless (= ecs 0) (dxf/out/bin:pair 50 ecs stream))))
 
 ;;;;
 
@@ -1085,14 +1085,14 @@ RAY (DXF)
     (dxf/out/txt:txt-point-3d 11 u-d stream)))
 
 (defmethod dxf-out-binary ((x <acad-ray>) stream)
-  (dxf/out/bin:bin-string 0 *acad-ray-class-marker* stream))
+  (dxf/out/bin:pair 0 *acad-ray-class-marker* stream))
 
 (defmethod dxf-out-binary  :after ((x <acad-ray>) stream)
-  (dxf/out/bin:bin-string 100 *acad-ray-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *acad-ray-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
-    (dxf/out/bin:bin-point-3d 10 b-p stream)
-    (dxf/out/bin:bin-point-3d 11 u-d stream)))
+    (dxf/out/bin:3d-point 10 b-p stream)
+    (dxf/out/bin:3d-point 11 u-d stream)))
 
 ;;;;
 
@@ -1169,14 +1169,14 @@ XLINE (DXF)
     (dxf/out/txt:txt-point-3d 11 u-d stream)))
 
 (defmethod dxf-out-binary ((x <acad-xline>) stream)
-  (dxf/out/bin:bin-string 0 *acad-xline-class-marker* stream))
+  (dxf/out/bin:pair 0 *acad-xline-class-marker* stream))
 
 (defmethod dxf-out-binary  :after ((x <acad-xline>) stream)
-  (dxf/out/bin:bin-string 100 *acad-xline-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *acad-xline-subclass-marker* stream)
   (let ((b-p (base-point x))
 	(u-d (direction-vector x)))
-    (dxf/out/bin:bin-point-3d 10 b-p stream)
-    (dxf/out/bin:bin-point-3d 11 u-d stream)))
+    (dxf/out/bin:3d-point 10 b-p stream)
+    (dxf/out/bin:3d-point 11 u-d stream)))
 
 ;;;;
 
@@ -1271,10 +1271,10 @@ CIRCLE (DXF)
 ;;;;
 
 (defmethod dxf-out-binary ((x <Acad-Circle>) stream)
-  (dxf/out/bin:bin-string 0 *Acad-Circle-class-marker*  stream))
+  (dxf/out/bin:pair 0 *Acad-Circle-class-marker*  stream))
 
 (defmethod dxf-out-binary :after ((x <Acad-Circle>) stream)
-  (dxf/out/bin:bin-string 100 *Acad-Circle-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
         (p-c (center x))
 	(rad (radius x))
@@ -1282,10 +1282,10 @@ CIRCLE (DXF)
 	(x-n (svref (normal x) 0))
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2)))
-    (unless (= th 0) (dxf/out/bin:bin-double 39 th stream))
-    (dxf/out/bin:bin-point-3d 10 p-c stream)
-    (dxf/out/bin:bin-double 40 rad stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out/bin:bin-point-3d 210 nrm stream))))
+    (unless (= th 0) (dxf/out/bin:pair 39 th stream))
+    (dxf/out/bin:3d-point 10 p-c stream)
+    (dxf/out/bin:pair 40 rad stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out/bin:3d-point 210 nrm stream))))
 
 ;;;;
 
@@ -1398,10 +1398,10 @@ ARC (DXF)
 ;;;;
 
 (defmethod dxf-out-binary ((x <acad-arc>) stream)
-  (dxf/out/bin:bin-string 0 *acad-arc-class-marker* stream))
+  (dxf/out/bin:pair 0 *acad-arc-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-arc>) stream)
-  (dxf/out/bin:bin-string 100 *Acad-Circle-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *Acad-Circle-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-c (center x))
 	(rad (radius x))
@@ -1411,13 +1411,13 @@ ARC (DXF)
 	(z-n (svref (normal x) 2))
 	(s-a (* *radian-to-degree* (start-angle x)))
 	(e-a (* *radian-to-degree* (end-angle x))))
-    (unless (= th 0) (dxf/out/bin:bin-double 39 th stream))
-    (dxf/out/bin:bin-point-3d 10 p-c stream)
-    (dxf/out/bin:bin-double 40 rad stream)
-    (dxf/out/bin:bin-string 100 *acad-arc-subclass-marker* stream)
-    (dxf/out/bin:bin-double 50 s-a stream)
-    (dxf/out/bin:bin-double 51 e-a stream)
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out/bin:bin-point-3d 210 nrm stream))))
+    (unless (= th 0) (dxf/out/bin:pair 39 th stream))
+    (dxf/out/bin:3d-point 10 p-c stream)
+    (dxf/out/bin:pair 40 rad stream)
+    (dxf/out/bin:pair 100 *acad-arc-subclass-marker* stream)
+    (dxf/out/bin:pair 50 s-a stream)
+    (dxf/out/bin:pair 51 e-a stream)
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out/bin:3d-point 210 nrm stream))))
 
 ;;;;
 
@@ -1613,10 +1613,10 @@ TEXT (DXF)
 ;;;;
 
 (defmethod dxf-out-binary ((x <acad-text>) stream)
-  (dxf/out/bin:bin-string 0 *acad-text-class-marker* stream))
+  (dxf/out/bin:pair 0 *acad-text-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-text>) stream)
-  (dxf/out/bin:bin-string 100 *acad-text-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *acad-text-subclass-marker* stream)
   (let ((th (thickness x))
 	(p-p (insertion-point x))
 	(h   (height x))
@@ -1636,20 +1636,20 @@ TEXT (DXF)
 	(y-n (svref (normal x) 1))
 	(z-n (svref (normal x) 2))
 	(v-j (ver-justification x)))
-    (unless (= th 0) (dxf/out/bin:bin-double 39 th stream))
-    (dxf/out/bin:bin-point-3d 10 p-p stream)
-    (dxf/out/bin:bin-double 40 h stream)
-    (dxf/out/bin:bin-string 1 t-s stream)
-    (dxf/out/bin:bin-double 50 (* *radian-to-degree* rot) stream)
-    (dxf/out/bin:bin-double 41 w-f stream)
-    (dxf/out/bin:bin-double 51 (* *radian-to-degree* ob) stream)
-    (dxf/out/bin:bin-string 7 st stream)
-    (unless (= mir 0) (dxf/out/bin:bin-int16 71 mir stream))
-    (unless (= h-j 0) (dxf/out/bin:bin-int16 72 h-j stream))
-    (when   (or (/= h-j 0) (/= v-j 0)) (dxf/out/bin:bin-point-3d 11 a-p stream))
-    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out/bin:bin-point-3d 210 nrm stream))
-    (dxf/out/bin:bin-string 100 *acad-text-subclass-marker* stream)
-    (unless (= v-j 0) (dxf/out/bin:bin-int16 73 v-j stream))))
+    (unless (= th 0) (dxf/out/bin:pair 39 th stream))
+    (dxf/out/bin:3d-point 10 p-p stream)
+    (dxf/out/bin:pair 40 h stream)
+    (dxf/out/bin:pair 1 t-s stream)
+    (dxf/out/bin:pair 50 (* *radian-to-degree* rot) stream)
+    (dxf/out/bin:pair 41 w-f stream)
+    (dxf/out/bin:pair 51 (* *radian-to-degree* ob) stream)
+    (dxf/out/bin:pair 7 st stream)
+    (unless (= mir 0) (dxf/out/bin:pair 71 mir stream))
+    (unless (= h-j 0) (dxf/out/bin:pair 72 h-j stream))
+    (when   (or (/= h-j 0) (/= v-j 0)) (dxf/out/bin:3d-point 11 a-p stream))
+    (unless (and (= x-n 0) (= y-n 0) (= z-n 1)) (dxf/out/bin:3d-point 210 nrm stream))
+    (dxf/out/bin:pair 100 *acad-text-subclass-marker* stream)
+    (unless (= v-j 0) (dxf/out/bin:pair 73 v-j stream))))
 
 ;;;;;;;;
 
@@ -1739,10 +1739,10 @@ ELLIPSE (DXF)
 ;;;;
 
 (defmethod dxf-out-binary ((x <acad-ellipse>) stream)
-  (dxf/out/bin:bin-string 0 *acad-ellipse-class-marker* stream))
+  (dxf/out/bin:pair 0 *acad-ellipse-class-marker* stream))
 
 (defmethod dxf-out-binary :after ((x <acad-ellipse>) stream)
-  (dxf/out/bin:bin-string 100 *acad-ellipse-subclass-marker* stream)
+  (dxf/out/bin:pair 100 *acad-ellipse-subclass-marker* stream)
   (let ((p-c   (center x))
 	(p-ma  (map 'vector #'+ (center x) (major-axis x)))
 	(u-n   (normal x))
@@ -1752,12 +1752,12 @@ ELLIPSE (DXF)
 	(r-r (radius-ratio x))
 	(s-p (start-parameter x))
 	(e-p (end-parameter   x)))
-    (dxf/out/bin:bin-point-3d 10 p-c stream)
-    (dxf/out/bin:bin-point-3d 11 p-ma stream)
-    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf/out/bin:bin-point-3d 210 u-n stream))
-    (dxf/out/bin:bin-double 40 r-r stream)
-    (dxf/out/bin:bin-double 41 s-p stream)
-    (dxf/out/bin:bin-double 42 e-p stream)))
+    (dxf/out/bin:3d-point 10 p-c stream)
+    (dxf/out/bin:3d-point 11 p-ma stream)
+    (unless (and (= u-n-x 0) (= u-n-y 0) (= u-n-z 1)) (dxf/out/bin:3d-point 210 u-n stream))
+    (dxf/out/bin:pair 40 r-r stream)
+    (dxf/out/bin:pair 41 s-p stream)
+    (dxf/out/bin:pair 42 e-p stream)))
 
 ;;;;
 

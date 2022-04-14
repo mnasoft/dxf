@@ -1,6 +1,6 @@
 ;;;; ./src/out/test.lisp
 
-(in-package :dxf/out)
+(in-package :cl-user)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; txt
@@ -26,4 +26,4 @@
      (babel:string-to-octets
       (format nil "~A~C~C~C~C" "AutoCAD Binary DXF" #\CR #\LF #\SUB #\NUL))
      dxf)
-    (bin-sections data dxf)))
+    (dxf/out/bin:sections data dxf)))
