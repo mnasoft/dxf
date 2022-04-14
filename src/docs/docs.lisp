@@ -16,6 +16,13 @@
       (:dxf/b-arr     nil)
       (:dxf/vars      nil)
       
+      (:dxf/in/txt    nil)
+      (:dxf/in/bin    nil)
+
+      (:dxf/out/txt   nil)
+      (:dxf/out/bin   nil)
+      
+      
       (:dxf/docs      nil)
       )
     :do (apply #'mnas-package:document i)))
@@ -25,6 +32,12 @@
     :for i :in
     '(:dxf
       :dxf/vars
+
+      :dxf/in/txt
+      :dxf/in/bin
+      
+      :dxf/out/txt
+      :dxf/out/bin
       
       :dxf/docs 
       )

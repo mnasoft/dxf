@@ -5,64 +5,9 @@
 2. [1/2] Черновая документация.
    - [X] Добавить документацию к классам.
    - [ ] Добавить документацию к обобщенным функциям.
-3. [0/0] Добавить функции тестирования.
-   - [1/3] система dxf/out (см. файл [[./src/out/out.lisp]])
-     - [X] текстовое посекционое чтение и запись [[./src/tests/suites/core.lisp]];
-     - [-] бинарное посекционое чтение и текстовая посекционная запись;
-       - [-] найти или определить функции бинарного чтения;
-         - [X] определить функции для чтения бинарных данных по кодам
-           с 310 по 319: код - (2 байта), количество байт для
-           считывания (1 байт), собственно считанные байты -
-           dxf/in/bin:read-b-chunk;
-         - [ ] и что-то еще
-     - [ ] бинарное посекционое чтение и запись;
-       - [ ] написать функцию dxf/in/bin:write-b-chunk, записывающую
-         данные в формате, который читает dxf/in/bin:read-b-chunk
-4. [0/2] Разделить систему dxf/out на:         
-   - [ ] dxf/out/txt - вывод в текстовом формате;
-   - [ ] dxf/out/bin - вывод в бинарном формате.
-5. [2/2] Гармонизировать имена функций в системах:
-   - [X] dxf/out/txt
-     - [X] txt            -> pair
-     - [X] txt-string     -> code-string
-     - [X] txt-double     -> code-double
-     - [X] txt-hex        -> code-hex
-     - [X] txt-hex-string -> code-b-chunk
-     - [X] txt-int16      -> code-int16
-     - [X] txt-int32      -> code-int32
-     - [X] txt-int64      -> code-int64
-     - [X] txt-int128     -> code-int128
-     - [X] txt-point-2d   -> 2d-point
-     - [X] txt-point-3d   -> 3d-point
-     - [X] txt-point      -> nd-point
-     - [X] txt-sections   -> sections                     ; 
-  
-   - [X] dxf/out/bin
-     - [X] bin -> pair
-     - [X] write-uint16  -> wrt-uint16 
-     - [X] write-uint32  -> wrt-uint32
-     - [X] write-uint64  -> wrt-uint64
-     - [X] write-uint128 -> wrt-uint128
-     - [X] write-int16   -> wrt-int16
-     - [X] write-int32   -> wrt-int32
-     - [X] write-int64   -> wrt-int64
-     - [X] write-int128  -> wrt-int128
-     - [X] write-float   -> wrt-float
-     - [X] write-double  -> wrt-double
-     - [X] write-string  -> wrt-string
-     - [X] bin-string    -> code-string
-     - [X] bin-double    -> code-double
-     - [X] bin-hex       -> code-hex
-     - [X] bin-b-chunk   -> code-b
-     - [X] bin-int16     -> code-int16
-     - [X] bin-int32     -> code-int32
-     - [X] bin-int64     -> code-int64
-     - [X] bin-int128    -> code-int128
-     - [X] bin-point-2d  -> 2d-point
-     - [X] bin-point-3d  -> 3d-point
-     - [X] bin-point     -> nd-point
-     - [X] bin-sections  -> sections    
-           
+3. [1/2] Добавить функции тестирования:
+   - [ ] посекционного чтения - записи бинарное dxf - файла; 
+
 * DoNe 
 1. [X] Объединнить файлы системы dxf.
 2. [X] Выполнить переименование классов, обрамляя их угловыми
@@ -101,3 +46,56 @@
    - [X] dxf/in/txt:dxf-in-t-pair              -> read-pair
    - [X] dxf/in/txt:dxf-in-t-pairs             -> read-pairs
    - [X] dxf/in/txt:dxf-in-t-split-by-sections -> split-by-sections
+7. [2/2] Разделить систему dxf/out на:         
+   - [X] dxf/out/txt - вывод в текстовом формате;
+   - [X] dxf/out/bin - вывод в бинарном формате.
+8. [2/2] Гармонизировать имена функций в системах:
+   - [X] dxf/out/txt
+     - [X] txt            -> pair
+     - [X] txt-string     -> code-string
+     - [X] txt-double     -> code-double
+     - [X] txt-hex        -> code-hex
+     - [X] txt-hex-string -> code-b-chunk
+     - [X] txt-int16      -> code-int16
+     - [X] txt-int32      -> code-int32
+     - [X] txt-int64      -> code-int64
+     - [X] txt-int128     -> code-int128
+     - [X] txt-point-2d   -> 2d-point
+     - [X] txt-point-3d   -> 3d-point
+     - [X] txt-point      -> nd-point
+     - [X] txt-sections   -> sections                     ; 
+   - [X] dxf/out/bin
+     - [X] bin -> pair
+     - [X] write-uint16  -> wrt-uint16 
+     - [X] write-uint32  -> wrt-uint32
+     - [X] write-uint64  -> wrt-uint64
+     - [X] write-uint128 -> wrt-uint128
+     - [X] write-int16   -> wrt-int16
+     - [X] write-int32   -> wrt-int32
+     - [X] write-int64   -> wrt-int64
+     - [X] write-int128  -> wrt-int128
+     - [X] write-float   -> wrt-float
+     - [X] write-double  -> wrt-double
+     - [X] write-string  -> wrt-string
+     - [X] bin-string    -> code-string
+     - [X] bin-double    -> code-double
+     - [X] bin-hex       -> code-hex
+     - [X] bin-b-chunk   -> code-b
+     - [X] bin-int16     -> code-int16
+     - [X] bin-int32     -> code-int32
+     - [X] bin-int64     -> code-int64
+     - [X] bin-int128    -> code-int128
+     - [X] bin-point-2d  -> 2d-point
+     - [X] bin-point-3d  -> 3d-point
+     - [X] bin-point     -> nd-point
+     - [X] bin-sections  -> sections    
+9. [1/1] Добавить функции тестирования:
+   - [X] посекционного чтения - записи текстового dxf - файла:
+     [[./src/tests/suites/core.lisp]] section-read-write-in-txt-mode.
+10. [X] Определить функцию для чтения бинарных данных по кодам
+      с 310 по 319: код - (2 байта), количество байт для
+      считывания (1 байт), собственно считанные байты -
+      dxf/in/bin:read-b-chunk;
+11. [X] Определить функцию бинарной записи dxf/in/bin:wrt-b-chunk,
+    записывающую данные в формате, который читает
+    dxf/in/bin:read-b-chunk

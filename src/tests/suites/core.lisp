@@ -46,7 +46,7 @@
                (namestring (asdf:system-source-directory system))
                namestring))
 
-(def-test test-1 ()
+(def-test section-read-write-in-txt-mode ()
   "@b(Описание:) тест @b(test-1) проверка корректности посекционного
   копирования dxf-файлов в текстовом режиме. Для каждого тестируемого
   исходного файла с именем @b(dxf-fn-from) выполняется:
