@@ -21,9 +21,22 @@
 4. [0/2] Разделить систему dxf/out на:         
    - [ ] dxf/out/txt - вывод в текстовом формате;
    - [ ] dxf/out/bin - вывод в бинарном формате.
-5. [1/2] Гармонизировать имена функций в системах:
-   - [ ] dxf/out/txt
-     - [ ] txt -> pair
+5. [2/2] Гармонизировать имена функций в системах:
+   - [X] dxf/out/txt
+     - [X] txt            -> pair
+     - [X] txt-string     -> code-string
+     - [X] txt-double     -> code-double
+     - [X] txt-hex        -> code-hex
+     - [X] txt-hex-string -> code-b-chunk
+     - [X] txt-int16      -> code-int16
+     - [X] txt-int32      -> code-int32
+     - [X] txt-int64      -> code-int64
+     - [X] txt-int128     -> code-int128
+     - [X] txt-point-2d   -> 2d-point
+     - [X] txt-point-3d   -> 3d-point
+     - [X] txt-point      -> nd-point
+     - [X] txt-sections   -> sections                     ; 
+  
    - [X] dxf/out/bin
      - [X] bin -> pair
      - [X] write-uint16  -> wrt-uint16 

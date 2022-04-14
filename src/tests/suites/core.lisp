@@ -30,7 +30,7 @@
   текстовом формате в файл с имеем fname-dxf-to."
   (let ((sections (dxf/in/txt:read-file fname-dxf-from)))
     (with-open-file (dxf fname-dxf-to :direction :output :if-exists :supersede)
-      (dxf/out/txt:txt-sections sections dxf))))
+      (dxf/out/txt:sections sections dxf))))
 
 (defun make-path-relative-to-system (system namestring)
   "@b(Описание:) функция @b(make-path-relative-to-system) возвращает
