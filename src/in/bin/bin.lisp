@@ -2,10 +2,6 @@
 
 (defpackage #:dxf/in/bin
   (:use #:cl #:mnas-string)
-  (:export *AutoCAD-Binary-DXF-18*
-           *AutoCAD-Binary-DXF-21*
-           *AutoCAD-Binary-DXF-22*
-           )
   (:export read-string
            read-hex
            read-b-chunk
@@ -44,15 +40,6 @@
 "))
 
 (in-package #:dxf/in/bin)
-
-(defparameter *AutoCAD-Binary-DXF-18*
-  (format nil "~A" "AutoCAD Binary DXF"))
-
-(defparameter *AutoCAD-Binary-DXF-21*
-  (format nil "~A~C~C~C" *AutoCAD-Binary-DXF-18* #\CR #\LF #\SUB))
-
-(defparameter *AutoCAD-Binary-DXF-22*
-  (format nil "~A~C~C~C~C" *AutoCAD-Binary-DXF-18* #\CR #\LF #\SUB #\NUL))
 
 (defun read-string (stream)
   "@b(Описание:) функция @b(read-string) возвращает строку, считывамую

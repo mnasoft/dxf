@@ -16,6 +16,8 @@
            wrt-double
            wrt-string
            )
+  (:export wrt-head
+           )
   (:export code-string
            code-double
            code-hex
@@ -118,10 +120,19 @@
   (wrt-uint64 (ieee-floats:encode-float64 val) stream))
 
 (defun wrt-string (string stream)
+  "@b(Описание:) функция @b(wrt-string) выводит в бинарный поток
+  @b(stream) строку @b(string). К символам строки @b(string) в поток
+  добавляется терминирующий символ #\NUL."
   (write-sequence
    (babel:string-to-octets
     (concatenate 'string string (format nil "~C" #\NUL)))
    stream))
+
+(defun wrt-head (stream)
+  "@b(Описание:) функция @b(wrt-head) выводит в бинарный поток
+  @b(stream) строку, обозначающую, что содержимое файла хранится в
+  формате бинарного dxf-файла."
+  (wrt-string dxf/const:*AutoCAD-Binary-DXF-21* stream))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
