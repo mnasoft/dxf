@@ -19,7 +19,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (progn
-  (defparameter fn-bin (concatenate 'string dxf::*dxf-path* "bin-sections.dxf"))
+  (defparameter fn-bin (concatenate 'string dxf::*dxf-path* "txt/2018.dxf"))
   (defparameter fn-txt (concatenate 'string dxf::*dxf-path* "txt-sections-01.dxf"))
 
   (defparameter dxf-bin (open fn-bin :element-type 'unsigned-byte))
@@ -34,3 +34,8 @@
 (dxf/in/bin:read-pair dxf-bin)
 
 (dxf/in/txt:dxf-in-t-fname (concatenate 'string dxf::*dxf-path* "txt-sections.dxf"))
+
+
+(dxf/in/bin:read-head dxf-bin)
+(close dxf-bin)
+

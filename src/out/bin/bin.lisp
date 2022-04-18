@@ -2,7 +2,8 @@
 
 (defpackage #:dxf/out/bin
   (:use #:cl #+nil #:mnas-string)
-  (:export wrt-int16
+  (:export wrt-int8
+           wrt-int16
            wrt-int32
            wrt-int64
            wrt-int128
@@ -22,6 +23,7 @@
            code-double
            code-hex
            code-b-chunk
+           code-int8
            code-int16
            code-int32
            code-int64
@@ -40,6 +42,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; binary-dxf-func
+
+(defun wrt-int8 (int8 stream)
+  (assert (and (integerp int8)
+               (<= `,(- (/ (expt 2 8) 2))
+                   int8
+                   `,(1- (/ (expt 2 8) 2)))))
+  (write-byte int8 stream))
 
 (defun wrt-int16 (int16 stream)
   (assert (and (integerp int16)
@@ -166,6 +175,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun code-int8 (code int8 stream)
+  (wrt-uint16 code stream)
+  (wrt-int8 int8 stream))
+
 (defun code-int16 (code int16 stream)
   (wrt-uint16 code stream)
   (wrt-int16 int16 stream))
@@ -227,7 +240,7 @@
     ((<= 210 code 239)   (code-double   code value stream)) ;;;; Double-precision floating-point value
     ((<= 270 code 279)   (code-int16    code value stream)) ;;;; 16-bit integer value
     ((<= 280 code 289)   (code-int16    code value stream)) ;;;; 16-bit integer value
-    ((<= 290 code 299)   (code-int16    code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
+    ((<= 290 code 299)   (code-int8     code value stream)) ;;;; Boolean flag value (0 - off 1 - on)
     ((<= 300 code 309)   (code-string   code value stream)) ;;;; Arbitrary text string
     ((<= 310 code 319)   (code-b-chunk  code value stream)) ;;;; String representing hex value of b chunk
     ((<= 320 code 329)   (code-hex      code value stream)) ;;;; String representing hex handle value

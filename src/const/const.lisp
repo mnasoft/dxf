@@ -14,11 +14,19 @@
 (in-package :dxf/const)
 
 (defparameter *AutoCAD-Binary-DXF-18*
-  (format nil "~A" "AutoCAD Binary DXF"))
+  (format nil "~A" "AutoCAD Binary DXF")
+  "@b(Описание:) параметр @b(*AutoCAD-Binary-DXF-18*) определяет
+   строку-маркер для идентификации файла как двоичного dxf-файла.
+   Строка-маркер не содержит символов перевода строки.")
 
 (defparameter *AutoCAD-Binary-DXF-21*
-  (format nil "~A~C~C~C" *AutoCAD-Binary-DXF-18* #\CR #\LF #\SUB))
+  (format nil "~A~C~C~C" *AutoCAD-Binary-DXF-18* #\CR #\LF #\SUB)
+  "@b(Описание:) параметр @b(*AutoCAD-Binary-DXF-21*) определяет
+   строку-маркер для идентификации файла как двоичного dxf-файла.
+   Строка-маркер не содержит нуль-терминатора.")
 
 (defparameter *AutoCAD-Binary-DXF-22*
-  (format nil "~A~C~C~C~C" *AutoCAD-Binary-DXF-18* #\CR #\LF #\SUB #\NUL))
+  (format nil "~A~C~C~C~C" *AutoCAD-Binary-DXF-18* #\CR #\LF #\SUB #\NUL)
+  "@b(Описание:) параметр @b(*AutoCAD-Binary-DXF-21*) определяет
+   строку-маркер для идентификации файла как двоичного dxf-файла.")
 

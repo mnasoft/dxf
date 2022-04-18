@@ -15,6 +15,8 @@
     '((:dxf          :dxf)
       (:dxf/b-arr     nil)
       (:dxf/vars      nil)
+
+      (:dxf/const     nil)
       
       (:dxf/in/txt    nil)
       (:dxf/in/bin    nil)
@@ -33,6 +35,8 @@
     '(:dxf
       :dxf/vars
 
+      :dxf/const
+      
       :dxf/in/txt
       :dxf/in/bin
       

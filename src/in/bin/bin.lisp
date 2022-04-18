@@ -99,7 +99,11 @@
        бинарным (предположительно является текстовым);)
 @end(list)
 "
-  (read-string stream))
+  (if
+   (string= (read-string stream)
+            dxf/const:*autocad-binary-dxf-21*)
+   t
+   nil))
 
 (defun read-uint8 (stream)
   (read-byte stream))

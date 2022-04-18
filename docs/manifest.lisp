@@ -6,7 +6,8 @@
 	        :output-format (:TYPE :MULTI-HTML :TEMPLATE :MINIMA) 
                 :sources ("dxf.scr" "dxf-vars.scr" "dxf-out-txt.scr"
                           "dxf-out-bin.scr" "dxf-in-txt.scr" "dxf-in-bin.scr"
-                          "dxf-docs.scr" "dxf-b-arr.scr" "dxf-graph.scr"
+                          "dxf-docs.scr" "dxf-const.scr" "dxf-b-arr.scr"
+                          "dxf-graph.scr" "dxf-const-graph.scr"
                           "dxf-vars-graph.scr" "dxf-in-txt-graph.scr"
                           "dxf-in-bin-graph.scr" "dxf-out-txt-graph.scr"
                           "dxf-out-bin-graph.scr" "dxf-docs-graph.scr")

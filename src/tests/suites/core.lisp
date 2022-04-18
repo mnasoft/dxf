@@ -111,9 +111,14 @@
   (defparameter bin-out
     (open (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")
           :direction :output :if-exists :supersede :element-type 'unsigned-byte))
-  (loop :for i :from 0 :below 13210/2
+  (dxf/in/bin:read-head bin-in)
+  (dxf/out/bin:wrt-head bin-out)
+  (loop :for i :from 0 :below 4000 #+nil 13210/2
         :do
            (let ((pair (dxf/in/bin:read-pair bin-in)))
-             (dxf/out/bin:pair (first pair) (second pair) bin-out))))
+             (dxf/out/bin:pair (first pair) (second pair) bin-out)))
+  (progn (close bin-in) (close bin-out)))
 
-(progn (close bin-in) (close bin-out))
+
+;;Error 50 in drawing header at byte address 4199.
+;;Invalid or incomplete DXF input -- drawing discarded.
