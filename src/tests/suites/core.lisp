@@ -76,30 +76,6 @@
           :do
              (txt i))))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Проверка
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(progn
-  (defparameter rez-or nil)
-  (defparameter rez-cp nil)
-  (defparameter bin-or
-    (open (make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
-          :element-type 'unsigned-byte))
-  (defparameter bin-cp
-    (open (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")
-          :element-type 'unsigned-byte))
-  (dxf/in/bin:read-head bin-or)
-  (dxf/in/bin:read-head bin-cp)
-  (loop :for i :from 0 :below 13210/2
-        :do
-           (progn
-             (push (dxf/in/bin:read-pair bin-or) rez-or)
-             (push (dxf/in/bin:read-pair bin-cp) rez-cp)))
-
-  (progn (close bin-or) (close bin-cp))
-  (equalp rez-or rez-cp)
-  )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun copy-dxf-bin-by-sections (fname-dxf-from fname-dxf-to)
@@ -133,3 +109,30 @@
           :do
              (txt i))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Проверка
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#+nil
+(progn
+  (defparameter rez-or nil)
+  (defparameter rez-cp nil)
+  (defparameter bin-or
+    (open (make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
+          :element-type 'unsigned-byte))
+  (defparameter bin-cp
+    (open (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")
+          :element-type 'unsigned-byte))
+  (dxf/in/bin:read-head bin-or)
+  (dxf/in/bin:read-head bin-cp)
+  (loop :for i :from 0 :below 13210/2
+        :do
+           (progn
+             (push (dxf/in/bin:read-pair bin-or) rez-or)
+             (push (dxf/in/bin:read-pair bin-cp) rez-cp)))
+
+  (progn (close bin-or) (close bin-cp))
+  (equalp rez-or rez-cp))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
