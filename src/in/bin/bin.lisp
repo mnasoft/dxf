@@ -22,21 +22,18 @@
   (:export read-float
            read-double
            )
-  (:export read-head
+  (:export read-head check-bin
            read-pair
+           read-pairs
            )
-  (:intern dxf-in-b-read-from-string
-           read-dxf-code-value-b
-           dxf-in-b-pair
-           dxf-in-b-pairs
-           dxf-in-b-split-by-sections
+  (:intern split-by-sections
            )
-  (:export dxf-in-b-fname
+  (:export read-file 
            )
   (:documentation "@b(Описание:) пакет @b(dxf/in/bin) позволяет
   преобразовать dxf-файл, сохраненный в бинарном формате в его
   посекционное представление.
- Главная функция проекта - @b(dxf-in-b-fname).
+ Главная функция проекта - @b(read-file).
 "))
 
 (in-package #:dxf/in/bin)
@@ -295,5 +292,33 @@
                 (t nil)
                 )))
     (list code val)))
+
+(defun read-pairs (stream)
+  ""
+  (let ((pairs-lst nil))
+    (do ((pair (read-pair stream)
+               (read-pair stream)))
+	((and (= 0 (first pair ))
+              (string= (second pair) "EOF"))
+         (nreverse pairs-lst))
+      (push pair pairs-lst))))
+  
+(defun split-by-sections (stream)
+  (let ((pairs-list (read-pairs stream))
+	(sections nil)
+	(section  nil))
+    (dolist (i pairs-list (nreverse sections))
+      (push i section)
+      (when (equal i '(0 "ENDSEC"))
+	(push (cdr (nreverse (cdr section))) sections)
+	(setf section nil)))))
+
+(defun read-file (fname)
+  "@b(Описание:) функция @b(read-file) выполняет попытку
+ считывания текстового dxf-файла в формате"
+  (with-open-file (stream fname :element-type 'unsigned-byte)
+    (when (read-head stream)
+    (split-by-sections stream))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

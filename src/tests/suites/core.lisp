@@ -77,50 +77,8 @@
              (txt i))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;#+nil
-(progn 
-  (defparameter bin
-    (open (make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
-          :element-type 'unsigned-byte))
-  (defparameter txt
-    (open (make-path-relative-to-system :dxf "dxf/txt/2018.dxf")))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  
-  (dxf/in/bin:read-head bin)
+;;;; Проверка
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (defparameter o-bin
-    (open (make-path-relative-to-system :dxf "dxf/bin-2018.txt")
-          :direction :output :if-exists :supersede))
-  (defparameter o-txt
-    (open (make-path-relative-to-system :dxf "dxf/txt-2018.txt")
-          :direction :output :if-exists :supersede))
-  (loop :for i :from 0 :below 13210/2
-        :do
-           (format o-bin "~S~%" (dxf/in/bin:read-pair bin))
-           (format o-txt "~S~%" (dxf/in/txt:read-pair txt)))
-  (progn (close bin)   (close txt)
-       (close o-bin) (close o-txt)
-       nil))
-
-;;;;
-
-(progn
-  (defparameter bin-in
-    (open (make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
-          :element-type 'unsigned-byte))
-  (defparameter bin-out
-    (open (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")
-          :direction :output :if-exists :supersede :element-type 'unsigned-byte))
-  (dxf/in/bin:read-head bin-in)
-  (dxf/out/bin:wrt-head bin-out)
-  (loop :for i :from 0 :below #+nil 4000 13210/2
-        :do
-           (let ((pair (dxf/in/bin:read-pair bin-in)))
-             (dxf/out/bin:pair (first pair) (second pair) bin-out)))
-  (progn (close bin-in) (close bin-out)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Проверка
 
 (progn
   (defparameter rez-or nil)
@@ -142,8 +100,36 @@
   (progn (close bin-or) (close bin-cp))
   (equalp rez-or rez-cp)
   )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-rez-cp '((71 0) (50 0.0d0) (41 1.0d0) (40 0.0d0) (70 0) (2 "Standard")
-         (100 "AcDbTextStyleTableRecord") (100 "AcDbSymbolTableRecord") (330 3) (5 17)
-         (0 "STYLE") (70 2) (100 "AcDbSymbolTable") (330 0) (5 3) (2 "STYLE")
-         (0 "TABLE") (0 "ENDTAB") (348 0) (347 238) (370 -3) (6 "Continuous") (62 7))
+(defun copy-dxf-bin-by-sections (fname-dxf-from fname-dxf-to)
+  "@b(Описание:) функция @b(copy-dxf-txt-by-sections) выполняет
+  посекционное копирование dxf-файла с именем fname-dxf-from в
+  текстовом формате в файл с имеем fname-dxf-to."
+  (let ((sections (dxf/in/bin:read-file fname-dxf-from)))
+    (with-open-file (dxf fname-dxf-to :direction :output :if-exists :supersede :element-type 'unsigned-byte )
+      (dxf/out/bin:sections sections dxf))))
+
+(def-test section-read-write-in-bin-mode ()
+  "@b(Описание:) тест @b(section-read-write-in-bin-mode) проверка
+  корректности посекционного копирования dxf-файлов в бинарном
+  режиме. Для каждого тестируемого исходного файла с именем
+  @b(dxf-fn-from) выполняется:
+
+@begin(list)
+ @item(копирование его в файл c именем @b(dxf-fn-to);)
+ @item(проверка пар ключ-значение для файлов @b(dxf-fn-to) и @b(dxf-fn-from).)
+@end(list)
+"
+  (labels
+      ((txt (from)
+         (let ((dxf-fn-from (make-path-relative-to-system :dxf from))
+               (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")))
+           (copy-dxf-bin-by-sections dxf-fn-from dxf-fn-to)
+           (is-true (equalp (dxf/in/bin:read-file dxf-fn-from)
+                            (dxf/in/bin:read-file dxf-fn-to))))))
+    (loop :for i :in '("dxf/bin/2018.dxf"
+                       "dxf/bin/Line_01.dxf")
+          :do
+             (txt i))))
+

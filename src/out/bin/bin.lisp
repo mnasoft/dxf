@@ -268,7 +268,7 @@
 ;;;;
 
 (defun sections (sections stream)
-  "@b(Описание:) функция @b(bin-sections) выводит в бинарный поток
+  "@b(Описание:) функция @b(sections) выводит в бинарный поток
  @b(stream) посекционное представление dxf-файла, заданное списком
  @b(sections).
 
@@ -282,11 +282,12 @@
       (bin-sections data dxf)))
 @end(code)
 "
+  (wrt-head stream)
   (map nil #'(lambda (sectoin)
-	       (bin 0 dxf/sec:*section* stream)
+	       (pair 0 dxf/sec:*section* stream)
 	       (map nil #'(lambda (el)
-		            (bin (first el) (second el) stream))
+		            (pair (first el) (second el) stream))
 		    sectoin)
-	       (bin 0 dxf/sec:*endsec* stream))
+	       (pair 0 dxf/sec:*endsec* stream))
        sections)
-  (bin 0 dxf/sec:*eof* stream))
+  (pair 0 dxf/sec:*eof* stream))
