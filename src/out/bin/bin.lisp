@@ -222,7 +222,8 @@
  пару: код @b(code) и значение @b(value)."
   (cond
     ((or (<= 0 code 4)
-	 (<= 6 code 9))  (code-string   code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
+	 (<= 6 code 9))
+     (code-string   code value stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
     ((=  5  code)        (code-hex      code value stream))
     ((<= 10 code 19)     (code-double   code value stream)) ;;;; Double precision 3D point value
     ((<= 20 code 39)     (code-double   code value stream)) 

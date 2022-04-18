@@ -113,7 +113,7 @@
           :direction :output :if-exists :supersede :element-type 'unsigned-byte))
   (dxf/in/bin:read-head bin-in)
   (dxf/out/bin:wrt-head bin-out)
-  (loop :for i :from 0 :below 4000 #+nil 13210/2
+  (loop :for i :from 0 :below #+nil 4000 13210/2
         :do
            (let ((pair (dxf/in/bin:read-pair bin-in)))
              (dxf/out/bin:pair (first pair) (second pair) bin-out)))

@@ -251,7 +251,8 @@
   (let* ((code (read-uint16 stream))
          (val (cond
                 ((or (<= 0 code 4)
-	             (<= 6 code 9))  (read-string  stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
+	             (<= 6 code 9))
+                                     (read-string  stream)) ;;;; String (with the introduction of extended symbol names in AutoCAD 2000, the 255-character limit has been increased to 2049 single-byte characters not including the newline at the end of the line)
                 ((=  5  code)        (read-hex     stream))
                 ((<= 10 code 19)     (read-double  stream)) ;;;; Double precision 3D point value
                 ((<= 20 code 39)     (read-double  stream)) 
