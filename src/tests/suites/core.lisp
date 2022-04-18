@@ -119,6 +119,31 @@
              (dxf/out/bin:pair (first pair) (second pair) bin-out)))
   (progn (close bin-in) (close bin-out)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Проверка
 
-;;Error 50 in drawing header at byte address 4199.
-;;Invalid or incomplete DXF input -- drawing discarded.
+(progn
+  (defparameter rez-or nil)
+  (defparameter rez-cp nil)
+  (defparameter bin-or
+    (open (make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
+          :element-type 'unsigned-byte))
+  (defparameter bin-cp
+    (open (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")
+          :element-type 'unsigned-byte))
+  (dxf/in/bin:read-head bin-or)
+  (dxf/in/bin:read-head bin-cp)
+  (loop :for i :from 0 :below 13210/2
+        :do
+           (progn
+             (push (dxf/in/bin:read-pair bin-or) rez-or)
+             (push (dxf/in/bin:read-pair bin-cp) rez-cp)))
+
+  (progn (close bin-or) (close bin-cp))
+  (equalp rez-or rez-cp)
+  )
+
+rez-cp '((71 0) (50 0.0d0) (41 1.0d0) (40 0.0d0) (70 0) (2 "Standard")
+         (100 "AcDbTextStyleTableRecord") (100 "AcDbSymbolTableRecord") (330 3) (5 17)
+         (0 "STYLE") (70 2) (100 "AcDbSymbolTable") (330 0) (5 3) (2 "STYLE")
+         (0 "TABLE") (0 "ENDTAB") (348 0) (347 238) (370 -3) (6 "Continuous") (62 7))

@@ -104,3 +104,6 @@
 12. [X] Выполнить отладку по кодам от 290 по 299 (запись boolean) - добавлены функции:
     - [X] dxf/out/bin:wrt-int8;
     - [X] и dxf/out/bin:code-int8.
+13. [X] Выполнить отладку по кодам от 390 по 299 (запись boolean) - добавлены функции:
+    - [X] dxf/out/bin:wrt-int8;
+    - [X] и dxf/out/bin:code-int8.      
