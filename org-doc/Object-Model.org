@@ -1,0 +1,1136 @@
+
+* Object Model (ActiveX)
+** AcadDocument
+*** Object Inheritance
+   Object
+     AcadDatabase
+	AcadDocument
+*** Members
+These members are part of this object:
+
+**** Methods
+   Activate AuditInfo Close CopyObjects EndUndoMark Export GetVariable HandleToObject Import LoadShapeFile New ObjectIDToObject Open PostCommand PurgeAll Regen Save SaveAs SendCommand SetVariable StartUndoMark WBlock
+**** Properties
+   Active ActiveDimStyle ActiveLayer ActiveLayout ActiveLinetype ActiveMaterial ActivePViewport ActiveSelectionSet ActiveSpace ActiveTextStyle ActiveUCS ActiveViewport Application Blocks Database Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace FullName Groups Height HWND Layers Layouts Limits Linetypes Materials ModelSpace MSpace Name ObjectSnapMode PaperSpace Path PickfirstSelectionSet Plot PlotConfigurations Preferences ReadOnly RegisteredApplications Saved SectionManager SelectionSets SummaryInfo TextStyles UserCoordinateSystems Utility Viewports Views Width WindowState WindowTitle
+**** Events
+   Activate BeginClose BeginCommand BeginDocClose BeginDoubleClick BeginLISP BeginPlot BeginRightClick BeginSave BeginShortcutMenuCommand BeginShortcutMenuDefault BeginShortcutMenuEdit BeginShortcutMenuGrip BeginShortcutMenuOSnap Deactivate EndCommand EndLISP EndPlot EndSave EndShortcutMenu LayoutSwitched LISPCancelled ObjectAdded ObjectErased ObjectModified SelectionChanged WindowChanged WindowMovedOrResized
+** AcadDatabase
+*** Object Inheritance
+  Object
+    AcadDatabase
+*** Members
+  These members are part of this object:
+**** Methods
+  CopyObjects HandleToObject ObjectIdToObject
+**** Properties
+  Blocks Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace Groups Layers Layouts Limits Linetypes Material ModelSpace PaperSpace PlotConfigurations Preferences RegisteredApplications SectionManager SummaryInfo TextStyles UserCoordinateSystems Viewports Views
+**** Events
+  None
+
+** AcadBlocks
+*** Object Inheritance
+  Object
+     AcadObject
+	AcadBlocks
+**** Members
+   These members are part of this object:
+***** Methods
+   Add GetExtensionDictionary GetXData Item SetXData
+***** Properties
+   Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+***** Events
+   None
+** AcadBlock
+*** Object Inheritance
+Object
+   AcadObject
+      AcadBlock
+*** Members
+These members are part of this object:
+
+**** Methods
+Add3DFace Add3DMesh Add3DPoly AddArc AddAttribute AddBox AddCircle AddCone AddCustomObject AddCylinder AddDim3PointAngular AddDimAligned AddDimAngular AddDimArc AddDimDiametric AddDimOrdinate AddDimRadial AddDimRadialLarge AddDimRotated AddEllipse AddEllipticalCone AddEllipticalCylinder AddExtrudedSolid AddExtrudedSolidALongPath AddHatch AddLeader AddLightWeightPolyline AddLine AddMInsertBlock AddMLeader AddMLine AddMText AddPoint AddPolyfaceMesh AddPolyline AddRaster AddRay AddRegion AddRevolvedSolid AddSection AddShape AddSolid AddSphere AddSpline AddTable AddText AddTolerance AddTorus AddTrace AddWedge AddXLine AttachExternalReference Bind Delete Detach GetExtensionDictionary GetXData InsertBlock Item Reload SetXData Unload
+**** Properties
+Application BlockScaling Comments Count Document Explodable Handle HasExtensionDictionary IsDynamicBlock IsLayout IsXRef Layout Material Name ObjectID ObjectName Origin OwnerID Path Units XRefDatabase
+**** Events
+Modified
+** AcadModelSpace
+*** Object Inheritance
+Object
+   AcadObject
+      AcadBlock
+         AcadModelSpace
+*** Members
+These members are part of this object:
+
+**** Methods
+Add3DFace Add3DMesh Add3DPoly AddArc AddAttribute AddBox AddCircle AddCone AddCustomObject AddCylinder AddDim3PointAngular AddDimAligned AddDimAngular AddDimArc AddDimDiametric AddDimOrdinate AddDimRadial AddDimRadialLarge AddDimRotated AddEllipse AddEllipticalCone AddEllipticalCylinder AddExtrudedSolid AddExtrudedSolidALongPath AddHatch AddLeader AddLightWeightPolyline AddLine AddMInsertBlock AddMLeader AddMLine AddMText AddPoint AddPolyfaceMesh AddPolyline AddRaster AddRay AddRegion AddRevolvedSolid AddSection AddShape AddSolid AddSphere AddSpline AddTable AddText AddTolerance AddTorus AddTrace AddWedge AddXLine AttachExternalReference GetExtensionDictionary GetXdata InsertBlock Item SetXdata
+**** Properties
+Application Comments Count Document Handle HasExtensionDictionary Layout Name ObjectID ObjectName Origin OwnerID Units
+**** Events
+Modified
+** AcadPaperSpace
+*** Object Inheritance
+Object
+   AcadObject
+      AcadBlock
+         AcadPaperSpace
+
+*** Members
+These members are part of this object:
+
+**** Methods
+Add3DFace Add3DMesh Add3DPoly AddArc AddAttribute AddBox AddCircle AddCone AddCustomObject AddCylinder AddDim3PointAngular AddDimAligned AddDimAngular AddDimArc AddDimDiametric AddDimOrdinate AddDimRadial AddDimRadialLarge AddDimRotated AddEllipse AddEllipticalCone AddEllipticalCylinder AddExtrudedSolid AddExtrudedSolidALongPath AddHatch AddLeader AddLightWeightPolyline AddLine AddMInsertBlock AddMLeader AddMLine AddMText AddPoint AddPolyfaceMesh AddPolyline AddPViewport AddRaster AddRay AddRegion AddRevolvedSolid AddSection AddShape AddSolid AddSphere AddSpline AddTable AddText AddTolerance AddTorus AddTrace AddWedge AddXLine AttachExternalReference GetExtensionDictionary GetXdata InsertBlock Item SetXdata
+**** Properties
+Application Count Document Handle HasExtensionDictionary Layout Name ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadPViewport
+*** Object Inheritance
+Object
+   AcadObject
+      AcadEntity
+         AcadPViewport
+*** Members
+These members are part of this object:
+
+**** Methods
+ArrayPolar ArrayRectangular Copy Delete Display GetBoundingBox GetExtensionDictionary GetGridSpacing GetSnapSpacing GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetGridSpacing SetSnapSpacing SetXData SyncModelView TransformBy Update
+**** Properties
+Application ArcSmoothness Center Clipped CustomScale Direction DisplayLocked Document EntityTransparency GridOn Handle HasExtensionDictionary HasSheetView Height Hyperlinks LabelBlockId Layer LayerPropertyOverrides LensLength Linetype LinetypeScale Lineweight Material ModelView ObjectID ObjectName OwnerID PlotStyleName ShadePlot SheetView SnapBasePoint SnapOn SnapRotationAngle StandardScale StandardScale2 Target TrueColor TwistAngle UCSIconAtOrigin UCSIconOn UCSPerViewport ViewportOn Visible VisualStyle Width
+**** Events
+Modified
+** AcadDictionaries
+*** Object Inheritance
+  Object
+     AcadObject
+	AcadDictionaries
+
+*** Members
+  These members are part of this object:
+
+**** Methods
+  Add
+  GetExtensionDictionary GetXData Item SetXData
+**** Properties
+  Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+  Modified
+
+** AcadDictionary
+*** Object Inheritance
+Object
+   AcadObject
+      AcadDictionary
+
+*** Members
+  These members are part of this object:
+
+**** Methods
+AddObject AddXRecord Delete GetExtensionDictionary GetName GetObject GetXData Item Remove Rename Replace SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadXRecord
+*** Object Inheritance
+Object
+   AcadObject
+      AcadXRecord
+*** Members
+These members are part of this object:
+
+**** Methods
+Delete GetExtensionDictionary GetXData GetXRecordData SetXData SetXRecordData
+**** Properties
+Application Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID TranslateIDs
+**** Events
+Modified
+** AcadDimStyles
+*** Object Inheritance
+ Object
+    AcadObject
+       AcadDimStyles
+
+*** Members
+ These members are part of this object:
+
+**** Methods
+  Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+  Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+  Modified
+** AcadDimStyle
+*** Object Inheritance
+Object
+   AcadObject
+      AcadDimStyle
+*** Members
+These members are part of this object:
+
+**** Methods
+CopyFrom Delete GetExtensionDictionary GetXData SetXData
+**** Properties
+Application Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadGroups
+*** Object Inheritance
+ Object
+    AcadObject
+       AcadGroups
+*** Members
+ These members are part of this object:
+
+**** Methods
+ Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+ Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+ Modified
+
+** AcadGroup
+*** Object Inheritance
+Object
+   AcadObject
+      AcadGroup
+*** Members
+These members are part of this object:
+**** Methods
+AppendItems Delete GetExtensionDictionary GetXData Highlight Item RemoveItems SetXData Update
+**** Properties
+Application Count Document Handle HasExtensionDictionary Layer Linetype LinetypeScale Lineweight Material Name ObjectID ObjectName OwnerID PlotStyleName TrueColor Visible
+**** Events
+Modified
+** AcadLayers
+*** Object Inheritance
+  Object
+    AcadObject
+       AcadLayers
+*** Members
+ These members are part of this object:
+**** Methods
+ Add GenerateUsageData GetExtensionDictionary GetXData Item SetXData
+**** Properties
+ Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+ Modified
+
+** AcadLayer
+*** DXF
+LAYER (DXF)
+К записям таблицы обозначений LAYER применяются следующие групповые коды.
+Групповые коды LAYER
+|---------------+-------------------------------------------------------------------------------------------------------|
+| Групповой код | Описание                                                                                              |
+|               |                                                                                                       |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbLayerTableRecord)                                                               |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|             2 | Имя слоя                                                                                              |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|            70 | Стандартные флаги (битовые кодовые значения):                                                         |
+|               | 0 = слой заморожен ; в противном случае слой разморожен                                               |
+|               | 1 = слой заморожен по умолчанию на новых видовых экранах                                              |
+|               | 2 = слой заблокирован                                                                                 |
+|               | 3 = если задано это значение, запись таблицы внешне зависима от внешней ссылки                        |
+|               | 4 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается             |
+|               | 5 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,           |
+|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.       |
+|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, |
+|               | записывающих файлы DXF)                                                                               |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|            62 | Номер цвета (если значение отрицательное, слой отключен)                                              |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|             6 | Имя типа линий                                                                                        |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|           290 | Флаг печати. Если задано значение 0, этот слой не выводится на печать                                 |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|           370 | Значение перечня веса линий                                                                           |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|           390 | Идентификатор/дескриптор жесткого указателя на объект PlotStyleName                                   |
+|---------------+-------------------------------------------------------------------------------------------------------|
+|           347 | Идентификатор/дескриптор жесткого указателя на объект материала                                       |
+|---------------+-------------------------------------------------------------------------------------------------------|
+Слои, зависимые от внешних ссылок, выводятся при выполнении команды СОХРАНИТЬКАК. 
+Для этих слоев соответствующее имя типа линий в файле DXF всегда — CONTINUOUS.
+
+*** Object Inheritance
+ Object
+   AcadObject
+      AcadLayer
+
+*** Members
+  These members are part of this object:
+**** Methods
+   Delete GetExtensionDictionary GetXData SetXData
+**** Properties
+  Application Description Document Freeze Handle HasExtensionDictionary LayerOn Linetype Lineweight Lock Material Name ObjectID ObjectName OwnerID PlotStyleName Plottable TrueColor Used ViewportDefault 
+**** Events
+  Modified
+** AcadLayouts
+*** Object Inheritance
+Object
+   AcadObject
+      AcadLayouts
+Members
+These members are part of this object:
+
+**** Methods
+Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+
+None
+** AcadLayout
+*** Object Inheritance
+Object
+   AcadObject
+      AcadPlotConfiguration
+         AcadLayout
+*** Members
+These members are part of this object:
+
+**** Methods
+CopyFrom Delete GetCanonicalMediaNames GetCustomScale GetExtensionDictionary GetLocaleMediaName GetPaperMargins GetPaperSize GetPlotDeviceNames GetPlotStyleTableNames GetWindowToPlot GetXData RefreshPlotDeviceInfo SetCustomScale SetWindowToPlot SetXData
+**** Properties
+Application Block CanonicalMediaName CenterPlot ConfigName Document Handle HasExtensionDictionary ModelType Name ObjectID ObjectName OwnerID PaperUnits PlotHidden PlotOrigin PlotRotation PlotType PlotViewportBorders PlotViewportsFirst PlotWithLineweights PlotWithPlotStyles ScaleLineweights ShowPlotStyles StandardScale StyleSheet TabOrder UseStandardScale ViewToPlot
+**** Events
+Modified
+** AcadLineTypes
+*** Object Inheritance
+Object
+   AcadObject
+      AcadLineTypes
+
+*** Members
+These members are part of this object:
+
+**** Methods
+Add GetExtensionDictionary GetXData Item Load SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadLinetype
+*** DXF
+LTYPE (DXF)
+К записям таблицы обозначений LTYPE применяются следующие групповые коды.
+Групповые коды LTYPE
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+| Групповой код | Описание                                                                                                                           |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbLinetypeTableRecord)                                                                                         |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|             2 | Имя типа линий                                                                                                                     |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            70 | Стандартные значения флагов (кодовые битовые значения):                                                                            |
+|               | 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки                                                    |
+|               | 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается                                         |
+|               | 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,                                       |
+|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.                                    |
+|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, записывающих файлы DXF)      |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|             3 | Описательный текст для типа линий                                                                                                  |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            72 | Код выравнивания; всегда имеет значение 65, код ASCII для A                                                                        |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            73 | Количество элементов типов линий                                                                                                   |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            40 | Общая длина штриховки                                                                                                              |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            49 | Длина штриха, точки или пробела (одна запись для каждого элемента)                                                                 |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            74 | Тип элемента сложных типов линий (по одному для каждого элемента). Значением по умолчанию является 0 (без внедренной формы/текста) |
+|               | Можно использовать следующие значения разряда:                                                                                     |
+|               | 1 = если задано, код 50 устанавливает абсолютный угол поворота; если не задано, код 50 устанавливает относительный угол поворота   |
+|               | 2 = встроенным элементом является текстовая строка                                                                                 |
+|               | 4 = встроенным элементом является форма                                                                                            |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            75 | Номер формы (по одному для каждого элемента), если код 74 устанавливает внедренную форму                                           |
+|               | Если код 74 устанавливает внедренную текстовую строку, это значение равно 0                                                        |
+|               | Если код 74 имеет значение 0, код 75 опускается                                                                                    |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|           340 | Указатель на объект STYLE (по одному для каждого элемента, если код 74 > 0)                                                        |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            46 | S = значение масштаба (необязательно); может существовать несколько записей                                                        |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            50 | Значение относительного (R) или абсолютного (А) угла поворота в радианах для внедренной формы или текста;                          |
+|               | одно для каждого элемента, если код 74 устанавливает внедренную форму или текстовую строку                                         |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            44 | X = значение смещения по X (необязательно); может существовать несколько записей                                                   |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|            45 | Y = значение смещения по Y (необязательно); может существовать несколько записей                                                   |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+|             9 | Строка текста (по одной для каждого элемента, если код 74 = 2)                                                                     |
+|---------------+------------------------------------------------------------------------------------------------------------------------------------|
+Групповые коды 74, 75, 340, 46, 50, 44, 45 и 9 не возвращаются посредством функций tblsearch или tblnext. 
+Следует использовать tblobjname для извлечения этих значений из приложения.
+
+*** Object Inheritance
+  Object
+     AcadObject
+	AcadLinetype
+
+*** Members
+  These members are part of this object:
+
+**** Methods
+  Delete GetExtensionDictionary GetXData SetXData
+**** Properties
+  Application Description Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID
+**** Events
+  Modified
+
+*** Sample
+#+BEGIN_SRC lisp
+  ((ltype-tr-standard-flag     :accessor ltype-tr-standard-flag     :initarg :ltype-tr-standard-flag       :initform 0              :documentation "Код  70. Стандартные значения флагов (кодовые битовые значения): 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки ; 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается; 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз, на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD. Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, записывающих файлы DXF)")
+   (ltype-tr-descriptive-text  :accessor ltype-tr-descriptive-text  :initarg :ltype-tr-descriptive-text    :initform ""             :documentation "Код   3. Описательный текст для типа линий")
+   (ltype-tr-alignment-code    :accessor ltype-tr-alignment-code    :initarg :ltype-tr-alignment-code      :initform 65             :documentation "Код  72. Код выравнивания; всегда имеет значение 65, код ASCII для A")
+   (ltype-tr-pattern-length    :accessor ltype-tr-pattern-length    :initarg :ltype-tr-pattern-length      :initform 0              :documentation "Код  40. Описательный текст для типа линий")
+   (ltype-tr-pattern-dashes    :accessor ltype-tr-pattern-dashes    :initarg :ltype-tr-pattern-dashes      :initform nil            :documentation "Код  49. Длина штриха, точки или пробела (одна запись для каждого элемента)")
+   (ltype-tr-element-type      :accessor ltype-tr-element-type      :initarg :ltype-tr-element-type        :initform 0              :documentation "Код  74. Тип элемента сложных типов линий (по одному для каждого элемента). Значением по умолчанию является 0 (без внедренной формы/текста); Можно использовать следующие значения разряда: 1 = если задано, код 50 устанавливает абсолютный угол поворота; если не задано, код 50 устанавливает относительный угол поворота; 2 = встроенным элементом является текстовая строка; 4 = встроенным элементом является форма")
+   (ltype-tr-shape-number      :accessor ltype-tr-shape-number      :initarg :ltype-tr-shape-number        :initform nil            :documentation "Код  75. Номер формы (по одному для каждого элемента), если код 74 устанавливает внедренную форму. Если код 74 устанавливает внедренную текстовую строку, это значение равно 0. Если код 74 имеет значение 0, код 75 опускается")
+   (ltype-tr-style             :accessor ltype-tr-style             :initarg :ltype-tr-style               :initform nil            :documentation "Код 340. Указатель на объект STYLE (по одному для каждого элемента, если код 74 > 0)")
+   (ltype-tr-scale             :accessor ltype-tr-scale             :initarg :ltype-tr-scale               :initform nil            :documentation "Код  46. S = значение масштаба (необязательно); может существовать несколько записей")
+   (ltype-tr-rotation          :accessor ltype-tr-rotation          :initarg :ltype-tr-rotation            :initform 0              :documentation "Код  50. Значение относительного (R) или абсолютного (А) угла поворота в радианах для внедренной формы или текста; одно для каждого элемента, если код 74 устанавливает внедренную форму или текстовую строку")
+   (ltype-tr-x-offset          :accessor ltype-tr-x-offset          :initarg :ltype-tr-x-offset            :initform 0              :documentation "Код  44. X = значение смещения по X (необязательно); может существовать несколько записей")
+   (ltype-tr-y-offset          :accessor ltype-tr-y-offset          :initarg :ltype-tr-y-offset            :initform 0              :documentation "Код  45. Y = значение смещения по Y (необязательно); может существовать несколько записей")
+   (ltype-tr-text-string       :accessor ltype-tr-text-string       :initarg :ltype-tr-text-string         :initform ""             :documentation "Код   9. Строка текста (по одной для каждого элемента, если код 74 = 2)"))
+#+END_SRC
+
+#+BEGIN_SRC lisp
+ ((-1 . <Entity name: 5487c140>) (0 . "LTYPE") (330 . <Entity name: af0fad0>) (5 . "1E4") (100 . "AcDbSymbolTableRecord") (100 . "AcDbLinetypeTableRecord") (2 . "CENTER") (70 . 0) (3 . "________ _ ________ _ ________ _ ________ _ ___") (72 . 65) (73 . 5) (40 . 20.5) (49 . 5.0) (74 . 0) (49 . -2.0) (74 . 0) (49 . 0.5) (74 . 0) (49 . -2.0) (74 . 0) (49 . 11.0) (74 . 0))
+#+END_SRC
+
+** AcadMaterials
+*** Object Inheritance
+Object
+   AcadObject
+Members
+These members are part of this object:
+
+**** Methods
+Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+
+** AcadMaterial
+*** Object Inheritance
+Object
+   AcadObject
+      AcadMaterial
+*** Members
+These members are part of this object:
+
+**** Methods
+Delete GetExtensionDictionary GetXData SetXData
+**** Properties
+Application Description Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID
+**** Events
+Modified
+
+** AcadPlotConfigurations
+*** Object Inheritance
+Object
+   AcadObject
+      AcadPlotConfigurations
+*** Members
+These members are part of this object:
+
+**** Methods
+Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadPlotConfiguration
+*** Object Inheritance
+Object
+   AcadObject
+      AcadPlotConfiguration
+*** Members
+These members are part of this object:
+
+**** Methods
+CopyFrom Delete GetCanonicalMediaNames GetCustomScale GetExtensionDictionary GetLocaleMediaName GetPaperMargins GetPaperSize GetPlotDeviceNames GetPlotStyleTableNames GetWindowToPlot GetXData RefreshPlotDeviceInfo SetCustomScale SetWindowToPlot SetXData
+**** Properties
+Application CanonicalMediaName CenterPlot ConfigName Document Handle HasExtensionDictionary ModelType Name ObjectID ObjectName OwnerID PaperUnits PlotHidden PlotOrigin PlotRotation PlotType PlotViewportBorders PlotViewportsFirst PlotWithLineweights PlotWithPlotStyles ScaleLineweights ShowPlotStyles StandardScale StyleSheet UseStandardScale ViewToPlot
+**** Events
+Modified
+** AcadRegisteredApplications
+*** Object Inheritance
+Object
+   AcadObject
+      AcadRegisteredApplications
+*** Members
+These members are part of this object:
+
+**** Methods
+Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadRegisteredApplication
+*** Object Inheritance
+Object
+   AcadObject
+      AcadRegisteredApplication
+*** Members
+These members are part of this object:
+**** Methods
+Delete GetExtensionDictionary GetXData SetXData
+**** Properties
+Application Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadSortentsTable
+*** Object Inheritance
+Object
+   AcadObject
+      AcadSortentsTable
+*** Members
+These members are part of this object:
+**** Methods
+Block Delete GetExtensionDictionary GetFullDrawOrder GetRelativeDrawOrder GetXData MoveAbove MoveBelow MoveToBottom MoveToTop SetRelativeDrawOrder SetXData SwapObjects
+**** Properties
+Application Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadTableStyle
+*** Object Inheritance
+Object
+   AcadObject
+      AcadTableStyle
+*** Members
+These members are part of this object:
+
+**** Methods
+CreateCellStyle CreateCellStyleFromStyle Delete DeleteCellStyle EnableMergeAll GetAlignment GetAlignment2 GetBackgroundColor GetBackgroundColor2 GetBackgroundColorNone GetCellClass GetCellStyles GetColor GetColor2 GetDataType GetDataType2 GetExtensionDictionary GetFormat GetFormat2 GetGridColor GetGridColor2 GetGridLineWeight GetGridLineWeight2 GetGridVisibility GetGridVisibility2 GetIsCellStyleInUse GetIsMergeAllEnabled GetRotation GetTextHeight GetTextHeight2 GetTextStyle GetTextStyleId GetUniqueCellStyleName GetXData RenameCellStyle SetAlignment SetAlignment2 SetBackgroundColor SetBackgroundColor2 SetBackgroundColorNone SetCellClass SetColor SetColor2 SetDataType SetDataType2 SetFormat SetFormat2 SetGridColor SetGridColor2 SetGridLineWeight SetGridLineWeight2 SetGridVisibility SetGridVisibility2 SetRotation SetTemplateId SetTextHeight SetTextHeight2 SetTextStyle SetTextStyleId SetXData
+**** Properties
+Application BitFlags Description Document FlowDirection Handle HasExtensionDictionary HeaderSuppressed HorzCellMargin Name NumCellStyles ObjectID ObjectName OwnerID TemplateId TitleSuppressed VertCellMargin
+**** Events
+Modified
+** AcadTextStyles
+*** Object Inheritance
+Object
+   AcadObject
+      AcadTextStyles
+*** Members
+These members are part of this object:
+
+**** Methods
+Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadTextStyle
+*** DXF
+STYLE (DXF)
+К записям таблицы обозначений STYLE применяются следующие коды групп.
+Групповые коды STYLE
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+| Групповой код | Описание                                                                                                          |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbTextStyleTableRecord)                                                                       |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|             2 | Имя стиля                                                                                                         |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|            70 | Стандартные значения флагов (кодовые битовые значения):                                                           |
+|               | 1 = если задано, эта запись описывает форму;                                                                      |
+|               | 4 = вертикальный текст;                                                                                           |
+|               | 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки;                                  |
+|               | 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается;                       |
+|               | 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,                      |
+|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.                   |
+|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать                           |
+|               | в программах, записывающих файлы DXF)                                                                             |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|            40 | Фиксированная высота текста; значение 0, если нефиксированная                                                     |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|            41 | Коэффициент сжатия                                                                                                |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|            50 | Угол наклона                                                                                                      |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|            71 | Флаги создания текста:                                                                                            |
+|               | 2 = текст в обратном направлении (зеркально отражен по X)                                                         |
+|               | 4 = текст перевернут (зеркально отражен по Y)                                                                     |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|            42 | Последняя использованная высота                                                                                   |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|             3 | Имя файла основного шрифта                                                                                        |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|             4 | Имя файла большого шрифта; значение пусто, если файл отсутствует                                                  |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+|          1071 | Длинное значение, содержащее шаг и семейство шрифта TrueType, набор символов и флаги полужирного шрифта и курсива |
+|---------------+-------------------------------------------------------------------------------------------------------------------|
+
+*** Object Inheritance
+Object
+   AcadObject
+      AcadTextStyle
+*** Members
+These members are part of this object:
+
+**** Methods
+Delete GetExtensionDictionary GetFont GetXData SetFont SetXData
+**** Properties
+Application BigFontFile Document FontFile Handle HasExtensionDictionary Height LastHeight Name ObjectID ObjectName ObliqueAngle OwnerID TextGenerationFlag Width
+**** Events
+Modified
+** AcadUCSs
+*** Object Inheritance
+Object
+   AcadObject
+      AcadUCSs
+*** Members
+These members are part of this object:
+**** Methods
+Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+
+** AcadUCS
+*** DXF
+UCS (DXF)
+К записям таблицы обозначений ПСК применяются следующие групповые коды.
+Групповые коды ПСК
+Каждая пара 71/13,23,33 определяет начало координат ПСК для определенного 
+типа ортогонального изображения относительно данной ПСК. Например, если 
+присутствует следующая пара, то вызов команды ПСК/СЛЕВА при заданном 
+параметре UCSBASE для данной ПСК вызовет создание начала координат 
+новой ПСК в точке (1,2,3).
+71: 5 13: 1.0 23: 2.0 33: 3.0
+Если эта пара отсутствует, то вызов команды ПСК/СЛЕВА приведет к созданию
+начала координат новой ПСК в точке начала координат данной ПКС.
+|---------------+-------------------------------------------------------------------------------------------------------------|
+| Групповой код | Описание                                                                                                    |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbUCSTableRecord)                                                                       |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|             2 | Имя ПСК                                                                                                     |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|            70 | Стандартные значения флагов (кодовые битовые значения):                                                     |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|               | 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки                             |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|               | 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается                  |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|               | 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,                |
+|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.             |
+|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать                     |
+|               | в программах, записывающих файлы DXF)                                                                       |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|            10 | Начало координат (в МСК)                                                                                    |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|               | Файл DXF: значение X; приложение: 3D-точка                                                                  |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|        20, 30 | Файл DXF: значения Y и Z для начала координат (в МСК)                                                       |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|            11 | Направление оси X (в МСК)                                                                                   |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|               | Файл DXF: значение X; приложение: 3D-вектор                                                                 |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|        21, 31 | Файл DXF: значения Y и Z для направления оси X (в МСК)                                                      |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|            12 | Направление оси Y (в МСК)                                                                                   |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|               | Файл DXF: значение X; приложение: 3D-вектор                                                                 |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|        22, 32 | Файл DXF: значения Y и Z для направления оси Y (в МСК)                                                      |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|            79 | Всегда равно 0                                                                                              |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|           146 | Уровень                                                                                                     |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|           346 | Идентификатор/дескриптор базовой ПСК при работе с ортогональным изображением. Этот код отсутствует,         |
+|               | если код 79 равен 0. Если этот код отсутствует, а код 79 не равен нулю, под базовой ПСК подразумевается МСК |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|            71 | Тип ортогонального изображения (необязательно; всегда отображается в паре с кодами 13, 23, 33):             |
+|               | 1 = сверху; 2 = снизу; 3 = спереди; 4 = сзади; 5 = слева; 6 = справа                                        |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|            13 | Начало координат данного типа ортогонального изображения относительно данной ПСК                            |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|               | Файл DXF: значение X для точки начала координат; приложение: 3D-точка                                       |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+|        23, 33 | Файл DXF: значения Y и Z для точки начала координат                                                         |
+|---------------+-------------------------------------------------------------------------------------------------------------|
+*** Object Inheritance
+Object
+   AcadObject
+      AcadUCS
+*** Members
+These members are part of this object:
+
+**** Methods
+Delete GetExtensionDictionary GetUCSMatrix GetXData SetXData
+**** Properties
+Application Document Handle HasExtensionDictionary Name ObjectID ObjectName Origin OwnerID XVector YVector
+**** Events
+Modified
+** AcadViews
+*** Object Inheritance
+Object
+   AcadObject
+*** Members
+These members are part of this object:
+**** Methods
+Add GetExtensionDictionary GetXData Item SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadView
+*** DXF
+VIEW (DXF)
+К записям таблицы обозначений VIEW применяются следующие коды групп.
+Групповые коды VIEW
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+| Групповой код | Описание                                                                                                        |
+|               |                                                                                                                 |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbViewTableRecord)                                                                          |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|             2 | Имя вида                                                                                                        |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            70 | Стандартные значения флагов (кодовые битовые значения):                                                         |
+|               | 1 = если задано это значение, это вид пространства листа                                                        |
+|               | 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки                                 |
+|               | 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается                      |
+|               | 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,                    |
+|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.                 |
+|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать                         |
+|               | в программах, записывающих файлы DXF)                                                                           |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            40 | Высота вида (в РСК)                                                                                             |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            10 | Центральная точка вида (в РСК)                                                                                  |
+|               | Файл DXF: значение X; приложение: 2D-точка                                                                      |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            20 | Файл DXF: значение Y центральной точки вида (в РСК)                                                             |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            41 | Ширина вида (в РСК)                                                                                             |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            11 | Направление взгляда из целевой точки (в МСК)                                                                    |
+|               | Файл DXF: значение X; приложение: 3D-вектор                                                                     |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|        21, 31 | Файл DXF: значения Y и Z направления взгляда из целевой точки (в МСК)                                           |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            12 | Целевая точка (в МСК)                                                                                           |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                                      |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|        22, 32 | Файл DXF: значения Y и Z для целевой точки (в МСК)                                                              |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            42 | Фокусное расстояние                                                                                             |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            43 | Передняя плоскость подрезки (смещение от целевой точки)                                                         |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            44 | Задняя плоскость подрезки (смещение от целевой точки)                                                           |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            50 | Угол закручивания                                                                                               |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            71 | Режим просмотра (см. системную переменную VIEWMODE)                                                             |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|           281 | Режим визуализации:                                                                                             |
+|               | 0 = оптимизированное 2D (классическое 2D)                                                                       |
+|               | 1 = каркас                                                                                                      |
+|               | 2 = скрытие линий                                                                                               |
+|               | 3 = плоское                                                                                                     |
+|               | 4 = по Гуро                                                                                                     |
+|               | 5 = плоское с каркасом                                                                                          |
+|               | 6 = по Гуро с каркасом                                                                                          |
+|               | Все режимы визуализации кроме \"Оптимизированное 2D\" задействуют новую систему 3D-графики.                     |
+|               | Эти значения непосредственно соответствуют команде РЕЖИМРАСКР и перечню AcDbAbstractViewTableRecord::RenderMode |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            72 | 1, если имеется ПСК, связанная с этим видом; 0 в противном случае                                               |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|            73 | 1, если данные с камеры выводятся на печать                                                                     |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|           332 | Идентификатор/дескриптор символьного указателя на объект фона (необязательно)                                   |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|           334 | Идентификатор/дескриптор символьного указателя на объект псевдоразреза (необязательно)                          |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|           348 | Идентификатор/дескриптор жесткого указателя на объект визуального стиля (необязательно)                         |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+|           361 | Идентификатор солнца с жестким правом владения                                                                  |
+|               | Следующие коды отображаются только в том случае, если для кода 72 установлено значение 1.                       |
+|               | С их помощью определяется ПСК, связанная с этим видом. Эта ПСК становится текущей ПСК                           |
+|               | каждый раз при восстановлении этого вида (если значение кода 72 равно 0, ПСК не изменяется).                    |
+|---------------+-----------------------------------------------------------------------------------------------------------------|
+
+*** Object Inheritance
+Object
+   AcadObject
+      AcadView
+*** Members
+These members are part of this object:
+**** Methods
+Delete GetExtensionDictionary GetXData SetXData
+**** Properties
+Application CategoryName Center Direction Document Handle HasExtensionDictionary HasVpAssociation Height LayerState LayoutID Name ObjectID ObjectName OwnerID Target Width
+**** Events
+Modified
+** AcadViewports
+*** Object Inheritance
+ Object
+    AcadObject
+*** Members
+These members are part of this object:
+**** Methods
+Add DeleteConfiguration GetExtensionDictionary GetXData Item SetXData
+**** Properties
+Application Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+Modified
+** AcadViewport
+*** DXF
+VPORT (DXF)
+К записям таблицы обозначений VPORT применяются следующие групповые коды. Таблица VPORT является уникальной: она может содержать
+несколько записей с одним и тем же именем (что указывает на конфигурацию с несколькими видовыми экранами). Все записи, связанные
+с конфигурацией активного видового экрана, имеют имя *ACTIVE. В первой такой записи описывается текущий видовой экран.
+Групповые коды VPORT
+| Групповой код | Описание                                                                                                         |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           100 | Маркер подкласса (AcDbViewportTableRecord)                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|             2 | Имя видового экрана                                                                                              |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            70 | Стандартные значения флагов (кодовые битовые значения):                                                          |
+|               | 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки                                  |
+|               | 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается                       |
+|               | 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,                     |
+|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.                  |
+|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать                          |
+|               | в программах, записывающих файлы DXF)                                                                            |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            10 | Левый нижний угол видового экрана                                                                                |
+|               | Файл DXF: значение X; приложение: 2D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            20 | Файл DXF: значение Y левого нижнего угла видового экрана                                                         |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            11 | Правый верхний угол видового экрана                                                                              |
+|               | Файл DXF: значение X; приложение: 2D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            21 | Файл DXF: значение Y правого верхнего угла видового экрана                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            12 | Центральная точка вида (в РСК)                                                                                   |
+|               | Файл DXF: значение X; приложение: 2D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            22 | Файл DXF: значение Y центральной точки вида (в РСК)                                                              |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            13 | Базовая точка привязки (в РСК)                                                                                   |
+|               | Файл DXF: значение X; приложение: 2D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            23 | Файл DXF: значение Y базовой точки привязки (в РСК)                                                              |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            14 | Шаг привязки по оси X и Y                                                                                        |
+|               | Файл DXF: значение X; приложение: 2D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            24 | Файл DXF: значение Y шага привязки по оси X и Y                                                                  |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            15 | Шаг сетки по осям X и Y                                                                                          |
+|               | Файл DXF: значение X; приложение: 2D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            25 | Файл DXF: значение Y шага сетки по осям X и Y                                                                    |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            16 | Направление взгляда из целевой точки (в МСК)                                                                     |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|        26, 36 | Файл DXF: значения Y и Z направления взгляда из целевой точки                                                    |
+|               | (в МСК)                                                                                                          |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            17 | Целевая точка вида (в МСК)                                                                                       |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|        27, 37 | Файл DXF: значения Y и Z для целевой точки вида (в МСК)                                                          |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            42 | Фокусное расстояние                                                                                              |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            43 | Передняя плоскость подрезки (смещение от целевой точки)                                                          |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            44 | Задняя плоскость подрезки (смещение от целевой точки)                                                            |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            45 | Высота вида                                                                                                      |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            50 | Угол поворота привязки                                                                                           |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            51 | Угол закручивания вида                                                                                           |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            72 | Стороны круга                                                                                                    |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|   331 или 441 | Идентификатор/дескриптор символьного или жесткого указателя на объекты замороженного слоя;                       |
+|               | повторяется для каждого замороженного слоя                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            70 | Флаги битов и режим перспективной проекции                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|             1 | Таблица стилей печати                                                                                            |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           281 | Режим визуализации:                                                                                              |
+|               | 0 = оптимизированное 2D (классическое 2D)                                                                        |
+|               | 1 = каркас                                                                                                       |
+|               | 2 = скрытие линий                                                                                                |
+|               | 3 = плоское                                                                                                      |
+|               | 4 = по Гуро                                                                                                      |
+|               | 5 = плоское с каркасом                                                                                           |
+|               | 6 = по Гуро с каркасом                                                                                           |
+|               | Все режимы визуализации, кроме \"Оптимизированное 2D\", задействуют новую систему 3D-графики.                    |
+|               | Эти значения непосредственно соответствуют команде РЕЖИМРАСКР и перечню AcDbAbstractViewTableRecord::RenderMode  |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            71 | Режим просмотра (см. системную переменную VIEWMODE)                                                              |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            74 | Параметр ЗНАКПСК                                                                                                 |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           110 | Начало координат ПСК                                                                                             |
+|               | Файл DXF: значение X; приложение: 3D-точка                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|      120, 130 | Файл DXF: значения Y и Z для начала координат ПСК                                                                |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           111 | Ось X ПСК                                                                                                        |
+|               | Файл DXF: значение X; приложение: 3D-вектор                                                                      |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|      121, 131 | Файл DXF: значения Y и Z для оси X ПСК                                                                           |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           112 | Ось Y ПСК                                                                                                        |
+|               | Файл DXF: значение X; приложение: 3D-вектор                                                                      |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|      122, 132 | Файл DXF: значения Y и Z для оси Y ПСК                                                                           |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           345 | Идентификатор/дескриптор AcDbUCSTableRecord, если ПСК является именованной ПСК.                                  |
+|               | Если значение отсутствует, то ПСК является неименованной                                                         |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           346 | Идентификатор/дескриптор AcDbUCSTableRecord базовой ПСК, если ПСК является ортогональной (код 79 не равен нулю). |
+|               | Если значение отсутствует, а код 79 не равен нулю, под базовой ПСК подразумевается МСК                           |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            79 | Ортогональный тип ПСК                                                                                            |
+|               | 0 = ПСК не ортогональна                                                                                          |
+|               | 1 = сверху                                                                                                       |
+|               | 2 = снизу                                                                                                        |
+|               | 3 = спереди                                                                                                      |
+|               | 4 = сзади                                                                                                        |
+|               | 5 = слева                                                                                                        |
+|               | 6 = справа                                                                                                       |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           146 | Уровень                                                                                                          |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           170 | Тонирование печати                                                                                               |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|            61 | Основные линии сетки                                                                                             |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           332 | Идентификатор/дескриптор символьного указателя на объект фона (необязательно)                                    |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           333 | Идентификатор/дескриптор символьного указателя на объект режима печати оттенков (необязательно)                  |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           348 | Идентификатор/дескриптор жесткого указателя на объект визуального стиля (необязательно)                          |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           292 | Флаг включения освещения по умолчанию                                                                            |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           282 | Тип освещения по умолчанию                                                                                       |
+|               | 0 = один удаленный источник света                                                                                |
+|               | 1 = два удаленных источника света                                                                                |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           141 | Яркость                                                                                                          |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|           142 | Контрастность                                                                                                    |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+|  63, 421, 431 | Рассеиваемый цвет (выводится, только если цвет не черный)                                                        |
+|---------------+------------------------------------------------------------------------------------------------------------------|
+
+*** Object Inheritance
+Object
+   AcadObject
+      AcadViewport
+*** Members
+These members are part of this object:
+
+**** Methods
+Delete GetExtensionDictionary GetGridSpacing GetSnapSpacing GetXData SetGridSpacing SetSnapSpacing SetView SetXData Split
+**** Properties
+Application ArcSmoothness Center Direction Document GridOn Handle HasExtensionDictionary Height LowerLeftCorner Name ObjectID ObjectName OrthoOn OwnerID SnapBasePoint SnapOn SnapRotationAngle Target UCSIconAtOrigin UCSIconOn UpperRightCorner Width
+**** Events
+Modified
+** AcadObject
+*** Object inheritance
+  Object
+     AcadObject
+*** Methods
+**** Methods
+  Delete GetExtensionDictionary GetXData SetXData
+**** Properties
+  Application Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID
+**** Events
+  Modified
+** AcadEntity
+*** DXF
+
+| Group code | Description                                                                                                                                                                   | If omitted, defaults to… |
+|------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------|
+|         -1 | APP: entity name (changes each time a drawing is opened)                                                                                                                      | not omitted              |
+|          0 | Entity type                                                                                                                                                                   | not omitted              |
+|          5 | Handle                                                                                                                                                                        | not omitted              |
+|        102 | Start of application-defined group “{application_name” (optional)                                                                                                             | no default               |
+|      a-d-c | Codes and values within the 102 groups are application-defined (optional)                                                                                                     | no default               |
+|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
+|        102 | “{ACAD_REACTORS” indicates the start of the AutoCAD persistent reactors group.                                                                                                | no default               |
+|        330 | This group exists only if persistent reactors have been attached to this object (optional) Soft-pointer ID/handle to owner dictionary (optional)                              | no default               |
+|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
+|        102 | “{ACAD_XDICTIONARY” indicates the start of an extension dictionary group. This group exists only if an extension dictionary has been attached to the object (optional)        | no default               |
+|        360 | Hard-owner ID/handle to owner dictionary (optional)                                                                                                                           | no default               |
+|        102 | End of group, “}” (optional)                                                                                                                                                  | no default               |
+|        330 | Soft-pointer ID/handle to owner BLOCK_RECORD object                                                                                                                           | not omitted              |
+|        100 | Subclass marker (AcDbEntity)                                                                                                                                                  | not omitted              |
+|         67 | Absent or zero indicates entity is in model space. 1 indicates entity is in paper space (optional).                                                                           | 0                        |
+|        410 | APP: layout tab name                                                                                                                                                          | not omitted              |
+|          8 | Layer name                                                                                                                                                                    | not omitted              |
+|          6 | Linetype name (present if not BYLAYER). The special name BYBLOCK indicates a floating linetype (optional)                                                                     | BYLAYER                  |
+|        347 | Hard-pointer ID/handle to material object (present if not BYLAYER)                                                                                                            | BYLAYER                  |
+|         62 | Color number (present if not BYLAYER); zero indicates the BYBLOCK (floating) color; 256 indicates BYLAYER; a negative value indicates that the layer is turned off (optional) | BYLAYER                  |
+|        370 | Lineweight enum value. Stored and moved around as a 16-bit integer.                                                                                                           | not omitted              |
+|         48 | Linetype scale (optional)                                                                                                                                                     | 1.0                      |
+|         60 | Object visibility (optional): 0 = Visible 1 = Invisible                                                                                                                       | 0                        |
+|         92 | Number of bytes in the proxy entity graphics represented in the subsequent 310 groups, which are binary chunk records (optional)                                              | no default               |
+|        310 | Proxy entity graphics data (multiple lines; 256 characters max. per line) (optional)                                                                                          | no default               |
+|        420 | A 24-bit color value that should be dealt with in terms of bytes with values of 0 to 255.                                                                                     | no default               |
+|        430 | The lowest byte is the blue value, the middle byte is the green value, and the third byte is the red value.                                                                   | no default               |
+|        440 | The top byte is always 0. The group code cannot be used by custom entities for their own data because                                                                         | no default               |
+|        390 | the group code is reserved for AcDbEntity, class-level color data and AcDbEntity, class-level                                                                                 | no default               |
+|        284 | transparency data Color name. The group code cannot be used by custom entities for their own                                                                                  | no default               |
+|            | data because the group code is reserved for AcDbEntity, class-level color data and AcDbEntity,                                                                                |                          |
+|            | class-level transparency data Transparency value. The group code cannot be used by custom entities                                                                            |                          |
+|            | for their own data because the group code is reserved for AcDbEntity, class-level color data and AcDbEntity,                                                                  |                          |
+|            | class-level transparency data Hard-pointer ID/handle to the plot style object Shadow mode 0 = Casts                                                                           |                          |
+|            | and receives shadows 1 = Casts shadows 2 = Receives shadows 3 = Ignores shadows NOTE:Starting                                                                                 |                          |
+|            | with AutoCAD 2016-based products, this property is obsolete but still supported for backwards compatibility.                                                                  |                          |
+
+*** Object Inheritance
+Object
+   AcadObject
+      AcadEntity
+*** Members
+  These members are part of this object:
+**** Methods
+  ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties
+  Application Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName TrueColor Visible
+**** Events
+  Modified
+
+** AcadArc
+*** Object Inheritance
+Object
+   AcadObject
+      AcadEntity
+         AcadArc
+*** Members
+  These members are part of this object:
+**** Methods
+  ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties
+  Application ArcLength Area Center Document EndAngle EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Radius StartAngle StartPoint Thickness TotalAngle TrueColor Visible
+   (mapcar #'make-slot (set-difference *acad-arc-properties* *acad-entity-properties*))
+**** Events
+  Modified
+** AcadCircle
+*** Object Inheritance
+   Object
+     AcadObject AcadEntity
+           AcadCircle
+*** Members
+  These members are part of this object:
+**** Methods
+  ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties
+  Application Area Center Circumference Diameter Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Radius Thickness TrueColor Visible
+**** Events
+  Modified
+** AcadEllipse
+*** Object Inheritance
+Object
+   AcadObject
+      AcadEntity
+         AcadEllipse
+*** Members
+  These members are part of this object:
+**** Methods
+  ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties
+  Application Area Center Document EndAngle EndParameter EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight MajorAxis MajorRadius Material MinorAxis MinorRadius Normal ObjectID ObjectName OwnerID PlotStyleName RadiusRatio StartAngle StartParameter StartPoint TrueColor Visible
+**** Events
+  Modified
+** AcadText
+*** Object Inheritance
+   Object
+     AcadObject AcadEntity
+           AcadText
+
+*** Members
+  These members are part of this object:
+**** Methods
+  ArrayPolar ArrayRectangular Copy Delete FieldCode GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties
+  Alignment Application Backward Document EntityTransparency Handle HasExtensionDictionary Height Hyperlinks InsertionPoint Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName ObliqueAngle OwnerID PlotStyleName Rotation ScaleFactor StyleName TextAlignmentPoint TextGenerationFlag TextString Thickness TrueColor UpsideDown Visible
+**** Events
+  Modified
+** AcadXline
+*** Object Inheritance
+   Object
+     AcadObject AcadEntity
+           AcadXline
+
+*** Members
+  These members are part of this object:
+**** Methods
+  ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties
+  Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible
+**** Events
+  Modified
+** AcadRay
+*** Object Inheritance
+   Object
+     AcadObject AcadEntity
+           AcadRay
+
+*** Members
+  These members are part of this object:
+**** Methods
+  ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties
+  Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible
+**** Events
+  Modified
+** AcadPoint
+*** Object Inheritance
+   Object
+     AcadObject AcadEntity
+           AcadPoint
+
+*** Members
+  These members are part of this object:
+**** Methods
+  ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties
+  Application Coordinates Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Thickness TrueColor Visible
+**** Events
+  Modified
+** AcadLine
+*** Object Inheritance
+  Object
+     AcadObject AcadEntity
+           AcadLine
+
+*** Members
+  These members are part of this object:
+**** Methods 
+  ArrayPolar ArrayRectangular Copy Delete GetBoundingBox GetExtensionDictionary GetXData Highlight IntersectWith Mirror Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData TransformBy Update
+**** Properties 
+  Angle Application Delta Document EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Length Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName StartPoint Thickness TrueColor Visible
+**** Events 
+  Modified

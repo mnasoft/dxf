@@ -1,0 +1,38 @@
+
+* main
+#+BEGIN_SRC shell :results output 
+find "/d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc" -name "*.h" | xargs grep -n -i "AcDbBlockTable" | grep -i "public" 
+#+END_SRC
+
+#+RESULTS:
+: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:76:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
+: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:930:class AcDbBlockTable: public AcDbSymbolTable
+: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:1403:class AcDbBlockTableIterator : public AcDbSymbolTableIterator
+
+#+name:dot-eg-table
+| AcRxObject      | AcGiDrawable    |
+| AcRxObject      | AcHeapOperators |
+| AcGiDrawable    | AcDbObject      |
+| AcHeapOperators | AcDbObject      |
+| AcDbObject      | AcDbSymbolTable |
+| AcDbSymbolTable | AcDbBlockTable  |
+
+#+name: make-dot
+#+BEGIN_SRC emacs-lisp :var table=dot-eg-table :results output :exports none
+  (mapcar #'(lambda (x)
+	      (princ (format "%s [shape = \"box\"];\n" (first x)))
+	      (princ (format "%s [shape = \"box\"];\n" (second x)))
+	    
+	      (princ (format "%s -> %s;\n" (first x) (second x))))
+	  table)
+
+#+END_SRC
+
+#+BEGIN_SRC dot :file ./images/test-dot.png :var input=make-dot :exports results
+digraph {
+$input
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:./images/test-dot.png]]

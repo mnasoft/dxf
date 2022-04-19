@@ -113,7 +113,61 @@
    *db-block-tr-class-marker*
    *db-block-tr-subclass-marker*
    *section-names*
-   *table-names*))
+   *table-names*)
+  (:documentation "
+@begin(enum)
+  @item(
+    @link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7D07C886-FD1D-4A0C-A7AB-B4D21F18E484\"](Раздел ENTITIES файла DXF)
+    @begin(list)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3610039E-27D1-4E23-B6D3-7E60B22BB5BD\"](Общие групповые коды объектов (DXF)))
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-747865D5-51F0-45F2-BEFE-9572DBC5B151\"](3DFACE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-19AB1C40-0BE0-4F32-BCAB-04B37044A0D3\"](3DSOLID (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-89A690F9-E859-4D57-89EA-750F3FB76C6B\"](ACAD_PROXY_ENTITY (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0B14D8F1-0EBA-44BF-9108-57D8CE614BC8\"](ARC (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F0EA099B-6F88-4BCC-BEC7-247BA64838A4\"](ATTDEF (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7DD8B495-C3F8-48CD-A766-14F9D7D0DD9B\"](ATTRIB (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7FB91514-56FF-4487-850E-CF1047999E77\"](BODY (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18\"](CIRCLE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-239A1BDD-7459-4BB9-8DD7-08EC79BF1EB0\"](DIMENSION (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-107CB04F-AD4D-4D2F-8EC9-AC90888063AB\"](ELLIPSE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C6C71CED-CE0F-4184-82A5-07AD6241F15B\"](HATCH (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-76DB3ABF-3C8C-47D1-8AFB-72942D9AE1FF\"](HELIX (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3A2FF847-BE14-4AC5-9BD4-BD3DCAEF2281\"](IMAGE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-28FA4CFB-9D5E-4880-9F11-36C97578252F\"](INSERT (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-396B2369-F89F-47D7-8223-8B7FB794F9F3\"](LEADER (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1A23DB42-6A92-48E9-9EB2-A7856A479930\"](LIGHT (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66\"](LINE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-748FC305-F3F2-4F74-825A-61F04D757A50\"](LWPOLYLINE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-4B9ADA67-87C8-4673-A579-6E4C76FF7025\"](MESH (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-590E8AE3-C6D9-4641-8485-D7B3693E432C\"](MLINE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0E489B69-17A4-4439-8505-9DCE032100B4\"](MLEADERSTYLE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-72D20B8C-0F5E-4993-BEB7-0FCF94F32BE0\"](MLEADER (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5E5DB93B-F8D3-4433-ADF7-E92E250D2BAB\"](MTEXT (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-4A10EF68-35A3-4961-8B15-1222ECE5E8C6\"](OLEFRAME (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-77747CE6-82C6-4452-97ED-4CEEB38BE960\"](OLE2FRAME (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317\"](POINT (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-ABF6B778-BE20-4B49-9B58-A94E64CEFFF3\"](POLYLINE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-638B9F01-5D86-408E-A2DE-FA5D6ADBD415\"](RAY (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-644BF0F0-FD79-4C5E-AD5A-0053FCC5A5A4\"](REGION (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8B60CBAB-B226-4A5F-ABB1-46FD8AABB928\"](SECTION (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-FD4FAA74-1F6D-45F6-B132-BF0C4BE6CC3B\"](SEQEND (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0988D755-9AAB-4D6C-8E26-EC636F507F2C\"](SHAPE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E0C5F04E-D0C5-48F5-AC09-32733E8848F2\"](SOLID (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E1F884F8-AA90-4864-A215-3182D47A9C74\"](SPLINE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-BB191D89-9302-45E4-9904-108AB418FAE1\"](SUN (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-BB62483A-89C3-47C4-80E5-EA3F08979863\"](SURFACE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-D8CCD2F0-18A3-42BB-A64D-539114A07DA0\"](TABLE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-62E5383D-8A14-47B4-BFC4-35824CAE8363\"](TEXT (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-ADFCED35-B312-4996-B4C1-61C53757B3FD\"](TOLERANCE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-EA6FBCA8-1AD6-4FB2-B149-770313E93511\"](TRACE (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3EC8FBCC-A85A-4B0B-93CD-C6C785959077\"](UNDERLAY (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0741E831-599E-4CBF-91E1-8ADBCFD6556D\"](VERTEX (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2602B0FB-02E4-4B9A-B03C-B1D904753D34\"](VIEWPORT (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2229F9C4-3C80-4C67-9EDA-45ED684808DC\"](WIPEOUT (DXF));)
+      @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A\"](XLINE (DXF));)
+   @end(list))
+@end(enum)"
+   ))
 
 (in-package #:dxf)
 
@@ -121,7 +175,7 @@
 ;;;; line-weights.lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;; http://help.autodesk.com/view/ACD/2017/RUS/
+;;;; https://help.autodesk.com/view/ACD/2022/RUS/
 
 (defparameter *line-weight-enum*
   '(("kLnWt000" 0)
@@ -497,8 +551,8 @@
 		:documentation "
 @b(Описание:) класс @b(<db-header>) 
 
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
+https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
 ")))
 
 (defmethod dxf-out-text :before ((x <db-header>) stream)
@@ -653,14 +707,14 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     :initform "0"
     :documentation
     "Код   8. Имя слоя  entity-layer -> Layer" )
-   (entity-transparency)
+   (entity-transparency :documentation "entity-transparency")
    (line-type
     :accessor line-type
     :initarg :line-type  :initform "BYLAYER"
     :documentation
     "Код 6. Linetype name (present if not BYLAYER). The special name
     BYBLOCK indicates a floating linetype (optional) | BYLAYER |" )
-   (hyperlinks)
+   (hyperlinks :documentation "hyperlinks")
    (line-type-scale
     :accessor line-type-scale
     :initarg :line-type-scale
@@ -672,13 +726,12 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
     :initform -1
     :documentation
     "| 370 | Lineweight enum value. Stored and moved around as a 16-bit integer. | not omitted |")
-   (material)
-   (PlotStyleName)
+   (material :documentation "material")
+   (PlotStyleName :documentation "PlotStyleName")
    (true-color
     :accessor true-color
     :initarg :true-color :initform dxf/color:*bylayer*
-    :documentation
-    "Код   62 и 420" )
+    :documentation "Код 62 и 420" )
    (visible
     :accessor visible
     :initarg :visible :initform t
@@ -687,7 +740,11 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
   #+nil (plotstylename :accessor plotstylename :initarg :plotstylename :initform nil :documentation "plotstylename")
   #+nil (material :accessor material :initarg :material :initform nil :documentation "material")
 
-  (:documentation "См. ./dbmain.h:class ADESK_NO_VTABLE AcDbEntity: public AcDbObject
+  (:documentation "
+@begin[lang=txt](code)
+См. ./dbmain.h:class ADESK_NO_VTABLE AcDbEntity: public AcDbObject
+@end(code)
+
 
 "))
 
@@ -796,36 +853,12 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4D
    ;;;; (Angle) (Delta) (Length)
    )
 
-  (:documentation "См. ./dbents.h:class AcDbLine: public AcDbCurve
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66
-
-LINE (DXF)
-К объектам линии применяются следующие групповые коды.
-Групповые коды линии
-|---------------+---------------------------------------------------------------------------|
-| Групповой код | Описание                                                                  |
-|---------------+---------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbLine)                                               |
-|---------------+---------------------------------------------------------------------------|
-|            39 | Толщина (необязательно; значение по умолчанию = 0)                        |
-|---------------+---------------------------------------------------------------------------|
-|            10 | Начальная точка (в МСК)                                                   |
-|               | Файл DXF: значение X; приложение: 3D-точка                                |
-|---------------+---------------------------------------------------------------------------|
-|        20, 30 | Файл DXF: значения Y и Z для начальной точки (в МСК)                      |
-|---------------+---------------------------------------------------------------------------|
-|            11 | Конечная точка (в МСК)                                                    |
-|               | Файл DXF: значение X; приложение: 3D-точка                                |
-|---------------+---------------------------------------------------------------------------|
-|        21, 31 | Файл DXF: значения Y и Z конечной точки (в МСК)                           |
-|---------------+---------------------------------------------------------------------------|
-|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1) |
-|               | Файл DXF: значение X; приложение: 3D-вектор                               |
-|---------------+---------------------------------------------------------------------------|
-|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
-|---------------+---------------------------------------------------------------------------|
-
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-FCEF5726-53AE-4C43-B4EA-C84EB8686A66\"](LINE (DXF))
+@begin[lang=txt](code)
+См. ./dbents.h:class AcDbLine: public AcDbCurve
+@end(code)
+@begin[lang=txt](code)
 ;   Angle (RO) = 2.54047
 ;   Application (RO) = #<VLA-OBJECT IAcadApplication 00007ff77d4470f8>
 ;   Delta (RO) = (-1.58936 1.08997 0.0)
@@ -850,6 +883,7 @@ LINE (DXF)
 ;   Thickness = 0.0
 ;   TrueColor = #<VLA-OBJECT IAcadAcCmColor 00000142eeebf020>
 ;   Visible = -1
+@end(code)
 "))
 
 (defmethod dxf-out-text ((x <Acad-Line>) stream)
@@ -936,32 +970,11 @@ LINE (DXF)
    (normal      :accessor normal      :initarg :normal         :initform (vector 0.0d0 0.0d0 1.0d0) :documentation "Код 210. Направление выдавливания")
    (ecs-angle   :accessor ecs-angle   :initarg :ecs-angle      :initform 0.0d0                      :documentation "Код  50. Поворот системы координат объекта"))
 
-  (:documentation "См. ./dbents.h:class AcDbPoint: public AcDbEntity
-		  http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317
-		  http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317
-
-POINT (DXF)
-К точечным объектам применяются следующие групповые коды.
-Групповые коды точки 
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-| Групповой код | Описание                                                                                                                                  |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbPoint)                                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-|            10 | Местоположение точки (в МСК)                                                                                                              |
-|               | Файл DXF: значение X; приложение: 3D-точка                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-|        20, 30 | Файл DXF: значения Y и Z для местоположения точки (в МСК)                                                                                 |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-|            39 | Толщина (необязательно; значение по умолчанию = 0)                                                                                        |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1)                                                                 |
-|               | Файл DXF: значение X; приложение: 3D-вектор                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)                                                                     |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
-|            50 | Угол оси X для ПСК, используемый при построении точки (необязательно, по умолчанию = 0); используется, если параметр PDMODE не равен нулю |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------------------|
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9C6AD32D-769D-4213-85A4-CA9CCB5C5317\"](POINT (DXF))
+@begin[lang=txt](code)
+См. ./dbents.h:class AcDbPoint: public AcDbEntity
+@end(code)
 "))
 
 (defparameter *acad-point-properties* '(Application Coordinates Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Thickness TrueColor Visible))
@@ -1044,28 +1057,11 @@ POINT (DXF)
    (direction-vector :accessor direction-vector :initarg :direction-vector :initform (vector 1.0d0 0.0d0 0.0d0) :documentation "Код 11. Едининчный вектор в МСК, задающий направление")
 ;;;; (second-point :accessor second-point :initarg :second-point :initform nil :documentation "second-point")
    )
-  (:documentation "См. ./dbray.h:class AcDbRay: public AcDbCurve
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-638B9F01-5D86-408E-A2DE-FA5D6ADBD415
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-638B9F01-5D86-408E-A2DE-FA5D6ADBD415
-
-RAY (DXF)
-К объектам луча применяются следующие групповые коды.
-Групповые коды луча 
-|---------------+--------------------------------------------------------------|
-| Групповой код | Описание                                                     |
-|---------------+--------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbRay)                                   |
-|---------------+--------------------------------------------------------------|
-|            10 | Начальная точка (в МСК)                                      |
-|               | Файл DXF: значение X; приложение: 3D-точка                   |
-|---------------+--------------------------------------------------------------|
-|        20, 30 | Файл DXF: значения Y и Z для начальной точки (в МСК)         |
-|---------------+--------------------------------------------------------------|
-|            11 | Вектор единичного направления (в МСК)                        |
-|               | Файл DXF: значение X; приложение: 3D-вектор                  |
-|---------------+--------------------------------------------------------------|
-|        21, 31 | Файл DXF: значения Y и Z вектора направления единицы (в МСК) |
-|---------------+--------------------------------------------------------------|
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-638B9F01-5D86-408E-A2DE-FA5D6ADBD415\"](RAY (DXF))
+@begin[lang=txt](code)
+См. ./dbray.h:class AcDbRay: public AcDbCurve
+@end(code)
 "))
 
 (defparameter *acad-ray-properties* '(Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible))
@@ -1129,30 +1125,12 @@ RAY (DXF)
    (direction-vector   :accessor direction-vector   :initarg :direction-vector   :initform (vector 1 0 0) :documentation "Код 40. Вектор единичного направления (в МСК). Файл DXF: значение X; приложение: 3D-вектор")
 ;;; (secondpoint :accessor secondpoint :initarg :secondpoint :initform nil :documentation "secondpoint")
    )
-  (:documentation "См. ./dbxline.h:class AcDbXline: public AcDbCurve
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A
-
-XLINE (DXF)
-К объектам XLINE применяются следующие групповые коды.
-Групповые коды XLINE
-|---------------+--------------------------------------------------------------|
-| Групповой код | Описание                                                     |
-|---------------+--------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbXline)                                 |
-|---------------+--------------------------------------------------------------|
-|            10 | Первая точка (в МСК)                                         |
-|               | Файл DXF: значение X; приложение: 3D-точка                   |
-|---------------+--------------------------------------------------------------|
-|        20, 30 | Файл DXF: значения Y и Z первой точки (в МСК)                |
-|---------------+--------------------------------------------------------------|
-|            11 | Вектор единичного направления (в МСК)                        |
-|               | Файл DXF: значение X; приложение: 3D-вектор                  |
-|---------------+--------------------------------------------------------------|
-|        21, 31 | Файл DXF: значения Y и Z вектора направления единицы (в МСК) |
-|---------------+--------------------------------------------------------------|
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A\"](XLINE (DXF))
+@begin[lang=txt](code)
+См. ./dbxline.h:class AcDbXline: public AcDbCurve
+@end(code)
 "))
-
 
 (defparameter *acad-xline-properties* '(Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible))
 
@@ -1226,29 +1204,13 @@ XLINE (DXF)
    ;;;; (area)  (circumference)  (diameter)
    )
   (:documentation
-   "См. ./dbents.h:class AcDbCircle: public AcDbCurve
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18
+   "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18\"](CIRCLE (DXF) RUS)
 
-CIRCLE (DXF)
-К объектам CIRCLE применяются следующие групповые коды.
-Групповые коды CIRCLE 
-| Групповой код | Описание                                                                  |
-|           100 | Маркер подкласса (AcDbCircle)                                             |
-|            39 | Толщина (необязательно; значение по умолчанию = 0)                        |
-|---------------+---------------------------------------------------------------------------|
-|            10 | Центральная точка (в ОСК)                                                 |
-|               | Файл DXF: значение X; приложение: 3D-точка                                |
-|---------------+---------------------------------------------------------------------------|
-|        20, 30 | Файл DXF: значения Y и Z для центральной точки (в ОСК)                    |
-|            40 | Радиус                                                                    |
-|---------------+---------------------------------------------------------------------------|
-|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1) |
-|               | Файл DXF: значение X; приложение: 3D-вектор                               |
-|---------------+---------------------------------------------------------------------------|
-|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
-|               | Понятия, связанные с данным                                               |
-|---------------+---------------------------------------------------------------------------|
+@link[uri=\"https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8663262B-222C-414D-B133-4A8506A27C18\"](CIRCLE (DXF) ENU)
+
+@begin[lang=txt](code)
+См. ./dbents.h:class AcDbCircle: public AcDbCurve
+@end(code)
 "))
 
 (defmethod dxf-out-text ((x <Acad-Circle>) stream)
@@ -1332,40 +1294,11 @@ CIRCLE (DXF)
 ;(area :accessor area :initarg :area :initform nil :documentation "area")
 ;(arclength :accessor arclength :initarg :arclength :initform nil :documentation "arclength")
    )
-
-  (:documentation "./dbents.h:class AcDbArc: public AcDbCurve
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-0B14D8F1-0EBA-44BF-9108-57D8CE614BC8
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-0B14D8F1-0EBA-44BF-9108-57D8CE614BC8
-
-ARC (DXF)
-К объектам дуги применяются следующие групповые коды.
-Групповые коды дуги 
-|---------------+---------------------------------------------------------------------------|
-| Групповой код | Описание                                                                  |
-|---------------+---------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbCircle)                                             |
-|---------------+---------------------------------------------------------------------------|
-|            39 | Толщина (необязательно; значение по умолчанию = 0)                        |
-|---------------+---------------------------------------------------------------------------|
-|            10 | Центральная точка (в ОСК)                                                 |
-|               | Файл DXF: значение X; приложение: 3D-точка                                |
-|---------------+---------------------------------------------------------------------------|
-|        20, 30 | Файл DXF: значения Y и Z для центральной точки (в ОСК)                    |
-|---------------+---------------------------------------------------------------------------|
-|            40 | Радиус                                                                    |
-|---------------+---------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbArc)                                                |
-|---------------+---------------------------------------------------------------------------|
-|            50 | Начальный угол                                                            |
-|---------------+---------------------------------------------------------------------------|
-|            51 | Конечный угол                                                             |
-|---------------+---------------------------------------------------------------------------|
-|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1) |
-|               | Файл DXF: значение X; приложение: 3D-вектор                               |
-|---------------+---------------------------------------------------------------------------|
-|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)     |
-|---------------+---------------------------------------------------------------------------|
-
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0B14D8F1-0EBA-44BF-9108-57D8CE614BC8\"](ARC (DXF))
+@begin[lang=txt](code)
+./dbents.h:class AcDbArc: public AcDbCurve
+@end(code)
 "))
 
 (defparameter *acad-arc-properties* '(Application ArcLength Area Center Document EndAngle EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Radius StartAngle StartPoint Thickness TotalAngle TrueColor Visible))
@@ -1479,91 +1412,11 @@ ARC (DXF)
 ;;;;(textgenerationflag :accessor textgenerationflag :initarg :textgenerationflag :initform nil :documentation "textgenerationflag")   
    )
 
-  (:documentation "См. ./dbents.h:class AcDbText: public AcDbEntity
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-62E5383D-8A14-47B4-BFC4-35824CAE8363
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-62E5383D-8A14-47B4-BFC4-35824CAE8363
-
-TEXT (DXF)
-К объектам текста применяются следующие групповые коды.
-Групповые коды текста
-| Групповой код | Описание                                                                                                                                          |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbText)                                                                                                                       |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            39 | Толщина (необязательно; значение по умолчанию = 0)                                                                                                |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            10 | Первая точка выравнивания (в ОСК)                                                                                                                 |
-|               | Файл DXF: значение X; приложение: 3D-точка                                                                                                        |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|        20, 30 | Файл DXF: значения Y и Z первой точки выравнивания (в ОСК)                                                                                        |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            40 | Высота текста                                                                                                                                     |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|             1 | Значение по умолчанию (сама строка)                                                                                                               |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            50 | Поворот текста (необязательно; значение по умолчанию = 0)                                                                                         |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            41 | Относительный масштабный коэффициент по оси X: ширина (необязательно; значение по умолчанию = 1)                                                  |
-|               | Это значение также корректируется при использовании вписываемого текста                                                                           |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            51 | Угол наклона (необязательно; значение по умолчанию = 0)                                                                                           |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|             7 | Имя стиля текста (необязательно, значение по умолчанию = STANDARD)                                                                                |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            71 | Флаги создания текста (необязательно, значение по умолчанию = 0):                                                                                 |
-|               | 2 = текст в обратном направлении (зеркально отражен по X)                                                                                         |
-|               | 4 = текст перевернут (зеркально отражен по Y)                                                                                                     |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            72 | Тип выравнивания текста по горизонтали (необязательно, значение по умолчанию = 0); целочисленные коды (не битовые):                               |
-|               | 0 = слева                                                                                                                                         |
-|               | 1 = по центру                                                                                                                                     |
-|               | 2 = справа                                                                                                                                        |
-|               | 3 = параллельно (если выравнивание по вертикали = 0)                                                                                              |
-|               | 4 = посередине (если выравнивание по вертикали = 0)                                                                                               |
-|               | 5 = вписать (если выравнивание по вертикали = 0)                                                                                                  |
-|               | Подробности см. в таблице целочисленных групповых кодов 72 и 73                                                                                   |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            11 | Вторая точка выравнивания (в ОСК) (необязательно)                                                                                                 |
-|               | Файл DXF: значение X; приложение: 3D-точка                                                                                                        |
-|               | Это значение имеет смысл, только если значение групп 72 или 73 не равно нулю (если выравнивание не является выравниванием по базовой линии/слева) |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|        21, 31 | Файл DXF: значения Y и Z второй точки выравнивания (в ОСК) (необязательно)                                                                        |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1)                                                                         |
-|               | Файл DXF: значение X; приложение: 3D-вектор                                                                                                       |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)                                                                             |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbText)                                                                                                                       |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-|            73 | Тип выравнивания текста по вертикали (необязательно, значение по умолчанию = 0); целочисленные коды (не битовые):                                 |
-|               | 0 = по базовой линии                                                                                                                              |
-|               | 1 = снизу                                                                                                                                         |
-|               | 2 = посередине                                                                                                                                    |
-|               | 3 = сверху                                                                                                                                        |
-|               | Подробности см. в таблице целочисленных групповых кодов 72 и 73                                                                                   |
-|---------------+---------------------------------------------------------------------------------------------------------------------------------------------------|
-
-В следующей таблице подробно описываются групповые коды 72 (выравнивание по горизонтали) и 73 (выравнивание по вертикали). 
-Целочисленные групповые коды 72 и 73 
-|----------------------+----------+----------+----------+--------------+----------+-----------|
-| Группа с кодом 73    | Группа с | Группа с | Группа с | Группа с     | Группа с | Группа с  |
-|                      | кодом 72 | кодом 72 | кодом 72 | кодом 72     | кодом 72 | кодом 72  |
-|                      | 0        | 1        | 2        | 3            | 4        | 5         |
-|----------------------+----------+----------+----------+--------------+----------+-----------|
-| 3 (сверху)           | ВЛ       | ВЦ       | ВП       |              |          |           |
-|----------------------+----------+----------+----------+--------------+----------+-----------|
-| 2 (посередине)       | СЛ       | СЦ       | СП       |              |          |           |
-|----------------------+----------+----------+----------+--------------+----------+-----------|
-| 1 (снизу)            | НЛ       | НЦ       | НП       |              |          |           |
-|----------------------+----------+----------+----------+--------------+----------+-----------|
-| 0 (по базовой линии) | Левая    | Центр    | Справа   | Параллельный | Середина | По ширине |
-|----------------------+----------+----------+----------+--------------+----------+-----------|
-Если значения групп с кодом 72 и (или) 73 не равны нулю, то значения первой точки выравнивания игнорируются, 
-и приложением AutoCAD рассчитываются новые значения на основе второй точки выравнивания и длины и высоты 
-самой текстовой строки (после применения стиля текста). Если значения групп с кодами 72 и 73 равны нулю или 
-отсутствуют, то вторая точка выравнивания является нерелевантной. 
-
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-62E5383D-8A14-47B4-BFC4-35824CAE8363\"](TEXT (DXF))
+@begin[lang=txt](code)
+См. ./dbents.h:class AcDbText: public AcDbEntity
+@end(code)
 "))
 
 (defparameter *acad-text-properties* '(Alignment Application Backward Document EntityTransparency Handle HasExtensionDictionary Height Hyperlinks InsertionPoint Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName ObliqueAngle OwnerID PlotStyleName Rotation ScaleFactor StyleName TextAlignmentPoint TextGenerationFlag TextString Thickness TrueColor UpsideDown Visible))
@@ -1674,42 +1527,12 @@ TEXT (DXF)
 ;;;(endangle :accessor endangle :initarg :endangle :initform nil :documentation "endangle")
 ;;;(endpoint :accessor endpoint :initarg :endpoint :initform nil :documentation "endpoint")
    (radius-ratio :accessor radius-ratio :initarg :radius-ratio :initform 0.5d0          :documentation "Код 40. Соотношение малой и главной осей"))
-  (:documentation "См. ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-107CB04F-AD4D-4D2F-8EC9-AC90888063AB
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-107CB04F-AD4D-4D2F-8EC9-AC90888063AB
-
-ELLIPSE (DXF)
-К объектам эллипса применяются следующие групповые коды.
-Групповые коды эллипса
-|---------------+------------------------------------------------------------------------------------------------|
-| Групповой код | Описание                                                                                       |
-|---------------+------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbEllipse)                                                                 |
-|---------------+------------------------------------------------------------------------------------------------|
-|            10 | Центральная точка (в МСК)                                                                      |
-|               | Файл DXF: значение X; приложение: 3D-точка                                                     |
-|---------------+------------------------------------------------------------------------------------------------|
-|        20, 30 | Файл DXF: значения Y и Z для центральной точки (в МСК)                                         |
-|---------------+------------------------------------------------------------------------------------------------|
-|            11 | Конечная точка главной оси относительно центральной точки (в МСК)                              |
-|               | Файл DXF: значение X; приложение: 3D-точка                                                     |
-|---------------+------------------------------------------------------------------------------------------------|
-|        21, 31 | Файл DXF: значения Y и Z для конечной точки главной оси относительно центральной точки (в МСК) |
-|---------------+------------------------------------------------------------------------------------------------|
-|           210 | Направление выдавливания (необязательно; значение по умолчанию = 0, 0, 1)                      |
-|               | Файл DXF: значение X; приложение: 3D-вектор                                                    |
-|---------------+------------------------------------------------------------------------------------------------|
-|      220, 230 | Файл DXF: значения Y и Z для направления выдавливания (необязательно)                          |
-|---------------+------------------------------------------------------------------------------------------------|
-|            40 | Соотношение малой и главной осей                                                               |
-|---------------+------------------------------------------------------------------------------------------------|
-|            41 | Начальный параметр (значение для полного эллипса — 0,0)                                        |
-|---------------+------------------------------------------------------------------------------------------------|
-|            42 | Конечный параметр (значение для полного эллипса — 2 пи)                                        |
-|---------------+------------------------------------------------------------------------------------------------|
-
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-107CB04F-AD4D-4D2F-8EC9-AC90888063AB\"](ELLIPSE (DXF))
+@begin[lang=txt](code)
+См. ./dbelipse.h:class AcDbEllipse: public  AcDbCurve
+@end(code)
 "))
-
 
 (defparameter *acad-acad-ellipse-properties* '(Application Area Center Document EndAngle EndParameter EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight MajorAxis MajorRadius Material MinorAxis MinorRadius Normal ObjectID ObjectName OwnerID PlotStyleName RadiusRatio StartAngle StartParameter StartPoint TrueColor Visible))
 
@@ -1830,10 +1653,13 @@ ELLIPSE (DXF)
    )
 
   (:documentation "
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
+@begin[lang=txt](code)
+
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
+https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17197688AFDB
 ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
 ====================================================================================================
+@end(code)
 " ))
 
 (defparameter *acad-layer-properties* '(Application Description Document Freeze Handle HasExtensionDictionary LayerOn Linetype Lineweight Lock Material Name ObjectID ObjectName OwnerID PlotStyleName Plottable TrueColor Used  ViewportDefault ))
@@ -1949,6 +1775,8 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
    (items  :accessor items                   :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)")
    )
   (:documentation "
+@begin[lang=txt](code)
+@end(code)
 "))
 
 (defparameter *acad-layers-properties* '(Application A-Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
@@ -1987,7 +1815,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 (defclass <acad-documents> (<acad-object>)
   ((application              :accessor application              :initarg :application              :initform nil :documentation "application")
    (a-count                    :accessor a-count                    :initarg :a-count                    :initform nil :documentation "a-count"))
-  (:documentation "The collection of all AutoCAD drawings that are open in the current session."))
+  (:documentation "
+@begin[lang=txt](code)
+The collection of all AutoCAD drawings that are open in the current session.
+@end(code)"))
 
 (defclass <acad-database> (<object>)
   ((blocks                   :accessor blocks                   :initarg :blocks                   :initform nil :documentation "blocks")
@@ -2020,7 +1851,10 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
    (user-coordinate-systems  :accessor user-coordinate-systems  :initarg :user-coordinate-systems  :initform nil :documentation "user-coordinate-systems")
    (viewports                :accessor viewports                :initarg :viewports                :initform nil :documentation "viewports")
    (views                    :accessor views                    :initarg :views                    :initform nil :documentation "views"))
-  (:documentation "The contents of an XRef block."))
+  (:documentation "
+@begin[lang=txt](code)
+The contents of an XRef block.
+@end(code)"))
 
 ;;;;;;;;
 
@@ -2067,7 +1901,9 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 
    )
   (:documentation "
- "))
+@begin[lang=txt](code)
+@end(code)
+"))
 
 (defparameter *acad-document-properties* '( Active ActiveDimStyle ActiveLayer ActiveLayout ActiveLinetype ActiveMaterial ActivePViewport ActiveSelectionSet ActiveSpace ActiveTextStyle ActiveUCS ActiveViewport Application Blocks Database Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace FullName Groups Height HWND Layers Layouts Limits Linetypes Materials ModelSpace MSpace Name ObjectSnapMode PaperSpace Path PickfirstSelectionSet Plot PlotConfigurations Preferences ReadOnly RegisteredApplications Saved SectionManager SelectionSets SummaryInfo TextStyles UserCoordinateSystems Utility Viewports Views Width WindowState WindowTitle))
 
@@ -2164,11 +2000,12 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-17
 (defclass <acad-linetype>  (<acad-object>)
   ((name        :accessor name        :initarg :name        :initform "CONTINUOUS" :documentation "name")
    (description :accessor description :initarg :description :initform ""           :documentation "description"))
-  (:documentation "./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
+  (:documentation "
+@begin[lang=txt](code)
+./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
 ====================================================================================================
-
+@end(code)
 "))
 
 (defparameter *acad-linetype-properties* '(Application Description Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID))
@@ -2218,9 +2055,11 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 ;;;;;;;;
 
 (defclass <acad-linetypes> (<acad-object>)
-  ((a-count  :accessor a-count :initarg :a-count :initform 0   :documentation "70 a-count -> a-count переимновано из-за ошибки")
+  ((a-count  :accessor a-count :initarg :a-count :initform 0   :documentation "70 count -> a-count переимновано из-за ошибки")
    (items  :accessor items                   :initform nil :documentation "Коллекция слоев. Это свойство отсутствует в перечне свойств Object Model (ActiveX)"))
   (:documentation "
+@begin[lang=txt](code)
+@end(code)
 "))
 
 (defparameter *acad-linetypes-properties* '(Application A-Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
@@ -2257,35 +2096,21 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
 
 (defclass <db-symbol-tbl> (<acad-object>)
   ((Object-Name      :accessor Object-Name       :initarg :Object-Name      :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
-   (A-Count            :accessor symbol-tbl-flag   :initarg :A-Count            :initform 0              :documentation "Код  70. Стандартные флаги")
+   (A-Count          :accessor symbol-tbl-flag   :initarg :A-Count          :initform 0              :documentation "Код  70. Стандартные флаги")
    (symbol-tbl-items :accessor symbol-tbl-items  :initarg :symbol-tbl-items :initform nil :documentation "Записи таблицы."))
-  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295
-
-Group codes that apply to all symbol tables
-| Group code | Description                                                                                                                                                          |   |
-|------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------+---|
-|         -1 | APP: entity name (changes each time a drawing is opened)                                                                                                             |   |
-|          0 | Object type (TABLE)                                                                                                                                                  |   |
-|          2 | Table name                                                                                                                                                           |   |
-|          5 | Handle                                                                                                                                                               |   |
-|        102 | “{ACAD_XDICTIONARY” indicates the start of an extension dictionary group. This group exists only if persistent reactors have been attached to this object (optional) |   |
-|        360 | Hard owner ID/handle to owner dictionary (optional)                                                                                                                  |   |
-|        102 | End of group, “}” (optional)                                                                                                                                         |   |
-|        330 | Soft-pointer ID/handle to owner object                                                                                                                               |   |
-|        100 | Subclass marker (AcDbSymbolTable)                                                                                                                                    |   |
-|         70 | Maximum number of entries in table                                                                                                                                   |   |
-
-Пример DXF-кода:
-  (0 \"TABLE\") (2 \"BLOCK_RECORD\") (5 1) (330 0) (100 \"AcDbSymbolTable\") (70 1)
-    ...
-   (0 \"ENDTAB\")
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A9FD9590-C97B-4E41-9F26-BD82C34A4F9F\"](Раздел TABLES файла DXF (DXF))
+@begin[lang=txt](code)
+См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
+@end(code)
 "))
 
+
 (defclass <acad-blocks> ()
-    ((Object-Name ))
+    ((Object-Name :accessor Object-Name       :initarg :Object-Name      :initform "ACAD-BLOCKS" :documentation "To-Do ACAD-BLOCKS"))
   (:documentation "
+@begin[lang=txt](code)
+
 * Methods
 Add
 GetExtensionDictionary
@@ -2304,7 +2129,7 @@ OwnerID
 * Events
 None
 * END
-
+@end(code)
 "))
 
 (defmethod dxf-out-text ((x <db-symbol-tbl>) stream)
@@ -2325,39 +2150,13 @@ None
   ((block-tbl-name  :accessor block-tbl-name    :initarg :block-tbl-name :initform "SYMBOL-TABLE" :documentation "Код   2. Имя таблицы")
    )
   (:documentation "
-| Group code | Description                                                                                                                                                                                                                                                                                                                                                                                               |
-|------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|        100 | Subclass marker (AcDbBlockTableRecord)                                                                                                                                                                                                                                                                                                                                                                    |
-|          2 | Block name                                                                                                                                                                                                                                                                                                                                                                                                |
-|        340 | Hard-pointer ID/handle to associated LAYOUT object                                                                                                                                                                                                                                                                                                                                                        |
-|         70 | Block insertion units.                                                                                                                                                                                                                                                                                                                                                                                    |
-|        280 | Block explodability                                                                                                                                                                                                                                                                                                                                                                                       |
-|        281 | Block scalability                                                                                                                                                                                                                                                                                                                                                                                         |
-|        310 | DXF: Binary data for bitmap preview (optional)                                                                                                                                                                                                                                                                                                                                                            |
-|       1001 | Xdata application name “ACAD” (optional)                                                                                                                                                                                                                                                                                                                                                                  |
-|       1000 | Xdata string data “DesignCenter Data” (optional)                                                                                                                                                                                                                                                                                                                                                          |
-|       1002 | Begin xdata “{“ (optional)                                                                                                                                                                                                                                                                                                                                                                                |
-|       1070 | Autodesk Design Center version number                                                                                                                                                                                                                                                                                                                                                                     |
-|       1070 | Insert units: 0 = Unitless 1 = Inches 2 = Feet 3 = Miles 4 = Millimeters 5 = Centimeters 6 = Meters 7 = Kilometers 8 = Microinches 9 = Mils 10 = Yards 11 = Angstroms 12 = Nanometers 13 = Microns 14 = Decimeters 15 = Decameters 16 = Hectometers 17 = Gigameters 18 = Astronomical units 19 = Light years 20 = Parsecs 21 = US Survey Feet 22 = US Survey Inch 23 = US Survey Yard 24 = US Survey Mile |
-|       1002 | End xdata “}“                                                                                                                                                                                                                                                                                                                                                                                             |
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A\"](BLOCK_RECORD (DXF))
 
-Пример DXF-кода
- (0 \"TABLE\") (2 \"BLOCK_RECORD\") (5 1) (330 0) (100 \"AcDbSymbolTable\") (70 1)
-  (0 \"BLOCK_RECORD\") (5 112) (330 1) (100 \"AcDbSymbolTableRecord\") (100 \"AcDbBlockTableRecord\") (2 \"*Model_Space\") (340 115) (70 0) (280 1) (281 0) 
-  (0 \"BLOCK_RECORD\") (5 108) (330 1) (100 \"AcDbSymbolTableRecord\") (100 \"AcDbBlockTableRecord\") (2 \"*Paper_Space\") (340 111) (70 0) (280 1) (281 0) 
-  (0 \"BLOCK_RECORD\") (5 116) (330 1) (100 \"AcDbSymbolTableRecord\") (100 \"AcDbBlockTableRecord\") (2 \"*Paper_Space0\") (340 119) (70 0) (280 1) (281 0) 
- (0 \"ENDTAB\")
-
-
+@begin[lang=txt](code)
 | Methods    | Add         | GetExtensionDictionary | GetXData | Item   | SetXData               |          |            |         |
-
-| Properties | Application | A-Count                  | Document | Handle | HasExtensionDictionary | ObjectID | ObjectName | OwnerID |
-
+| Properties | Application | A-Count                | Document | Handle | HasExtensionDictionary | ObjectID | ObjectName | OwnerID |
 | Events     | None        |                        |          |        |                        |          |            |         |
-
-
-
-
+@end(code)
 "))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2371,56 +2170,8 @@ None
 (defclass <db-symbol-tr> (<db-object>)
   ((symbol-tr-name :accessor symbol-tr-name  :initarg :symbol-tr-name :initform "Undefined"    :documentation "Код   2. Имя таблицы")
    (symbol-tr-flag :accessor symbol-tr-flag  :initarg :symbol-tr-flag :initform 0              :documentation "Код  70. Стандартные флаги"))
-  (:documentation "См. ./dbsymtb.h:class AcDbLayerTableRecord: public  AcDbSymbolTableRecord
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-5926A569-3E40-4ED2-AE06-6ACCE0EFC813
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-5926A569-3E40-4ED2-AE06-6ACCE0EFC813
-
-Общие групповые коды записей таблицы обозначений (DXF)
-
-В следующей таблице приведены групповые коды, которые применяются ко всем записям таблицы обозначений в файлах DXF. 
-Обращаясь к таблице групповых кодов для объектов определенных типов, необходимо помнить, 
-что указанные здесь коды также могут присутствовать.
-
-Групповые коды, которые применяются ко всем записям таблицы обозначений
-|---------------+----------------------------------------------------------------------------------------------------|
-| Групповой код | Описание                                                                                           |
-|---------------+----------------------------------------------------------------------------------------------------|
-|            -1 | Приложение: имя объекта (изменяется при каждом открытии чертежа)                                   |
-|---------------+----------------------------------------------------------------------------------------------------|
-|             0 | Тип объекта (имя таблицы)                                                                          |
-|---------------+----------------------------------------------------------------------------------------------------|
-|             5 | Дескриптор (все, кроме DIMSTYLE)                                                                   |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           105 | Дескриптор (только таблица DIMSTYLE)                                                               |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           102 | Начало определенной приложением группы \"{имя_приложения\". Например, \"{ACAD_REACTORS\"           |
-|               | обозначает начало группы постоянных реакторов AutoCAD (необязательно)                              |
-|---------------+----------------------------------------------------------------------------------------------------|
-|         коды, | Коды и значения в пределах групп с кодом 102 определяются приложением (необязательно)              |
-|  определенные |                                                                                                    |
-|   приложением |                                                                                                    |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           102 | Конец группы, \"}\" (необязательно)                                                                |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           102 | \"{ACAD_REACTORS\" обозначает начало группы постоянных реакторов AutoCAD. Эта группа присутствует, |
-|               | только если постоянные реакторы были присоединены к данному объекту (необязательно)                |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           330 | Идентификатор/дескриптор символьного указателя на словарь владельца (необязательно)                |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           102 | Конец группы, \"}\" (необязательно)                                                                |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           102 | \"{ACAD_XDICTIONARY\" обозначает начало группы словаря расширений. Эта группа присутствует,        |
-|               | только если к данному объекту были присоединены постоянные реакторы (необязательно)                |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           360 | Идентификатор/дескриптор жесткой ссылки-владельца для владельца словаря (необязательно)            |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           102 | Конец группы, \"}\" (необязательно)                                                                |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           330 | Идентификатор/дескриптор символьного указателя на объект владельца                                 |
-|---------------+----------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbSymbolTableRecord)                                                           |
-|---------------+----------------------------------------------------------------------------------------------------|
-
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8427DD38-7B1F-4B7F-BF66-21ADD1F41295\"](Общие групповые коды записей таблицы обозначений (DXF))
 "))
 
 (defmethod dxf-out-text ((x <db-symbol-tr>) stream)
@@ -2429,34 +2180,15 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-5926A569-3E40-4ED2-AE06-6A
 (defmethod dxf-out-text :after ((x <db-symbol-tr>) stream)
   (dxf/out/txt:pair 100 *db-symbol-tr-subclass-marker* stream))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass <db-regapp-tr> (<db-symbol-tr>)
   ()
-  (:documentation "./dbsymtb.h:class AcDbRegAppTableRecord: public  AcDbSymbolTableRecord
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-6E3140E9-E560-4C77-904E-480382F0553E
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-6E3140E9-E560-4C77-904E-480382F0553E
-==================================================
-APPID (DXF)
-К записям таблицы обозначений APPID применяются следующие групповые коды.
-Групповые коды APPID 
-|---------------+-------------------------------------------------------------------------------------------------------------------------------|
-| Групповой код | Описание                                                                                                                      |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbRegAppTableRecord)                                                                                      |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------|
-|             2 | Имя приложения, созданное пользователем или приложением (для расширенных данных).                                             |
-|               | В этих записях таблицы содержится набор имен всех зарегистрированных приложений                                               |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------|
-|            70 | Стандартные значения флагов (кодовые битовые значения):                                                                       |
-|               | 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки                                               |
-|               | 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается                                    |
-|               | 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,                                  |
-|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.                               |
-|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, записывающих файлы DXF) |
-|---------------+-------------------------------------------------------------------------------------------------------------------------------|
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-6E3140E9-E560-4C77-904E-480382F0553E\"](APPID (DXF))
+@begin[lang=txt](code)
+./dbsymtb.h:class AcDbRegAppTableRecord: public AcDbSymbolTableRecord
+@end(code)
 "))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2476,68 +2208,12 @@ APPID (DXF)
    (block-tr-dc-version        :accessor block-tr-dc-version          :initarg :block-tr-dc-version        :initform nil                 :documentation "Код 1070. Номер версии Центра управления Adesk")
    (block-tr-insert-units      :accessor block-tr-insert-units        :initarg :block-tr-insert-units      :initform nil                 :documentation "Код 1070. Номер версии Центра управления Adesk")
    (block-tr-xdata-end         :accessor block-tr-xdata-end           :initarg :block-tr-xdata-end         :initform nil                 :documentation "Код 1002. Конец расширенных данных, \"}\""))
-  (:documentation "find . -name \"*.h\" | xargs grep \"class AcDbBlockTableRecord\"
-/run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/dbsymtb.h:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
-====================================================================================================
-BLOCK_RECORD (DXF)
-К записям таблицы обозначений BLOCK_RECORD применяются следующие групповые коды.
-Групповые коды BLOCK_RECORD
-|---------------+---------------------------------------------------------------------------------------------|
-| Групповой код | Описание                                                                                    |
-|---------------+---------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbBlockTableRecord)                                                     |
-|---------------+---------------------------------------------------------------------------------------------|
-|             2 | Имя блока                                                                                   |
-|---------------+---------------------------------------------------------------------------------------------|
-|           340 | Идентификатор/дескриптор жесткого указателя на связанный объект LAYOUT                      |
-|---------------+---------------------------------------------------------------------------------------------|
-|            70 | Единицы вставки блока.                                                                      |
-|---------------+---------------------------------------------------------------------------------------------|
-|           280 | Расчленяемость блока                                                                        |
-|---------------+---------------------------------------------------------------------------------------------|
-|           281 | Масштабируемость блока                                                                      |
-|---------------+---------------------------------------------------------------------------------------------|
-|           310 | Файл DXF: двоичные данные предварительного просмотра растрового изображения (необязательно) |
-|---------------+---------------------------------------------------------------------------------------------|
-|          1001 | Имя приложения расширенных данных, \"ACAD\" (необязательно)                                 |
-|---------------+---------------------------------------------------------------------------------------------|
-|          1000 | Данные строк расширенных данных, \"DesignCenter Data\" (необязательно)                      |
-|---------------+---------------------------------------------------------------------------------------------|
-|          1002 | Начало расширенных данных, \"{\" (необязательно)                                            |
-|---------------+---------------------------------------------------------------------------------------------|
-|          1070 | Номер версии Центра управления Autodesk                                                     |
-|---------------+---------------------------------------------------------------------------------------------|
-|          1070 | Единицы вставки:                                                                            |
-|               | 0 = безразмерн.                                                                             |
-|               | 1 = дюймы                                                                                   |
-|               | 2 = футы                                                                                    |
-|               | 3 = мили                                                                                    |
-|               | 4 = миллиметры                                                                              |
-|               | 5 = сантиметры                                                                              |
-|               | 6 = метры                                                                                   |
-|               | 7 = километры                                                                               |
-|               | 8 = микродюймы                                                                              |
-|               | 9 = милы                                                                                    |
-|               | 10 = ярды                                                                                   |
-|               | 11 = ангстремы                                                                              |
-|               | 12 = нанометры                                                                              |
-|               | 13 = микроны                                                                                |
-|               | 14 = дециметры                                                                              |
-|               | 15 = декаметры                                                                              |
-|               | 16 = гектометры                                                                             |
-|               | 17 = гигаметры                                                                              |
-|               | 18 = астрономические единицы                                                                |
-|               | 19 = световые годы                                                                          |
-|               | 20 = парсеки                                                                                |
-|               | 21 = футы США                                                                               |
-|               | 22 = дюймы США                                                                              |
-|               | 23 = ярды США                                                                               |
-|               | 24 = мили США                                                                               |
-|---------------+---------------------------------------------------------------------------------------------|
-|          1002 | Конец расширенных данных, \"}\"                                                             |
-|---------------+---------------------------------------------------------------------------------------------|
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A\"](BLOCK_RECORD (DXF))
+
+@begin[lang=txt](code)
+find . -name \"*.h\" | xargs grep \"class AcDbBlockTableRecord\"
+@end(code)
 "))
 
 (defmethod dxf-out-text ((x <db-block-tr>) stream)
@@ -2632,175 +2308,16 @@ BLOCK_RECORD (DXF)
    (dimstyle-tr-dimblk2   :accessor dimstyle-tr-dimblk2   :initarg :dimstyle-tr-dimblk2   :initform nil :documentation "Код  344. DIMBLK2 (дескриптор связанного элемента BLOCK)")
    (dimstyle-tr-dimlwd    :accessor dimstyle-tr-dimlwd    :initarg :dimstyle-tr-dimlwd    :initform nil :documentation "Код  371. DIMLWD (значение перечисления веса линий)")
    (dimstyle-tr-dimlwe    :accessor dimstyle-tr-dimlwe    :initarg :dimstyle-tr-dimlwe    :initform nil :documentation "Код  372. DIMLWE (значение перечня веса линий)"))
-  (:documentation "find . -name \"*.h\" | xargs grep \"class AcDbBlockTableRecord\"
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F2FAD36F-0CE3-4943-9DAD-A9BCD2AE81DA\"](DIMSTYLE (DXF))
+
+@begin[lang=txt](code)
+find . -name \"*.h\" | xargs grep \"class AcDbBlockTableRecord\"
 /run/media/namatv/W_DATA/PRG/Autodesk_ObjectARX_2017_Win_64_and_32_Bit/inc/dbsymtb.h:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A1FD1934-7EF5-4D35-A4B0-F8AE54A9A20A
-====================================================================================================  
-DIMSTYLE (DXF)
-К записям таблицы обозначений DIMSTYLE применяются следующие групповые коды.
-Групповые коды DIMSTYLE
-|---------------+-------------------------------------------------------------------------------------------------------|
-| Групповой код | Описание                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           100 | Маркер подкласса (AcDbDimStyleTableRecord)                                                            |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             2 | Имя размерного стиля                                                                                  |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            70 | Стандартные значения флагов (кодовые битовые значения):                                               |
-|               | 16 = если задано это значение, запись таблицы внешне зависима от внешней ссылки;                      |
-|               | 32 = если заданы и этот бит, и бит 16, внешне зависимая внешняя ссылка успешно разрешается;           |
-|               | 64 = если задано это значение, то в тот момент, когда чертеж редактировался в последний раз,          |
-|               | на запись таблицы ссылался хотя бы один объект на чертеже. (Этот флаг нужен для команд AutoCAD.       |
-|               | Его можно игнорировать в большинстве программ для чтения файлов DXF и не нужно задавать в программах, |
-|               | записывающих файлы DXF)                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             3 | DIMPOST                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             4 | DIMAPOST                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             5 | DIMBLK (устарело, теперь это идентификатор объекта)                                                   |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             6 | DIMBLK1 (устарело, теперь это идентификатор объекта)                                                  |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|             7 | DIMBLK2 (устарело, теперь это идентификатор объекта)                                                  |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            40 | DIMSCALE                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            41 | DIMASZ                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            42 | DIMEXO                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            43 | DIMDLI                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            44 | DIMEXE                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            45 | DIMRND                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            46 | DIMDLE                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            47 | DIMTP                                                                                                 |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            48 | DIMTM                                                                                                 |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           140 | DIMTXT                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           141 | DIMCEN                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           142 | DIMTSZ                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           143 | DIMALTF                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           144 | DIMLFAC                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           145 | DIMTVP                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           146 | DIMTFAC                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           147 | DIMGAP                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           148 | DIMALTRND                                                                                             |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            71 | DIMTOL                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            72 | DIMLIM                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            73 | DIMTIH                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            74 | DIMTOH                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            75 | DIMSE1                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            76 | DIMSE2                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            77 | DIMTAD                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            78 | DIMZIN                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|            79 | DIMAZIN                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           170 | DIMALT                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           171 | DIMALTD                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           172 | DIMTOFL                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           173 | DIMSAH                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           174 | DIMTIX                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           175 | DIMSOXD                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           176 | DIMCLRD                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           177 | DIMCLRE                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           178 | DIMCLRT                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           179 | DIMADEC                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           270 | DIMUNIT (устарело, теперь используется DIMLUNIT и DIMFRAC)                                            |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           271 | DIMDEC                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           272 | DIMTDEC                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           273 | DIMALTU                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           274 | DIMALTTD                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           275 | DIMAUNIT                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           276 | DIMFRAC                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           277 | DIMLUNIT                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           278 | DIMDSEP                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           279 | DIMTMOVE                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           280 | DIMJUST                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           281 | DIMSD1                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           282 | DIMSD2                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           283 | DIMTOLJ                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           284 | DIMTZIN                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           285 | DIMALTZ                                                                                               |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           286 | DIMALTTZ                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           287 | DIMFIT (устарело, теперь используется DIMATFIT и DIMTMOVE)                                            |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           288 | DIMUPT                                                                                                |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           289 | DIMATFIT                                                                                              |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           340 | DIMTXSTY (дескриптор связанного элемента STYLE)                                                       |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           341 | DIMLDRBLK (дескриптор связанного элемента BLOCK)                                                      |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           342 | DIMBLK (дескриптор связанного элемента BLOCK)                                                         |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           343 | DIMBLK1 (дескриптор связанного элемента BLOCK)                                                        |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           344 | DIMBLK2 (дескриптор связанного элемента BLOCK)                                                        |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           371 | DIMLWD (значение перечисления веса линий)                                                             |
-|---------------+-------------------------------------------------------------------------------------------------------|
-|           372 | DIMLWE (значение перечня веса линий)                                                                  |
-|---------------+-------------------------------------------------------------------------------------------------------|
+@end(code)
 "))
 
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
 
 (defclass <db-textstyle-tr> (<db-symbol-tr>)
   (
@@ -2813,10 +2330,8 @@ DIMSTYLE (DXF)
    (textstyle-tr-big-font-fname   :accessor textstyle-tr-big-font-fname    :initarg :textstyle-tr-big-font-fname    :initform 0     :documentation "Код    4. Имя файла большого шрифта; значение пусто, если файл отсутствует")
    (textstyle-tr-font-family      :accessor textstyle-tr-font-family       :initarg :textstyle-tr-font-family       :initform 0     :documentation "Код 1071. Длинное значение, содержащее шаг и семейство шрифта TrueType, набор символов и флаги полужирного шрифта и курсива")   
    )
-  (:documentation "./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
-http://help.autodesk.com/view/ACD/2017/RUS/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
-http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-191E34B182AC
-====================================================================================================
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-EF68AF7C-13EF-45A1-8175-ED6CE66C8FC9\"](STYLE (DXF))
 "))
 
 (defclass <db-ucs-tr> (<db-symbol-tr>)
@@ -2828,8 +2343,8 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
    (ucs-tr-base             :accessor ucs-tr-base             :initarg :ucs-tr-base             :initform nil            :documentation "Код  346. Идентификатор/дескриптор базовой ПСК при работе с ортогональным изображением. Этот код отсутствует, если код 79 равен 0. Если этот код отсутствует, а код 79 не равен нулю, под базовой ПСК подразумевается МСК")
    (ucs-tr-ortho-type       :accessor ucs-tr-ortho-type       :initarg :ucs-tr-ortho-type       :initform nil            :documentation "Код   71. Тип ортогонального изображения (необязательно; всегда отображается в паре с кодами 13, 23, 33): 1 = сверху; 2 = снизу; 3 = спереди; 4 = сзади; 5 = слева; 6 = справа")
    (ucs-tr-ortho-origin     :accessor ucs-tr-ortho-origin     :initarg :ucs-tr-ortho-origin     :initform nil            :documentation "Код   13. Начало координат данного типа ортогонального изображения относительно данной ПСК"))
-  (:documentation "./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
-==================================================================================================== 
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1906E8A7-3393-4BF9-BD27-F9AE4352FB8B\"](UCS (DXF))
 "))
 
 (defclass <db-view-tr> (<db-symbol-tr>)
@@ -2850,9 +2365,8 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
    (view-tr-live-section    :accessor view-tr-live-section   :initarg :view-tr-live-section   :initform nil            :documentation "Код 334. Идентификатор/дескриптор символьного указателя на объект псевдоразреза (необязательно)")
    (view-tr-visual-style    :accessor view-tr-visual-style   :initarg :view-tr-visual-style   :initform nil            :documentation "Код 348. Идентификатор/дескриптор жесткого указателя на объект визуального стиля (необязательно)")
    (view-tr-sun             :accessor view-tr-sun            :initarg :view-tr-sun            :initform 0              :documentation "Код 361. Идентификатор солнца с жестким правом владения. Следующие коды отображаются только в том случае, если для кода 72 установлено значение 1. С их помощью определяется ПСК, связанная с этим видом. Эта ПСК становится текущей ПСК каждый раз при восстановлении этого вида (если значение кода 72 равно 0, ПСК не изменяется)."))
-  (:documentation "./dbsymtb.h:class AcDbLinetypeTableRecord: public  AcDbSymbolTableRecord
-
-==================================================================================================== 
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-CF3094AB-ECA9-43C1-8075-7791AC84F97C\"](VIEW (DXF))
 "))
 
 (defclass <db-vport-tr> (<db-symbol-tr>) 
@@ -2898,8 +2412,11 @@ http://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-F57A316C-94A2-416C-8280-19
    (vport-tr-contrast             :accessor vport-tr-contrast             :initarg :vport-tr-contrast             :initform 0.0                     :documentation "Код 142. Контрастность")
    (vport-tr-ambient-color        :accessor vport-tr-contrast             :initarg :vport-tr-contrast             :initform (vector 250 3355443 0)  :documentation "Код 63, 421, 431. Рассеиваемый цвет (выводится, только если цвет не черный)")
    )
-  (:documentation "./dbents.h:class AcDbViewport: public AcDbEntity
-====================================================================================================
+  (:documentation "
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8CE7CC87-27BD-4490-89DA-C21F516415A9\"](VPORT (DXF))
+@begin[lang=txt](code)
+./dbents.h:class AcDbViewport: public AcDbEntity
+@end(code)
 "
  )
 )
