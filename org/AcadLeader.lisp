@@ -1,4 +1,4 @@
-(defclass acad-leader (acad-entity)
+(defclass <acad-leader> (<acad-entity>)
   (
   (ac-annotation               :accessor ac-annotation               :initarg :ac-annotation               :initform nil :documentation "ac-annotation")
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
@@ -36,4 +36,4 @@
 
 (defparameter *acad-leader-properties* '(ac-annotation ac-application ac-arrowhead-block ac-arrowhead-size ac-arrowhead-type ac-coordinate ac-coordinates ac-dimension-line-color ac-dimension-line-weight ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-scale-factor ac-style-name ac-text-gap ac-true-color ac-type ac-vertical-text-position ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-leader-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-leader-properties* *acad-entity-properties*))

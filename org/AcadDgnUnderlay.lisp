@@ -1,4 +1,4 @@
-(defclass acad-dgn-underlay (acad-underlay)
+(defclass <acad-dgn-underlay> (<acad-underlay>)
   (
   (ac-adjust-for-background    :accessor ac-adjust-for-background    :initarg :ac-adjust-for-background    :initform nil :documentation "ac-adjust-for-background")
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
@@ -37,4 +37,4 @@
 
 (defparameter *acad-dgn-underlay-properties* '(ac-adjust-for-background ac-application ac-clipping-enabled ac-contrast ac-document ac-entity-transparency ac-fade ac-file ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-item-name ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-monochrome ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-rotation ac-scale-factor ac-true-color ac-underlay-layer-override-applied ac-underlay-name ac-underlay-visibility ac-visible ac-width))
 
-(mapcar #'make-slot (set-difference *acad-dgn-underlay-properties* *acad-underlay-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-dgn-underlay-properties* *acad-underlay-properties*))

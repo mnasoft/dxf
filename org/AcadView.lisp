@@ -1,4 +1,4 @@
-(defclass acad-view (acad-object)
+(defclass <acad-view> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-category-name            :accessor ac-category-name            :initarg :ac-category-name            :initform nil :documentation "ac-category-name")
@@ -22,4 +22,4 @@
 
 (defparameter *acad-view-properties* '(ac-application ac-category-name ac-center ac-direction ac-document ac-handle ac-has-extension-dictionary ac-has-vp-association ac-height ac-layer-state ac-layout-id ac-name ac-object-id ac-object-name ac-owner-id ac-target ac-width))
 
-(mapcar #'make-slot (set-difference *acad-view-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-view-properties* *acad-object-properties*))

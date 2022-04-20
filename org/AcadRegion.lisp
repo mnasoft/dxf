@@ -1,4 +1,4 @@
-(defclass acad-region (acad-entity)
+(defclass <acad-region> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-area                     :accessor ac-area                     :initarg :ac-area                     :initform nil :documentation "ac-area")
@@ -31,4 +31,4 @@
 
 (defparameter *acad-region-properties* '(ac-application ac-area ac-centroid ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-moment-of-inertia ac-normal ac-object-id ac-object-name ac-owner-id ac-perimeter ac-plot-style-name ac-principal-directions ac-principal-moments ac-product-of-inertia ac-radii-of-gyration ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-region-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-region-properties* *acad-entity-properties*))

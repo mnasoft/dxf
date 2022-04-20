@@ -1,4 +1,4 @@
-(defclass acad-swept-surface (acad-surface)
+(defclass <acad-swept-surface> (<acad-surface>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-bank                     :accessor ac-bank                     :initarg :ac-bank                     :initform nil :documentation "ac-bank")
@@ -35,4 +35,4 @@
 
 (defparameter *acad-swept-surface-properties* '(ac-application ac-bank ac-document ac-edge-extension-distances ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-length ac-linetype ac-linetype-scale ac-lineweight ac-maintain-associativity ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-profile-rotation ac-scale ac-show-associativity ac-surface-type ac-surf-trim-associativity ac-true-color ac-twist ac-u-isoline-density ac-visible ac-v-isoline-density ac-wireframe-type))
 
-(mapcar #'make-slot (set-difference *acad-swept-surface-properties* *acad-surface-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-swept-surface-properties* *acad-surface-properties*))

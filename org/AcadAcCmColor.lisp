@@ -1,4 +1,4 @@
-(defclass acad-ac-cm-color (object)
+(defclass <acad-ac-cm-color> (<object>)
   (
   (ac-blue                     :accessor ac-blue                     :initarg :ac-blue                     :initform nil :documentation "ac-blue")
   (ac-book-name                :accessor ac-book-name                :initarg :ac-book-name                :initform nil :documentation "ac-book-name")
@@ -13,4 +13,4 @@
 
 (defparameter *acad-ac-cm-color-properties* '(ac-blue ac-book-name ac-color-index ac-color-method ac-color-name ac-entity-color ac-green ac-red))
 
-(mapcar #'make-slot (set-difference *acad-ac-cm-color-properties* *object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-ac-cm-color-properties* *object-properties*))

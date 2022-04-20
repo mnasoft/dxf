@@ -1,4 +1,4 @@
-(defclass acad-viewport (acad-object)
+(defclass <acad-viewport> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-arc-smoothness           :accessor ac-arc-smoothness           :initarg :ac-arc-smoothness           :initform nil :documentation "ac-arc-smoothness")
@@ -28,4 +28,4 @@
 
 (defparameter *acad-viewport-properties* '(ac-application ac-arc-smoothness ac-center ac-direction ac-document ac-grid-on ac-handle ac-has-extension-dictionary ac-height ac-lower-left-corner ac-name ac-object-id ac-object-name ac-ortho-on ac-owner-id ac-snap-base-point ac-snap-on ac-snap-rotation-angle ac-target ac-ucs-icon-at-origin ac-ucs-icon-on ac-upper-right-corner ac-width))
 
-(mapcar #'make-slot (set-difference *acad-viewport-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-viewport-properties* *acad-object-properties*))

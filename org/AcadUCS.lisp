@@ -1,4 +1,4 @@
-(defclass acad-ucs (acad-object)
+(defclass <acad-ucs> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
@@ -16,4 +16,4 @@
 
 (defparameter *acad-ucs-properties* '(ac-application ac-document ac-handle ac-has-extension-dictionary ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-x-vector ac-y-vector))
 
-(mapcar #'make-slot (set-difference *acad-ucs-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-ucs-properties* *acad-object-properties*))

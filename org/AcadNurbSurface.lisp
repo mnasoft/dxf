@@ -1,4 +1,4 @@
-(defclass acad-nurb-surface (acad-surface)
+(defclass <acad-nurb-surface> (<acad-surface>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-cv-hull-display          :accessor ac-cv-hull-display          :initarg :ac-cv-hull-display          :initform nil :documentation "ac-cv-hull-display")
@@ -32,4 +32,4 @@
 
 (defparameter *acad-nurb-surface-properties* '(ac-application ac-cv-hull-display ac-document ac-edge-extension-distances ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-maintain-associativity ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-show-associativity ac-surface-type ac-surf-trim-associativity ac-true-color ac-u-isoline-density ac-visible ac-v-isoline-density ac-wireframe-type))
 
-(mapcar #'make-slot (set-difference *acad-nurb-surface-properties* *acad-surface-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-nurb-surface-properties* *acad-surface-properties*))

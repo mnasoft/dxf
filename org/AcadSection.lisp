@@ -1,4 +1,4 @@
-(defclass acad-section (acad-entity)
+(defclass <acad-section> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-bottom-height            :accessor ac-bottom-height            :initarg :ac-bottom-height            :initform nil :documentation "ac-bottom-height")
@@ -40,4 +40,4 @@
 
 (defparameter *acad-section-properties* '(ac-application ac-bottom-height ac-coordinate ac-document ac-elevation ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-indicator-fill-color ac-indicator-transparency ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-live-section-enabled ac-material ac-name ac-normal ac-num-vertices ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-section-plane-offset ac-settings ac-slice-depth ac-state ac-state2 ac-top-height ac-true-color ac-vertical-direction ac-vertices ac-viewing-direction ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-section-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-section-properties* *acad-entity-properties*))

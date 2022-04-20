@@ -1,4 +1,4 @@
-(defclass acad-arc (acad-entity)
+(defclass <acad-arc> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-arc-length               :accessor ac-arc-length               :initarg :ac-arc-length               :initform nil :documentation "ac-arc-length")
@@ -33,4 +33,4 @@
 
 (defparameter *acad-arc-properties* '(ac-application ac-arc-length ac-area ac-center ac-document ac-end-angle ac-end-point ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-radius ac-start-angle ac-start-point ac-thickness ac-total-angle ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-arc-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-arc-properties* *acad-entity-properties*))

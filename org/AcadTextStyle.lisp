@@ -1,4 +1,4 @@
-(defclass acad-text-style (acad-object)
+(defclass <acad-text-style> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-big-font-file            :accessor ac-big-font-file            :initarg :ac-big-font-file            :initform nil :documentation "ac-big-font-file")
@@ -20,4 +20,4 @@
 
 (defparameter *acad-text-style-properties* '(ac-application ac-big-font-file ac-document ac-font-file ac-handle ac-has-extension-dictionary ac-height ac-last-height ac-name ac-object-id ac-object-name ac-oblique-angle ac-owner-id ac-text-generation-flag ac-width))
 
-(mapcar #'make-slot (set-difference *acad-text-style-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-text-style-properties* *acad-object-properties*))

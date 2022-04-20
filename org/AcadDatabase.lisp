@@ -1,4 +1,4 @@
-(defclass acad-database (object)
+(defclass <acad-database> (<object>)
   (
   (ac-blocks                   :accessor ac-blocks                   :initarg :ac-blocks                   :initform nil :documentation "ac-blocks")
   (ac-dictionaries             :accessor ac-dictionaries             :initarg :ac-dictionaries             :initform nil :documentation "ac-dictionaries")
@@ -27,4 +27,4 @@
 
 (defparameter *acad-database-properties* '(ac-blocks ac-dictionaries ac-dim-styles ac-elevation-model-space ac-elevation-paper-space ac-groups ac-layers ac-layouts ac-limits ac-linetypes ac-material ac-model-space ac-paper-space ac-plot-configurations ac-preferences ac-registered-applications ac-section-manager ac-summary-info ac-text-styles ac-user-coordinate-systems ac-viewports ac-views))
 
-(mapcar #'make-slot (set-difference *acad-database-properties* *object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-database-properties* *object-properties*))

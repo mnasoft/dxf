@@ -1,4 +1,4 @@
-(defclass acad-shape (acad-entity)
+(defclass <acad-shape> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
@@ -30,4 +30,4 @@
 
 (defparameter *acad-shape-properties* '(ac-application ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-normal ac-object-id ac-object-name ac-oblique-angle ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-thickness ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-shape-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-shape-properties* *acad-entity-properties*))

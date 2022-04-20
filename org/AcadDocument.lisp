@@ -1,4 +1,4 @@
-(defclass acad-document (acad-database)
+(defclass <acad-document> (<acad-database>)
   (
   (ac-active                   :accessor ac-active                   :initarg :ac-active                   :initform nil :documentation "ac-active")
   (ac-active-dim-style         :accessor ac-active-dim-style         :initarg :ac-active-dim-style         :initform nil :documentation "ac-active-dim-style")
@@ -57,4 +57,4 @@
 
 (defparameter *acad-document-properties* '(ac-active ac-active-dim-style ac-active-layer ac-active-layout ac-active-linetype ac-active-material ac-active-p-viewport ac-active-selection-set ac-active-space ac-active-text-style ac-active-ucs ac-active-viewport ac-application ac-blocks ac-database ac-dictionaries ac-dim-styles ac-elevation-model-space ac-elevation-paper-space ac-full-name ac-groups ac-height ac-hwnd ac-layers ac-layouts ac-limits ac-linetypes ac-materials ac-model-space ac-m-space ac-name ac-object-snap-mode ac-paper-space ac-path ac-pickfirst-selection-set ac-plot ac-plot-configurations ac-preferences ac-read-only ac-registered-applications ac-saved ac-section-manager ac-selection-sets ac-summary-info ac-text-styles ac-user-coordinate-systems ac-utility ac-viewports ac-views ac-width ac-window-state ac-window-title))
 
-(mapcar #'make-slot (set-difference *acad-document-properties* *acad-database-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-document-properties* *acad-database-properties*))

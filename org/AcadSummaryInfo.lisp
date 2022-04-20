@@ -1,4 +1,4 @@
-(defclass acad-summary-info (object)
+(defclass <acad-summary-info> (<object>)
   (
   (ac-author                   :accessor ac-author                   :initarg :ac-author                   :initform nil :documentation "ac-author")
   (ac-comments                 :accessor ac-comments                 :initarg :ac-comments                 :initform nil :documentation "ac-comments")
@@ -13,4 +13,4 @@
 
 (defparameter *acad-summary-info-properties* '(ac-author ac-comments ac-hyperlink-base ac-keywords ac-last-saved-by ac-revision-number ac-subject ac-title))
 
-(mapcar #'make-slot (set-difference *acad-summary-info-properties* *object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-summary-info-properties* *object-properties*))

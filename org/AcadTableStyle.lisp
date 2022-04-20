@@ -1,4 +1,4 @@
-(defclass acad-table-style (acad-object)
+(defclass <acad-table-style> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-bit-flags                :accessor ac-bit-flags                :initarg :ac-bit-flags                :initform nil :documentation "ac-bit-flags")
@@ -22,4 +22,4 @@
 
 (defparameter *acad-table-style-properties* '(ac-application ac-bit-flags ac-description ac-document ac-flow-direction ac-handle ac-has-extension-dictionary ac-header-suppressed ac-horz-cell-margin ac-name ac-num-cell-styles ac-object-id ac-object-name ac-owner-id ac-template-id ac-title-suppressed ac-vert-cell-margin))
 
-(mapcar #'make-slot (set-difference *acad-table-style-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-table-style-properties* *acad-object-properties*))

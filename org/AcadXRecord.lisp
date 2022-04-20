@@ -1,4 +1,4 @@
-(defclass acad-x-record (acad-object)
+(defclass <acad-x-record> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
@@ -12,6 +12,8 @@
   )
   (:documentation "XRecord objects are used to store and manage arbitrary data."))
 
+(closer-mop:class-slots (find-class '<acad-x-record>))
+
 (defparameter *acad-x-record-properties* '(ac-application ac-document ac-handle ac-has-extension-dictionary ac-name ac-object-id ac-object-name ac-owner-id ac-translate-i-ds))
 
-(mapcar #'make-slot (set-difference *acad-x-record-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-x-record-properties* *acad-object-properties*))

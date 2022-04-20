@@ -1,4 +1,4 @@
-(defclass acad-group (acad-object)
+(defclass <acad-group> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-count                    :accessor ac-count                    :initarg :ac-count                    :initform nil :documentation "ac-count")
@@ -22,4 +22,4 @@
 
 (defparameter *acad-group-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-group-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-group-properties* *acad-object-properties*))

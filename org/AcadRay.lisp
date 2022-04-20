@@ -1,4 +1,4 @@
-(defclass acad-ray (acad-entity)
+(defclass <acad-ray> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-base-point               :accessor ac-base-point               :initarg :ac-base-point               :initform nil :documentation "ac-base-point")
@@ -25,4 +25,4 @@
 
 (defparameter *acad-ray-properties* '(ac-application ac-base-point ac-direction-vector ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-second-point ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-ray-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-ray-properties* *acad-entity-properties*))

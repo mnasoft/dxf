@@ -1,4 +1,4 @@
-(defclass acad-circle (acad-entity)
+(defclass <acad-circle> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-area                     :accessor ac-area                     :initarg :ac-area                     :initform nil :documentation "ac-area")
@@ -29,4 +29,4 @@
 
 (defparameter *acad-circle-properties* '(ac-application ac-area ac-center ac-circumference ac-diameter ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-radius ac-thickness ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-circle-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-circle-properties* *acad-entity-properties*))

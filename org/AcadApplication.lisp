@@ -1,4 +1,4 @@
-(defclass acad-application (object)
+(defclass <acad-application> (<object>)
   (
   (ac-active-document          :accessor ac-active-document          :initarg :ac-active-document          :initform nil :documentation "ac-active-document")
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
@@ -26,4 +26,4 @@
 
 (defparameter *acad-application-properties* '(ac-active-document ac-application ac-caption ac-documents ac-full-name ac-height ac-hwnd ac-locale-id ac-menu-bar ac-menu-groups ac-name ac-path ac-preferences ac-status-id ac-vbe ac-version ac-visible ac-width ac-window-left ac-window-state ac-window-top))
 
-(mapcar #'make-slot (set-difference *acad-application-properties* *object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-application-properties* *object-properties*))

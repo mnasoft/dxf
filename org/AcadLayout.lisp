@@ -1,4 +1,4 @@
-(defclass acad-layout (acad-plot-configuration)
+(defclass <acad-layout> (<acad-plot-configuration>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-block                    :accessor ac-block                    :initarg :ac-block                    :initform nil :documentation "ac-block")
@@ -34,4 +34,4 @@
 
 (defparameter *acad-layout-properties* '(ac-application ac-block ac-canonical-media-name ac-center-plot ac-config-name ac-document ac-handle ac-has-extension-dictionary ac-model-type ac-name ac-object-id ac-object-name ac-owner-id ac-paper-units ac-plot-hidden ac-plot-origin ac-plot-rotation ac-plot-type ac-plot-viewport-borders ac-plot-viewports-first ac-plot-with-lineweights ac-plot-with-plot-styles ac-scale-lineweights ac-show-plot-styles ac-standard-scale ac-style-sheet ac-tab-order ac-use-standard-scale ac-view-to-plot))
 
-(mapcar #'make-slot (set-difference *acad-layout-properties* *acad-plot-configuration-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-layout-properties* *acad-plot-configuration-properties*))

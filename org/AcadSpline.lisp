@@ -1,4 +1,4 @@
-(defclass acad-spline (acad-entity)
+(defclass <acad-spline> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-area                     :accessor ac-area                     :initarg :ac-area                     :initform nil :documentation "ac-area")
@@ -42,4 +42,4 @@
 
 (defparameter *acad-spline-properties* '(ac-application ac-area ac-closed ac-closed2 ac-control-points ac-degree ac-degree2 ac-document ac-end-tangent ac-entity-transparency ac-fit-points ac-fit-tolerance ac-handle ac-has-extension-dictionary ac-hyperlinks ac-is-periodic ac-is-planar ac-is-rational ac-knot-parameterization ac-knots ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-number-of-control-points ac-number-of-fit-points ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-spline-frame ac-spline-method ac-start-tangent ac-true-color ac-visible ac-weights))
 
-(mapcar #'make-slot (set-difference *acad-spline-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-spline-properties* *acad-entity-properties*))

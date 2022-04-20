@@ -1,4 +1,4 @@
-(defclass acad-attribute-reference (acad-entity)
+(defclass <acad-attribute-reference> (<acad-entity>)
   (
   (ac-alignment                :accessor ac-alignment                :initarg :ac-alignment                :initform nil :documentation "ac-alignment")
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
@@ -45,4 +45,4 @@
 
 (defparameter *acad-attribute-reference-properties* '(ac-alignment ac-application ac-backward ac-constant ac-document ac-entity-transparency ac-field-length ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-invisible ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-lock-position ac-material ac-m-text-attribute ac-m-text-attribute-content ac-m-text-boundary-width ac-m-text-drawing-direction ac-normal ac-object-id ac-object-name ac-oblique-angle ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-style-name ac-tag-string ac-text-alignment-point ac-text-generation-flag ac-text-string ac-thickness ac-true-color ac-upside-down ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-attribute-reference-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-attribute-reference-properties* *acad-entity-properties*))

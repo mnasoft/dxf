@@ -1,4 +1,4 @@
-(defclass acad-helix (acad-entity)
+(defclass <acad-helix> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-base-radius              :accessor ac-base-radius              :initarg :ac-base-radius              :initform nil :documentation "ac-base-radius")
@@ -32,4 +32,4 @@
 
 (defparameter *acad-helix-properties* '(ac-application ac-base-radius ac-constrain ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-top-radius ac-total-length ac-true-color ac-turn-height ac-turns ac-turn-slope ac-twist ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-helix-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-helix-properties* *acad-entity-properties*))

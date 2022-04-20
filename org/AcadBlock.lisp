@@ -1,4 +1,4 @@
-(defclass acad-block (acad-object)
+(defclass <acad-block> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-block-scaling            :accessor ac-block-scaling            :initarg :ac-block-scaling            :initform nil :documentation "ac-block-scaling")
@@ -26,4 +26,4 @@
 
 (defparameter *acad-block-properties* '(ac-application ac-block-scaling ac-comments ac-count ac-document ac-explodable ac-handle ac-has-extension-dictionary ac-is-dynamic-block ac-is-layout ac-is-x-ref ac-layout ac-material ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-path ac-units ac-x-ref-database))
 
-(mapcar #'make-slot (set-difference *acad-block-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-block-properties* *acad-object-properties*))

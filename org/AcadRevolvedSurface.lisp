@@ -1,4 +1,4 @@
-(defclass acad-revolved-surface (acad-surface)
+(defclass <acad-revolved-surface> (<acad-surface>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-axis-direction           :accessor ac-axis-direction           :initarg :ac-axis-direction           :initform nil :documentation "ac-axis-direction")
@@ -33,4 +33,4 @@
 
 (defparameter *acad-revolved-surface-properties* '(ac-application ac-axis-direction ac-axis-position ac-document ac-edge-extension-distances ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-maintain-associativity ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-revolution-angle ac-show-associativity ac-surface-type ac-surf-trim-associativity ac-true-color ac-u-isoline-density ac-visible ac-v-isoline-density ac-wireframe-type))
 
-(mapcar #'make-slot (set-difference *acad-revolved-surface-properties* *acad-surface-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-revolved-surface-properties* *acad-surface-properties*))

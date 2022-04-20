@@ -1,4 +1,4 @@
-(defclass acad-section-settings (acad-object)
+(defclass <acad-section-settings> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-current-section-type     :accessor ac-current-section-type     :initarg :ac-current-section-type     :initform nil :documentation "ac-current-section-type")
@@ -13,4 +13,4 @@
 
 (defparameter *acad-section-settings-properties* '(ac-application ac-current-section-type ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 
-(mapcar #'make-slot (set-difference *acad-section-settings-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-section-settings-properties* *acad-object-properties*))

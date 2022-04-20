@@ -1,4 +1,4 @@
-(defclass acad-m-line (acad-entity)
+(defclass <acad-m-line> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-coordinates              :accessor ac-coordinates              :initarg :ac-coordinates              :initform nil :documentation "ac-coordinates")
@@ -26,4 +26,4 @@
 
 (defparameter *acad-m-line-properties* '(ac-application ac-coordinates ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-justification ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-m-line-scale ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-style-name ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-m-line-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-m-line-properties* *acad-entity-properties*))

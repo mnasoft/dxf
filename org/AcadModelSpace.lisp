@@ -1,4 +1,4 @@
-(defclass acad-model-space (acad-block)
+(defclass <acad-model-space> (<acad-block>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-comments                 :accessor ac-comments                 :initarg :ac-comments                 :initform nil :documentation "ac-comments")
@@ -18,4 +18,4 @@
 
 (defparameter *acad-model-space-properties* '(ac-application ac-comments ac-count ac-document ac-handle ac-has-extension-dictionary ac-layout ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-units))
 
-(mapcar #'make-slot (set-difference *acad-model-space-properties* *acad-block-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-model-space-properties* *acad-block-properties*))

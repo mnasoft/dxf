@@ -1,4 +1,4 @@
-(defclass acad-point-cloud (acad-entity)
+(defclass <acad-point-cloud> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
@@ -38,4 +38,4 @@
 
 (defparameter *acad-point-cloud-properties* '(ac-application ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-intensity-color-scheme ac-layer ac-length ac-linetype ac-linetype-scale ac-lineweight ac-locked ac-material ac-name ac-object-id ac-object-name ac-owner-id ac-path ac-plot-style-name ac-rotation ac-scale ac-show-clipped ac-show-intensity ac-stylization ac-true-color ac-unit ac-unit-factor ac-use-entity-color ac-visible ac-width))
 
-(mapcar #'make-slot (set-difference *acad-point-cloud-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-point-cloud-properties* *acad-entity-properties*))

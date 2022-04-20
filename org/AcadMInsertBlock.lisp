@@ -1,4 +1,4 @@
-(defclass acad-m-insert-block (acad-block-reference)
+(defclass <acad-m-insert-block> (<acad-block-reference>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-columns                  :accessor ac-columns                  :initarg :ac-columns                  :initform nil :documentation "ac-columns")
@@ -41,4 +41,4 @@
 
 (defparameter *acad-m-insert-block-properties* '(ac-application ac-columns ac-column-spacing ac-document ac-effective-name ac-entity-transparency ac-handle ac-has-attributes ac-has-extension-dictionary ac-hyperlinks ac-insertion-point ac-ins-units ac-ins-units-factor ac-is-dynamic-block ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-rotation ac-rows ac-row-spacing ac-true-color ac-visible ac-x-effective-scale-factor ac-x-scale-factor ac-y-effective-scale-factor ac-y-scale-factor ac-z-effective-scale-factor ac-z-scale-factor))
 
-(mapcar #'make-slot (set-difference *acad-m-insert-block-properties* *acad-block-reference-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-m-insert-block-properties* *acad-block-reference-properties*))

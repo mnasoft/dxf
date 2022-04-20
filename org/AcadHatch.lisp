@@ -1,4 +1,4 @@
-(defclass acad-hatch (acad-entity)
+(defclass <acad-hatch> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-area                     :accessor ac-area                     :initarg :ac-area                     :initform nil :documentation "ac-area")
@@ -43,4 +43,4 @@
 
 (defparameter *acad-hatch-properties* '(ac-application ac-area ac-associative-hatch ac-background-color ac-document ac-elevation ac-entity-transparency ac-gradient-angle ac-gradient-centered ac-gradient-color1 ac-gradient-color2 ac-gradient-name ac-handle ac-has-extension-dictionary ac-hatch-object-type ac-hatch-style ac-hyperlinks ac-iso-pen-width ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-number-of-loops ac-object-id ac-object-name ac-origin ac-owner-id ac-pattern-angle ac-pattern-double ac-pattern-name ac-pattern-scale ac-pattern-space ac-pattern-type ac-plot-style-name ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-hatch-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-hatch-properties* *acad-entity-properties*))

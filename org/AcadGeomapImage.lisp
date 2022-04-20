@@ -1,4 +1,4 @@
-(defclass acad-geomap-image (acad-raster-image)
+(defclass <acad-geomap-image> (<acad-raster-image>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-brightness               :accessor ac-brightness               :initarg :ac-brightness               :initform nil :documentation "ac-brightness")
@@ -44,4 +44,4 @@
 
 (defparameter *acad-geomap-image-properties* '(ac-application ac-brightness ac-clipping-enabled ac-contrast ac-document ac-entity-transparency ac-fade ac-geo-image-brightness ac-geo-image-contrast ac-geo-image-fade ac-geo-image-height ac-geo-image-position ac-geo-image-width ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-image-file ac-image-height ac-image-visibility ac-image-width ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-show-rotation ac-transparency ac-true-color ac-visible ac-width))
 
-(mapcar #'make-slot (set-difference *acad-geomap-image-properties* *acad-raster-image-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-geomap-image-properties* *acad-raster-image-properties*))

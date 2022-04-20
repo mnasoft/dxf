@@ -1,4 +1,4 @@
-(defclass acad-uc-ss (acad-object)
+(defclass <acad-uc-ss> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-count                    :accessor ac-count                    :initarg :ac-count                    :initform nil :documentation "ac-count")
@@ -13,4 +13,4 @@
 
 (defparameter *acad-uc-ss-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 
-(mapcar #'make-slot (set-difference *acad-uc-ss-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-uc-ss-properties* *acad-object-properties*))

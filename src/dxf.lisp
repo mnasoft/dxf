@@ -12,7 +12,6 @@
            split-entities
            )
   (:export *line-weight-enum*
-           *dxf-header*
            )
   (:export *h-vars-list-min*
            *h-vars-list*
@@ -27,7 +26,8 @@
            *object-properties*
            )
   (:export <acad-object>
-           <acad-entity>
+           )
+  (:export <acad-entity>
            <acad-line>
            <acad-point>
            <acad-ray>
@@ -36,9 +36,8 @@
            <acad-arc>
            <acad-text>
            <acad-ellipse>
-           <acad-layer>
-           <acad-layers>
-           <acad-documents>
+           )
+  (:export <acad-documents>
            <acad-database>
            <acad-document>
            <acad-linetype>
@@ -53,8 +52,11 @@
            <db-symbol-tbl>
            <acad-blocks>
            <db-block-rec>
-           <db-object>
-           <db-symbol-tr>
+           <db-object>)
+  (:export <db-symbol-tr>
+           <acad-layer>
+           <acad-layers>
+
            <db-regapp-tr>
            <db-block-tr>
            <db-dimstyle-tr>
@@ -117,6 +119,8 @@
   (:documentation "
 @begin(enum)
   @item(
+    @link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A809CD71-4655-44E2-B674-1FE200B9FE30\"](Object Model (ActiveX)))
+  @item(
     @link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7D07C886-FD1D-4A0C-A7AB-B4D21F18E484\"](Раздел ENTITIES файла DXF)
     @begin(list)
       @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3610039E-27D1-4E23-B6D3-7E60B22BB5BD\"](Общие групповые коды объектов (DXF)))
@@ -167,7 +171,7 @@
       @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A\"](XLINE (DXF));)
    @end(list))
 @end(enum)"
-   ))
+                  ))
 
 (in-package #:dxf)
 
@@ -246,17 +250,12 @@
 ;;;; dxf.lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *dxf-header*
-  (format nil "AutoCAD Binary DXF~C~%~C~C"
-                 (code-char 13)
-                 (code-char 26)
-                 (code-char 0)))
-
 (defun dxf-out-t-header (stream) stream)
 
 (defun dxf-out-b-header (stream)
-  (write-sequence (babel:string-to-octets *dxf-header*)
+  (write-sequence (babel:string-to-octets dxf/const:*autocad-binary-dxf-22*)
                   stream))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; header-section-group-codes-list.lisp
@@ -572,14 +571,6 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; db-classes.lisp
 
-(defun make-slot (el)
-  "Вспмогательная функция для формирования слотов"
-  (list  el
-	 :accessor el
-	 :initarg (read-from-string (concatenate 'string ":"(symbol-name el)))
-	 :initform nil
-	 :documentation (symbol-name el)))
-
 (defparameter *radian-to-degree* (/ 180 pi))
 
 (defparameter *degree-to-radian* (/ pi 180))
@@ -646,7 +637,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defparameter *acad-object-properties* '(Application Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
 
-(mapcar #'make-slot (set-difference *acad-object-properties* *object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-object-properties* *object-properties*))
 
 (defgeneric dxf-out-text (object stream)
   (:documentation
@@ -750,7 +741,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defparameter *acad-entity-properties* '(Application Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName TrueColor Visible))
 
-(reverse (mapcar #'make-slot (set-difference *acad-entity-properties* *acad-object-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-entity-properties* *acad-object-properties*)))
 
 ;;;;
 
@@ -979,7 +970,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defparameter *acad-point-properties* '(Application Coordinates Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Thickness TrueColor Visible))
 
-(mapcar #'make-slot (set-difference *acad-point-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-point-properties* *acad-entity-properties*))
 
 (defmethod dxf-out-text ((x <acad-point>) stream)
     (dxf/out/txt:pair 0 *acad-point-class-marker* stream))
@@ -1066,7 +1057,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defparameter *acad-ray-properties* '(Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible))
 
-(mapcar #'make-slot (set-difference *acad-ray-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-ray-properties* *acad-entity-properties*))
 
 ;;;;
 
@@ -1134,7 +1125,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defparameter *acad-xline-properties* '(Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible))
 
-(reverse (mapcar #'make-slot (set-difference *acad-xline-properties* *acad-entity-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-xline-properties* *acad-entity-properties*)))
 
 (defmethod dxf-out-text ((x <acad-xline>) stream)
   (dxf/out/txt:pair 0 *acad-xline-class-marker* stream))
@@ -1303,7 +1294,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defparameter *acad-arc-properties* '(Application ArcLength Area Center Document EndAngle EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Radius StartAngle StartPoint Thickness TotalAngle TrueColor Visible))
 
-(reverse (mapcar #'make-slot (set-difference *acad-arc-properties* *acad-entity-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-arc-properties* *acad-entity-properties*)))
 
 (defmethod dxf-out-text ((x <acad-arc>) stream)
   (dxf/out/txt:pair 0 *acad-arc-class-marker* stream))
@@ -1421,7 +1412,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defparameter *acad-text-properties* '(Alignment Application Backward Document EntityTransparency Handle HasExtensionDictionary Height Hyperlinks InsertionPoint Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName ObliqueAngle OwnerID PlotStyleName Rotation ScaleFactor StyleName TextAlignmentPoint TextGenerationFlag TextString Thickness TrueColor UpsideDown Visible))
 
-(mapcar #'make-slot (set-difference *acad-text-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-text-properties* *acad-entity-properties*))
 
 
 (defmethod dxf-out-text ((x <acad-text>) stream)
@@ -1536,7 +1527,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defparameter *acad-acad-ellipse-properties* '(Application Area Center Document EndAngle EndParameter EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight MajorAxis MajorRadius Material MinorAxis MinorRadius Normal ObjectID ObjectName OwnerID PlotStyleName RadiusRatio StartAngle StartParameter StartPoint TrueColor Visible))
 
-(reverse (mapcar #'make-slot (set-difference *acad-acad-ellipse-properties* *acad-entity-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-acad-ellipse-properties* *acad-entity-properties*)))
 
 (defmethod dxf-out-text ((x <acad-ellipse>) stream)
   (dxf/out/txt:pair 0 *acad-ellipse-class-marker* stream))
@@ -1664,7 +1655,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-1
 
 (defparameter *acad-layer-properties* '(Application Description Document Freeze Handle HasExtensionDictionary LayerOn Linetype Lineweight Lock Material Name ObjectID ObjectName OwnerID PlotStyleName Plottable TrueColor Used  ViewportDefault ))
 
-(reverse (mapcar #'make-slot (set-difference *acad-layer-properties* *acad-object-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-layer-properties* *acad-object-properties*)))
 
 ;;;;
 
@@ -1781,7 +1772,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-1
 
 (defparameter *acad-layers-properties* '(Application A-Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
 
-(reverse (mapcar #'make-slot (set-difference *acad-layers-properties* *acad-object-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-layers-properties* *acad-object-properties*)))
 
 (defmethod dxf-out-text ((x <acad-layers>) stream)
   (dxf/out/txt:pair 2 *acad-layer-class-marker* stream))
@@ -1860,7 +1851,7 @@ The contents of an XRef block.
 
 (defparameter *acad-database-properties* '(Blocks Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace Groups Layers Layouts Limits Linetypes Material ModelSpace PaperSpace PlotConfigurations Preferences RegisteredApplications SectionManager SummaryInfo TextStyles UserCoordinateSystems Viewports Views))
 
-(mapcar #'make-slot (set-difference *acad-database-properties* nil))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-database-properties* nil))
 
 (defclass <acad-document> (<acad-database>)
   ((active                :accessor active                :initarg :active                :initform nil :documentation "active")
@@ -1907,7 +1898,7 @@ The contents of an XRef block.
 
 (defparameter *acad-document-properties* '( Active ActiveDimStyle ActiveLayer ActiveLayout ActiveLinetype ActiveMaterial ActivePViewport ActiveSelectionSet ActiveSpace ActiveTextStyle ActiveUCS ActiveViewport Application Blocks Database Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace FullName Groups Height HWND Layers Layouts Limits Linetypes Materials ModelSpace MSpace Name ObjectSnapMode PaperSpace Path PickfirstSelectionSet Plot PlotConfigurations Preferences ReadOnly RegisteredApplications Saved SectionManager SelectionSets SummaryInfo TextStyles UserCoordinateSystems Utility Viewports Views Width WindowState WindowTitle))
 
-(reverse (mapcar #'make-slot (set-difference *acad-document-properties* *acad-database-properties*)) )
+(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-document-properties* *acad-database-properties*)) )
 
 
 (defmethod  dxf-in-text  ((object <acad-document>) (sections cons))
@@ -2010,7 +2001,7 @@ https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F57A316C-94A2-416C-8280-1
 
 (defparameter *acad-linetype-properties* '(Application Description Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID))
 
-(mapcar #'make-slot (set-difference *acad-linetype-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-linetype-properties* *acad-object-properties*))
 
 (defmethod dxf-out-text ((x <acad-linetype>) stream)
   (dxf/out/txt:pair 0 *acad-linetype-class-marker* stream))
@@ -2064,7 +2055,7 @@ https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F57A316C-94A2-416C-8280-1
 
 (defparameter *acad-linetypes-properties* '(Application A-Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
 
-(reverse (mapcar #'make-slot (set-difference *acad-linetypes-properties* *acad-object-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-linetypes-properties* *acad-object-properties*)))
 
 (defmethod dxf-in-text  ((object <acad-linetypes>) (tables cons))
 ;;;  (assert (equal (assoc 0 pairs :test #'equal) (list 0 *acad-ellipse-class-marker*)))

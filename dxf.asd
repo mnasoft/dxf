@@ -154,6 +154,17 @@
 			     (:file "dxf-text")
 			     (:file "main-run")))))
 
+(defsystem "dxf/utils"
+  :description
+  "@b(Описание:) система @b(dxf/utils) содержит вспомогательные 
+ функции для построения кода."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :components ((:module "src/utils"
+		:serial t
+		:components ((:file "utils")))))
+
+
 (defsystem "dxf/docs"
   :description "Зависимости для сборки документации"
   :author "Nick Matvyeyev <mnasoft@gmail.com>"

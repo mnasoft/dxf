@@ -1,4 +1,4 @@
-(defclass acad-mtext (acad-entity)
+(defclass <acad-mtext> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-attachment-point         :accessor ac-attachment-point         :initarg :ac-attachment-point         :initform nil :documentation "ac-attachment-point")
@@ -35,4 +35,4 @@
 
 (defparameter *acad-mtext-properties* '(ac-application ac-attachment-point ac-background-fill ac-document ac-drawing-direction ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-layer ac-line-spacing-distance ac-line-spacing-factor ac-line-spacing-style ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-rotation ac-style-name ac-text-string ac-true-color ac-visible ac-width))
 
-(mapcar #'make-slot (set-difference *acad-mtext-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-mtext-properties* *acad-entity-properties*))

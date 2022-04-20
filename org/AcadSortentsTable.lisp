@@ -1,4 +1,4 @@
-(defclass acad-sortents-table (acad-object)
+(defclass <acad-sortents-table> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
@@ -12,4 +12,4 @@
 
 (defparameter *acad-sortents-table-properties* '(ac-application ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 
-(mapcar #'make-slot (set-difference *acad-sortents-table-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-sortents-table-properties* *acad-object-properties*))

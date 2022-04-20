@@ -1,4 +1,4 @@
-(defclass acad-tolerance (acad-entity)
+(defclass <acad-tolerance> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-dimension-line-color     :accessor ac-dimension-line-color     :initarg :ac-dimension-line-color     :initform nil :documentation "ac-dimension-line-color")
@@ -32,4 +32,4 @@
 
 (defparameter *acad-tolerance-properties* '(ac-application ac-dimension-line-color ac-direction-vector ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-scale-factor ac-style-name ac-text-color ac-text-height ac-text-string ac-text-style ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-tolerance-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-tolerance-properties* *acad-entity-properties*))

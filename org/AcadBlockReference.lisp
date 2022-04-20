@@ -1,4 +1,4 @@
-(defclass acad-block-reference (acad-entity)
+(defclass <acad-block-reference> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
@@ -37,4 +37,4 @@
 
 (defparameter *acad-block-reference-properties* '(ac-application ac-document ac-effective-name ac-entity-transparency ac-handle ac-has-attributes ac-has-extension-dictionary ac-hyperlinks ac-insertion-point ac-ins-units ac-ins-units-factor ac-is-dynamic-block ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-rotation ac-true-color ac-visible ac-x-effective-scale-factor ac-x-scale-factor ac-y-effective-scale-factor ac-y-scale-factor ac-z-effective-scale-factor ac-z-scale-factor))
 
-(mapcar #'make-slot (set-difference *acad-block-reference-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-block-reference-properties* *acad-entity-properties*))

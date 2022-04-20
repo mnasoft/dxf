@@ -1,4 +1,4 @@
-(defclass acad-dynamic-block-reference-property (object)
+(defclass <acad-dynamic-block-reference-property> (<object>)
   (
   (ac-allowed-values           :accessor ac-allowed-values           :initarg :ac-allowed-values           :initform nil :documentation "ac-allowed-values")
   (ac-description              :accessor ac-description              :initarg :ac-description              :initform nil :documentation "ac-description")
@@ -12,4 +12,4 @@
 
 (defparameter *acad-dynamic-block-reference-property-properties* '(ac-allowed-values ac-description ac-property-name ac-read-only ac-show ac-units-type ac-value))
 
-(mapcar #'make-slot (set-difference *acad-dynamic-block-reference-property-properties* *object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-dynamic-block-reference-property-properties* *object-properties*))

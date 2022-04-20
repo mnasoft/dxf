@@ -1,4 +1,4 @@
-(defclass acad-geo-position-marker (acad-entity)
+(defclass <acad-geo-position-marker> (<acad-entity>)
   (
   (ac-altitude                 :accessor ac-altitude                 :initarg :ac-altitude                 :initform nil :documentation "ac-altitude")
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
@@ -40,4 +40,4 @@
 
 (defparameter *acad-geo-position-marker-properties* '(ac-altitude ac-application ac-background-fill ac-document ac-drawing-direction ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-landing-gap ac-latitude ac-layer ac-line-spacing-distance ac-line-spacing-factor ac-line-spacing-style ac-linetype ac-linetype-scale ac-lineweight ac-longitude ac-material ac-notes ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-radius ac-rotation ac-text-frame-display ac-text-justify ac-text-string ac-text-style-name ac-text-width ac-true-color ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-geo-position-marker-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-geo-position-marker-properties* *acad-entity-properties*))

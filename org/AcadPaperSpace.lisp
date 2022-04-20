@@ -1,4 +1,4 @@
-(defclass acad-paper-space (acad-block)
+(defclass <acad-paper-space> (<acad-block>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-count                    :accessor ac-count                    :initarg :ac-count                    :initform nil :documentation "ac-count")
@@ -15,4 +15,4 @@
 
 (defparameter *acad-paper-space-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-layout ac-name ac-object-id ac-object-name ac-owner-id))
 
-(mapcar #'make-slot (set-difference *acad-paper-space-properties* *acad-block-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-paper-space-properties* *acad-block-properties*))

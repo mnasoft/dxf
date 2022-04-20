@@ -1,4 +1,4 @@
-(defclass acad-dim-angular (acad-dimension)
+(defclass <acad-dim-angular> (<acad-dimension>)
   (
   (ac-angle-format             :accessor ac-angle-format             :initarg :ac-angle-format             :initform nil :documentation "ac-angle-format")
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
@@ -91,4 +91,4 @@
 
 (defparameter *acad-dim-angular-properties* '(ac-angle-format ac-application ac-arrowhead1-block ac-arrowhead1-type ac-arrowhead2-block ac-arrowhead2-type ac-arrowhead-size ac-decimal-separator ac-dim-constr-desc ac-dim-constr-expression ac-dim-constr-form ac-dim-constr-name ac-dim-constr-reference ac-dim-constr-value ac-dimension-line-color ac-dimension-linetype ac-dimension-line-weight ac-dim-line1-suppress ac-dim-line2-suppress ac-dim-line-inside ac-dim-txt-direction ac-document ac-entity-transparency ac-extension-line-color ac-extension-line-extend ac-extension-line-offset ac-extension-line-weight ac-ext-line1-end-point ac-ext-line1-linetype ac-ext-line1-start-point ac-ext-line1-suppress ac-ext-line2-end-point ac-ext-line2-linetype ac-ext-line2-start-point ac-ext-line2-suppress ac-ext-line-fixed-len ac-ext-line-fixed-len-suppress ac-fit ac-force-line-inside ac-handle ac-has-extension-dictionary ac-horizontal-text-position ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-measurement ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-style-name ac-suppress-leading-zeros ac-suppress-trailing-zeros ac-text-color ac-text-fill ac-text-fill-color ac-text-gap ac-text-height ac-text-inside ac-text-inside-align ac-text-movement ac-text-outside-align ac-text-override ac-text-position ac-text-precision ac-text-prefix ac-text-rotation ac-text-style ac-text-suffix ac-tolerance-display ac-tolerance-height-scale ac-tolerance-justification ac-tolerance-lower-limit ac-tolerance-precision ac-tolerance-suppress-leading-zeros ac-tolerance-suppress-trailing-zeros ac-tolerance-upper-limit ac-true-color ac-vertical-text-position ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-dim-angular-properties* *acad-dimension-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-dim-angular-properties* *acad-dimension-properties*))

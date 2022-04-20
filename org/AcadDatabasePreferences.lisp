@@ -1,4 +1,4 @@
-(defclass acad-database-preferences (object)
+(defclass <acad-database-preferences> (<object>)
   (
   (ac-allow-long-symbol-names  :accessor ac-allow-long-symbol-names  :initarg :ac-allow-long-symbol-names  :initform nil :documentation "ac-allow-long-symbol-names")
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
@@ -25,4 +25,4 @@
 
 (defparameter *acad-database-preferences-properties* '(ac-allow-long-symbol-names ac-application ac-contourlines-per-surface ac-display-silhouette ac-lineweight ac-lineweight-display ac-max-active-viewports ac-object-sort-by-plotting ac-object-sort-by-ps-output ac-object-sort-by-redraws ac-object-sort-by-regens ac-object-sort-by-selection ac-object-sort-by-snap ac-ole-launch ac-render-smoothness ac-segment-per-polyline ac-solid-fill ac-text-frame-display ac-x-ref-edit ac-x-ref-layer-visibility))
 
-(mapcar #'make-slot (set-difference *acad-database-preferences-properties* *object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-database-preferences-properties* *object-properties*))

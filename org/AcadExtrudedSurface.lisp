@@ -1,4 +1,4 @@
-(defclass acad-extruded-surface (acad-surface)
+(defclass <acad-extruded-surface> (<acad-surface>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-direction                :accessor ac-direction                :initarg :ac-direction                :initform nil :documentation "ac-direction")
@@ -33,4 +33,4 @@
 
 (defparameter *acad-extruded-surface-properties* '(ac-application ac-direction ac-document ac-edge-extension-distances ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-maintain-associativity ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-show-associativity ac-surface-type ac-surf-trim-associativity ac-taper-angle ac-true-color ac-u-isoline-density ac-visible ac-v-isoline-density ac-wireframe-type))
 
-(mapcar #'make-slot (set-difference *acad-extruded-surface-properties* *acad-surface-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-extruded-surface-properties* *acad-surface-properties*))

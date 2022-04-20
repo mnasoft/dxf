@@ -1,4 +1,4 @@
-(defclass acad-linetype (acad-object)
+(defclass <acad-linetype> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-description              :accessor ac-description              :initarg :ac-description              :initform nil :documentation "ac-description")
@@ -14,4 +14,4 @@
 
 (defparameter *acad-linetype-properties* '(ac-application ac-description ac-document ac-handle ac-has-extension-dictionary ac-name ac-object-id ac-object-name ac-owner-id))
 
-(mapcar #'make-slot (set-difference *acad-linetype-properties* *acad-object-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-linetype-properties* *acad-object-properties*))

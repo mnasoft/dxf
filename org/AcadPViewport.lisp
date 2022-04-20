@@ -1,4 +1,4 @@
-(defclass acad-p-viewport (acad-entity)
+(defclass <acad-p-viewport> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-arc-smoothness           :accessor ac-arc-smoothness           :initarg :ac-arc-smoothness           :initform nil :documentation "ac-arc-smoothness")
@@ -50,4 +50,4 @@
 
 (defparameter *acad-p-viewport-properties* '(ac-application ac-arc-smoothness ac-center ac-clipped ac-custom-scale ac-direction ac-display-locked ac-document ac-entity-transparency ac-grid-on ac-handle ac-has-extension-dictionary ac-has-sheet-view ac-height ac-hyperlinks ac-label-block-id ac-layer ac-layer-property-overrides ac-lens-length ac-linetype ac-linetype-scale ac-lineweight ac-material ac-model-view ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-shade-plot ac-sheet-view ac-snap-base-point ac-snap-on ac-snap-rotation-angle ac-standard-scale ac-standard-scale2 ac-target ac-true-color ac-twist-angle ac-ucs-icon-at-origin ac-ucs-icon-on ac-ucs-per-viewport ac-viewport-on ac-visible ac-visual-style ac-width))
 
-(mapcar #'make-slot (set-difference *acad-p-viewport-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-p-viewport-properties* *acad-entity-properties*))

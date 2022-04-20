@@ -1,4 +1,4 @@
-(defclass acad-table (acad-entity)
+(defclass <acad-table> (<acad-entity>)
   (
   (ac-allow-manual-heights     :accessor ac-allow-manual-heights     :initarg :ac-allow-manual-heights     :initform nil :documentation "ac-allow-manual-heights")
   (ac-allow-manual-positions   :accessor ac-allow-manual-positions   :initarg :ac-allow-manual-positions   :initform nil :documentation "ac-allow-manual-positions")
@@ -50,4 +50,4 @@
 
 (defparameter *acad-table-properties* '(ac-allow-manual-heights ac-allow-manual-positions ac-application ac-breaks-enabled ac-break-spacing ac-columns ac-column-width ac-direction ac-document ac-enable-break ac-entity-transparency ac-flow-direction ac-handle ac-has-extension-dictionary ac-has-sub-selection ac-header-suppressed ac-height ac-horz-cell-margin ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-minimum-table-height ac-minimum-table-width ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-regenerate-table-suppressed ac-repeat-bottom-labels ac-repeat-top-labels ac-row-height ac-rows ac-style-name ac-table-break-flow-direction ac-table-break-height ac-table-style-overrides ac-title-suppressed ac-true-color ac-vert-cell-margin ac-visible ac-width))
 
-(mapcar #'make-slot (set-difference *acad-table-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-table-properties* *acad-entity-properties*))

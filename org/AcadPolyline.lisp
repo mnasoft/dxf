@@ -1,4 +1,4 @@
-(defclass acad-polyline (acad-entity)
+(defclass <acad-polyline> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
   (ac-area                     :accessor ac-area                     :initarg :ac-area                     :initform nil :documentation "ac-area")
@@ -33,4 +33,4 @@
 
 (defparameter *acad-polyline-properties* '(ac-application ac-area ac-closed ac-constant-width ac-coordinate ac-coordinates ac-document ac-elevation ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-length ac-linetype ac-linetype-generation ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-thickness ac-true-color ac-type ac-visible))
 
-(mapcar #'make-slot (set-difference *acad-polyline-properties* *acad-entity-properties*))
+(mapcar #'dxf/utils:make-slot (set-difference *acad-polyline-properties* *acad-entity-properties*))
