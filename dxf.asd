@@ -17,7 +17,8 @@
                "dxf/out/bin"               
                "dxf/vars"
                "dxf/in/txt"
-               "dxf/in/bin")
+               "dxf/in/bin"
+               "dxf/utils")
 ;;;; "babel" "ieee-floats"
   :components ((:module "src"
 		:serial t
