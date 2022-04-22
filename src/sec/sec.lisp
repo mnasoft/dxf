@@ -13,7 +13,10 @@
            *section-entities*
            *section-objects*
            *section-acdsdata*
-           *end-tab* ))
+           *end-tab*
+           )
+  (:export *section-names*
+           ))
 
 (in-package :dxf/sec)
 

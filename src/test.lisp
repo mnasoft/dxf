@@ -193,7 +193,7 @@
     (do* ((lst nil)
 	  (code (parse-integer (string-trim "" (read-line fff))) (parse-integer (string-trim "" (read-line fff)))) 
 	  (str (string-trim "" (read-line fff)) (string-trim "" (read-line fff))))
-	 ((and (= code 0) (string= str "EOF"))
+	 ((and (= code 0) (string= str dxf/sec:*eof*))
 	  (sort 
 	   (mapcar 
 	    #'(lambda (el)
@@ -207,7 +207,7 @@
     (do* ((lst nil)
 	  (code (parse-integer (string-trim "" (read-line fff))) (parse-integer (string-trim "" (read-line fff)))) 
 	  (str (string-trim "" (read-line fff)) (string-trim "" (read-line fff))))
-	 ((and (= code 0) (string= str "EOF"))
+	 ((and (= code 0) (string= str dxf/sec:*eof*))
 	  (sort 
 	   (mapcar 
 	    #'(lambda (el)

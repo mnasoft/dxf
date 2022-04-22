@@ -1940,25 +1940,25 @@ The contents of an XRef block.
     (mapc #'(lambda (header)
 	      (mapc #'(lambda (el) (dxf/out/txt:pair (first el) (second el) stream)) header))
 	  (sec-header x))
-    (dxf/out/txt:pair 0 "ENDSEC" stream))
+    (dxf/out/txt:pair 0 dxf/sec:*endsec* stream))
   (block section-classes
     (dxf/out/txt:pair 0 "SECTION" stream)
     (dxf/out/txt:pair 2 "CLASSES" stream)
     (mapc #'(lambda (class)
 	      (mapc #'(lambda (el) (dxf/out/txt:pair (first el) (second el) stream)) class))
 	  (sec-classes x))
-    (dxf/out/txt:pair 0 "ENDSEC" stream))
+    (dxf/out/txt:pair 0 dxf/sec:*endsec* stream))
   (block section-tables
     (dxf/out/txt:pair 0 "SECTION" stream)
     (dxf/out/txt:pair 2 "TABLES" stream)
 ;;;
-    (dxf/out/txt:pair 0 "ENDSEC" stream)
+    (dxf/out/txt:pair 0 dxf/sec:*endsec* stream)
     )
   (block section-blocks
     (dxf/out/txt:pair 0 "SECTION" stream)
     (dxf/out/txt:pair 2 "BLOCKS" stream)
 ;;;
-    (dxf/out/txt:pair 0 "ENDSEC" stream)
+    (dxf/out/txt:pair 0 dxf/sec:*endsec* stream)
     )
   (block section-entities
     (dxf/out/txt:pair 0 "SECTION" stream)
@@ -1970,16 +1970,16 @@ The contents of an XRef block.
     (dxf/out/txt:pair 0 "SECTION" stream)
     (dxf/out/txt:pair 2 "OBJECTS" stream)
 ;;;
-    (dxf/out/txt:pair 0 "ENDSEC" stream)
+    (dxf/out/txt:pair 0 dxf/sec:*endsec* stream)
     )
     (block section-objects
     (dxf/out/txt:pair 0 "SECTION" stream)
     (dxf/out/txt:pair 2 "ACDSDATA" stream)
 ;;;
-    (dxf/out/txt:pair 0 "ENDSEC" stream)
+    (dxf/out/txt:pair 0 dxf/sec:*endsec* stream)
     )
     
-    (dxf/out/txt:pair 0 "EOF" stream)
+    (dxf/out/txt:pair 0 dxf/sec:*eof* stream)
   )
 
 ;;;;;;;;
@@ -2534,49 +2534,7 @@ find . -name \"*.h\" | xargs grep \"class AcDbBlockTableRecord\"
 	      (setf blk nil)
 	      (push i blk))))
     (values (car rez) (cdr rez))))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun split-blocks (sections)
-  "Пример использования:
-  (split-blocks *Drawing-sty*)
-"
-  "split-blocks - not yet defined")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun split-entities (sections)
-  "@b(Описание:) функция @b(split-entities) выделяет
-из посекционного представления dxf - файла секцию ENTITIES
-и преобразует ее в список с dxf - представлениями объектов.
 
- @b(Пример использования:)
-@begin[lang=lisp](code)
-  (split-entities *Drawing-sty*)
-@end(code)
-"
-  (let ((pairs-list (reverse (cdr (assoc '(2 "ENTITIES") sections :test #'equal))))
-	(entities nil)
-	(entity   nil))
-    (dolist (i pairs-list (nreverse entities))
-      (push i entity)
-      (when (= (car i) 0)
-	(push entity entities)
-	(setf entity nil)))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun split-objects (sections)
-"Пример использования
- (split-objects *Drawing-sty*)
-"
-"split-objects - not yet defined"
-)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-(defun split-acdsdata (sections)
-"Пример использования
- (split-acdsdata *Drawing-sty*)
-"
-"split-acdsdata - not yet defined"
-)

@@ -33,7 +33,8 @@
   "@b(Описание:) система @b(dxf/in/txt) содержит низкоуровневые
  функции для преобразования dxf-файла в перечень dxf-пар."
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
-  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
+  :depends-on ("dxf/split")
   :components ((:module "src/in/txt"
 		:serial t
 		:components ((:file "txt")))))
@@ -52,7 +53,7 @@
   "
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
-  :depends-on ("dxf/const")
+  :depends-on ("dxf/const" "dxf/split")
   :components ((:module "src/in/bin"
 		:serial t
 		:components ((:file "bin")))))
@@ -165,6 +166,16 @@
 		:serial t
 		:components ((:file "utils")))))
 
+(defsystem "dxf/split"
+  :description
+  "@b(Описание:) система @b(dxf/split) содержит вспомогательные функции
+   для разделения dxf-пар на группы, представляющие данные какого-то
+   объекта."
+  :author "Nick Matvyeyev <mnasoft@gmail.com>"
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :components ((:module "src/split"
+		:serial t
+		:components ((:file "split")))))
 
 (defsystem "dxf/docs"
   :description "Зависимости для сборки документации"

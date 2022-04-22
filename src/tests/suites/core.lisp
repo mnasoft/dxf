@@ -19,7 +19,7 @@
       (do ((p-1 (dxf/in/txt:read-pair fl-1) (dxf/in/txt:read-pair fl-1))
            (p-2 (dxf/in/txt:read-pair fl-2) (dxf/in/txt:read-pair fl-2))
            (rez nil))
-          ((or (equal p-1 '(0 "EOF")) (equal p-2 '(0 "EOF")))
+          ((or (equal p-1 `(0 ,dxf/sec:*eof*)) (equal p-2 `(0 ,dxf/sec:*eof*)))
            (if (null rez) t rez))
         (unless (equal p-1 p-2)
           (push (list p-1 p-2) rez))))))
@@ -31,20 +31,6 @@
   (let ((sections (dxf/in/txt:read-file fname-dxf-from)))
     (with-open-file (dxf fname-dxf-to :direction :output :if-exists :supersede)
       (dxf/out/txt:sections sections dxf))))
-
-(defun make-path-relative-to-system (system namestring)
-  "@b(Описание:) функция @b(make-path-relative-to-system) возвращает
-  строку представляющую из себя относительный путь @b(namestring) в
-  пути исходников системы @b(system).
-
- @b(Пример использования:)
-@begin[lang=lisp](code)
- (make-path-relative-to-system :dxf \"dxf/txt/2018.dxf\")
- => \"D:/PRG/msys64/home/namatv/quicklisp/local-projects/acad/dxf/dxf/txt/2018.dxf\"
-@end(code)"
-  (concatenate 'string
-               (namestring (asdf:system-source-directory system))
-               namestring))
 
 (def-test section-read-write-in-txt-mode ()
   "@b(Описание:) тест @b(test-1) проверка корректности посекционного
@@ -58,8 +44,8 @@
 "
   (labels
       ((txt (from)
-         (let ((dxf-fn-from (make-path-relative-to-system :dxf from))
-               (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/tests/txt.dxf")))
+         (let ((dxf-fn-from (dxf/utils:make-path-relative-to-system :dxf from))
+               (dxf-fn-to   (dxf/utils:make-path-relative-to-system :dxf "dxf/tests/txt.dxf")))
            (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
            (is-true (= (length (uiop:read-file-lines dxf-fn-from))
                        (length (uiop:read-file-lines dxf-fn-to  ))))
@@ -99,8 +85,8 @@
 "
   (labels
       ((txt (from)
-         (let ((dxf-fn-from (make-path-relative-to-system :dxf from))
-               (dxf-fn-to   (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")))
+         (let ((dxf-fn-from (dxf/utils:make-path-relative-to-system :dxf from))
+               (dxf-fn-to   (dxf/utils:make-path-relative-to-system :dxf "dxf/tests/bin.dxf")))
            (copy-dxf-bin-by-sections dxf-fn-from dxf-fn-to)
            (is-true (equalp (dxf/in/bin:read-file dxf-fn-from)
                             (dxf/in/bin:read-file dxf-fn-to))))))
@@ -119,10 +105,10 @@
   (defparameter rez-or nil)
   (defparameter rez-cp nil)
   (defparameter bin-or
-    (open (make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
+    (open (dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
           :element-type 'unsigned-byte))
   (defparameter bin-cp
-    (open (make-path-relative-to-system :dxf "dxf/tests/bin.dxf")
+    (open (dxf/utils:make-path-relative-to-system :dxf "dxf/tests/bin.dxf")
           :element-type 'unsigned-byte))
   (dxf/in/bin:read-head bin-or)
   (dxf/in/bin:read-head bin-cp)
@@ -136,3 +122,25 @@
   (equalp rez-or rez-cp))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+#+nil(
+      (defparameter *sections*
+        (dxf/in/bin:read-file
+         (dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf")))
+
+      (defparameter *sections-1*
+        (dxf/in/bin:read-file-pairs
+         (dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf")))
+
+      (equal (dxf/split:between *sections-1*) *sections*)
+
+      (read-pairs stream)
+
+      (dxf:split-entities *sections*)
+
+      (dxf::split-blocks *sections*)
+      )
+
+(last (dxf/in/bin:read-file-pairs
+      (dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf")))
+

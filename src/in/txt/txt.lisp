@@ -12,9 +12,9 @@
            parse-code-value)
   (:export read-pair
            read-pairs
-           split-by-sections
            )
-  (:export read-file
+  (:export read-file-pairs
+           read-file
            )
   (:documentation "@b(Описание:) пакет @b(dxf/in/txt) позволяет
   преобразовать dxf-файл, сохраненный в текстовом формате в его
@@ -133,25 +133,37 @@
 ;;    (format t "~A ~A ~A~%" code str val)
     (list code val)))
 
-(defun read-pairs (stream)
-  "(with-open-file (stream \"~/quicklisp/local-projects/acad/dxf/dxf/txt/Drawing-sty.dxf\") (read-pairs stream))"
-  (let ((pairs-lst nil))
-    (do ((pair (read-pair stream)
-               (read-pair stream)))
-	((and (= 0 (first pair ))
-              (string= (second pair) "EOF"))
-         (nreverse pairs-lst))
-      (push pair pairs-lst))))
-
 (defun split-by-sections (stream)
   (let ((pairs-list (read-pairs stream))
 	(sections nil)
 	(section  nil))
     (dolist (i pairs-list (nreverse sections))
       (push i section)
-      (when (equal i '(0 "ENDSEC"))
+      (when (equal i `(0 ,dxf/sec:*endsec*))
 	(push (cdr (nreverse (cdr section))) sections)
 	(setf section nil)))))
+;;;;
+
+(defun read-pairs (stream)
+  "@b(Описание:) функция @b(read-pairs) возвращает список
+  пар (ключ-значение), содержащихся в двоичном dxf-потоке.
+
+  Пара, обозначающая конец файла в результирующий список не попадает."
+  (let ((pairs nil))
+    (do ((pair (read-pair stream)
+               (read-pair stream)))
+	((and (= 0 (first pair ))
+              (string= (second pair) dxf/sec:*eof*))
+         (nreverse pairs))
+      (push pair pairs))))
+
+(defun read-file-pairs (fname)
+  "@b(Описание:) функция @b(read-file) выполняет попытку
+ считывания текстового dxf-файла в формате."
+  (with-open-file (stream fname :element-type 'unsigned-byte)
+    (read-pairs stream)))
+
+;;;;
 
 (defun read-file (fname)
   "@b(Описание:) функция @b(read-file) выполняет попытку
@@ -187,3 +199,4 @@
        (with-open-file (stream fname :external-format :utf8)
 	 (split-by-sections stream))))
     (t (error "Cannot read file ~a." fname))))
+

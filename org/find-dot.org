@@ -1,13 +1,54 @@
 
 * main
-#+BEGIN_SRC shell :results output 
-find "/d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc" -name "*.h" | xargs grep -n -i "AcDbBlockTable" | grep -i "public" 
-#+END_SRC
+| grep -i "public"
+#+name:foo
+#+begin_src sh :results output 
+  find "/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc" -name "*.h*" | xargs grep -n3 -i "AcDbBlockTable" | grep -i class
+#+end_src
 
-#+RESULTS:
-: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:76:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
-: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:930:class AcDbBlockTable: public AcDbSymbolTable
-: /d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc/dbsymtb.h:1403:class AcDbBlockTableIterator : public AcDbSymbolTableIterator
+#+RESULTS: foo
+#+begin_example
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/AcDbAssocManager.h-51-    /// getInstanceFromObject() methods of AcDbAssocNetwork class for more details.
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/acedxref.h:19:class AcDbBlockTableRecord;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbdynblk.h:473:    /// Determines whether the AcDbBlockTableRecord passed to the class
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbdynblk.h:478:    /// Returns true if the AcDbBlockTableRecord passed to the class constructor
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-30-class AcDbFilteredBlockIterator;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-31-class AcDbFilter;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-32-class AcDbImpDatabase;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h:33:class AcDbBlockTableRecord;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-34-class AcDbBlockChangeIterator;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-35-class AcDbIndexUpdateData;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-70-    friend class AcDbImpIndex;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h:131:class AcDbBlockTableRecord;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-132-class AcDbBlockReference;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-146-                                   const AcRxClass*      key);
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbindex.h-149-                               const AcRxClass* key, 
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbmain.h-51-class AcDbXObject;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbmain.h-52-class AcDbBlockReference;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbmain.h-53-class AcDbSymbolTable;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbmain.h:54:class AcDbBlockTable;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbmain.h:55:class AcDbBlockTableRecord;    // (Used in AcDbExtents)
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbmain.h-56-class AcDbLayerTable;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbmain.h-57-class AcDbTextStyleTable;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbmain.h-58-class AcDbLinetypeTable;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:71:class AcDbBlockTable;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:72:class AcDbBlockTableIterator;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:73:class AcDbBlockTableRecordIterator;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h-74-class AcDbBlockReferenceIdIterator;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:76:class AcDbBlockTableRecord: public  AcDbSymbolTableRecord
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:974:class AcDbBlockTable: public AcDbSymbolTable
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h-1444-    friend class AcDbSymbolTable;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:1447:class AcDbBlockTableIterator : public AcDbSymbolTableIterator
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:1458:    friend class AcDbBlockTable;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h-1461-class AcDbLayerTableIterator : public AcDbSymbolTableIterator
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:1591:class AcDbBlockTableRecordIterator
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h-1616-    class AcDbImpBlockTableRecordIterator* mpImp;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h-1619-    friend class AcDbImpBlockTableRecord;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h-1623-// This class will be removed in the next release.   Instead, use
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h-1626-class AcDbBlockReferenceIdIterator
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/dbsymtb.h:1648:    friend class AcDbBlockTableRecord;
+/c/Autodesk/ObjectARX_for_AutoCAD_2021_Win_64bit_dlm/inc/sorttab.h-12-//              In spite of the dated name, this class contains the
+#+end_example
 
 #+name:dot-eg-table
 | AcRxObject      | AcGiDrawable    |
@@ -27,6 +68,28 @@ find "/d/Autodesk/Autodesk_ObjectARX_2018_Win_64_and_32_Bit/inc" -name "*.h" | x
 	  table)
 
 #+END_SRC
+
+#+RESULTS: make-dot
+#+begin_example
+AcRxObject [shape = "box"];
+AcGiDrawable [shape = "box"];
+AcRxObject -> AcGiDrawable;
+AcRxObject [shape = "box"];
+AcHeapOperators [shape = "box"];
+AcRxObject -> AcHeapOperators;
+AcGiDrawable [shape = "box"];
+AcDbObject [shape = "box"];
+AcGiDrawable -> AcDbObject;
+AcHeapOperators [shape = "box"];
+AcDbObject [shape = "box"];
+AcHeapOperators -> AcDbObject;
+AcDbObject [shape = "box"];
+AcDbSymbolTable [shape = "box"];
+AcDbObject -> AcDbSymbolTable;
+AcDbSymbolTable [shape = "box"];
+AcDbBlockTable [shape = "box"];
+AcDbSymbolTable -> AcDbBlockTable;
+#+end_example
 
 #+BEGIN_SRC dot :file ./images/test-dot.png :var input=make-dot :exports results
 digraph {

@@ -22,13 +22,12 @@
   (:export read-float
            read-double
            )
-  (:export read-head check-bin
+  (:export read-head
            read-pair
            read-pairs
            )
-  (:intern split-by-sections
-           )
-  (:export read-file 
+  (:export read-file-pairs
+           read-file 
            )
   (:documentation "@b(Описание:) пакет @b(dxf/in/bin) позволяет
   преобразовать dxf-файл, сохраненный в бинарном формате в его
@@ -243,7 +242,8 @@
 
 (defun read-pair (stream)
   "@b(Описание:) функция @b(read-pair) выполняет считывание пары ключ
-  значение из бинарного dxf-файла системы AutoCAD.
+  значение из бинарного потока, имеющего формат dxf-файла системы
+  AutoCAD.
 "
   (let* ((code (read-uint16 stream))
          (val (cond
@@ -293,32 +293,38 @@
                 )))
     (list code val)))
 
+;;;;
+
 (defun read-pairs (stream)
-  ""
-  (let ((pairs-lst nil))
-    (do ((pair (read-pair stream)
-               (read-pair stream)))
-	((and (= 0 (first pair ))
-              (string= (second pair) "EOF"))
-         (nreverse pairs-lst))
-      (push pair pairs-lst))))
-  
-(defun split-by-sections (stream)
-  (let ((pairs-list (read-pairs stream))
-	(sections nil)
-	(section  nil))
-    (dolist (i pairs-list (nreverse sections))
-      (push i section)
-      (when (equal i '(0 "ENDSEC"))
-	(push (cdr (nreverse (cdr section))) sections)
-	(setf section nil)))))
+  "@b(Описание:) функция @b(read-pairs) возвращает список
+  пар (ключ-значение), содержащихся в потоке, имеющем формат dxf-файла
+  системы AutoCAD.
+
+  Пара, обозначающая конец файла в результирующий список не попадает."
+  (when (read-head stream)
+    (let ((pairs nil))
+      (do ((pair (read-pair stream)
+                 (read-pair stream)))
+	  ((and (= 0 (first pair ))
+                (string= (second pair) dxf/sec:*eof*))
+           (nreverse pairs))
+        (push pair pairs)))))
+
+(defun read-file-pairs (fname)
+  "@b(Описание:) функция @b(read-file) возвращает список пар
+  ключ-значение бинарного dxf-файла с именем @b(fname).
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (dxf/in/bin:read-file-pairs
+   (dxf/utils:make-path-relative-to-system :dxf \"dxf/bin/2018.dxf\"))
+@end(code)"
+  (with-open-file (stream fname :element-type 'unsigned-byte)
+    (read-pairs stream)))
 
 (defun read-file (fname)
-  "@b(Описание:) функция @b(read-file) выполняет попытку
- считывания текстового dxf-файла в формате"
-  (with-open-file (stream fname :element-type 'unsigned-byte)
-    (when (read-head stream)
-    (split-by-sections stream))))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  "@b(Описание:) функция @b(read-file) возвращает посекционное
+ представление бинарного dxf-файла с именем @b(fname)."
+  (dxf/split:between `(0 ,dxf/sec:*section*)
+                     `(0 ,dxf/sec:*endsec*)
+                     (read-file-pairs  fname)))
