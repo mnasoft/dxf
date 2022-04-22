@@ -26,7 +26,7 @@
 
 *Drawing-sty*
 
-(split-entities *Drawing-sty*)
+(dxf/split:split-entities *Drawing-sty*)
 
 (table-and-items "LAYER" (split-tables *Drawing-sty*))
 

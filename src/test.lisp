@@ -2,6 +2,27 @@
 
 (in-package #:dxf)
 
+"dxf"
+"dxf/in/txt"
+
+"dxf/in/bin"
+"dxf/const"
+"dxf/color"
+"dxf/b-arr"
+"dxf/out/txt"
+"dxf/out/bin"
+
+
+ "dxf/vars"
+ "dxf/utils"
+
+ "dxf/split"
+   "dxf/sec"
+
+
+"dxf/docs"
+"dxf/tests"
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defparameter *dxf-path* "~/quicklisp/local-projects/acad/dxf/dxf/")
 
@@ -125,7 +146,7 @@
   (defparameter *o* (open (concatenate 'string *dxf-path* "12345-bin.dxf" )  :direction :output :element-type 'unsigned-byte :if-exists :supersede))
   (dxf-out-b-header *o*)
   (dxf-out-b-string 0 *section* *o*)
-  (dxf-out-b-string 2 *section-entities* *o*)
+  (dxf-out-b-string 2 dxf/sec:*entities* *o*)
   (mapc #'(lambda (el)
             (dxf-out-binary el *o*))
         *model-space* )
@@ -139,7 +160,7 @@
   (defparameter *o* (open (concatenate 'string *dxf-path* "12345-txt.dxf" )  :direction :output :if-exists :supersede))
   (dxf-out-t-header *o*)
   (dxf-out-t-string 0 *section* *o*)
-  (dxf-out-t-string 2 *section-entities* *o*)
+  (dxf-out-t-string 2 dxf/sec:*entities* *o*)
   (mapc #'(lambda (el)
             (dxf-out-text el *o*))
         *model-space*)

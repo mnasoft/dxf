@@ -1,7 +1,7 @@
 ;;;; ./src/in/txt/txt.lisp
 
 (defpackage #:dxf/in/txt
-  (:use #:cl #:mnas-string)
+  (:use #:cl)
   (:intern read-string
            read-int16
            read-int32

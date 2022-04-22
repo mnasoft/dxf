@@ -143,4 +143,3 @@
 
 (last (dxf/in/bin:read-file-pairs
       (dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf")))
-

@@ -4,8 +4,8 @@
   (:use #:cl)
   (:export between
            after)
+  (:export select-section)
   (:export split-by-sections
-           select-section
            split-section
            split-entities
            split-blocks
@@ -113,8 +113,6 @@
     (push (nreverse group) groups)
     (nreverse groups)))
 
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun split-by-sections (pairs)
@@ -153,20 +151,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
-(defun split-section (name pairs)
-  "@b(Описание:) функция @b(split-section) 
-"
-  (let ((pairs-list (reverse (select-section name pairs)))
-	(objects nil)
-	(object  nil))
-    (dolist (i pairs-list (nreverse objects))
-      (push i object)
-      (when (= (car i) 0)
-	(push object objects)
-	(setf object nil)))))
-
 (defun split-entities (sections)
   "@b(Описание:) функция @b(split-entities) выделяет
 из посекционного представления dxf - файла секцию ENTITIES
@@ -174,16 +158,28 @@
 
  @b(Пример использования:)
 @begin[lang=lisp](code)
-  (split-entities *Drawing-sty*)
+ (split-entities
+  (dxf/in/bin:read-file 
+   (dxf/utils:make-path-relative-to-system :dxf \"dxf/bin/2018.dxf\")))
 @end(code)
 "
-  (split-section "ENTITIES" sections))
+  (after (select-section "ENTITIES" sections)))
 
 (defun split-blocks (sections)
-  "Пример использования:
-  (split-blocks *Drawing-sty*)
+  "@b(Описание:) функция @b(split-entities) выделяет
+из посекционного представления dxf - файла секцию BLOCKS
+и преобразует ее в список с dxf - представлениями объектов.
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (split-blocks
+  (dxf/in/bin:read-file 
+   (dxf/utils:make-path-relative-to-system :dxf \"dxf/bin/2018.dxf\")))
+@end(code)
 "
-  (split-section "BLOCKS" sections))
+  (after (select-section "BLOCKS" sections)
+         :key  #'(lambda (el) el)
+         :test #'(lambda (el) (equalp el `(0 ,dxf/sec:*blocks*)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

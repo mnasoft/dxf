@@ -1,18 +1,19 @@
 ;;;; ./src/sec/sec.lisp
 
 (defpackage #:dxf/sec
-  (:use #:cl #:mnas-string)
+  (:use #:cl)
+  (:export *eof*
+           )
   (:export *section*
            *endsec*
-           *eof*
-           *section-classes*
-           *section-header*
-
-           *section-tables*
-           *section-blocks*
-           *section-entities*
-           *section-objects*
-           *section-acdsdata*
+           )
+  (:export *classes*
+           *header*
+           *tables*
+           *blocks*
+           *entities*
+           *objects*
+           *acdsdata*
            *end-tab*
            )
   (:export *section-names*
@@ -20,30 +21,40 @@
 
 (in-package :dxf/sec)
 
+(defparameter *eof*              "EOF"
+  "@b(Описание:) параметр @b(*eof*) определяет конец dxf-файла.")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defparameter *section*          "SECTION")
 
 (defparameter *endsec*           "ENDSEC")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defparameter *header*   "HEADER")
 
-(defparameter *eof*              "EOF")
+(defparameter *classes*  "CLASSES")
 
-(defparameter *section-classes*  "CLASSES")
+(defparameter *tables*   "TABLES")
 
-(defparameter *section-header*   "HEADER")
+(defparameter *blocks*   "BLOCKS")
 
-(defparameter *section-tables*   "TABLES")
+(defparameter *entities* "ENTITIES")
 
-(defparameter *section-blocks*   "BLOCKS")
+(defparameter *objects*  "OBJECTS")
 
-(defparameter *section-entities* "ENTITIES")
+(defparameter *acdsdata* "ACDSDATA")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *section-objects*  "OBJECTS")
-
-(defparameter *section-acdsdata* "ACDSDATA")
-
+(defparameter *table*            "TABLE")
 (defparameter *end-tab*          "ENDTAB")
 
 (defparameter *section-names*
-  '("HEADER" "CLASSES" "TABLES" "BLOCKS" "ENTITIES" "OBJECTS" "ACDSDATA")
+  '(*header*
+    *classes*
+    *tables*
+    *blocks*
+    *entities*
+    *objects*
+    *acdsdata*)
   "Наименования секций dxf-файла.
 @begin(list)
  @item(HEADER   - системные переменные.)
@@ -52,5 +63,5 @@
  @item(BLOCKS   - блоки;) 
  @item(ENTITIES - графические примитивы;) 
  @item(OBJECTS  - объекты (неграфические);)
- @item(ACDSDATA - )
+ @item(ACDSDATA - какая то бинарнная хрень.)
 @end(list)" )

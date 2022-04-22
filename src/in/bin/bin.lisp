@@ -1,7 +1,7 @@
 ;;;; ./src/in/bin/bin.lisp
 
 (defpackage #:dxf/in/bin
-  (:use #:cl #:mnas-string)
+  (:use #:cl ) ;;#:mnas-string)
   (:export read-string
            read-hex
            read-b-chunk

@@ -24,7 +24,7 @@
 		:serial t
                 :components ((:file "dxf")
 	                     (:file "test-color")
-	                     (:file "test-dxf")
+	                     ;;(:file "test-dxf")
                              ;;(:file "test")	       
                              ))))
 
@@ -34,7 +34,7 @@
  функции для преобразования dxf-файла в перечень dxf-пар."
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
-  :depends-on ("dxf/split")
+  :depends-on ("dxf/split" "mnas-string")
   :components ((:module "src/in/txt"
 		:serial t
 		:components ((:file "txt")))))
@@ -53,7 +53,7 @@
   "
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
-  :depends-on ("dxf/const" "dxf/split")
+  :depends-on ("babel" "dxf/const" "dxf/split" "dxf/b-arr" "ieee-floats")
   :components ((:module "src/in/bin"
 		:serial t
 		:components ((:file "bin")))))
@@ -109,7 +109,7 @@
    функции записи dxf в текстовом формате - файла AutoCAD."
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
-  :depends-on ("babel" #+nil "ieee-floats" #+nil "dxf/b-arr")
+  :depends-on ("babel" "dxf/sec" )
   :perform (test-op (o s)
 		    (uiop:symbol-call :dxf/b-arr :tests))
   :components ((:module "src/out/txt"
@@ -122,7 +122,7 @@
    функции записи dxf в бинарном формате - файла AutoCAD."
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
-  :depends-on ("babel" "ieee-floats" "dxf/b-arr" "dxf/const")
+  :depends-on ("babel" "ieee-floats" "dxf/b-arr" "dxf/const" "dxf/sec")
   :perform (test-op (o s)
 		    (uiop:symbol-call :dxf/b-arr :tests))
   :components ((:module "src/out/bin"
@@ -142,20 +142,6 @@
 		:serial t
 		:components ((:file "vars")))))
 
-(defsystem "dxf/tests"
-  :description "Тестирование систем, входящих  в проект Dfx"
-  :author "Nick Matvyeyev <mnasoft@gmail.com>"
-  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
-  :depends-on (:dxf :fiveam)
-  :perform (test-op (o s)
-		    (uiop:symbol-call :dxf/tests :tests))
-  :components ((:module "tests"
-		:serial t
-		:components ((:file "package")
-			     (:file "main")
-			     (:file "dxf-text")
-			     (:file "main-run")))))
-
 (defsystem "dxf/utils"
   :description
   "@b(Описание:) система @b(dxf/utils) содержит вспомогательные 
@@ -172,7 +158,8 @@
    для разделения dxf-пар на группы, представляющие данные какого-то
    объекта."
   :author "Nick Matvyeyev <mnasoft@gmail.com>"
-  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
+  :depends-on ("dxf/sec")
   :components ((:module "src/split"
 		:serial t
 		:components ((:file "split")))))
@@ -205,3 +192,5 @@
                 :depends-on ("src/tests/suites")
 		:serial nil
                 :components ((:file "run")))))
+
+

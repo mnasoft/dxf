@@ -10,7 +10,8 @@
 (in-package :dxf/utils)
 
 (defun make-slot (el)
-  "Вспмогательная функция для формирования слотов"
+  "@b(Описание:) функция @b(make-slot) это вспомогательная функция для
+формирования слотов."
   (list  el
 	 :accessor el
 	 :initarg (read-from-string (concatenate 'string ":"(symbol-name el)))
@@ -19,8 +20,8 @@
 
 (defun make-path-relative-to-system (system namestring)
   "@b(Описание:) функция @b(make-path-relative-to-system) возвращает
-  строку представляющую из себя относительный путь @b(namestring) в
-  пути исходников системы @b(system).
+строку представляющую из себя относительный путь @b(namestring) в пути
+исходников системы @b(system).
 
  @b(Пример использования:)
 @begin[lang=lisp](code)

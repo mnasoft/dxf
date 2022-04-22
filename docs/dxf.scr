@@ -8,6 +8,8 @@
 
 @begin(enum)
   @item(
+    @link[uri="https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A809CD71-4655-44E2-B674-1FE200B9FE30"](Object Model (ActiveX)))
+  @item(
     @link[uri="https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7D07C886-FD1D-4A0C-A7AB-B4D21F18E484"](Раздел ENTITIES файла DXF)
     @begin(list)
       @item(@link[uri="https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3610039E-27D1-4E23-B6D3-7E60B22BB5BD"](Общие групповые коды объектов (DXF)))
@@ -63,11 +65,6 @@
   @cl:doc(variable *h-vars*)
   @cl:doc(variable *h-vars-list*)
   @cl:doc(variable *h-vars-list-min*))
-@end(section)
-@begin(section)
- @title(Функции)
- @cl:with-package[name="DXF"](
-  @cl:doc(function split-entities))
 @end(section)
 @begin(section)
  @title(Обобщенные функции)

@@ -9,7 +9,6 @@
            dxf-in-binary
            )
   (:export split-header
-           split-entities
            )
   (:export *line-weight-enum*
            )
@@ -114,7 +113,6 @@
    *db-symbol-tr-subclass-marker*
    *db-block-tr-class-marker*
    *db-block-tr-subclass-marker*
-   *section-names*
    *table-names*)
   (:documentation "
 @begin(enum)
@@ -556,7 +554,7 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 (defmethod dxf-out-text :before ((x <db-header>) stream)
   (dxf/out/txt:pair 0 dxf/sec:*section* stream)
-  (dxf/out/txt:pair 2 dxf/sec:*section-header* stream))
+  (dxf/out/txt:pair 2 dxf/sec:*header* stream))
 
 (defmethod dxf-out-text ((x <db-header>) stream)
   (mapc #'(lambda (el)
@@ -2134,7 +2132,7 @@ None
 	(st-items (reverse (symbol-tbl-items x))))
     (dxf/out/txt:pair 70 st-flag stream)
     (mapc #'(lambda (el) (dxf-out-text el stream)) st-items)
-    (dxf/out/txt:pair 0 *end-tab* stream)))
+    (dxf/out/txt:pair 0 dxf/sec:*end-tab* stream)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass <db-block-rec> (<db-symbol-tbl>)
