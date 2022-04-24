@@ -19,17 +19,18 @@
                "dxf/in/bin"
                "dxf/utils")
   :components ((:module "src"
-		:serial nil
+		:serial t
                 :components
                 ((:file "dxf")
-	         (:file "test-color" :depends-on ("dxf"))
-                 #+nil (:file "test-dxf")
-                 #+nil (:file "test")
-                 (:module "methods"
-                  :depends-on ("dxf")
-                  :serial nil
-                  :components ((:file "ac-open")
-                               (:file "ac-save-as")))))))
+	         (:file "test-color" ) ;; :depends-on ("dxf")
+                 ;; (:file "test-dxf")
+                 ;; (:file "test")
+                 
+                  (:module "methods"
+                   :depends-on ("dxf")
+                   :serial t
+                   :components ((:file "ac-open")
+                                (:file "ac-save-as")))))))
 
 (defsystem "dxf/in/txt"
   :description

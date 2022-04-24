@@ -28,7 +28,10 @@
       (:dxf/const     nil)
       
       (:dxf/docs      nil)
-      (:dxf/tests     nil)
+;;;; Исключено т.к. при генерировании документации с незагруженным
+;;;; пакетом :dxf/tests возникает ошибка. А собственно документации в
+;;;; нем кот наплакал. *1
+      #+nil (:dxf/tests     nil) 
       )
     :do (apply #'mnas-package:document i)))
 
@@ -47,8 +50,9 @@
       :dxf/b-arr     
       :dxf/vars      
       :dxf/const     
-      :dxf/docs      
-      :dxf/tests     
+      :dxf/docs
+;;;; См. *1      
+      #+nil :dxf/tests     
       )
     :do (mnas-package:make-codex-graphs i i)))
 
