@@ -12,21 +12,24 @@
   :depends-on ("mnas-string"
                "dxf/color"
                "dxf/sec"
-               #+nil "dxf/out"
                "dxf/out/txt"
                "dxf/out/bin"               
                "dxf/vars"
                "dxf/in/txt"
                "dxf/in/bin"
                "dxf/utils")
-;;;; "babel" "ieee-floats"
   :components ((:module "src"
-		:serial t
-                :components ((:file "dxf")
-	                     (:file "test-color")
-	                     ;;(:file "test-dxf")
-                             ;;(:file "test")	       
-                             ))))
+		:serial nil
+                :components
+                ((:file "dxf")
+	         (:file "test-color" :depends-on ("dxf"))
+                 #+nil (:file "test-dxf")
+                 #+nil (:file "test")
+                 (:module "methods"
+                  :depends-on ("dxf")
+                  :serial nil
+                  :components ((:file "ac-open")
+                               (:file "ac-save-as")))))))
 
 (defsystem "dxf/in/txt"
   :description
@@ -192,5 +195,3 @@
                 :depends-on ("src/tests/suites")
 		:serial nil
                 :components ((:file "run")))))
-
-

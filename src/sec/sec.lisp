@@ -48,13 +48,13 @@
 (defparameter *end-tab*          "ENDTAB")
 
 (defparameter *section-names*
-  '(*header*
-    *classes*
-    *tables*
-    *blocks*
-    *entities*
-    *objects*
-    *acdsdata*)
+  `(,*header*
+    ,*classes*
+    ,*tables*
+    ,*blocks*
+    ,*entities*
+    ,*objects*
+    ,*acdsdata*)
   "Наименования секций dxf-файла.
 @begin(list)
  @item(HEADER   - системные переменные.)

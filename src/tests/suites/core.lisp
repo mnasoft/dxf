@@ -8,30 +8,6 @@
 
 (in-suite core)
 
-(defun dxf-txt-has-same-pairs (file-name-dxf-txt-1 file-name-dxf-txt-2)
-  "@b(Описание:) функция @b(dxf-txt-has-same-pairs) возвращает T,
- если при считывании текстовые файлы @b(file-name-dxf-txt-1)
- @b(file-name-dxf-txt-2) в формате dxf имеют одинаковые
- пары (код-значение).
-"
-  (with-open-file (fl-1 file-name-dxf-txt-1)
-    (with-open-file (fl-2 file-name-dxf-txt-2)
-      (do ((p-1 (dxf/in/txt:read-pair fl-1) (dxf/in/txt:read-pair fl-1))
-           (p-2 (dxf/in/txt:read-pair fl-2) (dxf/in/txt:read-pair fl-2))
-           (rez nil))
-          ((or (equal p-1 `(0 ,dxf/sec:*eof*)) (equal p-2 `(0 ,dxf/sec:*eof*)))
-           (if (null rez) t rez))
-        (unless (equal p-1 p-2)
-          (push (list p-1 p-2) rez))))))
-
-(defun copy-dxf-txt-by-sections (fname-dxf-from fname-dxf-to)
-  "@b(Описание:) функция @b(copy-dxf-txt-by-sections) выполняет
-  посекционное копирование dxf-файла с именем fname-dxf-from в
-  текстовом формате в файл с имеем fname-dxf-to."
-  (let ((sections (dxf/in/txt:read-file fname-dxf-from)))
-    (with-open-file (dxf fname-dxf-to :direction :output :if-exists :supersede)
-      (dxf/out/txt:sections sections dxf))))
-
 (def-test section-read-write-in-txt-mode ()
   "@b(Описание:) тест @b(test-1) проверка корректности посекционного
   копирования dxf-файлов в текстовом режиме. Для каждого тестируемого
@@ -46,10 +22,10 @@
       ((txt (from)
          (let ((dxf-fn-from (dxf/utils:make-path-relative-to-system :dxf from))
                (dxf-fn-to   (dxf/utils:make-path-relative-to-system :dxf "dxf/tests/txt.dxf")))
-           (copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
+           (dxf/utils:copy-dxf-txt-by-sections dxf-fn-from dxf-fn-to)
            (is-true (= (length (uiop:read-file-lines dxf-fn-from))
                        (length (uiop:read-file-lines dxf-fn-to  ))))
-           (is-true (equalp t (dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to))))))
+           (is-true (equalp t (dxf/utils:dxf-txt-has-same-pairs dxf-fn-from dxf-fn-to))))))
     (loop :for i :in '("dxf/txt/2018.dxf"
                        "dxf/txt/Line_01.dxf"
                        "dxf/metric/AutoCAD-2000-LT-2000-metric.dxf"
@@ -64,14 +40,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun copy-dxf-bin-by-sections (fname-dxf-from fname-dxf-to)
-  "@b(Описание:) функция @b(copy-dxf-txt-by-sections) выполняет
-  посекционное копирование dxf-файла с именем fname-dxf-from в
-  текстовом формате в файл с имеем fname-dxf-to."
-  (let ((sections (dxf/in/bin:read-file fname-dxf-from)))
-    (with-open-file (dxf fname-dxf-to :direction :output :if-exists :supersede :element-type 'unsigned-byte )
-      (dxf/out/bin:sections sections dxf))))
-
 (def-test section-read-write-in-bin-mode ()
   "@b(Описание:) тест @b(section-read-write-in-bin-mode) проверка
   корректности посекционного копирования dxf-файлов в бинарном
@@ -84,18 +52,47 @@
 @end(list)
 "
   (labels
-      ((txt (from)
+      ((check-is-same (from)
          (let ((dxf-fn-from (dxf/utils:make-path-relative-to-system :dxf from))
                (dxf-fn-to   (dxf/utils:make-path-relative-to-system :dxf "dxf/tests/bin.dxf")))
-           (copy-dxf-bin-by-sections dxf-fn-from dxf-fn-to)
+           (dxf/utils:copy-dxf-bin-by-sections dxf-fn-from dxf-fn-to)
            (is-true (equalp (dxf/in/bin:read-file dxf-fn-from)
                             (dxf/in/bin:read-file dxf-fn-to))))))
     (loop :for i :in '("dxf/bin/2018.dxf"
                        "dxf/bin/Line_01.dxf")
           :do
-             (txt i))))
+             (check-is-same i))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def-test acad-document-open-save-as  ()
+  (labels
+      ((check-is-same (from)
+         (let ((acad-document (make-instance 'dxf:<acad-document>))
+               (dxf-fn-from (dxf/utils:make-path-relative-to-system :dxf from))
+               (dxf-fn-to   (dxf/utils:make-path-relative-to-system :dxf "dxf/tests/bin.dxf")))
+           (dxf::ac-open    acad-document dxf-fn-from)
+           (dxf::ac-save-as acad-document dxf-fn-to)
+           (is-true (equalp (dxf/in/bin:read-file dxf-fn-from)
+                            (dxf/in/bin:read-file dxf-fn-to))))))
+    (loop :for i :in '("dxf/bin/2018.dxf"
+                       "dxf/bin/Line_01.dxf")
+          :do
+             (check-is-same i))))
+
+(dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf")
+
+
+(defparameter *acad-document* (make-instance 'dxf:<acad-document>))
+
+(dxf::ac-open
+  *acad-document*
+  (dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf"))
+
+
+(dxf::ac-save-as *acad-document*
+             (dxf/utils:make-path-relative-to-system :dxf "dxf/bin-2018.dxf"))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; Проверка
@@ -142,4 +139,8 @@
       )
 
 (last (dxf/in/bin:read-file-pairs
-      (dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf")))
+       (dxf/utils:make-path-relative-to-system :dxf "dxf/bin/2018.dxf")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+

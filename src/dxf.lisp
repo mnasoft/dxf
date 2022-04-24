@@ -64,6 +64,15 @@
            <db-view-tr>
            <db-vport-tr>
            )
+;;;; accessors
+  (:export ac-variables
+           ac-model-space
+           )
+;;;; methods
+  (:export ac-add-line
+           ac-open
+           ac-save-as
+           )
   (:export 
    *Acad-Object-class-marker*
    *Acad-Object-subclass-marker*
@@ -549,7 +558,7 @@
 @b(Описание:) класс @b(<db-header>) 
 
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
-https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4DC9FADBE74A
+
 ")))
 
 (defmethod dxf-out-text :before ((x <db-header>) stream)
@@ -633,7 +642,9 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
    (next-handle      :accessor next-handle   :initarg :next-handle   :initform 1   :allocation :class))
   (:documentation "The standard interface for a basic AutoCAD object."))
 
-(defparameter *acad-object-properties* '(Application Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
+(defparameter *acad-object-properties*
+  '(Application Document Handle HasExtensionDictionary ObjectID
+    ObjectName OwnerID))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-object-properties* *object-properties*))
 
@@ -737,7 +748,11 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 
 "))
 
-(defparameter *acad-entity-properties* '(Application Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName TrueColor Visible))
+(defparameter *acad-entity-properties*
+  '(Application Document EntityTransparency Handle
+    HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale
+    Lineweight Material ObjectID ObjectName OwnerID PlotStyleName
+    TrueColor Visible))
 
 (reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-entity-properties* *acad-object-properties*)))
 
@@ -966,7 +981,11 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 @end(code)
 "))
 
-(defparameter *acad-point-properties* '(Application Coordinates Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Thickness TrueColor Visible))
+(defparameter *acad-point-properties*
+  '(Application Coordinates Document EntityTransparency Handle
+    HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale
+    Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName
+    Thickness TrueColor Visible))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-point-properties* *acad-entity-properties*))
 
@@ -1053,7 +1072,11 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 @end(code)
 "))
 
-(defparameter *acad-ray-properties* '(Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible))
+(defparameter *acad-ray-properties*
+  '(Application BasePoint DirectionVector Document EntityTransparency
+    Handle HasExtensionDictionary Hyperlinks Layer Linetype
+    LinetypeScale Lineweight Material ObjectID ObjectName OwnerID
+    PlotStyleName SecondPoint TrueColor Visible))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-ray-properties* *acad-entity-properties*))
 
@@ -1121,9 +1144,14 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 @end(code)
 "))
 
-(defparameter *acad-xline-properties* '(Application BasePoint DirectionVector Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName SecondPoint TrueColor Visible))
+(defparameter *acad-xline-properties* '(Application BasePoint
+                                        DirectionVector Document EntityTransparency Handle
+                                        HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale
+                                        Lineweight Material ObjectID ObjectName OwnerID PlotStyleName
+                                        SecondPoint TrueColor Visible))
 
-(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-xline-properties* *acad-entity-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot (set-difference
+                                        *acad-xline-properties* *acad-entity-properties*)))
 
 (defmethod dxf-out-text ((x <acad-xline>) stream)
   (dxf/out/txt:pair 0 *acad-xline-class-marker* stream))
@@ -1290,9 +1318,16 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 @end(code)
 "))
 
-(defparameter *acad-arc-properties* '(Application ArcLength Area Center Document EndAngle EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName OwnerID PlotStyleName Radius StartAngle StartPoint Thickness TotalAngle TrueColor Visible))
+(defparameter *acad-arc-properties*
+  '(Application ArcLength Area Center Document EndAngle EndPoint
+    EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer
+    Linetype LinetypeScale Lineweight Material Normal ObjectID
+    ObjectName OwnerID PlotStyleName Radius StartAngle StartPoint
+    Thickness TotalAngle TrueColor Visible))
 
-(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-arc-properties* *acad-entity-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot
+                 (set-difference *acad-arc-properties*
+                                 *acad-entity-properties*)))
 
 (defmethod dxf-out-text ((x <acad-arc>) stream)
   (dxf/out/txt:pair 0 *acad-arc-class-marker* stream))
@@ -1408,7 +1443,13 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 @end(code)
 "))
 
-(defparameter *acad-text-properties* '(Alignment Application Backward Document EntityTransparency Handle HasExtensionDictionary Height Hyperlinks InsertionPoint Layer Linetype LinetypeScale Lineweight Material Normal ObjectID ObjectName ObliqueAngle OwnerID PlotStyleName Rotation ScaleFactor StyleName TextAlignmentPoint TextGenerationFlag TextString Thickness TrueColor UpsideDown Visible))
+(defparameter *acad-text-properties*
+  '(Alignment Application Backward Document EntityTransparency Handle
+    HasExtensionDictionary Height Hyperlinks InsertionPoint Layer Linetype
+    LinetypeScale Lineweight Material Normal ObjectID ObjectName
+    ObliqueAngle OwnerID PlotStyleName Rotation ScaleFactor StyleName
+    TextAlignmentPoint TextGenerationFlag TextString Thickness TrueColor
+    UpsideDown Visible))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-text-properties* *acad-entity-properties*))
 
@@ -1523,9 +1564,17 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-A85E8E67-27CD-4C59-BE61-4
 @end(code)
 "))
 
-(defparameter *acad-acad-ellipse-properties* '(Application Area Center Document EndAngle EndParameter EndPoint EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight MajorAxis MajorRadius Material MinorAxis MinorRadius Normal ObjectID ObjectName OwnerID PlotStyleName RadiusRatio StartAngle StartParameter StartPoint TrueColor Visible))
+(defparameter *acad-acad-ellipse-properties*
+  '(Application Area Center
+    Document EndAngle EndParameter EndPoint EntityTransparency Handle
+    HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale
+    Lineweight MajorAxis MajorRadius Material MinorAxis MinorRadius Normal
+    ObjectID ObjectName OwnerID PlotStyleName RadiusRatio StartAngle
+    StartParameter StartPoint TrueColor Visible))
 
-(reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-acad-ellipse-properties* *acad-entity-properties*)))
+(reverse (mapcar #'dxf/utils:make-slot
+                 (set-difference *acad-acad-ellipse-properties*
+                                 *acad-entity-properties*)))
 
 (defmethod dxf-out-text ((x <acad-ellipse>) stream)
   (dxf/out/txt:pair 0 *acad-ellipse-class-marker* stream))
@@ -1651,7 +1700,11 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-1
 @end(code)
 " ))
 
-(defparameter *acad-layer-properties* '(Application Description Document Freeze Handle HasExtensionDictionary LayerOn Linetype Lineweight Lock Material Name ObjectID ObjectName OwnerID PlotStyleName Plottable TrueColor Used  ViewportDefault ))
+(defparameter *acad-layer-properties*
+  '(Application Description Document Freeze Handle
+    HasExtensionDictionary LayerOn Linetype Lineweight Lock Material
+    Name ObjectID ObjectName OwnerID PlotStyleName Plottable TrueColor
+    Used ViewportDefault ))
 
 (reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-layer-properties* *acad-object-properties*)))
 
@@ -1768,7 +1821,9 @@ https://help.autodesk.com/view/ACD/2017/ENU/?guid=GUID-D94802B0-8BE8-4AC9-8054-1
 @end(code)
 "))
 
-(defparameter *acad-layers-properties* '(Application A-Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
+(defparameter *acad-layers-properties*
+  '(Application A-Count Document Handle HasExtensionDictionary
+    ObjectID ObjectName OwnerID))
 
 (reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-layers-properties* *acad-object-properties*)))
 
@@ -1810,91 +1865,227 @@ The collection of all AutoCAD drawings that are open in the current session.
 @end(code)"))
 
 (defclass <acad-database> (<object>)
-  ((blocks                   :accessor blocks                   :initarg :blocks                   :initform nil :documentation "blocks")
-   (dictionaries             :accessor dictionaries             :initarg :dictionaries             :initform nil :documentation "dictionaries")
-   (dim-styles               :accessor dim-styles               :initarg :dim-styles               :initform nil :documentation "dim-styles")
-   (elevation-model-space    :accessor elevation-model-space    :initarg :elevation-model-space    :initform nil :documentation "elevation-model-space")
-   (elevation-paper-space    :accessor elevation-paper-space    :initarg :elevation-paper-space    :initform nil :documentation "elevation-paper-space")
-   (groups                   :accessor groups                   :initarg :groups                   :initform nil :documentation "groups")
+  ((ac-variables :accessor ac-variables :initarg :ac-variables :initform nil :documentation "ac-variables")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;   
+   (blocks
+    :accessor blocks                   :initarg :blocks                   :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-4E432456-907D-467E-A060-3F5AFCCBCCDD\"](Blocks Property (ActiveX))")
+   (dictionaries
+    :accessor dictionaries             :initarg :dictionaries             :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5E577FF6-F939-4798-9700-3A3278EA84F4\"]()")
+   (dimstyles
+    :accessor dimstyles               :initarg :dimstyles               :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9CEE2A14-EF1C-484C-A930-3B8040981FAA\"](DimStyles Property (ActiveX))")
+   (elevationmodelspace
+    :accessor elevationmodelspace    :initarg :elevationmodelspace    :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0CD217EF-B8A0-4338-965C-FDD4DF51F505\"](ElevationModelSpace Property (ActiveX))")
+   (elevationpaperspace
+    :accessor elevationpaperspace    :initarg :elevationpaperspace    :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-58391345-3F39-43E4-90F5-A0F3ADF51F6E\"](ElevationPaperSpace Property (ActiveX))")
+   (groups
+    :accessor groups                   :initarg :groups                   :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-61422D1A-B391-4528-968A-04A7B7A590F2\"](Groups Property (ActiveX))")
    (layers
     :accessor layers
     :initarg :layers
     :initform (make-instance '<acad-layers>)
     :documentation "layers")
-   (layouts                  :accessor layouts                  :initarg :layouts                  :initform nil :documentation "layouts")
-   (limits                   :accessor limits                   :initarg :limits                   :initform nil :documentation "limits")
+   (layouts
+    :accessor layouts                  :initarg :layouts                  :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-4D435BCF-BD83-46D6-9940-8CA519F29272\"](Layouts Property (ActiveX))")
+   (limits
+    :accessor limits                   :initarg :limits                   :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-30E059A2-A0C0-4F1A-B021-0478AF950D6E\"](Limits Property (ActiveX))")
    (linetypes
-    :accessor linetypes
-    :initarg :linetypes
-    :initform (make-instance '<acad-linetypes>)
-    :documentation "linetypes")
-   (material                 :accessor material                 :initarg :material                 :initform nil :documentation "material")
-   (model-space              :accessor model-space              :initarg :model-space              :initform nil :documentation "model-space")
-   (paper-space              :accessor paper-space              :initarg :paper-space              :initform nil :documentation "paper-space")
-   (plot-configurations      :accessor plot-configurations      :initarg :plot-configurations      :initform nil :documentation "plot-configurations")
-   (preferences              :accessor preferences              :initarg :preferences              :initform nil :documentation "preferences")
-   (registered-applications  :accessor registered-applications  :initarg :registered-applications  :initform nil :documentation "registered-applications")
-   (section-manager          :accessor section-manager          :initarg :section-manager          :initform nil :documentation "section-manager")
-   (summary-info             :accessor summary-info             :initarg :summary-info             :initform nil :documentation "summary-info")
-   (text-styles              :accessor text-styles              :initarg :text-styles              :initform nil :documentation "text-styles")
-   (user-coordinate-systems  :accessor user-coordinate-systems  :initarg :user-coordinate-systems  :initform nil :documentation "user-coordinate-systems")
-   (viewports                :accessor viewports                :initarg :viewports                :initform nil :documentation "viewports")
-   (views                    :accessor views                    :initarg :views                    :initform nil :documentation "views"))
-  (:documentation "
-@begin[lang=txt](code)
-The contents of an XRef block.
-@end(code)"))
+    :accessor linetypes :initarg :linetypes :initform (make-instance '<acad-linetypes>)
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-BADF9960-D671-46DC-B887-334D72A4B295\"](Linetypes Property (ActiveX))")
+   (material
+    :accessor material                 :initarg :material                 :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-291D29B4-D327-424B-B9F5-DB46E99D0F27\"](Material Property (ActiveX))")
+   (ac-model-space
+    :accessor ac-model-space           :initarg :ac-model-space           :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5A488EA7-C843-4994-8D66-03B7745EC80D\"](ModelSpace Property (ActiveX))")
+   (paperspace
+    :accessor paperspace              :initarg :paperspace              :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-740E6C3D-4EA9-4202-96D0-F8ACF0C92DC8\"](PaperSpace Property (ActiveX))")
+   (plotconfigurations
+    :accessor plotconfigurations      :initarg :plotconfigurations      :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-CCF26567-0714-40F4-9895-856A1722C891\"](PlotConfigurations Property (ActiveX))")
+   (preferences
+    :accessor preferences              :initarg :preferences              :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-CEA64734-E3BE-441F-A586-2F954AA8403E\"](Preferences Property (ActiveX))")
+   (registeredapplications
+    :accessor registeredapplications  :initarg :registeredapplications  :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-31073EC8-7827-4617-A3D2-7ED1760EFC59\"](RegisteredApplications Property (ActiveX))")
+   (sectionmanager
+    :accessor sectionmanager          :initarg :sectionmanager          :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-877A384A-4B16-4651-9DDA-939F70476DED\"](SectionManager Property (ActiveX))")
+   (summaryinfo
+    :accessor summaryinfo             :initarg :summaryinfo             :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B1AB773D-8EA7-4DA6-95BB-38DAF1F34DEC\"](SummaryInfo Property (ActiveX))")
+   (textstyles
+    :accessor textstyles              :initarg :textstyles              :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-37275969-EA77-4358-A559-FB804EA5179F\"](TextStyles Property (ActiveX))")
+   (usercoordinatesystems
+    :accessor usercoordinatesystems  :initarg :usercoordinatesystems  :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1121D09A-27D8-4289-8D8C-03A3339D95BA\"](UserCoordinateSystems Property (ActiveX))")
+   (viewports
+    :accessor viewports                :initarg :viewports                :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1DA1A71A-DEA1-4136-B057-A6EE915EF001\"](Viewports Property (ActiveX))")
+   (views
+    :accessor views                    :initarg :views                    :initform nil
+    :documentation"@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-DD4ED21D-EF6A-4FAD-99C5-3A08BEF12101\"](Views Property (ActiveX))"))
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-31D8D654-572D-4D2B-A138-4D8793ECE135\"](Database Object (ActiveX))"))
 
 ;;;;;;;;
 
-(defparameter *acad-database-properties* '(Blocks Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace Groups Layers Layouts Limits Linetypes Material ModelSpace PaperSpace PlotConfigurations Preferences RegisteredApplications SectionManager SummaryInfo TextStyles UserCoordinateSystems Viewports Views))
+(defparameter *acad-database-properties*
+  '(Blocks Dictionaries DimStyles ElevationModelSpace
+    ElevationPaperSpace Groups Layers Layouts Limits Linetypes Material
+    ModelSpace PaperSpace PlotConfigurations Preferences
+    RegisteredApplications SectionManager SummaryInfo TextStyles
+    UserCoordinateSystems Viewports Views))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-database-properties* nil))
 
 (defclass <acad-document> (<acad-database>)
-  ((active                :accessor active                :initarg :active                :initform nil :documentation "active")
-   (activedimstyle        :accessor activedimstyle        :initarg :activedimstyle        :initform nil :documentation "activedimstyle")
-   (activelayer           :accessor activelayer           :initarg :activelayer           :initform nil :documentation "activelayer")
-   (activelayout          :accessor activelayout          :initarg :activelayout          :initform nil :documentation "activelayout")
-   (activelinetype        :accessor activelinetype        :initarg :activelinetype        :initform nil :documentation "activelinetype")
-   (activematerial        :accessor activematerial        :initarg :activematerial        :initform nil :documentation "activematerial")
-   (activepviewport       :accessor activepviewport       :initarg :activepviewport       :initform nil :documentation "activepviewport")
-   (activeselectionset    :accessor activeselectionset    :initarg :activeselectionset    :initform nil :documentation "activeselectionset")
-   (activespace           :accessor activespace           :initarg :activespace           :initform nil :documentation "activespace")
-   (activetextstyle       :accessor activetextstyle       :initarg :activetextstyle       :initform nil :documentation "activetextstyle")
-   (activeucs             :accessor activeucs             :initarg :activeucs             :initform nil :documentation "activeucs")
-   (activeviewport        :accessor activeviewport        :initarg :activeviewport        :initform nil :documentation "activeviewport")
-   (application           :accessor application           :initarg :application           :initform nil :documentation "application")
-   (database              :accessor database              :initarg :database              :initform nil :documentation "database")
-   (fullname              :accessor fullname              :initarg :fullname              :initform nil :documentation "fullname")
-   (height                :accessor height                :initarg :height                :initform nil :documentation "height")
-   (hwnd                  :accessor hwnd                  :initarg :hwnd                  :initform nil :documentation "hwnd")
-   (materials             :accessor materials             :initarg :materials             :initform nil :documentation "materials")
-   (mspace                :accessor mspace                :initarg :mspace                :initform nil :documentation "mspace")
-   (name                  :accessor name                  :initarg :name                  :initform nil :documentation "name")
-   (objectsnapmode        :accessor objectsnapmode        :initarg :objectsnapmode        :initform nil :documentation "objectsnapmode")
-   (path                  :accessor path                  :initarg :path                  :initform nil :documentation "path")
-   (pickfirstselectionset :accessor pickfirstselectionset :initarg :pickfirstselectionset :initform nil :documentation "pickfirstselectionset")
-   (plot                  :accessor plot                  :initarg :plot                  :initform nil :documentation "plot")
-   (readonly              :accessor readonly              :initarg :readonly              :initform nil :documentation "readonly")
-   (saved                 :accessor saved                 :initarg :saved                 :initform nil :documentation "saved")
-   (selectionsets         :accessor selectionsets         :initarg :selectionsets         :initform nil :documentation "selectionsets")
-   (utility               :accessor utility               :initarg :utility               :initform nil :documentation "utility")
+  ((active
+    :accessor active                :initarg :active                :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C56733CC-704D-4F9D-9C78-7EA9DFC40799\"](Active Property (ActiveX))")
+   (activedimstyle
+    :accessor activedimstyle        :initarg :activedimstyle        :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-06023FAF-A279-443F-88D5-04735E557D95\"](ActiveDimStyle Property (ActiveX)) ")
+   (activelayer
+    :accessor activelayer           :initarg :activelayer           :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1ECB5739-A11D-4B19-9F2B-994A680D94BF\"](ActiveLayer Property (ActiveX))")
+   (activelayout
+    :accessor activelayout          :initarg :activelayout          :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-362525D2-1F6D-40BB-97FD-B83D668D7851\"](ActiveLayout Property (ActiveX))")
+   (activelinetype
+    :accessor activelinetype        :initarg :activelinetype        :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E93FD0AE-F63F-4655-B5A6-AAB30288D663\"](ActiveLinetype Property (ActiveX))")
+   (activematerial
+    :accessor activematerial        :initarg :activematerial        :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5478BDCD-0B51-46AE-A51A-0DB42D1925FD\"](ActiveMaterial Property (ActiveX))")
+   (activepviewport
+    :accessor activepviewport       :initarg :activepviewport       :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-4ABA8345-CB2B-4F56-A4FF-4B221DB51B27\"](ActivePViewport Property (ActiveX))")
+   (activeselectionset
+    :accessor activeselectionset    :initarg :activeselectionset    :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3F917B84-B086-4995-9577-E2C73051BF2C\"](ActiveSelectionSet Property (ActiveX))")
+   (activespace
+    :accessor activespace           :initarg :activespace           :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7CDD9455-21E1-42BB-ADA4-D39ABF2FB4A3\"](ActiveSpace Property (ActiveX))")
+   (activetextstyle
+    :accessor activetextstyle       :initarg :activetextstyle       :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1D9D9A7D-7429-402D-90B8-387903FD5D08\"](ActiveTextStyle Property (ActiveX))")
+   (activeucs
+    :accessor activeucs             :initarg :activeucs             :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F806BFBE-6291-44B9-AE48-CD960B7CB8D1\"](ActiveUCS Property (ActiveX))")
+   (activeviewport
+    :accessor activeviewport        :initarg :activeviewport        :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8EA574F1-AEB1-4940-BB9F-02AFE5B6C630\"](ActiveViewport Property (ActiveX))")
+   (application
+    :accessor application           :initarg :application           :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-41478919-F833-4273-9EBC-B57C5FF792D4\"](Application Property (ActiveX))")
+   (database
+    :accessor database              :initarg :database              :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-6FC179C1-EBE2-4F13-91B3-760B6D2AB7A5\"](Database Property (ActiveX))")
+   (fullname
+    :accessor fullname              :initarg :fullname              :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1738D847-ACED-491B-9B5C-CDC781A89BEB\"](FullName Property (ActiveX))")
+   (height
+    :accessor height                :initarg :height                :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-EB797768-80BE-4A07-95A3-34F3CD61D5A3\"](Height Property (ActiveX))")
+   (hwnd
+    :accessor hwnd                  :initarg :hwnd                  :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-79FF9339-5361-4E73-A8F9-0F72C5E03DC1\"](HWND Property (ActiveX))")
+   (materials
+    :accessor materials             :initarg :materials             :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-CC0B448B-532C-48F8-A93C-9FE435C5BCFD\"](Materials Property (ActiveX))")
+   (mspace
+    :accessor mspace                :initarg :mspace                :initform nil
+    :documentation
+    "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-FC5EE356-D978-47B8-A8B2-CDDFA4CA3415\"] (MSpace Property (ActiveX))")
+   (name
+    :accessor name                  :initarg :name                  :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5656E0DF-64F4-4117-BA31-64E6C2C55877\"](Name Property (ActiveX))")
+   (objectsnapmode
+    :accessor objectsnapmode        :initarg :objectsnapmode        :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E7E097DE-098F-48C9-A4C2-69AEBD56F30A\"](ObjectSnapMode Property (ActiveX))")
+   (path
+    :accessor path                  :initarg :path                  :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-252F6CDA-B400-4EF5-A3F6-FD0E54A4CA40\"](Path Property (ActiveX))")
+   (pickfirstselectionset
+    :accessor pickfirstselectionset :initarg :pickfirstselectionset :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-D48A1C37-4223-4AAA-B1DC-A746604C49B3\"](PickfirstSelectionSet Property (ActiveX))")
+   (plot
+    :accessor plot                  :initarg :plot                  :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7C66D011-6130-4463-935F-26D92D6C83F3\"](Plot Property (ActiveX))")
+   (readonly
+    :accessor readonly              :initarg :readonly              :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F907311B-2BFC-4498-BD1D-560D537F7FE8\"](ReadOnly Property (ActiveX))")
+   (saved
+    :accessor saved                 :initarg :saved                 :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5CC922B2-DFB3-45B6-88BB-CB59ED62934E\"](Saved Property (ActiveX))")
+   (selectionsets
+    :accessor selectionsets         :initarg :selectionsets         :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-671644CD-D776-4743-88D4-C0F759EC5D89\"](SelectionSets Property (ActiveX))")
+   (utility
+    :accessor utility               :initarg :utility               :initform nil
+    :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E1B12A7D-2BCA-4743-AE01-F9106ED4D982\"](Utility Property (ActiveX))")
    (width                 :accessor width                 :initarg :width                 :initform nil :documentation "width")
    (windowstate           :accessor windowstate           :initarg :windowstate           :initform nil :documentation "windowstate")
    (windowtitle           :accessor windowtitle           :initarg :windowtitle           :initform nil :documentation "windowtitle")
-;;;;;;;;
-   (sec-header            :accessor sec-header            :initarg :sec-header            :initform nil :documentation "header      - Представление секции HEADER")
-   (sec-classes           :accessor sec-classes           :initarg :sec-classes           :initform nil :documentation "classes     - Представление секции CLASSES")
-   (sec-table-appid       :accessor sec-table-appid       :initarg :sec-table-appid       :initform nil :documentation "table-appid - Представление секции TABLE-APPID")
-
-   )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   #+nil (sec-header :accessor sec-header :initarg :sec-header :initform nil
+                     :documentation
+                     "header      - Представление секции HEADER")
+   (sec-classes :accessor sec-classes :initform nil
+                :documentation "classes     - Представление секции CLASSES")
+   (sec-tables
+    :accessor sec-tables :initform nil
+    :documentation "tables     - Представление секции TABLES")
+   (sec-blocks
+    :accessor sec-blocks :initform nil
+    :documentation
+    "blocks     - Представление секции BLOCKS")
+   (sec-entities
+    :accessor sec-entities :initform nil
+    :documentation
+    "entities     - Представление секции ENTITIES")
+   (sec-objects
+    :accessor sec-objects :initform nil
+    :documentation
+    "objects     - Представление секции OBJECTS")
+   (sec-acdsdata
+    :accessor sec-acdsdata :initform nil
+    :documentation
+    "acdsdata     - Представление секции ACDSDATA")
+   (sec-table-appid
+    :accessor sec-table-appid :initform nil
+    :documentation
+    "table-appid - Представление секции TABLE-APPID"))
   (:documentation "
-@begin[lang=txt](code)
-@end(code)
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9216BFCD-D358-4FC6-B631-B52E6693D242\"](Document Object (ActiveX))
+ Methods 
+ ac-Activate ac-Audit-Info ac-Close ac-Copy-Objects ac-End-Undo-Mark ac-Export ac-Get-Variable
+ ac-Handle-To-Object ac-Import ac-Load-Shape-File ac-New ac-Object-ID-To-Object ac-Open
+ ac-Post-Command ac-Purge-All ac-Regen ac-Save ac-Save-As ac-Send-Command ac-Set-Variable
+ ac-Start-Undo-Mark ac-W-Block
 "))
 
-(defparameter *acad-document-properties* '( Active ActiveDimStyle ActiveLayer ActiveLayout ActiveLinetype ActiveMaterial ActivePViewport ActiveSelectionSet ActiveSpace ActiveTextStyle ActiveUCS ActiveViewport Application Blocks Database Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace FullName Groups Height HWND Layers Layouts Limits Linetypes Materials ModelSpace MSpace Name ObjectSnapMode PaperSpace Path PickfirstSelectionSet Plot PlotConfigurations Preferences ReadOnly RegisteredApplications Saved SectionManager SelectionSets SummaryInfo TextStyles UserCoordinateSystems Utility Viewports Views Width WindowState WindowTitle))
+(defparameter *acad-document-properties*
+  '(Active ActiveDimStyle ActiveLayer ActiveLayout ActiveLinetype
+    ActiveMaterial ActivePViewport ActiveSelectionSet ActiveSpace
+    ActiveTextStyle ActiveUCS ActiveViewport Application Blocks Database
+    Dictionaries DimStyles ElevationModelSpace ElevationPaperSpace
+    FullName Groups Height HWND Layers Layouts Limits Linetypes
+    Materials ModelSpace MSpace Name ObjectSnapMode PaperSpace Path
+    PickfirstSelectionSet Plot PlotConfigurations Preferences ReadOnly
+    RegisteredApplications Saved SectionManager SelectionSets
+    SummaryInfo TextStyles UserCoordinateSystems Utility Viewports Views
+    Width WindowState WindowTitle))
 
 (reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-document-properties* *acad-database-properties*)) )
 
@@ -1997,7 +2188,9 @@ https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F57A316C-94A2-416C-8280-1
 @end(code)
 "))
 
-(defparameter *acad-linetype-properties* '(Application Description Document Handle HasExtensionDictionary Name ObjectID ObjectName OwnerID))
+(defparameter *acad-linetype-properties*
+  '(Application Description Document Handle HasExtensionDictionary
+    Name ObjectID ObjectName OwnerID))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-linetype-properties* *acad-object-properties*))
 
@@ -2051,7 +2244,9 @@ https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F57A316C-94A2-416C-8280-1
 @end(code)
 "))
 
-(defparameter *acad-linetypes-properties* '(Application A-Count Document Handle HasExtensionDictionary ObjectID ObjectName OwnerID))
+(defparameter *acad-linetypes-properties*
+  '(Application A-Count Document Handle HasExtensionDictionary
+    ObjectID ObjectName OwnerID))
 
 (reverse (mapcar #'dxf/utils:make-slot (set-difference *acad-linetypes-properties* *acad-object-properties*)))
 
