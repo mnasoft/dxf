@@ -124,7 +124,30 @@
    *db-block-tr-subclass-marker*
    *table-names*)
   (:documentation "
-@begin(enum)
+
+ @b(Описание:) пакет @b(dxf) определяет классы и методы, которые
+ позволяют манипулировать содержимым файлов в формате DXF (см.
+ @link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3\"](Формат
+ DXF (DXF))) при помощи методов аналогичных интерфейсу ActiveX (см.
+ @link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-BA470FE7-6488-4BC9-8FC8-ED93C32D86AA\"](About
+ Using ActiveX with AutoLISP (AutoLISP/ActiveX))).
+
+ Порядок преобразования имен объектов, свойств, методов, событий VBA в
+ имена соответствующих им классов, слотов, аксессоров, методов,
+ обработчиков Common Lisp заключается в следующем:
+
+ @begin(enum)
+   @item(Имя VBA разделяется символами \"-\" на слова по встреченным
+         в нем заглавным буквам;)
+   @item(К имени добавляется префикс \"ac-\";)
+   @item(Имена классов дополнительно заключаются в угловые скобки.)
+ @end(enum)
+ "))
+
+
+(in-package #:dxf)
+
+"@begin(enum)
   @item(
     @link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A809CD71-4655-44E2-B674-1FE200B9FE30\"](Object Model (ActiveX)))
   @item(
@@ -178,9 +201,6 @@
       @item(@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-55080553-34B6-40AA-9EE2-3F3A3A2A5C0A\"](XLINE (DXF));)
    @end(list))
 @end(enum)"
-                  ))
-
-(in-package #:dxf)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; line-weights.lisp
