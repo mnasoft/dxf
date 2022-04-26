@@ -33,7 +33,9 @@
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "A paragraph of alphanumeric characters that fits within a nonprinting text boundary."))
+  (:documentation "
+!mtext Object (ActiveX)
+"))
 
 (defparameter *acad-mtext-properties* '(ac-application ac-attachment-point ac-background-fill ac-document ac-drawing-direction ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-layer ac-line-spacing-distance ac-line-spacing-factor ac-line-spacing-style ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-rotation ac-style-name ac-text-string ac-true-color ac-visible ac-width))
 

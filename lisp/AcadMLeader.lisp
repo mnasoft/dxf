@@ -57,7 +57,9 @@
   (ac-type                     :accessor ac-type                     :initarg :ac-type                     :initform nil :documentation "ac-type")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "An object composed of an arrowhead attached to multiple splines or straight line segments."))
+  (:documentation "
+mleader Object (ActiveX)
+"))
 
 (defparameter *acad-m-leader-properties* '(ac-application ac-arrowhead-block ac-arrowhead-size ac-arrowhead-type ac-block-connection-type ac-block-scale ac-content-block-name ac-content-block-type ac-content-type ac-document ac-dog-legged ac-dogleg-length ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-landing-gap ac-layer ac-leader-count ac-leader-line-color ac-leader-line-type ac-leader-line-weight ac-leader-type ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-scale-factor ac-style-name ac-text-attachment-direction ac-text-background-fill ac-text-bottom-attachment-type ac-text-direction ac-text-frame-display ac-text-height ac-text-justify ac-text-left-attachment-type ac-text-line-spacing-distance ac-text-line-spacing-factor ac-text-line-spacing-style ac-text-right-attachment-type ac-text-rotation ac-text-string ac-text-style-name ac-text-top-attachment-type ac-text-width ac-true-color ac-type ac-visible))
 

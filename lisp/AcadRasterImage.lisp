@@ -36,7 +36,10 @@
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "A raster image consisting of a rectangular grid (or raster) of small squares or dots known as pixels."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3613CF3F-EFC6-4E20-B875-D66B0494B94F
+RasterImage Object (ActiveX)
+"))
 
 (defparameter *acad-raster-image-properties* '(ac-application ac-brightness ac-clipping-enabled ac-contrast ac-document ac-entity-transparency ac-fade ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-image-file ac-image-height ac-image-visibility ac-image-width ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-show-rotation ac-transparency ac-true-color ac-visible ac-width))
 

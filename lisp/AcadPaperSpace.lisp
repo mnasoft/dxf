@@ -13,7 +13,9 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "A special Block object containing all the entities in the active paper space layout."))
+  (:documentation "
+paperspace Object (ActiveX)
+"))
 
 (defparameter *acad-paper-space-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-layout ac-name ac-object-id ac-object-name ac-owner-id))
 

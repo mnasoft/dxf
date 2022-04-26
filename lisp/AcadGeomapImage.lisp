@@ -42,7 +42,9 @@
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "An embedded raster image which is captured from a portion of LiveMap."))
+  (:documentation "
+geomapimage Object (ActiveX)
+"))
 
 (defparameter *acad-geomap-image-properties* '(ac-application ac-brightness ac-clipping-enabled ac-contrast ac-document ac-entity-transparency ac-fade ac-geo-image-brightness ac-geo-image-contrast ac-geo-image-fade ac-geo-image-height ac-geo-image-position ac-geo-image-width ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-image-file ac-image-height ac-image-visibility ac-image-width ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-show-rotation ac-transparency ac-true-color ac-visible ac-width))
 

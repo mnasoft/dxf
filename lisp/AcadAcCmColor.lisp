@@ -13,6 +13,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-D24C6BB5-5F87-42E7-907F-F27226B330E3
+AcCmColor Object (ActiveX)
 "))
 
 (defparameter *acad-ac-cm-color-properties* '(ac-blue ac-book-name ac-color-index ac-color-method ac-color-name ac-entity-color ac-green ac-red))

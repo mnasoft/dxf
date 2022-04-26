@@ -33,7 +33,10 @@
   (ac-unit-factor              :accessor ac-unit-factor              :initarg :ac-unit-factor              :initform nil :documentation "ac-unit-factor")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A point cloud extension entity."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9EC2395E-F5CC-4272-B535-3D0C905B8C71
+PointCloudEx Object (ActiveX)
+"))
 
 (defparameter *acad-point-cloud-ex-properties* '(ac-application ac-color-scheme ac-document ac-entity-transparency ac-geolocate ac-handle ac-has-extension-dictionary ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-locked ac-material ac-name ac-object-id ac-object-name ac-owner-id ac-path ac-plot-style-name ac-rotation ac-scale ac-segmentation ac-show-cropped ac-stylization ac-true-color ac-unit ac-unit-factor ac-visible))
 

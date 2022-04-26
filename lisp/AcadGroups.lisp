@@ -11,7 +11,9 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "The collection of all groups in the drawing."))
+  (:documentation "
+!groups Object (ActiveX)
+"))
 
 (defparameter *acad-groups-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 

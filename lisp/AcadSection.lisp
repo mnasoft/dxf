@@ -38,7 +38,10 @@
   (ac-viewing-direction        :accessor ac-viewing-direction        :initarg :ac-viewing-direction        :initform nil :documentation "ac-viewing-direction")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A section plane entity created at the intersection of a plane and a solid."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5242921B-1A1B-47DF-B9B7-2932DB5227AA
+Section Object (ActiveX)
+"))
 
 (defparameter *acad-section-properties* '(ac-application ac-bottom-height ac-coordinate ac-document ac-elevation ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-indicator-fill-color ac-indicator-transparency ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-live-section-enabled ac-material ac-name ac-normal ac-num-vertices ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-section-plane-offset ac-settings ac-slice-depth ac-state ac-state2 ac-top-height ac-true-color ac-vertical-direction ac-vertices ac-viewing-direction ac-visible))
 

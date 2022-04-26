@@ -41,7 +41,9 @@
   (ac-v-isoline-density        :accessor ac-v-isoline-density        :initarg :ac-v-isoline-density        :initform nil :documentation "ac-v-isoline-density")
   (ac-wireframe-type           :accessor ac-wireframe-type           :initarg :ac-wireframe-type           :initform nil :documentation "ac-wireframe-type")
   )
-  (:documentation "A surface created by lofting through a set of two or more curves."))
+  (:documentation "
+loftedsurface Object (ActiveX)
+"))
 
 (defparameter *acad-lofted-surface-properties* '(ac-application ac-closed ac-document ac-edge-extension-distances ac-end-draft-angle ac-end-draft-magnitude ac-end-smooth-continuity ac-end-smooth-magnitude ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-maintain-associativity ac-material ac-num-cross-sections ac-num-guide-paths ac-object-id ac-object-name ac-owner-id ac-periodic ac-plot-style-name ac-show-associativity ac-start-draft-angle ac-start-draft-magnitude ac-start-smooth-continuity ac-start-smooth-magnitude ac-surface-normals ac-surface-type ac-surf-trim-associativity ac-true-color ac-u-isoline-density ac-visible ac-v-isoline-density ac-wireframe-type))
 

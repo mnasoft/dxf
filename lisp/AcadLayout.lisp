@@ -32,7 +32,9 @@
   (ac-use-standard-scale       :accessor ac-use-standard-scale       :initarg :ac-use-standard-scale       :initform nil :documentation "ac-use-standard-scale")
   (ac-view-to-plot             :accessor ac-view-to-plot             :initarg :ac-view-to-plot             :initform nil :documentation "ac-view-to-plot")
   )
-  (:documentation "The plot settings and visual properties of a model space or paper space block."))
+  (:documentation "
+!layout Object (ActiveX)
+"))
 
 (defparameter *acad-layout-properties* '(ac-application ac-block ac-canonical-media-name ac-center-plot ac-config-name ac-document ac-handle ac-has-extension-dictionary ac-model-type ac-name ac-object-id ac-object-name ac-owner-id ac-paper-units ac-plot-hidden ac-plot-origin ac-plot-rotation ac-plot-type ac-plot-viewport-borders ac-plot-viewports-first ac-plot-with-lineweights ac-plot-with-plot-styles ac-scale-lineweights ac-show-plot-styles ac-standard-scale ac-style-sheet ac-tab-order ac-use-standard-scale ac-view-to-plot))
 

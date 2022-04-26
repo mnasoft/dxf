@@ -11,7 +11,9 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "The collection of all materials in the drawing."))
+  (:documentation "
+!materials Object (ActiveX)
+"))
 
 (defparameter *acad-materials-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 

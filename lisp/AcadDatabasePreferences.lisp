@@ -25,6 +25,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B03F622D-9D1D-4149-A170-1DF2AC62DA37
+DatabasePreferences Object (ActiveX)
 "))
 
 (defparameter *acad-database-preferences-properties* '(ac-allow-long-symbol-names ac-application ac-contourlines-per-surface ac-display-silhouette ac-lineweight ac-lineweight-display ac-max-active-viewports ac-object-sort-by-plotting ac-object-sort-by-ps-output ac-object-sort-by-redraws ac-object-sort-by-regens ac-object-sort-by-selection ac-object-sort-by-snap ac-ole-launch ac-render-smoothness ac-segment-per-polyline ac-solid-fill ac-text-frame-display ac-x-ref-edit ac-x-ref-layer-visibility))

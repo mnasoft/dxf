@@ -7,7 +7,9 @@
   (ac-number-of-copies         :accessor ac-number-of-copies         :initarg :ac-number-of-copies         :initform nil :documentation "ac-number-of-copies")
   (ac-quiet-error-mode         :accessor ac-quiet-error-mode         :initarg :ac-quiet-error-mode         :initform nil :documentation "ac-quiet-error-mode")
   )
-  (:documentation "The set of methods and properties used for plotting layouts."))
+  (:documentation "
+!plot Object (ActiveX)
+"))
 
 (defparameter *acad-plot-properties* '(ac-application ac-batch-plot-progress ac-number-of-copies ac-quiet-error-mode))
 

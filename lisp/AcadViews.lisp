@@ -11,7 +11,10 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "The collection of all views in the drawing."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-786FCD2B-E5F8-4BFA-B69F-F871AF4503CA
+Views Collection (ActiveX)
+"))
 
 (defparameter *acad-views-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 

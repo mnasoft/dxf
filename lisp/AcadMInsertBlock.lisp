@@ -39,7 +39,9 @@
   (ac-z-effective-scale-factor :accessor ac-z-effective-scale-factor :initarg :ac-z-effective-scale-factor :initform nil :documentation "ac-z-effective-scale-factor")
   (ac-z-scale-factor           :accessor ac-z-scale-factor           :initarg :ac-z-scale-factor           :initform nil :documentation "ac-z-scale-factor")
   )
-  (:documentation "A rectangular array of block references."))
+  (:documentation "
+minsertblock Object (ActiveX)
+"))
 
 (defparameter *acad-m-insert-block-properties* '(ac-application ac-columns ac-column-spacing ac-document ac-effective-name ac-entity-transparency ac-handle ac-has-attributes ac-has-extension-dictionary ac-hyperlinks ac-insertion-point ac-ins-units ac-ins-units-factor ac-is-dynamic-block ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-rotation ac-rows ac-row-spacing ac-true-color ac-visible ac-x-effective-scale-factor ac-x-scale-factor ac-y-effective-scale-factor ac-y-scale-factor ac-z-effective-scale-factor ac-z-scale-factor))
 

@@ -33,6 +33,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-4EC0355F-A91B-4ADA-A346-05CCCD22259B
+3DSolid Object (ActiveX)
 "))
 
 (defparameter *acad-3d-solid-properties* '(ac-application ac-centroid ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-history ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-moment-of-inertia ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-principal-directions ac-principal-moments ac-product-of-inertia ac-radii-of-gyration ac-show-history ac-solid-type ac-true-color ac-visible ac-volume))

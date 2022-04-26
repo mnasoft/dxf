@@ -28,7 +28,10 @@
   (ac-v-isoline-density        :accessor ac-v-isoline-density        :initarg :ac-v-isoline-density        :initform nil :documentation "ac-v-isoline-density")
   (ac-wireframe-type           :accessor ac-wireframe-type           :initarg :ac-wireframe-type           :initform nil :documentation "ac-wireframe-type")
   )
-  (:documentation "A surface entity."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-98BC3DD3-F913-494C-8559-EAFA0DDEFE3E
+Surface Object (ActiveX)
+"))
 
 (defparameter *acad-surface-properties* '(ac-application ac-document ac-edge-extension-distances ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-maintain-associativity ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-show-associativity ac-surface-type ac-surf-trim-associativity ac-true-color ac-u-isoline-density ac-visible ac-v-isoline-density ac-wireframe-type))
 

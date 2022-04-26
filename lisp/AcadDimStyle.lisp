@@ -11,7 +11,10 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "A group of dimension settings that determines the appearance of a dimension."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3227408C-75A9-434C-BD3F-B189A2BE098A
+DimStyle Object (ActiveX)
+"))
 
 (defparameter *acad-dim-style-properties* '(ac-application ac-document ac-handle ac-has-extension-dictionary ac-name ac-object-id ac-object-name ac-owner-id))
 

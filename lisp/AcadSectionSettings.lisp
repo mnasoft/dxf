@@ -11,7 +11,10 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "A container for section geometry settings."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-72C22774-0C07-4B54-8760-65ADCFC228DD
+SectionSettings object (ActiveX)
+"))
 
 (defparameter *acad-section-settings-properties* '(ac-application ac-current-section-type ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 

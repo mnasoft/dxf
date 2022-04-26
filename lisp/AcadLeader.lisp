@@ -34,7 +34,9 @@
   (ac-vertical-text-position   :accessor ac-vertical-text-position   :initarg :ac-vertical-text-position   :initform nil :documentation "ac-vertical-text-position")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "An object composed of an arrowhead attached to splines or straight line segments."))
+  (:documentation "
+!leader Object (ActiveX)
+"))
 
 (defparameter *acad-leader-properties* '(ac-annotation ac-application ac-arrowhead-block ac-arrowhead-size ac-arrowhead-type ac-coordinate ac-coordinates ac-dimension-line-color ac-dimension-line-weight ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-scale-factor ac-style-name ac-text-gap ac-true-color ac-type ac-vertical-text-position ac-visible))
 

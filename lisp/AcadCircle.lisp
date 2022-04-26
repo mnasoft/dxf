@@ -29,6 +29,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-18ADF171-166F-4FF0-8ED6-5F83153A5649
+Circle Object (ActiveX)
 "))
 
 (defparameter *acad-circle-properties* '(ac-application ac-area ac-center ac-circumference ac-diameter ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-radius ac-thickness ac-true-color ac-visible))

@@ -30,7 +30,10 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A geometric tolerance contained in a feature control frame."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-89AF1685-5ACA-44F2-B741-D4C957C887F0
+Tolerance Object (ActiveX)
+"))
 
 (defparameter *acad-tolerance-properties* '(ac-application ac-dimension-line-color ac-direction-vector ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-scale-factor ac-style-name ac-text-color ac-text-height ac-text-string ac-text-style ac-true-color ac-visible))
 

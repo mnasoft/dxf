@@ -11,7 +11,10 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "The collection of all user coordinate systems (UCSs) in the drawing."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C7B1383E-9E7B-46AD-B821-0906421194E5
+UCSs Collection (ActiveX)
+"))
 
 (defparameter *acad-uc-ss-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 

@@ -34,7 +34,10 @@
   (ac-upside-down              :accessor ac-upside-down              :initarg :ac-upside-down              :initform nil :documentation "ac-upside-down")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A single line of alphanumeric characters."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-ED298AC7-19E0-4E54-8983-48439EF70116
+Text Object (ActiveX)
+"))
 
 (defparameter *acad-text-properties* '(ac-alignment ac-application ac-backward ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-oblique-angle ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-style-name ac-text-alignment-point ac-text-generation-flag ac-text-string ac-thickness ac-true-color ac-upside-down ac-visible))
 

@@ -53,7 +53,9 @@
   (ac-text-style               :accessor ac-text-style               :initarg :ac-text-style               :initform nil :documentation "ac-text-style")
   (ac-text-top-attachment-type :accessor ac-text-top-attachment-type :initarg :ac-text-top-attachment-type :initform nil :documentation "ac-text-top-attachment-type")
   )
-  (:documentation "Adds, modifies, and deletes MLeader styles."))
+  (:documentation "
+mleaderstyle Object (ActiveX)
+"))
 
 (defparameter *acad-m-leader-style-properties* '(ac-align-space ac-annotative ac-application ac-arrow-size ac-arrow-symbol ac-bit-flags ac-block ac-block-color ac-block-connection-type ac-block-rotation ac-block-scale ac-break-size ac-content-type ac-description ac-document ac-dogleg-length ac-draw-leader-order-type ac-draw-m-leader-order-type ac-enable-block-rotation ac-enable-block-scale ac-enable-dogleg ac-enable-frame-text ac-enable-landing ac-first-segment-angle-constraint ac-handle ac-has-extension-dictionary ac-landing-gap ac-leader-line-color ac-leader-line-type ac-leader-line-type-id ac-leader-line-weight ac-max-leader-segments-points ac-name ac-object-id ac-object-name ac-overwrite-prop-changed ac-owner-id ac-scale-factor ac-second-segment-angle-constraint ac-text-alignment-type ac-text-angle-type ac-text-attachment-direction ac-text-bottom-attachment-type ac-text-color ac-text-height ac-text-left-attachment-type ac-text-right-attachment-type ac-text-string ac-text-style ac-text-top-attachment-type))
 

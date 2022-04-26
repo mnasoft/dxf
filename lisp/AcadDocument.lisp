@@ -55,7 +55,10 @@
   (ac-window-state             :accessor ac-window-state             :initarg :ac-window-state             :initform nil :documentation "ac-window-state")
   (ac-window-title             :accessor ac-window-title             :initarg :ac-window-title             :initform nil :documentation "ac-window-title")
   )
-  (:documentation "An AutoCAD drawing."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9216BFCD-D358-4FC6-B631-B52E6693D242
+Document Object (ActiveX)
+"))
 
 (defparameter *acad-document-properties* '(ac-active ac-active-dim-style ac-active-layer ac-active-layout ac-active-linetype ac-active-material ac-active-p-viewport ac-active-selection-set ac-active-space ac-active-text-style ac-active-ucs ac-active-viewport ac-application ac-blocks ac-database ac-dictionaries ac-dim-styles ac-elevation-model-space ac-elevation-paper-space ac-full-name ac-groups ac-height ac-hwnd ac-layers ac-layouts ac-limits ac-linetypes ac-materials ac-model-space ac-m-space ac-name ac-object-snap-mode ac-paper-space ac-path ac-pickfirst-selection-set ac-plot ac-plot-configurations ac-preferences ac-read-only ac-registered-applications ac-saved ac-section-manager ac-selection-sets ac-summary-info ac-text-styles ac-user-coordinate-systems ac-utility ac-viewports ac-views ac-width ac-window-state ac-window-title))
 

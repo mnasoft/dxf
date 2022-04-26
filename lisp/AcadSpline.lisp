@@ -40,7 +40,10 @@
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   (ac-weights                  :accessor ac-weights                  :initarg :ac-weights                  :initform nil :documentation "ac-weights")
   )
-  (:documentation "A quadratic or cubic NURBS (nonuniform rational B-spline) curve."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B8FC11E4-3F6B-40CE-8AEC-D4CF669086A3
+Spline Object (ActiveX)
+"))
 
 (defparameter *acad-spline-properties* '(ac-application ac-area ac-closed ac-closed2 ac-control-points ac-degree ac-degree2 ac-document ac-end-tangent ac-entity-transparency ac-fit-points ac-fit-tolerance ac-handle ac-has-extension-dictionary ac-hyperlinks ac-is-periodic ac-is-planar ac-is-rational ac-knot-parameterization ac-knots ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-number-of-control-points ac-number-of-fit-points ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-spline-frame ac-spline-method ac-start-tangent ac-true-color ac-visible ac-weights))
 

@@ -30,7 +30,9 @@
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "An AutoCAD OLE object."))
+  (:documentation "
+!ole Object (ActiveX)
+"))
 
 (defparameter *acad-ole-properties* '(ac-application ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-lock-aspect-ratio ac-material ac-object-id ac-object-name ac-ole-item-type ac-ole-plot-quality ac-ole-source-app ac-owner-id ac-plot-style-name ac-rotation ac-scale-height ac-scale-width ac-true-color ac-visible ac-width))
 

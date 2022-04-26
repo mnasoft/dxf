@@ -30,7 +30,9 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A 2D line with adjustable width composed of line and arc segments."))
+  (:documentation "
+lwpolyline Object (ActiveX)
+"))
 
 (defparameter *acad-lw-polyline-properties* '(ac-application ac-area ac-closed ac-constant-width ac-coordinate ac-coordinates ac-document ac-elevation ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-length ac-linetype ac-linetype-generation ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-thickness ac-true-color ac-visible))
 

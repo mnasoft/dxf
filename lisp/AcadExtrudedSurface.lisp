@@ -31,7 +31,9 @@
   (ac-v-isoline-density        :accessor ac-v-isoline-density        :initarg :ac-v-isoline-density        :initform nil :documentation "ac-v-isoline-density")
   (ac-wireframe-type           :accessor ac-wireframe-type           :initarg :ac-wireframe-type           :initform nil :documentation "ac-wireframe-type")
   )
-  (:documentation "A surface created by extruding an object or a planar face a specified distance and direction."))
+  (:documentation "
+extrudedsurface Object (ActiveX)
+"))
 
 (defparameter *acad-extruded-surface-properties* '(ac-application ac-direction ac-document ac-edge-extension-distances ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-maintain-associativity ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-show-associativity ac-surface-type ac-surf-trim-associativity ac-taper-angle ac-true-color ac-u-isoline-density ac-visible ac-v-isoline-density ac-wireframe-type))
 

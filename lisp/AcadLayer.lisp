@@ -23,7 +23,9 @@
   (ac-used                     :accessor ac-used                     :initarg :ac-used                     :initform nil :documentation "ac-used")
   (ac-viewport-default         :accessor ac-viewport-default         :initarg :ac-viewport-default         :initform nil :documentation "ac-viewport-default")
   )
-  (:documentation "A logical grouping of data, similar to transparent acetate overlays on a drawing."))
+  (:documentation "
+!layer Object (ActiveX)
+"))
 
 (defparameter *acad-layer-properties* '(ac-application ac-description ac-document ac-freeze ac-handle ac-has-extension-dictionary ac-layer-on ac-linetype ac-lineweight ac-lock ac-material ac-name ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-plottable ac-true-color ac-used ac-viewport-default))
 

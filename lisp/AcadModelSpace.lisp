@@ -53,7 +53,9 @@
     :initform nil
     :documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-19E4BDA0-CFA2-419D-A9F3-4AA1AF709EA7\"](Units Property (ActiveX))")
   )
-  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C541B6F2-1279-4D1C-8DC0-788F27F644EF\"](ModelSpace Collection (ActiveX))"))
+  (:documentation "
+modelspace Object (ActiveX)
+"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C541B6F2-1279-4D1C-8DC0-788F27F644EF\"](ModelSpace Collection (ActiveX))"))
 
 (defparameter *acad-model-space-properties*
   '(ac-application ac-comments ac-count ac-document ac-handle

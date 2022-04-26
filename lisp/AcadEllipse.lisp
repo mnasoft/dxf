@@ -34,7 +34,9 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "An elliptical arc or full ellipse."))
+  (:documentation "
+!ellipse Object (ActiveX)
+"))
 
 (defparameter *acad-ellipse-properties* '(ac-application ac-area ac-center ac-document ac-end-angle ac-end-parameter ac-end-point ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-major-axis ac-major-radius ac-material ac-minor-axis ac-minor-radius ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-radius-ratio ac-start-angle ac-start-parameter ac-start-point ac-true-color ac-visible))
 

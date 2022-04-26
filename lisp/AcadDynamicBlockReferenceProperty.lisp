@@ -10,7 +10,9 @@
   (ac-units-type               :accessor ac-units-type               :initarg :ac-units-type               :initform nil :documentation "ac-units-type")
   (ac-value                    :accessor ac-value                    :initarg :ac-value                    :initform nil :documentation "ac-value")
   )
-  (:documentation "An object containing the properties of a dynamic block."))
+  (:documentation "
+dynamicblockreferenceproperty Object (ActiveX)
+"))
 
 (defparameter *acad-dynamic-block-reference-property-properties* '(ac-allowed-values ac-description ac-property-name ac-read-only ac-show ac-units-type ac-value))
 

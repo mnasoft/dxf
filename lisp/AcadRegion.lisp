@@ -29,7 +29,10 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A bounded planar face consisting of lines, circles, arcs, elliptical arcs, and spline curves."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-DFE47717-F7AF-443B-AD78-4E0BB60121C7
+Region object (ActiveX)
+"))
 
 (defparameter *acad-region-properties* '(ac-application ac-area ac-centroid ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-moment-of-inertia ac-normal ac-object-id ac-object-name ac-owner-id ac-perimeter ac-plot-style-name ac-principal-directions ac-principal-moments ac-product-of-inertia ac-radii-of-gyration ac-true-color ac-visible))
 

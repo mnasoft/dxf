@@ -23,7 +23,10 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A construction line that is infinite in both directions."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A223EA11-306F-4685-AE56-72DC8D21CB46
+XLine Object (ActiveX)
+"))
 
 (defparameter *acad-xline-properties* '(ac-application ac-base-point ac-direction-vector ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-second-point ac-true-color ac-visible))
 

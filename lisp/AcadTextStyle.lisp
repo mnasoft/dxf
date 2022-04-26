@@ -18,7 +18,10 @@
   (ac-text-generation-flag     :accessor ac-text-generation-flag     :initarg :ac-text-generation-flag     :initform nil :documentation "ac-text-generation-flag")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "A named, saved collection of settings that determines the appearance of text characters."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0531335D-26F3-404B-A4E1-1DE70BF0A307
+TextStyle Object (ActiveX)
+"))
 
 (defparameter *acad-text-style-properties* '(ac-application ac-big-font-file ac-document ac-font-file ac-handle ac-has-extension-dictionary ac-height ac-last-height ac-name ac-object-id ac-object-name ac-oblique-angle ac-owner-id ac-text-generation-flag ac-width))
 

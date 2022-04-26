@@ -24,7 +24,10 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A three-dimensional polyface mesh."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-679AA72F-7A2F-468D-A2D5-E3F28425C35A
+PolyfaceMesh Object (ActiveX)
+"))
 
 (defparameter *acad-polyface-mesh-properties* '(ac-application ac-coordinate ac-coordinates ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-number-of-faces ac-number-of-vertices ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-true-color ac-visible))
 

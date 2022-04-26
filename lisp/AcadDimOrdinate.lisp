@@ -85,7 +85,10 @@
   (ac-vertical-text-position   :accessor ac-vertical-text-position   :initarg :ac-vertical-text-position   :initform nil :documentation "ac-vertical-text-position")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A dimension measuring the absolute X or Y position of a point from the origin."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-35CE0F15-A136-4878-AEDC-FADC193E7ED2
+DimOrdinate Object (ActiveX)
+"))
 
 (defparameter *acad-dim-ordinate-properties* '(ac-alt-round-distance ac-alt-sub-units-factor ac-alt-sub-units-suffix ac-alt-suppress-leading-zeros ac-alt-suppress-trailing-zeros ac-alt-suppress-zero-feet ac-alt-suppress-zero-inches ac-alt-text-prefix ac-alt-text-suffix ac-alt-tolerance-precision ac-alt-tolerance-suppress-leading-zeros ac-alt-tolerance-suppress-trailing-zeros ac-alt-tolerance-suppress-zero-feet ac-alt-tolerance-suppress-zero-inches ac-alt-units ac-alt-units-format ac-alt-units-precision ac-alt-units-scale ac-application ac-arrowhead-size ac-decimal-separator ac-dim-txt-direction ac-document ac-entity-transparency ac-extension-line-color ac-extension-line-offset ac-extension-line-weight ac-ext-line-fixed-len ac-ext-line-fixed-len-suppress ac-fraction-format ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linear-scale-factor ac-linetype ac-linetype-scale ac-lineweight ac-material ac-measurement ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-primary-units-precision ac-rotation ac-round-distance ac-scale-factor ac-style-name ac-sub-units-factor ac-sub-units-suffix ac-suppress-leading-zeros ac-suppress-trailing-zeros ac-suppress-zero-feet ac-suppress-zero-inches ac-text-color ac-text-fill ac-text-fill-color ac-text-gap ac-text-height ac-text-movement ac-text-override ac-text-position ac-text-prefix ac-text-rotation ac-text-style ac-text-suffix ac-tolerance-display ac-tolerance-height-scale ac-tolerance-justification ac-tolerance-lower-limit ac-tolerance-precision ac-tolerance-suppress-leading-zeros ac-tolerance-suppress-trailing-zeros ac-tolerance-suppress-zero-feet ac-tolerance-suppress-zero-inches ac-tolerance-upper-limit ac-true-color ac-units-format ac-vertical-text-position ac-visible))
 

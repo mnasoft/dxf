@@ -48,7 +48,10 @@
   (ac-visual-style             :accessor ac-visual-style             :initarg :ac-visual-style             :initform nil :documentation "ac-visual-style")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "Rectangular objects created in paper space that display views."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-63DF4686-8A79-4A39-8247-4A3565F31FAA
+PViewport object (ActiveX)
+"))
 
 (defparameter *acad-p-viewport-properties* '(ac-application ac-arc-smoothness ac-center ac-clipped ac-custom-scale ac-direction ac-display-locked ac-document ac-entity-transparency ac-grid-on ac-handle ac-has-extension-dictionary ac-has-sheet-view ac-height ac-hyperlinks ac-label-block-id ac-layer ac-layer-property-overrides ac-lens-length ac-linetype ac-linetype-scale ac-lineweight ac-material ac-model-view ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-shade-plot ac-sheet-view ac-snap-base-point ac-snap-on ac-snap-rotation-angle ac-standard-scale ac-standard-scale2 ac-target ac-true-color ac-twist-angle ac-ucs-icon-at-origin ac-ucs-icon-on ac-ucs-per-viewport ac-viewport-on ac-visible ac-visual-style ac-width))
 

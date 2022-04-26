@@ -37,6 +37,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-70DBB31B-E1D1-4D8C-928C-B274E0D63E66
+DgnUnderlay Object (ActiveX)
 "))
 
 (defparameter *acad-dgn-underlay-properties* '(ac-adjust-for-background ac-application ac-clipping-enabled ac-contrast ac-document ac-entity-transparency ac-fade ac-file ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-item-name ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-monochrome ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-rotation ac-scale-factor ac-true-color ac-underlay-layer-override-applied ac-underlay-name ac-underlay-visibility ac-visible ac-width))

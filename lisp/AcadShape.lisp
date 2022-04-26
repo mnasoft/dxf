@@ -28,7 +28,10 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "An object comprising lines, arcs, and circles defined in an SHX file."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-14883954-9C4B-4B8F-AC0C-4B44940B5932
+Shape Object (ActiveX)
+"))
 
 (defparameter *acad-shape-properties* '(ac-application ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-normal ac-object-id ac-object-name ac-oblique-angle ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-thickness ac-true-color ac-visible))
 

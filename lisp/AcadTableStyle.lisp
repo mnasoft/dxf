@@ -20,7 +20,10 @@
   (ac-title-suppressed         :accessor ac-title-suppressed         :initarg :ac-title-suppressed         :initform nil :documentation "ac-title-suppressed")
   (ac-vert-cell-margin         :accessor ac-vert-cell-margin         :initarg :ac-vert-cell-margin         :initform nil :documentation "ac-vert-cell-margin")
   )
-  (:documentation "Adds, modifies, and deletes table styles."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-409A6709-D3D9-4D7D-AC60-163444D58FBA
+TableStyle Object (ActiveX)
+"))
 
 (defparameter *acad-table-style-properties* '(ac-application ac-bit-flags ac-description ac-document ac-flow-direction ac-handle ac-has-extension-dictionary ac-header-suppressed ac-horz-cell-margin ac-name ac-num-cell-styles ac-object-id ac-object-name ac-owner-id ac-template-id ac-title-suppressed ac-vert-cell-margin))
 

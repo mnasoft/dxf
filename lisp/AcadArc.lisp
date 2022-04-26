@@ -33,8 +33,8 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3D31C05F-BFF7-41E3-8ACE-0F807731C913
+Arc Object (ActiveX)
 "))
-
 (defparameter *acad-arc-properties* '(ac-application ac-arc-length ac-area ac-center ac-document ac-end-angle ac-end-point ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-radius ac-start-angle ac-start-point ac-thickness ac-total-angle ac-true-color ac-visible))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-arc-properties* *acad-entity-properties*))

@@ -31,7 +31,10 @@
   (ac-type                     :accessor ac-type                     :initarg :ac-type                     :initform nil :documentation "ac-type")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A 2D line of adjustable width or a 3D line or mesh of non-adjustable width composed of line and arc segments."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-35D9E28C-38A8-477A-AFCE-F21952092190
+Polyline Object (ActiveX)
+"))
 
 (defparameter *acad-polyline-properties* '(ac-application ac-area ac-closed ac-constant-width ac-coordinate ac-coordinates ac-document ac-elevation ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-length ac-linetype ac-linetype-generation ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-thickness ac-true-color ac-type ac-visible))
 

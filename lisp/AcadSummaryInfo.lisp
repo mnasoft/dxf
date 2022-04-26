@@ -11,7 +11,10 @@
   (ac-subject                  :accessor ac-subject                  :initarg :ac-subject                  :initform nil :documentation "ac-subject")
   (ac-title                    :accessor ac-title                    :initarg :ac-title                    :initform nil :documentation "ac-title")
   )
-  (:documentation "Accesses drawing properties such as the Title, Subject, Author, and Keywords properties."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A029FB49-B0DB-43E4-8888-698E1BF49878
+SummaryInfo Object (ActiveX)
+"))
 
 (defparameter *acad-summary-info-properties* '(ac-author ac-comments ac-hyperlink-base ac-keywords ac-last-saved-by ac-revision-number ac-subject ac-title))
 

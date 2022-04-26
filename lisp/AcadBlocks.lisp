@@ -13,6 +13,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E77CC5AD-74B8-472C-8270-32FD162D5653
+Blocks Collection (ActiveX)
 "))
 
 (defparameter *acad-blocks-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))

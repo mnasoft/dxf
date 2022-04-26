@@ -12,7 +12,9 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "The render material characteristics."))
+  (:documentation "
+!material Object (ActiveX)
+"))
 
 (defparameter *acad-material-properties* '(ac-application ac-description ac-document ac-handle ac-has-extension-dictionary ac-name ac-object-id ac-object-name ac-owner-id))
 

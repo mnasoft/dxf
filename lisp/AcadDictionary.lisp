@@ -14,6 +14,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9FF18AA0-4E48-4F92-AC0D-FBBD4225D347
+Dictionary Object (ActiveX)
 "))
 
 (defparameter *acad-dictionary-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-name ac-object-id ac-object-name ac-owner-id))

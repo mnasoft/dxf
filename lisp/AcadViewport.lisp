@@ -26,7 +26,10 @@
   (ac-upper-right-corner       :accessor ac-upper-right-corner       :initarg :ac-upper-right-corner       :initform nil :documentation "ac-upper-right-corner")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "A bounded area that displays some portion of a drawing's model space."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2B609059-6B70-4C66-A442-F5917363462A
+Viewport Object (ActiveX)
+"))
 
 (defparameter *acad-viewport-properties* '(ac-application ac-arc-smoothness ac-center ac-direction ac-document ac-grid-on ac-handle ac-has-extension-dictionary ac-height ac-lower-left-corner ac-name ac-object-id ac-object-name ac-ortho-on ac-owner-id ac-snap-base-point ac-snap-on ac-snap-rotation-angle ac-target ac-ucs-icon-at-origin ac-ucs-icon-on ac-upper-right-corner ac-width))
 

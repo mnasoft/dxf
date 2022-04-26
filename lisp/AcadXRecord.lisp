@@ -12,7 +12,10 @@
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   (ac-translate-i-ds           :accessor ac-translate-i-ds           :initarg :ac-translate-i-ds           :initform nil :documentation "ac-translate-i-ds")
   )
-  (:documentation "XRecord objects are used to store and manage arbitrary data."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-AF9C01F7-5BD9-4AF8-AB63-F58A997A5258
+XRecord Object (ActiveX)
+"))
 
 (closer-mop:class-slots (find-class '<acad-x-record>))
 

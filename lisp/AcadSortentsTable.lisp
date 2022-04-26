@@ -10,7 +10,10 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "Contains and manipulates draw order information."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-258B72FF-B29A-45D2-B972-B1776D9112A7
+SortentsTable Object (ActiveX)
+"))
 
 (defparameter *acad-sortents-table-properties* '(ac-application ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 

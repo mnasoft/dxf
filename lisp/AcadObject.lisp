@@ -10,7 +10,9 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "The standard interface for a basic AutoCAD object."))
+  (:documentation "
+!object Object (ActiveX)
+"))
 
 (defparameter *acad-object-properties* '(ac-application ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 

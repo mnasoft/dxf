@@ -6,7 +6,10 @@
   (ac-count                    :accessor ac-count                    :initarg :ac-count                    :initform nil :documentation "ac-count")
   (ac-name                     :accessor ac-name                     :initarg :ac-name                     :initform nil :documentation "ac-name")
   )
-  (:documentation "A group of one or more AutoCAD objects specified for processing as a single unit."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-BF264239-CF7D-4BC8-8D37-69477862DB5A
+SelectionSet Object (ActiveX)
+"))
 
 (defparameter *acad-selection-set-properties* '(ac-application ac-count ac-name))
 

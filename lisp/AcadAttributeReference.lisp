@@ -45,6 +45,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0630EFF2-51A2-46E4-A5A1-0377FB7E38E8
+AttributeReference Object (ActiveX)
 "))
 
 (defparameter *acad-attribute-reference-properties* '(ac-alignment ac-application ac-backward ac-constant ac-document ac-entity-transparency ac-field-length ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-invisible ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-lock-position ac-material ac-m-text-attribute ac-m-text-attribute-content ac-m-text-boundary-width ac-m-text-drawing-direction ac-normal ac-object-id ac-object-name ac-oblique-angle ac-owner-id ac-plot-style-name ac-rotation ac-scale-factor ac-style-name ac-tag-string ac-text-alignment-point ac-text-generation-flag ac-text-string ac-thickness ac-true-color ac-upside-down ac-visible))

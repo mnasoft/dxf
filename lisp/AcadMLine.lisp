@@ -24,7 +24,9 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "Multiple parallel lines."))
+  (:documentation "
+mline Object (ActiveX)
+"))
 
 (defparameter *acad-m-line-properties* '(ac-application ac-coordinates ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-justification ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-m-line-scale ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-style-name ac-true-color ac-visible))
 

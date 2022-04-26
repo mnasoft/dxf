@@ -27,6 +27,7 @@
   )
   (:documentation "
 https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-31D8D654-572D-4D2B-A138-4D8793ECE135
+Database Object (ActiveX)
 "))
 
 (defparameter *acad-database-properties* '(ac-blocks ac-dictionaries ac-dim-styles ac-elevation-model-space ac-elevation-paper-space ac-groups ac-layers ac-layouts ac-limits ac-linetypes ac-material ac-model-space ac-paper-space ac-plot-configurations ac-preferences ac-registered-applications ac-section-manager ac-summary-info ac-text-styles ac-user-coordinate-systems ac-viewports ac-views))

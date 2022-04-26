@@ -48,7 +48,10 @@
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "AutoCAD table object."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7B82400C-53D0-4D1A-94FA-66BB3040F0AA
+Table Object (ActiveX)
+"))
 
 (defparameter *acad-table-properties* '(ac-allow-manual-heights ac-allow-manual-positions ac-application ac-breaks-enabled ac-break-spacing ac-columns ac-column-width ac-direction ac-document ac-enable-break ac-entity-transparency ac-flow-direction ac-handle ac-has-extension-dictionary ac-has-sub-selection ac-header-suppressed ac-height ac-horz-cell-margin ac-hyperlinks ac-insertion-point ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-minimum-table-height ac-minimum-table-width ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-regenerate-table-suppressed ac-repeat-bottom-labels ac-repeat-top-labels ac-row-height ac-rows ac-style-name ac-table-break-flow-direction ac-table-break-height ac-table-style-overrides ac-title-suppressed ac-true-color ac-vert-cell-margin ac-visible ac-width))
 

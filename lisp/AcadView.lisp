@@ -20,7 +20,10 @@
   (ac-target                   :accessor ac-target                   :initarg :ac-target                   :initform nil :documentation "ac-target")
   (ac-width                    :accessor ac-width                    :initarg :ac-width                    :initform nil :documentation "ac-width")
   )
-  (:documentation "A graphical representation of a 2D drawing or 3D model from a specific location (viewpoint) in space."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1B9C7D36-0905-4C20-84C5-53714379B811
+View Object (ActiveX)
+"))
 
 (defparameter *acad-view-properties* '(ac-application ac-category-name ac-center ac-direction ac-document ac-handle ac-has-extension-dictionary ac-has-vp-association ac-height ac-layer-state ac-layout-id ac-name ac-object-id ac-object-name ac-owner-id ac-target ac-width))
 

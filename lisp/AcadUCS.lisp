@@ -14,7 +14,10 @@
   (ac-x-vector                 :accessor ac-x-vector                 :initarg :ac-x-vector                 :initform nil :documentation "ac-x-vector")
   (ac-y-vector                 :accessor ac-y-vector                 :initarg :ac-y-vector                 :initform nil :documentation "ac-y-vector")
   )
-  (:documentation "A user-defined coordinate system that determines the orientation of the X, Y, and Z axes in 3D space."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-42778889-C568-4ABF-9CFA-63CC0D781794
+UCS Object (ActiveX)
+"))
 
 (defparameter *acad-ucs-properties* '(ac-application ac-document ac-handle ac-has-extension-dictionary ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-x-vector ac-y-vector))
 

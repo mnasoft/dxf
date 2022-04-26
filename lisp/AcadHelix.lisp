@@ -30,7 +30,9 @@
   (ac-twist                    :accessor ac-twist                    :initarg :ac-twist                    :initform nil :documentation "ac-twist")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A helix."))
+  (:documentation "
+!helix Object (ActiveX)
+"))
 
 (defparameter *acad-helix-properties* '(ac-application ac-base-radius ac-constrain ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-top-radius ac-total-length ac-true-color ac-turn-height ac-turns ac-turn-slope ac-twist ac-visible))
 
