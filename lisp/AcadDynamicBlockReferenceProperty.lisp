@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-dynamic-block-reference-property> (<object>)
   (
   (ac-allowed-values           :accessor ac-allowed-values           :initarg :ac-allowed-values           :initform nil :documentation "ac-allowed-values")

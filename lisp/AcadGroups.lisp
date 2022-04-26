@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-groups> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")

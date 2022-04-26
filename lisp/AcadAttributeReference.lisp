@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-attribute-reference> (<acad-entity>)
   (
   (ac-alignment                :accessor ac-alignment                :initarg :ac-alignment                :initform nil :documentation "ac-alignment")

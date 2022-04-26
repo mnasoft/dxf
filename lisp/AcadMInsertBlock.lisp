@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-m-insert-block> (<acad-block-reference>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")

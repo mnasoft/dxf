@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-lw-polyline> (<acad-entity>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")

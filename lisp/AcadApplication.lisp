@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-application> (<object>)
   (
   (ac-active-document          :accessor ac-active-document          :initarg :ac-active-document          :initform nil :documentation "ac-active-document")

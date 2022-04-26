@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-summary-info> (<object>)
   (
   (ac-author                   :accessor ac-author                   :initarg :ac-author                   :initform nil :documentation "ac-author")

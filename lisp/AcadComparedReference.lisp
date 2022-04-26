@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-compared-reference> (<acad-external-reference>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")

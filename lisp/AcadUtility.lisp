@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-utility> (<object>)
   (
   )

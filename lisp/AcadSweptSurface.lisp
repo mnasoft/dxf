@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-swept-surface> (<acad-surface>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")

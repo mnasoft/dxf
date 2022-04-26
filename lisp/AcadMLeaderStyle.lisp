@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-m-leader-style> (<acad-object>)
   (
   (ac-align-space              :accessor ac-align-space              :initarg :ac-align-space              :initform nil :documentation "ac-align-space")

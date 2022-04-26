@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-table> (<acad-entity>)
   (
   (ac-allow-manual-heights     :accessor ac-allow-manual-heights     :initarg :ac-allow-manual-heights     :initform nil :documentation "ac-allow-manual-heights")

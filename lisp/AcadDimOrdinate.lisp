@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-dim-ordinate> (<acad-dimension>)
   (
   (ac-alt-round-distance       :accessor ac-alt-round-distance       :initarg :ac-alt-round-distance       :initform nil :documentation "ac-alt-round-distance")

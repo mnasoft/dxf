@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-geomap-image> (<acad-raster-image>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")

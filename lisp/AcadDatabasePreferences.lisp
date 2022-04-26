@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-database-preferences> (<object>)
   (
   (ac-allow-long-symbol-names  :accessor ac-allow-long-symbol-names  :initarg :ac-allow-long-symbol-names  :initform nil :documentation "ac-allow-long-symbol-names")

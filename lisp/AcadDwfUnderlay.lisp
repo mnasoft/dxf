@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-dwf-underlay> (<acad-underlay>)
   (
   (ac-adjust-for-background    :accessor ac-adjust-for-background    :initarg :ac-adjust-for-background    :initform nil :documentation "ac-adjust-for-background")

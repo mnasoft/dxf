@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-dim3-point-angular> (<acad-dimension>)
   (
   (ac-angle-format             :accessor ac-angle-format             :initarg :ac-angle-format             :initform nil :documentation "ac-angle-format")

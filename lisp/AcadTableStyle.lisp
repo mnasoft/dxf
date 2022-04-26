@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-table-style> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")

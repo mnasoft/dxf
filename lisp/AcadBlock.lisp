@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-block> (<acad-object>)
   (
   (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
@@ -24,6 +26,11 @@
   )
   (:documentation "A block definition containing a name and a set of objects."))
 
-(defparameter *acad-block-properties* '(ac-application ac-block-scaling ac-comments ac-count ac-document ac-explodable ac-handle ac-has-extension-dictionary ac-is-dynamic-block ac-is-layout ac-is-x-ref ac-layout ac-material ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-path ac-units ac-x-ref-database))
+(defparameter *acad-block-properties*
+  '(ac-application ac-block-scaling ac-comments ac-count ac-document
+    ac-explodable ac-handle ac-has-extension-dictionary
+    ac-is-dynamic-block ac-is-layout ac-is-x-ref ac-layout ac-material
+    ac-name ac-object-id ac-object-name ac-origin ac-owner-id ac-path
+    ac-units ac-x-ref-database))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-block-properties* *acad-object-properties*))

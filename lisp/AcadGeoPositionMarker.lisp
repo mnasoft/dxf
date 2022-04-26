@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-geo-position-marker> (<acad-entity>)
   (
   (ac-altitude                 :accessor ac-altitude                 :initarg :ac-altitude                 :initform nil :documentation "ac-altitude")

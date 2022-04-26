@@ -1,3 +1,5 @@
+(in-package :dxf)
+
 (defclass <acad-ac-cm-color> (<object>)
   (
   (ac-blue                     :accessor ac-blue                     :initarg :ac-blue                     :initform nil :documentation "ac-blue")
