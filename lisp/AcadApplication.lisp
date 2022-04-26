@@ -24,7 +24,9 @@
   (ac-window-state             :accessor ac-window-state             :initarg :ac-window-state             :initform nil :documentation "ac-window-state")
   (ac-window-top               :accessor ac-window-top               :initarg :ac-window-top               :initform nil :documentation "ac-window-top")
   )
-  (:documentation "An instance of the AutoCAD application."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0225808C-8C91-407B-990C-15AB966FFFA8
+"))
 
 (defparameter *acad-application-properties* '(ac-active-document ac-application ac-caption ac-documents ac-full-name ac-height ac-hwnd ac-locale-id ac-menu-bar ac-menu-groups ac-name ac-path ac-preferences ac-status-id ac-vbe ac-version ac-visible ac-width ac-window-left ac-window-state ac-window-top))
 

@@ -24,7 +24,9 @@
   (ac-units                    :accessor ac-units                    :initarg :ac-units                    :initform nil :documentation "ac-units")
   (ac-x-ref-database           :accessor ac-x-ref-database           :initarg :ac-x-ref-database           :initform nil :documentation "ac-x-ref-database")
   )
-  (:documentation "A block definition containing a name and a set of objects."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E6F7B03B-F5CC-4A18-9C48-BBF1D32A31FD
+"))
 
 (defparameter *acad-block-properties*
   '(ac-application ac-block-scaling ac-comments ac-count ac-document

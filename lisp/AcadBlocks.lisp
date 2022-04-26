@@ -11,7 +11,9 @@
   (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
   (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
   )
-  (:documentation "The collection of all blocks in the drawing."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E77CC5AD-74B8-472C-8270-32FD162D5653
+"))
 
 (defparameter *acad-blocks-properties* '(ac-application ac-count ac-document ac-handle ac-has-extension-dictionary ac-object-id ac-object-name ac-owner-id))
 

@@ -26,7 +26,9 @@
   (ac-visibility-edge4         :accessor ac-visibility-edge4         :initarg :ac-visibility-edge4         :initform nil :documentation "ac-visibility-edge4")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A 3D triangle or quadrilateral plane section."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1DAB32FC-8C8A-4116-BD3A-CF733740DF8F
+"))
 
 (defparameter *acad-3d-face-properties* '(ac-application ac-coordinate ac-coordinates ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-true-color ac-visibility-edge1 ac-visibility-edge2 ac-visibility-edge3 ac-visibility-edge4 ac-visible))
 

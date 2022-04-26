@@ -47,7 +47,9 @@
   (ac-verify                   :accessor ac-verify                   :initarg :ac-verify                   :initform nil :documentation "ac-verify")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "An object appearing as a text string that describes the characteristics of an attribute reference."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E24E7CA0-0120-4C55-BADB-46D701B8D4CB
+"))
 
 (defparameter *acad-attribute-properties* '(ac-alignment ac-application ac-backward ac-constant ac-document ac-entity-transparency ac-field-length ac-handle ac-has-extension-dictionary ac-height ac-hyperlinks ac-insertion-point ac-invisible ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-lock-position ac-material ac-mode ac-m-text-attribute ac-m-text-attribute-content ac-m-text-boundary-width ac-m-text-drawing-direction ac-normal ac-object-id ac-object-name ac-oblique-angle ac-owner-id ac-plot-style-name ac-preset ac-prompt-string ac-rotation ac-scale-factor ac-style-name ac-tag-string ac-text-alignment-point ac-text-generation-flag ac-text-string ac-thickness ac-true-color ac-upside-down ac-verify ac-visible))
 

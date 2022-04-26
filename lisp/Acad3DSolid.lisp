@@ -31,7 +31,9 @@
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   (ac-volume                   :accessor ac-volume                   :initarg :ac-volume                   :initform nil :documentation "ac-volume")
   )
-  (:documentation "A solid object with free-form surface support."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-4EC0355F-A91B-4ADA-A346-05CCCD22259B
+"))
 
 (defparameter *acad-3d-solid-properties* '(ac-application ac-centroid ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-history ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-moment-of-inertia ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-position ac-principal-directions ac-principal-moments ac-product-of-inertia ac-radii-of-gyration ac-show-history ac-solid-type ac-true-color ac-visible ac-volume))
 

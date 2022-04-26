@@ -35,7 +35,9 @@
   (ac-z-effective-scale-factor :accessor ac-z-effective-scale-factor :initarg :ac-z-effective-scale-factor :initform nil :documentation "ac-z-effective-scale-factor")
   (ac-z-scale-factor           :accessor ac-z-scale-factor           :initarg :ac-z-scale-factor           :initform nil :documentation "ac-z-scale-factor")
   )
-  (:documentation "An instance of a block definition inserted into a drawing."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-88EEBCA3-8AF5-4776-9D54-520B05AB9129
+"))
 
 (defparameter *acad-block-reference-properties* '(ac-application ac-document ac-effective-name ac-entity-transparency ac-handle ac-has-attributes ac-has-extension-dictionary ac-hyperlinks ac-insertion-point ac-ins-units ac-ins-units-factor ac-is-dynamic-block ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-name ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-rotation ac-true-color ac-visible ac-x-effective-scale-factor ac-x-scale-factor ac-y-effective-scale-factor ac-y-scale-factor ac-z-effective-scale-factor ac-z-scale-factor))
 

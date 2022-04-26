@@ -25,7 +25,9 @@
   (ac-type                     :accessor ac-type                     :initarg :ac-type                     :initform nil :documentation "ac-type")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A 3D polyline of straight line segments."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-35D9E28C-38A8-477A-AFCE-F21952092190
+"))
 
 (defparameter *acad-3d-polyline-properties* '(ac-application ac-closed ac-coordinate ac-coordinates ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-length ac-linetype ac-linetype-scale ac-lineweight ac-material ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-true-color ac-type ac-visible))
 

@@ -27,7 +27,9 @@
   (ac-true-color               :accessor ac-true-color               :initarg :ac-true-color               :initform nil :documentation "ac-true-color")
   (ac-visible                  :accessor ac-visible                  :initarg :ac-visible                  :initform nil :documentation "ac-visible")
   )
-  (:documentation "A full circle."))
+  (:documentation "
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-18ADF171-166F-4FF0-8ED6-5F83153A5649
+"))
 
 (defparameter *acad-circle-properties* '(ac-application ac-area ac-center ac-circumference ac-diameter ac-document ac-entity-transparency ac-handle ac-has-extension-dictionary ac-hyperlinks ac-layer ac-linetype ac-linetype-scale ac-lineweight ac-material ac-normal ac-object-id ac-object-name ac-owner-id ac-plot-style-name ac-radius ac-thickness ac-true-color ac-visible))
 
