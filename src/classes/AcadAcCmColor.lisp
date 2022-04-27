@@ -17,3 +17,4 @@
 (defparameter *acad-ac-cm-color-properties* '(pr-blue pr-book-name pr-color-index pr-color-method pr-color-name pr-entity-color pr-green pr-red))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-ac-cm-color-properties* *object-properties*))
+

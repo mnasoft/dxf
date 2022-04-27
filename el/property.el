@@ -332,51 +332,38 @@
     (beginning-of-buffer) ;; (goto-line ppp)
     (insert-end ")")
     (insert-end ")")
-    (insert-end "))")))
+    (insert-end "))")
+    ))
 
 (defun defclass-doc-uri ()
   (interactive)
-  (let ((start-point ))
+  (let ((start-point)(end-point))
+    (setq b-name (buffer-name))
+    (beginning-of-buffer)
+    (search-forward "defclass" nil t)
+    (forward-sexp 2)
+    (search-forward ":documentation" nil t)
+    (search-forward "@link[uri=\\\"" nil t)
+    (setq start-point (point))
+    (search-forward "\\\"" nil t)
+    (setq end-point (point))
+    (kill-ring-save start-point (- end-point 2))
+    (browse-url (substring-no-properties (car kill-ring)))
+    ))
+
+(defun go-back ()
+  (switch-to-buffer b-name))
+
+(defun b-b ()
   (beginning-of-buffer)
-  (search-forward "defclass" nil t)
-  (forward-sexp 2)
-  (search-forward ":documentation" nil t)
-  (search-forward "@link[uri=\\\"" nil t)
-  (setq start-point (point))
-  (search-forward "@link[uri=\\\"" nil t)
-  (left-char 3)
-;;;;(set-mark-command 1)
-;;;;(search-forward "\\\"]" nil t)
-  
-  ))
+  (point))
 
-C-SPC			;; set-mark-command
-<down>			;; next-line
-(right-char 14)
-M-w			;; kill-ring-save
+(defun b-e ()
+  (end-of-buffer)
+  (point))
 
+(defun get-buffer ()
+  (interactive)
+  (kill-ring-save (b-b) (b-e)))
 
-
-
-C-s			;; isearch-forward
-(defclass		;; self-insert-command * 9
-RET			;; newline
-8*<left>		;; left-char
-2*M-C-f			;; forward-sexp
-C-s			;; isearch-forward
-(:documentation		;; self-insert-command * 15
-RET			;; newline
-C-s			;; isearch-forward
-@link[uri=		;; self-insert-command * 10
-\			;; self-insert-command
-"			;; self-insert-command
-RET			;; newline
-C-SPC			;; set-mark-command
-C-s			;; isearch-forward
-\			;; self-insert-command
-"]			;; self-insert-command * 2
-RET			;; newline
-3*<left>		;; left-char
-M-w			;; kill-ring-save
-
-https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1DAB32FC-8C8A-4116-BD3A-CF733740DF8F
+(get-buffer)
