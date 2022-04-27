@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-lw-polyline> (<acad-entity>)
+(defclass <acad-lwpolyline> (<acad-entity>)
   (
   (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
   (pr-area                     :accessor pr-area                     :initarg :pr-area                     :initform nil :documentation "pr-area")

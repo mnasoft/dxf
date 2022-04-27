@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-m-leader> (<acad-entity>)
+(defclass <acad-mleader> (<acad-entity>)
   (
   (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
   (pr-arrowhead-block          :accessor pr-arrowhead-block          :initarg :pr-arrowhead-block          :initform nil :documentation "pr-arrowhead-block")

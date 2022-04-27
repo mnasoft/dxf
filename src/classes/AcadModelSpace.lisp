@@ -1,6 +1,6 @@
-!(in-package :dxf)
+!(in-package :dxf/classes)
 
-(in-package :dxf)
+(in-package :dxf/classes)
 
 (defclass <acad-model-space> (<acad-block>)
   (

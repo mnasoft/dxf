@@ -1,4 +1,4 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
 (defclass <acad-section-settings> (<acad-object>)
   (

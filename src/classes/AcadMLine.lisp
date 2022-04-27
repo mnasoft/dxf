@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-m-line> (<acad-entity>)
+(defclass <acad-mline> (<acad-entity>)
   (
   (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
   (pr-coordinates              :accessor pr-coordinates              :initarg :pr-coordinates              :initform nil :documentation "pr-coordinates")

@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-m-insert-block> (<acad-block-reference>)
+(defclass <acad-minsert-block> (<acad-block-reference>)
   (
   (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
   (pr-columns                  :accessor pr-columns                  :initarg :pr-columns                  :initform nil :documentation "pr-columns")

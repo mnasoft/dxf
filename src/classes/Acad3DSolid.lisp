@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-3d-solid> (<acad-entity>)
+(defclass <acad-3dsolid> (<acad-entity>)
   (
   (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
   (pr-centroid                 :accessor pr-centroid                 :initarg :pr-centroid                 :initform nil :documentation "pr-centroid")

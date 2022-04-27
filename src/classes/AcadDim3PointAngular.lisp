@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-dim3-point-angular> (<acad-dimension>)
+(defclass <acad-dim-3point-angular> (<acad-dimension>)
   (
   (pr-angle-format             :accessor pr-angle-format             :initarg :pr-angle-format             :initform nil :documentation "pr-angle-format")
   (pr-angle-vertex             :accessor pr-angle-vertex             :initarg :pr-angle-vertex             :initform nil :documentation "pr-angle-vertex")

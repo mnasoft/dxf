@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-m-leader-style> (<acad-object>)
+(defclass <acad-mleader-style> (<acad-object>)
   (
   (pr-align-space              :accessor pr-align-space              :initarg :pr-align-space              :initform nil :documentation "pr-align-space")
   (pr-annotative               :accessor pr-annotative               :initarg :pr-annotative               :initform nil :documentation "pr-annotative")

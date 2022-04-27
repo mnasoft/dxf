@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-p-viewport> (<acad-entity>)
+(defclass <acad-pviewport> (<acad-entity>)
   (
   (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
   (pr-arc-smoothness           :accessor pr-arc-smoothness           :initarg :pr-arc-smoothness           :initform nil :documentation "pr-arc-smoothness")

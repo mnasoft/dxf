@@ -1,6 +1,6 @@
-(in-package :dxf)
+(in-package :dxf/classes)
 
-(defclass <acad-x-record> (<acad-object>)
+(defclass <acad-xrecord> (<acad-object>)
   (
    (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
    (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
