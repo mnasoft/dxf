@@ -3,6 +3,7 @@
 (defpackage #:dxf/utils
   (:use #:cl)
   (:export make-slot
+           diff
            )
   (:export make-path-relative-to-system
            )
@@ -14,7 +15,8 @@
   (:export make-class-name
            make-proprety-name
            make-method-name
-           ))
+           )
+  (:export make-proprety-symbol))
 
 (in-package :dxf/utils)
 
@@ -23,9 +25,19 @@
 формирования слотов."
   (list  el
 	 :accessor el
-	 :initarg (read-from-string (concatenate 'string ":"(symbol-name el)))
+	 :initarg (read-from-string (concatenate 'string ":" (symbol-name el)))
 	 :initform nil
 	 :documentation (symbol-name el)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun diff (child parent)
+  (mapcar #'dxf/utils:make-slot
+          (set-difference
+           (mapcar #'dxf/utils:make-proprety-symbol
+                   child)
+           (mapcar #'dxf/utils:make-proprety-symbol
+                   parent))))
 
 (defun make-path-relative-to-system (system namestring)
   "@b(Описание:) функция @b(make-path-relative-to-system) возвращает
@@ -137,6 +149,10 @@
    (concatenate
     'string "pr-"
     (dxf/utils:split-from->to string))))
+
+(defun make-proprety-symbol (string)
+  (read-from-string (make-proprety-name string)))
+
 
 (defun make-method-name (string)
   (string-downcase

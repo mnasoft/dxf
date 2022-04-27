@@ -277,3 +277,63 @@
   (object-code-section class-name)
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun kill-seached-line (str)
+  (beginning-of-buffer)
+  (search-forward str nil t)
+  (move-beginning-of-line 1)
+  (kill-line))
+
+(defun insert-around (str)
+  (move-beginning-of-line 1)
+  (insert str)
+  (move-end-of-line 1)
+  (insert str)
+  (move-end-of-line 2))
+
+(defun insert-start (str)
+  (move-beginning-of-line 1)
+  (insert str)
+  (move-end-of-line 2))
+
+(defun insert-end (str)
+  (move-end-of-line 1)
+  (insert str)
+  (move-end-of-line 2))
+
+
+(defun methods-properties-events ()
+  (interactive)
+  (let (ppp (line-number-at-pos))
+ 
+    (kill-seached-line "Methods")
+    (kill-seached-line "Properties")
+    (kill-seached-line "Events")
+    (delete-blank-lines)
+    (delete-blank-lines)
+    (replace-string "	" "|")
+    (beginning-of-buffer)
+    (replace-string "
+
+" " ")
+    (beginning-of-buffer)
+    (replace-string "| " "")
+    (beginning-of-buffer)
+    (insert-around "\"")
+    (insert-around "\"")
+    (insert-around "\"")
+    (beginning-of-buffer)
+    (replace-string " \"" "\"")
+    (beginning-of-buffer)
+    (insert-start "'((:methods    ")
+    (insert-start "  (:properties ")
+    (insert-start "  (:events     ")
+    (beginning-of-buffer)
+    (insert-end ")")
+    (insert-end ")")
+    (insert-end "))")
+    ))
+
+              (goto-line 330)
+
+

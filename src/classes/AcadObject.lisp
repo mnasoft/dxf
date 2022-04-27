@@ -13,6 +13,26 @@
   (:documentation "
 @link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1C457D0A-9933-4A74-B3E9-A7F3483B3F34\"](IAcadObject Interface (ActiveX))"))
 
-(defparameter *acad-object-properties* '(pr-application pr-document pr-handle pr-has-extension-dictionary pr-object-id pr-object-name pr-owner-id))
 
-(mapcar #'dxf/utils:make-slot (set-difference *acad-object-properties* *object-properties*))
+(defparameter *acad-object-methods*
+  '("Delete"
+    "GetExtensionDictionary"
+    "GetXData"
+    "SetXData"))
+
+(defparameter *acad-object-properties*
+  '("Application"
+    "Document"
+    "Handle"
+    "HasExtensionDictionary"
+    "ObjectID"
+    "ObjectName"
+    "OwnerID"))
+
+(defparameter *acad-object-events*
+  '("Modified"))
+
+(dxf/utils::diff *acad-object-properties* *object-properties*)
+
+
+

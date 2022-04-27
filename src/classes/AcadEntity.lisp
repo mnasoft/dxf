@@ -25,4 +25,28 @@
 
 (defparameter *acad-entity-properties* '(pr-application pr-document pr-entity-transparency pr-handle pr-has-extension-dictionary pr-hyperlinks pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-true-color pr-visible))
 
+(defparameter *sep* (concatenate 'string (list #\Space #\Return #\Newline)))
+
+(defparameter acad-entity-properties*
+  (mnas-string:split
+   *sep*
+   "Application Document EntityTransparency Handle HasExtensionDictionary
+    Hyperlinks Layer Linetype LinetypeScale Lineweight Material
+    ObjectID ObjectName OwnerID PlotStyleName TrueColor Visible"))
+
+(defparameter acad-entity-events "Modified")
+
+
+(defparameter acad-entity-methods*
+  (mnas-string:split
+   *sep*
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+    GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+    Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+    Update"))
+
 (mapcar #'dxf/utils:make-slot (set-difference *acad-entity-properties* *acad-object-properties*))
+
+(dxf/utils::diff
+ *acad-object-properties*
+ *object-properties*)

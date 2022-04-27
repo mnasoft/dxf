@@ -1,5 +1,5 @@
+(defpackage :dxf/classes
   (:use #:cl)
-  (:export split-by-big
   (:export <object>))
 
 (in-package :dxf/classes)
@@ -232,7 +232,7 @@
     ("Object" "<object>"
      (:documentation "Базовый класс."))))
 
-
+(defparameter *object-properties* nil)
 
 (loop :for i :in *active-x-class-names* :collect
       (list i (make-class-name i)))
