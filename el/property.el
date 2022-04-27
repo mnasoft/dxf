@@ -301,39 +301,32 @@
   (insert str)
   (move-end-of-line 2))
 
-
 (defun methods-properties-events ()
   (interactive)
   (let (ppp (line-number-at-pos))
- 
     (kill-seached-line "Methods")
     (kill-seached-line "Properties")
     (kill-seached-line "Events")
     (delete-blank-lines)
     (delete-blank-lines)
     (replace-string "	" "|")
-    (beginning-of-buffer)
+    (beginning-of-buffer) ;; (goto-line ppp)
     (replace-string "
 
 " " ")
-    (beginning-of-buffer)
+    (beginning-of-buffer) ;; (goto-line ppp)
     (replace-string "| " "")
-    (beginning-of-buffer)
+    (beginning-of-buffer) ;; (goto-line ppp)
     (insert-around "\"")
     (insert-around "\"")
     (insert-around "\"")
-    (beginning-of-buffer)
+    (beginning-of-buffer) ;; (goto-line ppp)
     (replace-string " \"" "\"")
-    (beginning-of-buffer)
+    (beginning-of-buffer) ;; (goto-line ppp)
     (insert-start "'((:methods    ")
     (insert-start "  (:properties ")
     (insert-start "  (:events     ")
-    (beginning-of-buffer)
+    (beginning-of-buffer) ;; (goto-line ppp)
     (insert-end ")")
     (insert-end ")")
-    (insert-end "))")
-    ))
-
-              (goto-line 330)
-
-
+    (insert-end "))")))
