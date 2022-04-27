@@ -303,6 +303,9 @@
 
 (defun methods-properties-events ()
   (interactive)
+  (progn
+    (switch-to-buffer "*scratch*")
+    (yank))
   (let (ppp (line-number-at-pos))
     (kill-seached-line "Methods")
     (kill-seached-line "Properties")
@@ -330,3 +333,50 @@
     (insert-end ")")
     (insert-end ")")
     (insert-end "))")))
+
+(defun defclass-doc-uri ()
+  (interactive)
+  (let ((start-point ))
+  (beginning-of-buffer)
+  (search-forward "defclass" nil t)
+  (forward-sexp 2)
+  (search-forward ":documentation" nil t)
+  (search-forward "@link[uri=\\\"" nil t)
+  (setq start-point (point))
+  (search-forward "@link[uri=\\\"" nil t)
+  (left-char 3)
+;;;;(set-mark-command 1)
+;;;;(search-forward "\\\"]" nil t)
+  
+  ))
+
+C-SPC			;; set-mark-command
+<down>			;; next-line
+(right-char 14)
+M-w			;; kill-ring-save
+
+
+
+
+C-s			;; isearch-forward
+(defclass		;; self-insert-command * 9
+RET			;; newline
+8*<left>		;; left-char
+2*M-C-f			;; forward-sexp
+C-s			;; isearch-forward
+(:documentation		;; self-insert-command * 15
+RET			;; newline
+C-s			;; isearch-forward
+@link[uri=		;; self-insert-command * 10
+\			;; self-insert-command
+"			;; self-insert-command
+RET			;; newline
+C-SPC			;; set-mark-command
+C-s			;; isearch-forward
+\			;; self-insert-command
+"]			;; self-insert-command * 2
+RET			;; newline
+3*<left>		;; left-char
+M-w			;; kill-ring-save
+
+https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1DAB32FC-8C8A-4116-BD3A-CF733740DF8F

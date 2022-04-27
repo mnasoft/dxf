@@ -33,6 +33,7 @@
   (:properties "Application Coordinate Coordinates Document EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale Lineweight Material ObjectID ObjectName OwnerID PlotStyleName TrueColor VisibilityEdge1 VisibilityEdge2 VisibilityEdge3 VisibilityEdge4 Visible")
   (:events     "Modified"))
 
+
 (defparameter *acad-3d-face-properties* '(pr-application pr-coordinate pr-coordinates pr-document pr-entity-transparency pr-handle pr-has-extension-dictionary pr-hyperlinks pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-true-color pr-visibility-edge1 pr-visibility-edge2 pr-visibility-edge3 pr-visibility-edge4 pr-visible))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-3d-face-properties* *acad-entity-properties*))
