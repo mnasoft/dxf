@@ -2,20 +2,18 @@
 
 (defclass <acad-summary-info> (<object>)
   (
-  (ac-author                   :accessor ac-author                   :initarg :ac-author                   :initform nil :documentation "ac-author")
-  (ac-comments                 :accessor ac-comments                 :initarg :ac-comments                 :initform nil :documentation "ac-comments")
-  (ac-hyperlink-base           :accessor ac-hyperlink-base           :initarg :ac-hyperlink-base           :initform nil :documentation "ac-hyperlink-base")
-  (ac-keywords                 :accessor ac-keywords                 :initarg :ac-keywords                 :initform nil :documentation "ac-keywords")
-  (ac-last-saved-by            :accessor ac-last-saved-by            :initarg :ac-last-saved-by            :initform nil :documentation "ac-last-saved-by")
-  (ac-revision-number          :accessor ac-revision-number          :initarg :ac-revision-number          :initform nil :documentation "ac-revision-number")
-  (ac-subject                  :accessor ac-subject                  :initarg :ac-subject                  :initform nil :documentation "ac-subject")
-  (ac-title                    :accessor ac-title                    :initarg :ac-title                    :initform nil :documentation "ac-title")
+  (pr-author                   :accessor pr-author                   :initarg :pr-author                   :initform nil :documentation "pr-author")
+  (pr-comments                 :accessor pr-comments                 :initarg :pr-comments                 :initform nil :documentation "pr-comments")
+  (pr-hyperlink-base           :accessor pr-hyperlink-base           :initarg :pr-hyperlink-base           :initform nil :documentation "pr-hyperlink-base")
+  (pr-keywords                 :accessor pr-keywords                 :initarg :pr-keywords                 :initform nil :documentation "pr-keywords")
+  (pr-last-saved-by            :accessor pr-last-saved-by            :initarg :pr-last-saved-by            :initform nil :documentation "pr-last-saved-by")
+  (pr-revision-number          :accessor pr-revision-number          :initarg :pr-revision-number          :initform nil :documentation "pr-revision-number")
+  (pr-subject                  :accessor pr-subject                  :initarg :pr-subject                  :initform nil :documentation "pr-subject")
+  (pr-title                    :accessor pr-title                    :initarg :pr-title                    :initform nil :documentation "pr-title")
   )
   (:documentation "
-https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A029FB49-B0DB-43E4-8888-698E1BF49878
-SummaryInfo Object (ActiveX)
-"))
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A029FB49-B0DB-43E4-8888-698E1BF49878\"](SummaryInfo Object (ActiveX))"))
 
-(defparameter *acad-summary-info-properties* '(ac-author ac-comments ac-hyperlink-base ac-keywords ac-last-saved-by ac-revision-number ac-subject ac-title))
+(defparameter *acad-summary-info-properties* '(pr-author pr-comments pr-hyperlink-base pr-keywords pr-last-saved-by pr-revision-number pr-subject pr-title))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-summary-info-properties* *object-properties*))

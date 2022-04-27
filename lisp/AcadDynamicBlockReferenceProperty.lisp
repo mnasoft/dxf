@@ -2,18 +2,17 @@
 
 (defclass <acad-dynamic-block-reference-property> (<object>)
   (
-  (ac-allowed-values           :accessor ac-allowed-values           :initarg :ac-allowed-values           :initform nil :documentation "ac-allowed-values")
-  (ac-description              :accessor ac-description              :initarg :ac-description              :initform nil :documentation "ac-description")
-  (ac-property-name            :accessor ac-property-name            :initarg :ac-property-name            :initform nil :documentation "ac-property-name")
-  (ac-read-only                :accessor ac-read-only                :initarg :ac-read-only                :initform nil :documentation "ac-read-only")
-  (ac-show                     :accessor ac-show                     :initarg :ac-show                     :initform nil :documentation "ac-show")
-  (ac-units-type               :accessor ac-units-type               :initarg :ac-units-type               :initform nil :documentation "ac-units-type")
-  (ac-value                    :accessor ac-value                    :initarg :ac-value                    :initform nil :documentation "ac-value")
+  (pr-allowed-values           :accessor pr-allowed-values           :initarg :pr-allowed-values           :initform nil :documentation "pr-allowed-values")
+  (pr-description              :accessor pr-description              :initarg :pr-description              :initform nil :documentation "pr-description")
+  (pr-property-name            :accessor pr-property-name            :initarg :pr-property-name            :initform nil :documentation "pr-property-name")
+  (pr-read-only                :accessor pr-read-only                :initarg :pr-read-only                :initform nil :documentation "pr-read-only")
+  (pr-show                     :accessor pr-show                     :initarg :pr-show                     :initform nil :documentation "pr-show")
+  (pr-units-type               :accessor pr-units-type               :initarg :pr-units-type               :initform nil :documentation "pr-units-type")
+  (pr-value                    :accessor pr-value                    :initarg :pr-value                    :initform nil :documentation "pr-value")
   )
   (:documentation "
-dynamicblockreferenceproperty Object (ActiveX)
-"))
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-ED753239-0C53-4741-BE13-99B21751C22F\"](DynamicBlockReferenceProperty Object (ActiveX))"))
 
-(defparameter *acad-dynamic-block-reference-property-properties* '(ac-allowed-values ac-description ac-property-name ac-read-only ac-show ac-units-type ac-value))
+(defparameter *acad-dynamic-block-reference-property-properties* '(pr-allowed-values pr-description pr-property-name pr-read-only pr-show pr-units-type pr-value))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-dynamic-block-reference-property-properties* *object-properties*))

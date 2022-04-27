@@ -2,20 +2,18 @@
 
 (defclass <acad-ac-cm-color> (<object>)
   (
-  (ac-blue                     :accessor ac-blue                     :initarg :ac-blue                     :initform nil :documentation "ac-blue")
-  (ac-book-name                :accessor ac-book-name                :initarg :ac-book-name                :initform nil :documentation "ac-book-name")
-  (ac-color-index              :accessor ac-color-index              :initarg :ac-color-index              :initform nil :documentation "ac-color-index")
-  (ac-color-method             :accessor ac-color-method             :initarg :ac-color-method             :initform nil :documentation "ac-color-method")
-  (ac-color-name               :accessor ac-color-name               :initarg :ac-color-name               :initform nil :documentation "ac-color-name")
-  (ac-entity-color             :accessor ac-entity-color             :initarg :ac-entity-color             :initform nil :documentation "ac-entity-color")
-  (ac-green                    :accessor ac-green                    :initarg :ac-green                    :initform nil :documentation "ac-green")
-  (ac-red                      :accessor ac-red                      :initarg :ac-red                      :initform nil :documentation "ac-red")
+  (pr-blue                     :accessor pr-blue                     :initarg :pr-blue                     :initform nil :documentation "pr-blue")
+  (pr-book-name                :accessor pr-book-name                :initarg :pr-book-name                :initform nil :documentation "pr-book-name")
+  (pr-color-index              :accessor pr-color-index              :initarg :pr-color-index              :initform nil :documentation "pr-color-index")
+  (pr-color-method             :accessor pr-color-method             :initarg :pr-color-method             :initform nil :documentation "pr-color-method")
+  (pr-color-name               :accessor pr-color-name               :initarg :pr-color-name               :initform nil :documentation "pr-color-name")
+  (pr-entity-color             :accessor pr-entity-color             :initarg :pr-entity-color             :initform nil :documentation "pr-entity-color")
+  (pr-green                    :accessor pr-green                    :initarg :pr-green                    :initform nil :documentation "pr-green")
+  (pr-red                      :accessor pr-red                      :initarg :pr-red                      :initform nil :documentation "pr-red")
   )
   (:documentation "
-https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-D24C6BB5-5F87-42E7-907F-F27226B330E3
-AcCmColor Object (ActiveX)
-"))
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-D24C6BB5-5F87-42E7-907F-F27226B330E3\"](AcCmColor Object (ActiveX))"))
 
-(defparameter *acad-ac-cm-color-properties* '(ac-blue ac-book-name ac-color-index ac-color-method ac-color-name ac-entity-color ac-green ac-red))
+(defparameter *acad-ac-cm-color-properties* '(pr-blue pr-book-name pr-color-index pr-color-method pr-color-name pr-entity-color pr-green pr-red))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-ac-cm-color-properties* *object-properties*))

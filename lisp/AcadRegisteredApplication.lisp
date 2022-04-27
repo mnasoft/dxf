@@ -2,20 +2,18 @@
 
 (defclass <acad-registered-application> (<acad-object>)
   (
-  (ac-application              :accessor ac-application              :initarg :ac-application              :initform nil :documentation "ac-application")
-  (ac-document                 :accessor ac-document                 :initarg :ac-document                 :initform nil :documentation "ac-document")
-  (ac-handle                   :accessor ac-handle                   :initarg :ac-handle                   :initform nil :documentation "ac-handle")
-  (ac-has-extension-dictionary :accessor ac-has-extension-dictionary :initarg :ac-has-extension-dictionary :initform nil :documentation "ac-has-extension-dictionary")
-  (ac-name                     :accessor ac-name                     :initarg :ac-name                     :initform nil :documentation "ac-name")
-  (ac-object-id                :accessor ac-object-id                :initarg :ac-object-id                :initform nil :documentation "ac-object-id")
-  (ac-object-name              :accessor ac-object-name              :initarg :ac-object-name              :initform nil :documentation "ac-object-name")
-  (ac-owner-id                 :accessor ac-owner-id                 :initarg :ac-owner-id                 :initform nil :documentation "ac-owner-id")
+  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
+  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
+  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
+  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
+  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
+  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
+  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
+  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
   )
   (:documentation "
-https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-62AD8980-F707-4906-8640-B3C54E9FC3F4
-RegisteredApplication Object (ActiveX)
-"))
+@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-62AD8980-F707-4906-8640-B3C54E9FC3F4\"](RegisteredApplication Object (ActiveX))"))
 
-(defparameter *acad-registered-application-properties* '(ac-application ac-document ac-handle ac-has-extension-dictionary ac-name ac-object-id ac-object-name ac-owner-id))
+(defparameter *acad-registered-application-properties* '(pr-application pr-document pr-handle pr-has-extension-dictionary pr-name pr-object-id pr-object-name pr-owner-id))
 
 (mapcar #'dxf/utils:make-slot (set-difference *acad-registered-application-properties* *acad-object-properties*))
