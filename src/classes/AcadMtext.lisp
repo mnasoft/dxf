@@ -1,41 +1,20 @@
 (in-package :dxf/classes)
 
-(defclass <acad-mtext> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-attachment-point         :accessor pr-attachment-point         :initarg :pr-attachment-point         :initform nil :documentation "pr-attachment-point")
-  (pr-background-fill          :accessor pr-background-fill          :initarg :pr-background-fill          :initform nil :documentation "pr-background-fill")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-drawing-direction        :accessor pr-drawing-direction        :initarg :pr-drawing-direction        :initform nil :documentation "pr-drawing-direction")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-insertion-point          :accessor pr-insertion-point          :initarg :pr-insertion-point          :initform nil :documentation "pr-insertion-point")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-line-spacing-distance    :accessor pr-line-spacing-distance    :initarg :pr-line-spacing-distance    :initform nil :documentation "pr-line-spacing-distance")
-  (pr-line-spacing-factor      :accessor pr-line-spacing-factor      :initarg :pr-line-spacing-factor      :initform nil :documentation "pr-line-spacing-factor")
-  (pr-line-spacing-style       :accessor pr-line-spacing-style       :initarg :pr-line-spacing-style       :initform nil :documentation "pr-line-spacing-style")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-rotation                 :accessor pr-rotation                 :initarg :pr-rotation                 :initform nil :documentation "pr-rotation")
-  (pr-style-name               :accessor pr-style-name               :initarg :pr-style-name               :initform nil :documentation "pr-style-name")
-  (pr-text-string              :accessor pr-text-string              :initarg :pr-text-string              :initform nil :documentation "pr-text-string")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  (pr-width                    :accessor pr-width                    :initarg :pr-width                    :initform nil :documentation "pr-width")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2532B20E-413D-4F59-9E88-B40E8AABB9FF\"](MText Object (ActiveX))"))
-
-(defparameter *acad-mtext-properties* '(pr-application pr-attachment-point pr-background-fill pr-document pr-drawing-direction pr-entity-transparency pr-handle pr-has-extension-dictionary pr-height pr-hyperlinks pr-insertion-point pr-layer pr-line-spacing-distance pr-line-spacing-factor pr-line-spacing-style pr-linetype pr-linetype-scale pr-lineweight pr-material pr-normal pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-rotation pr-style-name pr-text-string pr-true-color pr-visible pr-width))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-mtext-properties* *acad-entity-properties*))
+'((:defclass "AcadMtext" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2532B20E-413D-4F59-9E88-B40E8AABB9FF\"](MText Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete FieldCode GetBoundingBox
+   GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+   Update")
+  (:properties
+   "Application AttachmentPoint BackgroundFill Document
+   DrawingDirection EntityTransparency Handle HasExtensionDictionary
+   Height Hyperlinks InsertionPoint Layer LineSpacingDistance
+   LineSpacingFactor LineSpacingStyle Linetype LinetypeScale
+   Lineweight Material Normal ObjectID ObjectName OwnerID
+   PlotStyleName Rotation StyleName TextString TrueColor Visible
+   Width")
+  (:events
+   "Modified"))

@@ -1,38 +1,18 @@
 (in-package :dxf/classes)
 
-(defclass <acad-arc> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-arc-length               :accessor pr-arc-length               :initarg :pr-arc-length               :initform nil :documentation "pr-arc-length")
-  (pr-area                     :accessor pr-area                     :initarg :pr-area                     :initform nil :documentation "pr-area")
-  (pr-center                   :accessor pr-center                   :initarg :pr-center                   :initform nil :documentation "pr-center")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-end-angle                :accessor pr-end-angle                :initarg :pr-end-angle                :initform nil :documentation "pr-end-angle")
-  (pr-end-point                :accessor pr-end-point                :initarg :pr-end-point                :initform nil :documentation "pr-end-point")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-radius                   :accessor pr-radius                   :initarg :pr-radius                   :initform nil :documentation "pr-radius")
-  (pr-start-angle              :accessor pr-start-angle              :initarg :pr-start-angle              :initform nil :documentation "pr-start-angle")
-  (pr-start-point              :accessor pr-start-point              :initarg :pr-start-point              :initform nil :documentation "pr-start-point")
-  (pr-thickness                :accessor pr-thickness                :initarg :pr-thickness                :initform nil :documentation "pr-thickness")
-  (pr-total-angle              :accessor pr-total-angle              :initarg :pr-total-angle              :initform nil :documentation "pr-total-angle")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3D31C05F-BFF7-41E3-8ACE-0F807731C913\"](Arc Object (ActiveX))"))
-(defparameter *acad-arc-properties* '(pr-application pr-arc-length pr-area pr-center pr-document pr-end-angle pr-end-point pr-entity-transparency pr-handle pr-has-extension-dictionary pr-hyperlinks pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-normal pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-radius pr-start-angle pr-start-point pr-thickness pr-total-angle pr-true-color pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-arc-properties* *acad-entity-properties*))
+'((:defclass "AcadArc" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3D31C05F-BFF7-41E3-8ACE-0F807731C913\"](Arc Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Offset Rotate Rotate3D ScaleEntity SetXData
+   TransformBy Update")
+  (:properties
+   "Application ArcLength Area Center Document EndAngle EndPoint
+   EntityTransparency Handle HasExtensionDictionary Hyperlinks Layer
+   Linetype LinetypeScale Lineweight Material Normal ObjectID
+   ObjectName OwnerID PlotStyleName Radius StartAngle StartPoint
+   Thickness TotalAngle TrueColor Visible")
+  (:events
+   "Modified"))

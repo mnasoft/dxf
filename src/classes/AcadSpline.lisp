@@ -1,48 +1,22 @@
 (in-package :dxf/classes)
 
-(defclass <acad-spline> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-area                     :accessor pr-area                     :initarg :pr-area                     :initform nil :documentation "pr-area")
-  (pr-closed                   :accessor pr-closed                   :initarg :pr-closed                   :initform nil :documentation "pr-closed")
-  (pr-closed2                  :accessor pr-closed2                  :initarg :pr-closed2                  :initform nil :documentation "pr-closed2")
-  (pr-control-points           :accessor pr-control-points           :initarg :pr-control-points           :initform nil :documentation "pr-control-points")
-  (pr-degree                   :accessor pr-degree                   :initarg :pr-degree                   :initform nil :documentation "pr-degree")
-  (pr-degree2                  :accessor pr-degree2                  :initarg :pr-degree2                  :initform nil :documentation "pr-degree2")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-end-tangent              :accessor pr-end-tangent              :initarg :pr-end-tangent              :initform nil :documentation "pr-end-tangent")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-fit-points               :accessor pr-fit-points               :initarg :pr-fit-points               :initform nil :documentation "pr-fit-points")
-  (pr-fit-tolerance            :accessor pr-fit-tolerance            :initarg :pr-fit-tolerance            :initform nil :documentation "pr-fit-tolerance")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-is-periodic              :accessor pr-is-periodic              :initarg :pr-is-periodic              :initform nil :documentation "pr-is-periodic")
-  (pr-is-planar                :accessor pr-is-planar                :initarg :pr-is-planar                :initform nil :documentation "pr-is-planar")
-  (pr-is-rational              :accessor pr-is-rational              :initarg :pr-is-rational              :initform nil :documentation "pr-is-rational")
-  (pr-knot-parameterization    :accessor pr-knot-parameterization    :initarg :pr-knot-parameterization    :initform nil :documentation "pr-knot-parameterization")
-  (pr-knots                    :accessor pr-knots                    :initarg :pr-knots                    :initform nil :documentation "pr-knots")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-number-of-control-points :accessor pr-number-of-control-points :initarg :pr-number-of-control-points :initform nil :documentation "pr-number-of-control-points")
-  (pr-number-of-fit-points     :accessor pr-number-of-fit-points     :initarg :pr-number-of-fit-points     :initform nil :documentation "pr-number-of-fit-points")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-spline-frame             :accessor pr-spline-frame             :initarg :pr-spline-frame             :initform nil :documentation "pr-spline-frame")
-  (pr-spline-method            :accessor pr-spline-method            :initarg :pr-spline-method            :initform nil :documentation "pr-spline-method")
-  (pr-start-tangent            :accessor pr-start-tangent            :initarg :pr-start-tangent            :initform nil :documentation "pr-start-tangent")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  (pr-weights                  :accessor pr-weights                  :initarg :pr-weights                  :initform nil :documentation "pr-weights")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B8FC11E4-3F6B-40CE-8AEC-D4CF669086A3\"](Spline Object (ActiveX))"))
-
-(defparameter *acad-spline-properties* '(pr-application pr-area pr-closed pr-closed2 pr-control-points pr-degree pr-degree2 pr-document pr-end-tangent pr-entity-transparency pr-fit-points pr-fit-tolerance pr-handle pr-has-extension-dictionary pr-hyperlinks pr-is-periodic pr-is-planar pr-is-rational pr-knot-parameterization pr-knots pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-number-of-control-points pr-number-of-fit-points pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-spline-frame pr-spline-method pr-start-tangent pr-true-color pr-visible pr-weights))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-spline-properties* *acad-entity-properties*))
+'((:defclass "AcadSpline" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B8FC11E4-3F6B-40CE-8AEC-D4CF669086A3\"](Spline Object (ActiveX))")
+  (:methods
+   "AddFitPoint ArrayPolar ArrayRectangular Copy Delete DeleteFitPoint
+   ElevateOrder GetBoundingBox GetControlPoint GetExtensionDictionary
+   GetFitPoint GetWeight GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Offset PurgeFitData Reverse Rotate Rotate3D
+   ScaleEntity SetControlPoint SetFitPoint SetWeight SetXData
+   TransformBy Update")
+  (:properties
+   "Application Area Closed Closed2 ControlPoints Degree Degree2
+   Document EndTangent EntityTransparency FitPoints FitTolerance
+   Handle HasExtensionDictionary Hyperlinks IsPeriodic IsPlanar
+   IsRational KnotParameterization Knots Layer Linetype LinetypeScale
+   Lineweight Material NumberOfControlPoints NumberOfFitPoints
+   ObjectID ObjectName OwnerID PlotStyleName SplineFrame SplineMethod
+   StartTangent TrueColor Visible Weights")
+  (:events
+   "Modified"))

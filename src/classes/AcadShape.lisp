@@ -1,36 +1,18 @@
 (in-package :dxf/classes)
 
-(defclass <acad-shape> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-insertion-point          :accessor pr-insertion-point          :initarg :pr-insertion-point          :initform nil :documentation "pr-insertion-point")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-oblique-angle            :accessor pr-oblique-angle            :initarg :pr-oblique-angle            :initform nil :documentation "pr-oblique-angle")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-rotation                 :accessor pr-rotation                 :initarg :pr-rotation                 :initform nil :documentation "pr-rotation")
-  (pr-scale-factor             :accessor pr-scale-factor             :initarg :pr-scale-factor             :initform nil :documentation "pr-scale-factor")
-  (pr-thickness                :accessor pr-thickness                :initarg :pr-thickness                :initform nil :documentation "pr-thickness")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-14883954-9C4B-4B8F-AC0C-4B44940B5932\"](Shape Object (ActiveX))"))
-
-(defparameter *acad-shape-properties* '(pr-application pr-document pr-entity-transparency pr-handle pr-has-extension-dictionary pr-height pr-hyperlinks pr-insertion-point pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-name pr-normal pr-object-id pr-object-name pr-oblique-angle pr-owner-id pr-plot-style-name pr-rotation pr-scale-factor pr-thickness pr-true-color pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-shape-properties* *acad-entity-properties*))
+'((:defclass "AcadShape" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-14883954-9C4B-4B8F-AC0C-4B44940B5932\"](Shape Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+   Update")
+  (:properties
+   "Application Document EntityTransparency Handle
+   HasExtensionDictionary Height Hyperlinks InsertionPoint Layer
+   Linetype LinetypeScale Lineweight Material Name Normal ObjectID
+   ObjectName ObliqueAngle OwnerID PlotStyleName Rotation ScaleFactor
+   Thickness TrueColor Visible")
+  (:events
+   "Modified"))

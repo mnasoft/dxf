@@ -1,46 +1,21 @@
 (in-package :dxf/classes)
 
-(defclass <acad-section> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-bottom-height            :accessor pr-bottom-height            :initarg :pr-bottom-height            :initform nil :documentation "pr-bottom-height")
-  (pr-coordinate               :accessor pr-coordinate               :initarg :pr-coordinate               :initform nil :documentation "pr-coordinate")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-elevation                :accessor pr-elevation                :initarg :pr-elevation                :initform nil :documentation "pr-elevation")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-indicator-fill-color     :accessor pr-indicator-fill-color     :initarg :pr-indicator-fill-color     :initform nil :documentation "pr-indicator-fill-color")
-  (pr-indicator-transparency   :accessor pr-indicator-transparency   :initarg :pr-indicator-transparency   :initform nil :documentation "pr-indicator-transparency")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-live-section-enabled     :accessor pr-live-section-enabled     :initarg :pr-live-section-enabled     :initform nil :documentation "pr-live-section-enabled")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-num-vertices             :accessor pr-num-vertices             :initarg :pr-num-vertices             :initform nil :documentation "pr-num-vertices")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-section-plane-offset     :accessor pr-section-plane-offset     :initarg :pr-section-plane-offset     :initform nil :documentation "pr-section-plane-offset")
-  (pr-settings                 :accessor pr-settings                 :initarg :pr-settings                 :initform nil :documentation "pr-settings")
-  (pr-slice-depth              :accessor pr-slice-depth              :initarg :pr-slice-depth              :initform nil :documentation "pr-slice-depth")
-  (pr-state                    :accessor pr-state                    :initarg :pr-state                    :initform nil :documentation "pr-state")
-  (pr-state2                   :accessor pr-state2                   :initarg :pr-state2                   :initform nil :documentation "pr-state2")
-  (pr-top-height               :accessor pr-top-height               :initarg :pr-top-height               :initform nil :documentation "pr-top-height")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-vertical-direction       :accessor pr-vertical-direction       :initarg :pr-vertical-direction       :initform nil :documentation "pr-vertical-direction")
-  (pr-vertices                 :accessor pr-vertices                 :initarg :pr-vertices                 :initform nil :documentation "pr-vertices")
-  (pr-viewing-direction        :accessor pr-viewing-direction        :initarg :pr-viewing-direction        :initform nil :documentation "pr-viewing-direction")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5242921B-1A1B-47DF-B9B7-2932DB5227AA\"](Section Object (ActiveX))"))
-
-(defparameter *acad-section-properties* '(pr-application pr-bottom-height pr-coordinate pr-document pr-elevation pr-entity-transparency pr-handle pr-has-extension-dictionary pr-hyperlinks pr-indicator-fill-color pr-indicator-transparency pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-live-section-enabled pr-material pr-name pr-normal pr-num-vertices pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-section-plane-offset pr-settings pr-slice-depth pr-state pr-state2 pr-top-height pr-true-color pr-vertical-direction pr-vertices pr-viewing-direction pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-section-properties* *acad-entity-properties*))
+'((:defclass "AcadSection" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5242921B-1A1B-47DF-B9B7-2932DB5227AA\"](Section Object (ActiveX))")
+  (:methods
+   "AddVertex ArrayPolar ArrayRectangular Copy CreateJog Delete
+   GenerateSectionGeometry GetBoundingBox GetExtensionDictionary
+   GetXData Highlight HitTest IntersectWith Mirror Mirror3D Move
+   RemoveVertex Rotate Rotate3D ScaleEntity SetXData TransformBy
+   Update")
+  (:properties
+   "Application BottomHeight Coordinate Document Elevation
+   EntityTransparency Handle HasExtensionDictionary Hyperlinks
+   IndicatorFillColor IndicatorTransparency Layer Linetype
+   LinetypeScale Lineweight LiveSectionEnabled Material Name Normal
+   NumVertices ObjectID ObjectName OwnerID PlotStyleName
+   SectionPlaneOffset Settings SliceDepth State State2 TopHeight
+   TrueColor VerticalDirection Vertices ViewingDirection Visible")
+  (:events
+   "Modified"))

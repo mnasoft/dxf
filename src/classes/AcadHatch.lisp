@@ -1,49 +1,22 @@
 (in-package :dxf/classes)
 
-(defclass <acad-hatch> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-area                     :accessor pr-area                     :initarg :pr-area                     :initform nil :documentation "pr-area")
-  (pr-associative-hatch        :accessor pr-associative-hatch        :initarg :pr-associative-hatch        :initform nil :documentation "pr-associative-hatch")
-  (pr-background-color         :accessor pr-background-color         :initarg :pr-background-color         :initform nil :documentation "pr-background-color")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-elevation                :accessor pr-elevation                :initarg :pr-elevation                :initform nil :documentation "pr-elevation")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-gradient-angle           :accessor pr-gradient-angle           :initarg :pr-gradient-angle           :initform nil :documentation "pr-gradient-angle")
-  (pr-gradient-centered        :accessor pr-gradient-centered        :initarg :pr-gradient-centered        :initform nil :documentation "pr-gradient-centered")
-  (pr-gradient-color1          :accessor pr-gradient-color1          :initarg :pr-gradient-color1          :initform nil :documentation "pr-gradient-color1")
-  (pr-gradient-color2          :accessor pr-gradient-color2          :initarg :pr-gradient-color2          :initform nil :documentation "pr-gradient-color2")
-  (pr-gradient-name            :accessor pr-gradient-name            :initarg :pr-gradient-name            :initform nil :documentation "pr-gradient-name")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-hatch-object-type        :accessor pr-hatch-object-type        :initarg :pr-hatch-object-type        :initform nil :documentation "pr-hatch-object-type")
-  (pr-hatch-style              :accessor pr-hatch-style              :initarg :pr-hatch-style              :initform nil :documentation "pr-hatch-style")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-iso-pen-width            :accessor pr-iso-pen-width            :initarg :pr-iso-pen-width            :initform nil :documentation "pr-iso-pen-width")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-number-of-loops          :accessor pr-number-of-loops          :initarg :pr-number-of-loops          :initform nil :documentation "pr-number-of-loops")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-origin                   :accessor pr-origin                   :initarg :pr-origin                   :initform nil :documentation "pr-origin")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-pattern-angle            :accessor pr-pattern-angle            :initarg :pr-pattern-angle            :initform nil :documentation "pr-pattern-angle")
-  (pr-pattern-double           :accessor pr-pattern-double           :initarg :pr-pattern-double           :initform nil :documentation "pr-pattern-double")
-  (pr-pattern-name             :accessor pr-pattern-name             :initarg :pr-pattern-name             :initform nil :documentation "pr-pattern-name")
-  (pr-pattern-scale            :accessor pr-pattern-scale            :initarg :pr-pattern-scale            :initform nil :documentation "pr-pattern-scale")
-  (pr-pattern-space            :accessor pr-pattern-space            :initarg :pr-pattern-space            :initform nil :documentation "pr-pattern-space")
-  (pr-pattern-type             :accessor pr-pattern-type             :initarg :pr-pattern-type             :initform nil :documentation "pr-pattern-type")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-92A2B30F-1B74-4894-850A-5505F3B5944B\"](Hatch Object (ActiveX))"))
-
-(defparameter *acad-hatch-properties* '(pr-application pr-area pr-associative-hatch pr-background-color pr-document pr-elevation pr-entity-transparency pr-gradient-angle pr-gradient-centered pr-gradient-color1 pr-gradient-color2 pr-gradient-name pr-handle pr-has-extension-dictionary pr-hatch-object-type pr-hatch-style pr-hyperlinks pr-iso-pen-width pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-normal pr-number-of-loops pr-object-id pr-object-name pr-origin pr-owner-id pr-pattern-angle pr-pattern-double pr-pattern-name pr-pattern-scale pr-pattern-space pr-pattern-type pr-plot-style-name pr-true-color pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-hatch-properties* *acad-entity-properties*))
+'((:defclass "AcadHatch" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-92A2B30F-1B74-4894-850A-5505F3B5944B\"](Hatch Object (ActiveX))")
+  (:methods
+   "AppendInnerLoop AppendOuterLoop ArrayPolar ArrayRectangular Copy
+   Delete Evaluate GetBoundingBox GetExtensionDictionary GetLoopAt
+   GetXData Highlight InsertLoopAt IntersectWith Mirror Mirror3D Move
+   Rotate Rotate3D ScaleEntity SetPattern SetXData TransformBy
+   Update")
+  (:properties
+   "Application Area AssociativeHatch BackgroundColor Document
+   Elevation EntityTransparency GradientAngle GradientCentered
+   GradientColor1 GradientColor2 GradientName Handle
+   HasExtensionDictionary HatchObjectType HatchStyle Hyperlinks
+   ISOPenWidth Layer Linetype LinetypeScale Lineweight Material Normal
+   NumberOfLoops ObjectID ObjectName Origin OwnerID PatternAngle
+   PatternDouble PatternName PatternScale PatternSpace PatternType
+   PlotStyleName TrueColor Visible")
+  (:events
+   "Modified"))

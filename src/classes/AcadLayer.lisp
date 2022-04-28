@@ -1,31 +1,14 @@
 (in-package :dxf/classes)
 
-(defclass <acad-layer> (<acad-object>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-description              :accessor pr-description              :initarg :pr-description              :initform nil :documentation "pr-description")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-freeze                   :accessor pr-freeze                   :initarg :pr-freeze                   :initform nil :documentation "pr-freeze")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-layer-on                 :accessor pr-layer-on                 :initarg :pr-layer-on                 :initform nil :documentation "pr-layer-on")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-lock                     :accessor pr-lock                     :initarg :pr-lock                     :initform nil :documentation "pr-lock")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-plottable                :accessor pr-plottable                :initarg :pr-plottable                :initform nil :documentation "pr-plottable")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-used                     :accessor pr-used                     :initarg :pr-used                     :initform nil :documentation "pr-used")
-  (pr-viewport-default         :accessor pr-viewport-default         :initarg :pr-viewport-default         :initform nil :documentation "pr-viewport-default")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-14F28A52-81E5-4CD0-AA79-ADC09E91BB8C\"](Layer Object (ActiveX))"))
-
-(defparameter *acad-layer-properties* '(pr-application pr-description pr-document pr-freeze pr-handle pr-has-extension-dictionary pr-layer-on pr-linetype pr-lineweight pr-lock pr-material pr-name pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-plottable pr-true-color pr-used pr-viewport-default))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-layer-properties* *acad-object-properties*))
+'((:defclass "AcadLayer" )
+  (:parents "AcadObject")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-14F28A52-81E5-4CD0-AA79-ADC09E91BB8C\"](Layer Object (ActiveX))")
+  (:methods
+   "Delete GetExtensionDictionary GetXData SetXData")
+  (:properties
+   "Application Description Document Freeze Handle
+   HasExtensionDictionary LayerOn Linetype Lineweight Lock Material
+   Name ObjectID ObjectName OwnerID PlotStyleName Plottable TrueColor
+   Used ViewportDefault")
+  (:events
+   "Modified"))

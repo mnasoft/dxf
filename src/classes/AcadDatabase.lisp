@@ -1,33 +1,15 @@
 (in-package :dxf/classes)
 
-(defclass <acad-database> (<object>)
-  (
-  (pr-blocks                   :accessor pr-blocks                   :initarg :pr-blocks                   :initform nil :documentation "pr-blocks")
-  (pr-dictionaries             :accessor pr-dictionaries             :initarg :pr-dictionaries             :initform nil :documentation "pr-dictionaries")
-  (pr-dim-styles               :accessor pr-dim-styles               :initarg :pr-dim-styles               :initform nil :documentation "pr-dim-styles")
-  (pr-elevation-model-space    :accessor pr-elevation-model-space    :initarg :pr-elevation-model-space    :initform nil :documentation "pr-elevation-model-space")
-  (pr-elevation-paper-space    :accessor pr-elevation-paper-space    :initarg :pr-elevation-paper-space    :initform nil :documentation "pr-elevation-paper-space")
-  (pr-groups                   :accessor pr-groups                   :initarg :pr-groups                   :initform nil :documentation "pr-groups")
-  (pr-layers                   :accessor pr-layers                   :initarg :pr-layers                   :initform nil :documentation "pr-layers")
-  (pr-layouts                  :accessor pr-layouts                  :initarg :pr-layouts                  :initform nil :documentation "pr-layouts")
-  (pr-limits                   :accessor pr-limits                   :initarg :pr-limits                   :initform nil :documentation "pr-limits")
-  (pr-linetypes                :accessor pr-linetypes                :initarg :pr-linetypes                :initform nil :documentation "pr-linetypes")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-model-space              :accessor pr-model-space              :initarg :pr-model-space              :initform nil :documentation "pr-model-space")
-  (pr-paper-space              :accessor pr-paper-space              :initarg :pr-paper-space              :initform nil :documentation "pr-paper-space")
-  (pr-plot-configurations      :accessor pr-plot-configurations      :initarg :pr-plot-configurations      :initform nil :documentation "pr-plot-configurations")
-  (pr-preferences              :accessor pr-preferences              :initarg :pr-preferences              :initform nil :documentation "pr-preferences")
-  (pr-registered-applications  :accessor pr-registered-applications  :initarg :pr-registered-applications  :initform nil :documentation "pr-registered-applications")
-  (pr-section-manager          :accessor pr-section-manager          :initarg :pr-section-manager          :initform nil :documentation "pr-section-manager")
-  (pr-summary-info             :accessor pr-summary-info             :initarg :pr-summary-info             :initform nil :documentation "pr-summary-info")
-  (pr-text-styles              :accessor pr-text-styles              :initarg :pr-text-styles              :initform nil :documentation "pr-text-styles")
-  (pr-user-coordinate-systems  :accessor pr-user-coordinate-systems  :initarg :pr-user-coordinate-systems  :initform nil :documentation "pr-user-coordinate-systems")
-  (pr-viewports                :accessor pr-viewports                :initarg :pr-viewports                :initform nil :documentation "pr-viewports")
-  (pr-views                    :accessor pr-views                    :initarg :pr-views                    :initform nil :documentation "pr-views")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-31D8D654-572D-4D2B-A138-4D8793ECE135\"](Database Object (ActiveX))"))
-
-(defparameter *acad-database-properties* '(pr-blocks pr-dictionaries pr-dim-styles pr-elevation-model-space pr-elevation-paper-space pr-groups pr-layers pr-layouts pr-limits pr-linetypes pr-material pr-model-space pr-paper-space pr-plot-configurations pr-preferences pr-registered-applications pr-section-manager pr-summary-info pr-text-styles pr-user-coordinate-systems pr-viewports pr-views))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-database-properties* *object-properties*))
+'((:defclass "AcadDatabase" )
+  (:parents "Object")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-31D8D654-572D-4D2B-A138-4D8793ECE135\"](Database Object (ActiveX))")
+  (:methods
+   "CopyObjects HandleToObject ObjectIdToObject")
+  (:properties
+   "Blocks Dictionaries DimStyles ElevationModelSpace
+   ElevationPaperSpace Groups Layers Layouts Limits Linetypes Material
+   ModelSpace PaperSpace PlotConfigurations Preferences
+   RegisteredApplications SectionManager SummaryInfo TextStyles
+   UserCoordinateSystems Viewports Views")
+  (:events
+   "None"))

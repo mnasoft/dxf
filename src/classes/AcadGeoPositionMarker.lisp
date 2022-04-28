@@ -1,46 +1,20 @@
 (in-package :dxf/classes)
 
-(defclass <acad-geo-position-marker> (<acad-entity>)
-  (
-  (pr-altitude                 :accessor pr-altitude                 :initarg :pr-altitude                 :initform nil :documentation "pr-altitude")
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-background-fill          :accessor pr-background-fill          :initarg :pr-background-fill          :initform nil :documentation "pr-background-fill")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-drawing-direction        :accessor pr-drawing-direction        :initarg :pr-drawing-direction        :initform nil :documentation "pr-drawing-direction")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-landing-gap              :accessor pr-landing-gap              :initarg :pr-landing-gap              :initform nil :documentation "pr-landing-gap")
-  (pr-latitude                 :accessor pr-latitude                 :initarg :pr-latitude                 :initform nil :documentation "pr-latitude")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-line-spacing-distance    :accessor pr-line-spacing-distance    :initarg :pr-line-spacing-distance    :initform nil :documentation "pr-line-spacing-distance")
-  (pr-line-spacing-factor      :accessor pr-line-spacing-factor      :initarg :pr-line-spacing-factor      :initform nil :documentation "pr-line-spacing-factor")
-  (pr-line-spacing-style       :accessor pr-line-spacing-style       :initarg :pr-line-spacing-style       :initform nil :documentation "pr-line-spacing-style")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-longitude                :accessor pr-longitude                :initarg :pr-longitude                :initform nil :documentation "pr-longitude")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-notes                    :accessor pr-notes                    :initarg :pr-notes                    :initform nil :documentation "pr-notes")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-position                 :accessor pr-position                 :initarg :pr-position                 :initform nil :documentation "pr-position")
-  (pr-radius                   :accessor pr-radius                   :initarg :pr-radius                   :initform nil :documentation "pr-radius")
-  (pr-rotation                 :accessor pr-rotation                 :initarg :pr-rotation                 :initform nil :documentation "pr-rotation")
-  (pr-text-frame-display       :accessor pr-text-frame-display       :initarg :pr-text-frame-display       :initform nil :documentation "pr-text-frame-display")
-  (pr-text-justify             :accessor pr-text-justify             :initarg :pr-text-justify             :initform nil :documentation "pr-text-justify")
-  (pr-text-string              :accessor pr-text-string              :initarg :pr-text-string              :initform nil :documentation "pr-text-string")
-  (pr-text-style-name          :accessor pr-text-style-name          :initarg :pr-text-style-name          :initform nil :documentation "pr-text-style-name")
-  (pr-text-width               :accessor pr-text-width               :initarg :pr-text-width               :initform nil :documentation "pr-text-width")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B60A60C8-C016-4E5D-8C91-628A2E116A4C\"](GeoPositionMarker Object (ActiveX))"))
-
-(defparameter *acad-geo-position-marker-properties* '(pr-altitude pr-application pr-background-fill pr-document pr-drawing-direction pr-entity-transparency pr-handle pr-has-extension-dictionary pr-height pr-landing-gap pr-latitude pr-layer pr-line-spacing-distance pr-line-spacing-factor pr-line-spacing-style pr-linetype pr-linetype-scale pr-lineweight pr-longitude pr-material pr-notes pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-position pr-radius pr-rotation pr-text-frame-display pr-text-justify pr-text-string pr-text-style-name pr-text-width pr-true-color pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-geo-position-marker-properties* *acad-entity-properties*))
+'((:defclass "AcadGeoPositionMarker" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B60A60C8-C016-4E5D-8C91-628A2E116A4C\"](GeoPositionMarker Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+   Update")
+  (:properties
+   "Altitude Application BackgroundFill Document DrawingDirection
+   EntityTransparency Handle HasExtensionDictionary Height LandingGap
+   Latitude Layer LineSpacingDistance LineSpacingFactor
+   LineSpacingStyle Linetype LinetypeScale Lineweight Longitude
+   Material Notes ObjectID ObjectName OwnerID PlotStyleName Position
+   Radius Rotation TextFrameDisplay TextJustify TextString
+   TextStyleName TextWidth TrueColor Visible")
+  (:events
+   "Modified"))

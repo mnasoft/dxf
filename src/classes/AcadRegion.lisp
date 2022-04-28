@@ -1,37 +1,19 @@
 (in-package :dxf/classes)
 
-(defclass <acad-region> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-area                     :accessor pr-area                     :initarg :pr-area                     :initform nil :documentation "pr-area")
-  (pr-centroid                 :accessor pr-centroid                 :initarg :pr-centroid                 :initform nil :documentation "pr-centroid")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-moment-of-inertia        :accessor pr-moment-of-inertia        :initarg :pr-moment-of-inertia        :initform nil :documentation "pr-moment-of-inertia")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-perimeter                :accessor pr-perimeter                :initarg :pr-perimeter                :initform nil :documentation "pr-perimeter")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-principal-directions     :accessor pr-principal-directions     :initarg :pr-principal-directions     :initform nil :documentation "pr-principal-directions")
-  (pr-principal-moments        :accessor pr-principal-moments        :initarg :pr-principal-moments        :initform nil :documentation "pr-principal-moments")
-  (pr-product-of-inertia       :accessor pr-product-of-inertia       :initarg :pr-product-of-inertia       :initform nil :documentation "pr-product-of-inertia")
-  (pr-radii-of-gyration        :accessor pr-radii-of-gyration        :initarg :pr-radii-of-gyration        :initform nil :documentation "pr-radii-of-gyration")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-DFE47717-F7AF-443B-AD78-4E0BB60121C7\"](Region object (ActiveX))"))
-
-(defparameter *acad-region-properties* '(pr-application pr-area pr-centroid pr-document pr-entity-transparency pr-handle pr-has-extension-dictionary pr-hyperlinks pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-moment-of-inertia pr-normal pr-object-id pr-object-name pr-owner-id pr-perimeter pr-plot-style-name pr-principal-directions pr-principal-moments pr-product-of-inertia pr-radii-of-gyration pr-true-color pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-region-properties* *acad-entity-properties*))
+'((:defclass "AcadRegion" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-DFE47717-F7AF-443B-AD78-4E0BB60121C7\"](Region object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Boolean Copy Delete Explode
+   GetBoundingBox GetExtensionDictionary GetXData Highlight
+   IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity
+   SetXData TransformBy Update")
+  (:properties
+   "Application Area Centroid Document EntityTransparency Handle
+   HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale
+   Lineweight Material MomentOfInertia Normal ObjectID ObjectName
+   OwnerID Perimeter PlotStyleName PrincipalDirections
+   PrincipalMoments ProductOfInertia RadiiOfGyration TrueColor
+   Visible")
+  (:events
+   "Modified"))

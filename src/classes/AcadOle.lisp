@@ -1,38 +1,19 @@
 (in-package :dxf/classes)
 
-(defclass <acad-ole> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-insertion-point          :accessor pr-insertion-point          :initarg :pr-insertion-point          :initform nil :documentation "pr-insertion-point")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-lock-aspect-ratio        :accessor pr-lock-aspect-ratio        :initarg :pr-lock-aspect-ratio        :initform nil :documentation "pr-lock-aspect-ratio")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-ole-item-type            :accessor pr-ole-item-type            :initarg :pr-ole-item-type            :initform nil :documentation "pr-ole-item-type")
-  (pr-ole-plot-quality         :accessor pr-ole-plot-quality         :initarg :pr-ole-plot-quality         :initform nil :documentation "pr-ole-plot-quality")
-  (pr-ole-source-app           :accessor pr-ole-source-app           :initarg :pr-ole-source-app           :initform nil :documentation "pr-ole-source-app")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-rotation                 :accessor pr-rotation                 :initarg :pr-rotation                 :initform nil :documentation "pr-rotation")
-  (pr-scale-height             :accessor pr-scale-height             :initarg :pr-scale-height             :initform nil :documentation "pr-scale-height")
-  (pr-scale-width              :accessor pr-scale-width              :initarg :pr-scale-width              :initform nil :documentation "pr-scale-width")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  (pr-width                    :accessor pr-width                    :initarg :pr-width                    :initform nil :documentation "pr-width")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F22B8915-FE51-4650-A738-95C81019064E\"](OLE Object (ActiveX))"))
-
-(defparameter *acad-ole-properties* '(pr-application pr-document pr-entity-transparency pr-handle pr-has-extension-dictionary pr-height pr-hyperlinks pr-insertion-point pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-lock-aspect-ratio pr-material pr-object-id pr-object-name pr-ole-item-type pr-ole-plot-quality pr-ole-source-app pr-owner-id pr-plot-style-name pr-rotation pr-scale-height pr-scale-width pr-true-color pr-visible pr-width))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-ole-properties* *acad-entity-properties*))
+'((:defclass "AcadOle" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F22B8915-FE51-4650-A738-95C81019064E\"](OLE Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+   Update")
+  (:properties
+   "Application Document EntityTransparency Handle
+   HasExtensionDictionary Height Hyperlinks InsertionPoint Layer
+   Linetype LinetypeScale Lineweight LockAspectRatio Material ObjectID
+   ObjectName OleItemType OlePlotQuality OleSourceApp OwnerID
+   PlotStyleName Rotation ScaleHeight ScaleWidth TrueColor Visible
+   Width")
+  (:events
+   "Modified"))

@@ -1,38 +1,20 @@
 (in-package :dxf/classes)
 
-(defclass <acad-plot-configuration> (<acad-object>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-canonical-media-name     :accessor pr-canonical-media-name     :initarg :pr-canonical-media-name     :initform nil :documentation "pr-canonical-media-name")
-  (pr-center-plot              :accessor pr-center-plot              :initarg :pr-center-plot              :initform nil :documentation "pr-center-plot")
-  (pr-config-name              :accessor pr-config-name              :initarg :pr-config-name              :initform nil :documentation "pr-config-name")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-model-type               :accessor pr-model-type               :initarg :pr-model-type               :initform nil :documentation "pr-model-type")
-  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-paper-units              :accessor pr-paper-units              :initarg :pr-paper-units              :initform nil :documentation "pr-paper-units")
-  (pr-plot-hidden              :accessor pr-plot-hidden              :initarg :pr-plot-hidden              :initform nil :documentation "pr-plot-hidden")
-  (pr-plot-origin              :accessor pr-plot-origin              :initarg :pr-plot-origin              :initform nil :documentation "pr-plot-origin")
-  (pr-plot-rotation            :accessor pr-plot-rotation            :initarg :pr-plot-rotation            :initform nil :documentation "pr-plot-rotation")
-  (pr-plot-type                :accessor pr-plot-type                :initarg :pr-plot-type                :initform nil :documentation "pr-plot-type")
-  (pr-plot-viewport-borders    :accessor pr-plot-viewport-borders    :initarg :pr-plot-viewport-borders    :initform nil :documentation "pr-plot-viewport-borders")
-  (pr-plot-viewports-first     :accessor pr-plot-viewports-first     :initarg :pr-plot-viewports-first     :initform nil :documentation "pr-plot-viewports-first")
-  (pr-plot-with-lineweights    :accessor pr-plot-with-lineweights    :initarg :pr-plot-with-lineweights    :initform nil :documentation "pr-plot-with-lineweights")
-  (pr-plot-with-plot-styles    :accessor pr-plot-with-plot-styles    :initarg :pr-plot-with-plot-styles    :initform nil :documentation "pr-plot-with-plot-styles")
-  (pr-scale-lineweights        :accessor pr-scale-lineweights        :initarg :pr-scale-lineweights        :initform nil :documentation "pr-scale-lineweights")
-  (pr-show-plot-styles         :accessor pr-show-plot-styles         :initarg :pr-show-plot-styles         :initform nil :documentation "pr-show-plot-styles")
-  (pr-standard-scale           :accessor pr-standard-scale           :initarg :pr-standard-scale           :initform nil :documentation "pr-standard-scale")
-  (pr-style-sheet              :accessor pr-style-sheet              :initarg :pr-style-sheet              :initform nil :documentation "pr-style-sheet")
-  (pr-use-standard-scale       :accessor pr-use-standard-scale       :initarg :pr-use-standard-scale       :initform nil :documentation "pr-use-standard-scale")
-  (pr-view-to-plot             :accessor pr-view-to-plot             :initarg :pr-view-to-plot             :initform nil :documentation "pr-view-to-plot")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-AF404266-C40A-4FB4-B4E0-1D1C83052B6D\"](PlotConfiguration Object (ActiveX))"))
-
-(defparameter *acad-plot-configuration-properties* '(pr-application pr-canonical-media-name pr-center-plot pr-config-name pr-document pr-handle pr-has-extension-dictionary pr-model-type pr-name pr-object-id pr-object-name pr-owner-id pr-paper-units pr-plot-hidden pr-plot-origin pr-plot-rotation pr-plot-type pr-plot-viewport-borders pr-plot-viewports-first pr-plot-with-lineweights pr-plot-with-plot-styles pr-scale-lineweights pr-show-plot-styles pr-standard-scale pr-style-sheet pr-use-standard-scale pr-view-to-plot))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-plot-configuration-properties* *acad-object-properties*))
+'((:defclass "AcadPlotConfiguration" )
+  (:parents "AcadObject")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-AF404266-C40A-4FB4-B4E0-1D1C83052B6D\"](PlotConfiguration Object (ActiveX))")
+  (:methods
+   "CopyFrom Delete GetCanonicalMediaNames GetCustomScale
+   GetExtensionDictionary GetLocaleMediaName GetPaperMargins
+   GetPaperSize GetPlotDeviceNames GetPlotStyleTableNames
+   GetWindowToPlot GetXData RefreshPlotDeviceInfo SetCustomScale
+   SetWindowToPlot SetXData")
+  (:properties
+   "Application CanonicalMediaName CenterPlot ConfigName Document
+   Handle HasExtensionDictionary ModelType Name ObjectID ObjectName
+   OwnerID PaperUnits PlotHidden PlotOrigin PlotRotation PlotType
+   PlotViewportBorders PlotViewportsFirst PlotWithLineweights
+   PlotWithPlotStyles ScaleLineweights ShowPlotStyles StandardScale
+   StyleSheet UseStandardScale ViewToPlot")
+  (:events
+   "Modified"))

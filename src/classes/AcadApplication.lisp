@@ -1,32 +1,19 @@
 (in-package :dxf/classes)
 
-(defclass <acad-application> (<object>)
-  (
-  (pr-active-document          :accessor pr-active-document          :initarg :pr-active-document          :initform nil :documentation "pr-active-document")
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-caption                  :accessor pr-caption                  :initarg :pr-caption                  :initform nil :documentation "pr-caption")
-  (pr-documents                :accessor pr-documents                :initarg :pr-documents                :initform nil :documentation "pr-documents")
-  (pr-full-name                :accessor pr-full-name                :initarg :pr-full-name                :initform nil :documentation "pr-full-name")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-hwnd                     :accessor pr-hwnd                     :initarg :pr-hwnd                     :initform nil :documentation "pr-hwnd")
-  (pr-locale-id                :accessor pr-locale-id                :initarg :pr-locale-id                :initform nil :documentation "pr-locale-id")
-  (pr-menu-bar                 :accessor pr-menu-bar                 :initarg :pr-menu-bar                 :initform nil :documentation "pr-menu-bar")
-  (pr-menu-groups              :accessor pr-menu-groups              :initarg :pr-menu-groups              :initform nil :documentation "pr-menu-groups")
-  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
-  (pr-path                     :accessor pr-path                     :initarg :pr-path                     :initform nil :documentation "pr-path")
-  (pr-preferences              :accessor pr-preferences              :initarg :pr-preferences              :initform nil :documentation "pr-preferences")
-  (pr-status-id                :accessor pr-status-id                :initarg :pr-status-id                :initform nil :documentation "pr-status-id")
-  (pr-vbe                      :accessor pr-vbe                      :initarg :pr-vbe                      :initform nil :documentation "pr-vbe")
-  (pr-version                  :accessor pr-version                  :initarg :pr-version                  :initform nil :documentation "pr-version")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  (pr-width                    :accessor pr-width                    :initarg :pr-width                    :initform nil :documentation "pr-width")
-  (pr-window-left              :accessor pr-window-left              :initarg :pr-window-left              :initform nil :documentation "pr-window-left")
-  (pr-window-state             :accessor pr-window-state             :initarg :pr-window-state             :initform nil :documentation "pr-window-state")
-  (pr-window-top               :accessor pr-window-top               :initarg :pr-window-top               :initform nil :documentation "pr-window-top")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0225808C-8C91-407B-990C-15AB966FFFA8\"](Application Object (ActiveX))"))
-
-(defparameter *acad-application-properties* '(pr-active-document pr-application pr-caption pr-documents pr-full-name pr-height pr-hwnd pr-locale-id pr-menu-bar pr-menu-groups pr-name pr-path pr-preferences pr-status-id pr-vbe pr-version pr-visible pr-width pr-window-left pr-window-state pr-window-top))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-application-properties* *object-properties*))
+'((:defclass "AcadApplication" )
+  (:parents "Object")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0225808C-8C91-407B-990C-15AB966FFFA8\"](Application Object (ActiveX))")
+  (:methods
+   "Eval GetAcadState GetInterfaceObject ListARX LoadARX LoadDVB Quit
+   RunMacro UnloadARX UnloadDVB Update ZoomAll ZoomCenter ZoomExtents
+   ZoomPickWindow ZoomPrevious ZoomScaled ZoomWindow")
+  (:properties
+   "ActiveDocument Application Caption Documents FullName Height HWND
+   LocaleID MenuBar MenuGroups Name Path Preferences StatusID VBE
+   Version Visible Width WindowLeft WindowState WindowTop")
+  (:events
+   "AppActivate AppDeactivate ARXLoaded ARXUnloaded BeginCommand
+   BeginFileDrop BeginLisp BeginModal BeginOpen BeginPlot BeginQuit
+   BeginSave EndCommand EndLisp EndModal EndOpen EndPlot EndSave
+   LispCancelled NewDrawing SysVarChanged WindowChanged
+   WindowMovedOrResized"))

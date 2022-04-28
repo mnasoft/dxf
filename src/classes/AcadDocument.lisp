@@ -1,63 +1,30 @@
 (in-package :dxf/classes)
 
-(defclass <acad-document> (<acad-database>)
-  (
-  (pr-active                   :accessor pr-active                   :initarg :pr-active                   :initform nil :documentation "pr-active")
-  (pr-active-dim-style         :accessor pr-active-dim-style         :initarg :pr-active-dim-style         :initform nil :documentation "pr-active-dim-style")
-  (pr-active-layer             :accessor pr-active-layer             :initarg :pr-active-layer             :initform nil :documentation "pr-active-layer")
-  (pr-active-layout            :accessor pr-active-layout            :initarg :pr-active-layout            :initform nil :documentation "pr-active-layout")
-  (pr-active-linetype          :accessor pr-active-linetype          :initarg :pr-active-linetype          :initform nil :documentation "pr-active-linetype")
-  (pr-active-material          :accessor pr-active-material          :initarg :pr-active-material          :initform nil :documentation "pr-active-material")
-  (pr-active-p-viewport        :accessor pr-active-p-viewport        :initarg :pr-active-p-viewport        :initform nil :documentation "pr-active-p-viewport")
-  (pr-active-selection-set     :accessor pr-active-selection-set     :initarg :pr-active-selection-set     :initform nil :documentation "pr-active-selection-set")
-  (pr-active-space             :accessor pr-active-space             :initarg :pr-active-space             :initform nil :documentation "pr-active-space")
-  (pr-active-text-style        :accessor pr-active-text-style        :initarg :pr-active-text-style        :initform nil :documentation "pr-active-text-style")
-  (pr-active-ucs               :accessor pr-active-ucs               :initarg :pr-active-ucs               :initform nil :documentation "pr-active-ucs")
-  (pr-active-viewport          :accessor pr-active-viewport          :initarg :pr-active-viewport          :initform nil :documentation "pr-active-viewport")
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-blocks                   :accessor pr-blocks                   :initarg :pr-blocks                   :initform nil :documentation "pr-blocks")
-  (pr-database                 :accessor pr-database                 :initarg :pr-database                 :initform nil :documentation "pr-database")
-  (pr-dictionaries             :accessor pr-dictionaries             :initarg :pr-dictionaries             :initform nil :documentation "pr-dictionaries")
-  (pr-dim-styles               :accessor pr-dim-styles               :initarg :pr-dim-styles               :initform nil :documentation "pr-dim-styles")
-  (pr-elevation-model-space    :accessor pr-elevation-model-space    :initarg :pr-elevation-model-space    :initform nil :documentation "pr-elevation-model-space")
-  (pr-elevation-paper-space    :accessor pr-elevation-paper-space    :initarg :pr-elevation-paper-space    :initform nil :documentation "pr-elevation-paper-space")
-  (pr-full-name                :accessor pr-full-name                :initarg :pr-full-name                :initform nil :documentation "pr-full-name")
-  (pr-groups                   :accessor pr-groups                   :initarg :pr-groups                   :initform nil :documentation "pr-groups")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-hwnd                     :accessor pr-hwnd                     :initarg :pr-hwnd                     :initform nil :documentation "pr-hwnd")
-  (pr-layers                   :accessor pr-layers                   :initarg :pr-layers                   :initform nil :documentation "pr-layers")
-  (pr-layouts                  :accessor pr-layouts                  :initarg :pr-layouts                  :initform nil :documentation "pr-layouts")
-  (pr-limits                   :accessor pr-limits                   :initarg :pr-limits                   :initform nil :documentation "pr-limits")
-  (pr-linetypes                :accessor pr-linetypes                :initarg :pr-linetypes                :initform nil :documentation "pr-linetypes")
-  (pr-materials                :accessor pr-materials                :initarg :pr-materials                :initform nil :documentation "pr-materials")
-  (pr-model-space              :accessor pr-model-space              :initarg :pr-model-space              :initform nil :documentation "pr-model-space")
-  (pr-m-space                  :accessor pr-m-space                  :initarg :pr-m-space                  :initform nil :documentation "pr-m-space")
-  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
-  (pr-object-snap-mode         :accessor pr-object-snap-mode         :initarg :pr-object-snap-mode         :initform nil :documentation "pr-object-snap-mode")
-  (pr-paper-space              :accessor pr-paper-space              :initarg :pr-paper-space              :initform nil :documentation "pr-paper-space")
-  (pr-path                     :accessor pr-path                     :initarg :pr-path                     :initform nil :documentation "pr-path")
-  (pr-pickfirst-selection-set  :accessor pr-pickfirst-selection-set  :initarg :pr-pickfirst-selection-set  :initform nil :documentation "pr-pickfirst-selection-set")
-  (pr-plot                     :accessor pr-plot                     :initarg :pr-plot                     :initform nil :documentation "pr-plot")
-  (pr-plot-configurations      :accessor pr-plot-configurations      :initarg :pr-plot-configurations      :initform nil :documentation "pr-plot-configurations")
-  (pr-preferences              :accessor pr-preferences              :initarg :pr-preferences              :initform nil :documentation "pr-preferences")
-  (pr-read-only                :accessor pr-read-only                :initarg :pr-read-only                :initform nil :documentation "pr-read-only")
-  (pr-registered-applications  :accessor pr-registered-applications  :initarg :pr-registered-applications  :initform nil :documentation "pr-registered-applications")
-  (pr-saved                    :accessor pr-saved                    :initarg :pr-saved                    :initform nil :documentation "pr-saved")
-  (pr-section-manager          :accessor pr-section-manager          :initarg :pr-section-manager          :initform nil :documentation "pr-section-manager")
-  (pr-selection-sets           :accessor pr-selection-sets           :initarg :pr-selection-sets           :initform nil :documentation "pr-selection-sets")
-  (pr-summary-info             :accessor pr-summary-info             :initarg :pr-summary-info             :initform nil :documentation "pr-summary-info")
-  (pr-text-styles              :accessor pr-text-styles              :initarg :pr-text-styles              :initform nil :documentation "pr-text-styles")
-  (pr-user-coordinate-systems  :accessor pr-user-coordinate-systems  :initarg :pr-user-coordinate-systems  :initform nil :documentation "pr-user-coordinate-systems")
-  (pr-utility                  :accessor pr-utility                  :initarg :pr-utility                  :initform nil :documentation "pr-utility")
-  (pr-viewports                :accessor pr-viewports                :initarg :pr-viewports                :initform nil :documentation "pr-viewports")
-  (pr-views                    :accessor pr-views                    :initarg :pr-views                    :initform nil :documentation "pr-views")
-  (pr-width                    :accessor pr-width                    :initarg :pr-width                    :initform nil :documentation "pr-width")
-  (pr-window-state             :accessor pr-window-state             :initarg :pr-window-state             :initform nil :documentation "pr-window-state")
-  (pr-window-title             :accessor pr-window-title             :initarg :pr-window-title             :initform nil :documentation "pr-window-title")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9216BFCD-D358-4FC6-B631-B52E6693D242\"](Document Object (ActiveX))"))
-
-(defparameter *acad-document-properties* '(pr-active pr-active-dim-style pr-active-layer pr-active-layout pr-active-linetype pr-active-material pr-active-p-viewport pr-active-selection-set pr-active-space pr-active-text-style pr-active-ucs pr-active-viewport pr-application pr-blocks pr-database pr-dictionaries pr-dim-styles pr-elevation-model-space pr-elevation-paper-space pr-full-name pr-groups pr-height pr-hwnd pr-layers pr-layouts pr-limits pr-linetypes pr-materials pr-model-space pr-m-space pr-name pr-object-snap-mode pr-paper-space pr-path pr-pickfirst-selection-set pr-plot pr-plot-configurations pr-preferences pr-read-only pr-registered-applications pr-saved pr-section-manager pr-selection-sets pr-summary-info pr-text-styles pr-user-coordinate-systems pr-utility pr-viewports pr-views pr-width pr-window-state pr-window-title))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-document-properties* *acad-database-properties*))
+'((:defclass "AcadDocument" )
+  (:parents "AcadDatabase")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9216BFCD-D358-4FC6-B631-B52E6693D242\"](Document Object (ActiveX))")
+  (:methods
+   "Activate AuditInfo Close CopyObjects EndUndoMark Export
+   GetVariable HandleToObject Import LoadShapeFile New
+   ObjectIDToObject Open PostCommand PurgeAll Regen Save SaveAs
+   SendCommand SetVariable StartUndoMark WBlock")
+  (:properties
+   "Active ActiveDimStyle ActiveLayer ActiveLayout ActiveLinetype
+   ActiveMaterial ActivePViewport ActiveSelectionSet ActiveSpace
+   ActiveTextStyle ActiveUCS ActiveViewport Application Blocks
+   Database Dictionaries DimStyles ElevationModelSpace
+   ElevationPaperSpace FullName Groups Height HWND Layers Layouts
+   Limits Linetypes Materials ModelSpace MSpace Name ObjectSnapMode
+   PaperSpace Path PickfirstSelectionSet Plot PlotConfigurations
+   Preferences ReadOnly RegisteredApplications Saved SectionManager
+   SelectionSets SummaryInfo TextStyles UserCoordinateSystems Utility
+   Viewports Views Width WindowState WindowTitle")
+  (:events
+   "Activate BeginClose BeginCommand BeginDocClose BeginDoubleClick
+   BeginLISP BeginPlot BeginRightClick BeginSave
+   BeginShortcutMenuCommand BeginShortcutMenuDefault
+   BeginShortcutMenuEdit BeginShortcutMenuGrip BeginShortcutMenuOSnap
+   Deactivate EndCommand EndLISP EndPlot EndSave EndShortcutMenu
+   LayoutSwitched LISPCancelled ObjectAdded ObjectErased
+   ObjectModified SelectionChanged WindowChanged
+   WindowMovedOrResized"))

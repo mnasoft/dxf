@@ -1,31 +1,16 @@
 (in-package :dxf/classes)
 
-(defclass <acad-database-preferences> (<object>)
-  (
-  (pr-allow-long-symbol-names  :accessor pr-allow-long-symbol-names  :initarg :pr-allow-long-symbol-names  :initform nil :documentation "pr-allow-long-symbol-names")
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-contourlines-per-surface :accessor pr-contourlines-per-surface :initarg :pr-contourlines-per-surface :initform nil :documentation "pr-contourlines-per-surface")
-  (pr-display-silhouette       :accessor pr-display-silhouette       :initarg :pr-display-silhouette       :initform nil :documentation "pr-display-silhouette")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-lineweight-display       :accessor pr-lineweight-display       :initarg :pr-lineweight-display       :initform nil :documentation "pr-lineweight-display")
-  (pr-max-active-viewports     :accessor pr-max-active-viewports     :initarg :pr-max-active-viewports     :initform nil :documentation "pr-max-active-viewports")
-  (pr-object-sort-by-plotting  :accessor pr-object-sort-by-plotting  :initarg :pr-object-sort-by-plotting  :initform nil :documentation "pr-object-sort-by-plotting")
-  (pr-object-sort-by-ps-output :accessor pr-object-sort-by-ps-output :initarg :pr-object-sort-by-ps-output :initform nil :documentation "pr-object-sort-by-ps-output")
-  (pr-object-sort-by-redraws   :accessor pr-object-sort-by-redraws   :initarg :pr-object-sort-by-redraws   :initform nil :documentation "pr-object-sort-by-redraws")
-  (pr-object-sort-by-regens    :accessor pr-object-sort-by-regens    :initarg :pr-object-sort-by-regens    :initform nil :documentation "pr-object-sort-by-regens")
-  (pr-object-sort-by-selection :accessor pr-object-sort-by-selection :initarg :pr-object-sort-by-selection :initform nil :documentation "pr-object-sort-by-selection")
-  (pr-object-sort-by-snap      :accessor pr-object-sort-by-snap      :initarg :pr-object-sort-by-snap      :initform nil :documentation "pr-object-sort-by-snap")
-  (pr-ole-launch               :accessor pr-ole-launch               :initarg :pr-ole-launch               :initform nil :documentation "pr-ole-launch")
-  (pr-render-smoothness        :accessor pr-render-smoothness        :initarg :pr-render-smoothness        :initform nil :documentation "pr-render-smoothness")
-  (pr-segment-per-polyline     :accessor pr-segment-per-polyline     :initarg :pr-segment-per-polyline     :initform nil :documentation "pr-segment-per-polyline")
-  (pr-solid-fill               :accessor pr-solid-fill               :initarg :pr-solid-fill               :initform nil :documentation "pr-solid-fill")
-  (pr-text-frame-display       :accessor pr-text-frame-display       :initarg :pr-text-frame-display       :initform nil :documentation "pr-text-frame-display")
-  (pr-x-ref-edit               :accessor pr-x-ref-edit               :initarg :pr-x-ref-edit               :initform nil :documentation "pr-x-ref-edit")
-  (pr-x-ref-layer-visibility   :accessor pr-x-ref-layer-visibility   :initarg :pr-x-ref-layer-visibility   :initform nil :documentation "pr-x-ref-layer-visibility")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B03F622D-9D1D-4149-A170-1DF2AC62DA37\"](DatabasePreferences Object (ActiveX))"))
-
-(defparameter *acad-database-preferences-properties* '(pr-allow-long-symbol-names pr-application pr-contourlines-per-surface pr-display-silhouette pr-lineweight pr-lineweight-display pr-max-active-viewports pr-object-sort-by-plotting pr-object-sort-by-ps-output pr-object-sort-by-redraws pr-object-sort-by-regens pr-object-sort-by-selection pr-object-sort-by-snap pr-ole-launch pr-render-smoothness pr-segment-per-polyline pr-solid-fill pr-text-frame-display pr-x-ref-edit pr-x-ref-layer-visibility))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-database-preferences-properties* *object-properties*))
+'((:defclass "AcadDatabasePreferences" )
+  (:parents "Object")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B03F622D-9D1D-4149-A170-1DF2AC62DA37\"](DatabasePreferences Object (ActiveX))")
+  (:methods
+   "None")
+  (:properties
+   "AllowLongSymbolNames Application ContourlinesPerSurface
+    DisplaySilhouette Lineweight LineweightDisplay MaxActiveViewports
+    ObjectSortByPlotting ObjectSortByPSOutput ObjectSortByRedraws
+    ObjectSortByRegens ObjectSortBySelection ObjectSortBySnap
+    OLELaunch RenderSmoothness SegmentPerPolyline SolidFill
+    TextFrameDisplay XRefEdit XRefLayerVisibility")
+  (:events
+   "None"))

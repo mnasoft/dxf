@@ -1,65 +1,30 @@
 (in-package :dxf/classes)
 
-(defclass <acad-mleader> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-arrowhead-block          :accessor pr-arrowhead-block          :initarg :pr-arrowhead-block          :initform nil :documentation "pr-arrowhead-block")
-  (pr-arrowhead-size           :accessor pr-arrowhead-size           :initarg :pr-arrowhead-size           :initform nil :documentation "pr-arrowhead-size")
-  (pr-arrowhead-type           :accessor pr-arrowhead-type           :initarg :pr-arrowhead-type           :initform nil :documentation "pr-arrowhead-type")
-  (pr-block-connection-type    :accessor pr-block-connection-type    :initarg :pr-block-connection-type    :initform nil :documentation "pr-block-connection-type")
-  (pr-block-scale              :accessor pr-block-scale              :initarg :pr-block-scale              :initform nil :documentation "pr-block-scale")
-  (pr-content-block-name       :accessor pr-content-block-name       :initarg :pr-content-block-name       :initform nil :documentation "pr-content-block-name")
-  (pr-content-block-type       :accessor pr-content-block-type       :initarg :pr-content-block-type       :initform nil :documentation "pr-content-block-type")
-  (pr-content-type             :accessor pr-content-type             :initarg :pr-content-type             :initform nil :documentation "pr-content-type")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-dog-legged               :accessor pr-dog-legged               :initarg :pr-dog-legged               :initform nil :documentation "pr-dog-legged")
-  (pr-dogleg-length            :accessor pr-dogleg-length            :initarg :pr-dogleg-length            :initform nil :documentation "pr-dogleg-length")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-landing-gap              :accessor pr-landing-gap              :initarg :pr-landing-gap              :initform nil :documentation "pr-landing-gap")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-leader-count             :accessor pr-leader-count             :initarg :pr-leader-count             :initform nil :documentation "pr-leader-count")
-  (pr-leader-line-color        :accessor pr-leader-line-color        :initarg :pr-leader-line-color        :initform nil :documentation "pr-leader-line-color")
-  (pr-leader-line-type         :accessor pr-leader-line-type         :initarg :pr-leader-line-type         :initform nil :documentation "pr-leader-line-type")
-  (pr-leader-line-weight       :accessor pr-leader-line-weight       :initarg :pr-leader-line-weight       :initform nil :documentation "pr-leader-line-weight")
-  (pr-leader-type              :accessor pr-leader-type              :initarg :pr-leader-type              :initform nil :documentation "pr-leader-type")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-scale-factor             :accessor pr-scale-factor             :initarg :pr-scale-factor             :initform nil :documentation "pr-scale-factor")
-  (pr-style-name               :accessor pr-style-name               :initarg :pr-style-name               :initform nil :documentation "pr-style-name")
-  (pr-text-attachment-direction :accessor pr-text-attachment-direction :initarg :pr-text-attachment-direction :initform nil :documentation "pr-text-attachment-direction")
-  (pr-text-background-fill     :accessor pr-text-background-fill     :initarg :pr-text-background-fill     :initform nil :documentation "pr-text-background-fill")
-  (pr-text-bottom-attachment-type :accessor pr-text-bottom-attachment-type :initarg :pr-text-bottom-attachment-type :initform nil :documentation "pr-text-bottom-attachment-type")
-  (pr-text-direction           :accessor pr-text-direction           :initarg :pr-text-direction           :initform nil :documentation "pr-text-direction")
-  (pr-text-frame-display       :accessor pr-text-frame-display       :initarg :pr-text-frame-display       :initform nil :documentation "pr-text-frame-display")
-  (pr-text-height              :accessor pr-text-height              :initarg :pr-text-height              :initform nil :documentation "pr-text-height")
-  (pr-text-justify             :accessor pr-text-justify             :initarg :pr-text-justify             :initform nil :documentation "pr-text-justify")
-  (pr-text-left-attachment-type :accessor pr-text-left-attachment-type :initarg :pr-text-left-attachment-type :initform nil :documentation "pr-text-left-attachment-type")
-  (pr-text-line-spacing-distance :accessor pr-text-line-spacing-distance :initarg :pr-text-line-spacing-distance :initform nil :documentation "pr-text-line-spacing-distance")
-  (pr-text-line-spacing-factor :accessor pr-text-line-spacing-factor :initarg :pr-text-line-spacing-factor :initform nil :documentation "pr-text-line-spacing-factor")
-  (pr-text-line-spacing-style  :accessor pr-text-line-spacing-style  :initarg :pr-text-line-spacing-style  :initform nil :documentation "pr-text-line-spacing-style")
-  (pr-text-right-attachment-type :accessor pr-text-right-attachment-type :initarg :pr-text-right-attachment-type :initform nil :documentation "pr-text-right-attachment-type")
-  (pr-text-rotation            :accessor pr-text-rotation            :initarg :pr-text-rotation            :initform nil :documentation "pr-text-rotation")
-  (pr-text-string              :accessor pr-text-string              :initarg :pr-text-string              :initform nil :documentation "pr-text-string")
-  (pr-text-style-name          :accessor pr-text-style-name          :initarg :pr-text-style-name          :initform nil :documentation "pr-text-style-name")
-  (pr-text-top-attachment-type :accessor pr-text-top-attachment-type :initarg :pr-text-top-attachment-type :initform nil :documentation "pr-text-top-attachment-type")
-  (pr-text-width               :accessor pr-text-width               :initarg :pr-text-width               :initform nil :documentation "pr-text-width")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-type                     :accessor pr-type                     :initarg :pr-type                     :initform nil :documentation "pr-type")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-95FD33C2-DF78-4014-933C-9AC124E6A35D\"](MLeader Object (ActiveX))"))
-
-(defparameter *acad-m-leader-properties* '(pr-application pr-arrowhead-block pr-arrowhead-size pr-arrowhead-type pr-block-connection-type pr-block-scale pr-content-block-name pr-content-block-type pr-content-type pr-document pr-dog-legged pr-dogleg-length pr-entity-transparency pr-handle pr-has-extension-dictionary pr-hyperlinks pr-landing-gap pr-layer pr-leader-count pr-leader-line-color pr-leader-line-type pr-leader-line-weight pr-leader-type pr-linetype pr-linetype-scale pr-lineweight pr-material pr-normal pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-scale-factor pr-style-name pr-text-attachment-direction pr-text-background-fill pr-text-bottom-attachment-type pr-text-direction pr-text-frame-display pr-text-height pr-text-justify pr-text-left-attachment-type pr-text-line-spacing-distance pr-text-line-spacing-factor pr-text-line-spacing-style pr-text-right-attachment-type pr-text-rotation pr-text-string pr-text-style-name pr-text-top-attachment-type pr-text-width pr-true-color pr-type pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-m-leader-properties* *acad-entity-properties*))
+'((:defclass "AcadMLeader" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-95FD33C2-DF78-4014-933C-9AC124E6A35D\"](MLeader Object (ActiveX))")
+  (:methods
+   "AddLeader AddLeaderLine AddLeaderLineEx ArrayPolar
+   ArrayRectangular Copy Delete Evaluate GetBlockAttributeValue
+   GetBoundingBox GetDoglegDirection GetExtensionDictionary
+   GetLeaderIndex GetLeaderLineIndexes GetLeaderLineVertices
+   GetVertexCount GetXData Highlight IntersectWith Mirror Mirror3D
+   Move RemoveLeader RemoveLeaderLine Rotate Rotate3D ScaleEntity
+   SetBlockAttributeValue SetDoglegDirection SetLeaderLineVertices
+   SetXData TransformBy Update")
+  (:properties
+   "Application ArrowheadBlock ArrowheadSize ArrowheadType
+   BlockConnectionType BlockScale ContentBlockName ContentBlockType
+   ContentType Document DogLegged DoglegLength EntityTransparency
+   Handle HasExtensionDictionary Hyperlinks LandingGap Layer
+   LeaderCount LeaderLineColor LeaderLineType LeaderLineWeight
+   LeaderType Linetype LinetypeScale Lineweight Material Normal
+   ObjectID ObjectName OwnerID PlotStyleName ScaleFactor StyleName
+   TextAttachmentDirection TextBackgroundFill TextBottomAttachmentType
+   TextDirection TextFrameDisplay TextHeight TextJustify
+   TextLeftAttachmentType TextLineSpacingDistance
+   TextLineSpacingFactor TextLineSpacingStyle TextRightAttachmentType
+   TextRotation TextString TextStyleName TextTopAttachmentType
+   TextWidth TrueColor Type Visible")
+  (:events
+   "Modified"))

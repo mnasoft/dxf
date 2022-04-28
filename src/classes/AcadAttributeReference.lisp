@@ -1,51 +1,22 @@
 (in-package :dxf/classes)
 
-(defclass <acad-attribute-reference> (<acad-entity>)
-  (
-  (pr-alignment                :accessor pr-alignment                :initarg :pr-alignment                :initform nil :documentation "pr-alignment")
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-backward                 :accessor pr-backward                 :initarg :pr-backward                 :initform nil :documentation "pr-backward")
-  (pr-constant                 :accessor pr-constant                 :initarg :pr-constant                 :initform nil :documentation "pr-constant")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-field-length             :accessor pr-field-length             :initarg :pr-field-length             :initform nil :documentation "pr-field-length")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-insertion-point          :accessor pr-insertion-point          :initarg :pr-insertion-point          :initform nil :documentation "pr-insertion-point")
-  (pr-invisible                :accessor pr-invisible                :initarg :pr-invisible                :initform nil :documentation "pr-invisible")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-lock-position            :accessor pr-lock-position            :initarg :pr-lock-position            :initform nil :documentation "pr-lock-position")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-m-text-attribute         :accessor pr-m-text-attribute         :initarg :pr-m-text-attribute         :initform nil :documentation "pr-m-text-attribute")
-  (pr-m-text-attribute-content :accessor pr-m-text-attribute-content :initarg :pr-m-text-attribute-content :initform nil :documentation "pr-m-text-attribute-content")
-  (pr-m-text-boundary-width    :accessor pr-m-text-boundary-width    :initarg :pr-m-text-boundary-width    :initform nil :documentation "pr-m-text-boundary-width")
-  (pr-m-text-drawing-direction :accessor pr-m-text-drawing-direction :initarg :pr-m-text-drawing-direction :initform nil :documentation "pr-m-text-drawing-direction")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-oblique-angle            :accessor pr-oblique-angle            :initarg :pr-oblique-angle            :initform nil :documentation "pr-oblique-angle")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-rotation                 :accessor pr-rotation                 :initarg :pr-rotation                 :initform nil :documentation "pr-rotation")
-  (pr-scale-factor             :accessor pr-scale-factor             :initarg :pr-scale-factor             :initform nil :documentation "pr-scale-factor")
-  (pr-style-name               :accessor pr-style-name               :initarg :pr-style-name               :initform nil :documentation "pr-style-name")
-  (pr-tag-string               :accessor pr-tag-string               :initarg :pr-tag-string               :initform nil :documentation "pr-tag-string")
-  (pr-text-alignment-point     :accessor pr-text-alignment-point     :initarg :pr-text-alignment-point     :initform nil :documentation "pr-text-alignment-point")
-  (pr-text-generation-flag     :accessor pr-text-generation-flag     :initarg :pr-text-generation-flag     :initform nil :documentation "pr-text-generation-flag")
-  (pr-text-string              :accessor pr-text-string              :initarg :pr-text-string              :initform nil :documentation "pr-text-string")
-  (pr-thickness                :accessor pr-thickness                :initarg :pr-thickness                :initform nil :documentation "pr-thickness")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-upside-down              :accessor pr-upside-down              :initarg :pr-upside-down              :initform nil :documentation "pr-upside-down")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0630EFF2-51A2-46E4-A5A1-0377FB7E38E8\"](AttributeReference Object (ActiveX))"))
-
-(defparameter *acad-attribute-reference-properties* '(pr-alignment pr-application pr-backward pr-constant pr-document pr-entity-transparency pr-field-length pr-handle pr-has-extension-dictionary pr-height pr-hyperlinks pr-insertion-point pr-invisible pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-lock-position pr-material pr-m-text-attribute pr-m-text-attribute-content pr-m-text-boundary-width pr-m-text-drawing-direction pr-normal pr-object-id pr-object-name pr-oblique-angle pr-owner-id pr-plot-style-name pr-rotation pr-scale-factor pr-style-name pr-tag-string pr-text-alignment-point pr-text-generation-flag pr-text-string pr-thickness pr-true-color pr-upside-down pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-attribute-reference-properties* *acad-entity-properties*))
+'((:defclass "AcadAttributeReference" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0630EFF2-51A2-46E4-A5A1-0377FB7E38E8\"](AttributeReference Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   GetExtensionDictionary GetExtensionDictionary GetXData
+   IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity
+   SetXData TransformBy Update UpdateMTextAttribute")
+  (:properties
+   "Alignment Application Backward Constant Document
+   EntityTransparency FieldLength Handle HasExtensionDictionary Height
+   Hyperlinks InsertionPoint Invisible Layer Linetype LinetypeScale
+   Lineweight LockPosition Material MTextAttribute
+   MTextAttributeContent MTextBoundaryWidth MTextDrawingDirection
+   Normal ObjectID ObjectName ObliqueAngle OwnerID PlotStyleName
+   Rotation ScaleFactor StyleName TagString TextAlignmentPoint
+   TextGenerationFlag TextString Thickness TrueColor UpsideDown
+   Visible")
+  (:events
+   "Modified"))

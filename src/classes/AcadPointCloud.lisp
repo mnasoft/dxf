@@ -1,44 +1,19 @@
 (in-package :dxf/classes)
 
-(defclass <acad-point-cloud> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-insertion-point          :accessor pr-insertion-point          :initarg :pr-insertion-point          :initform nil :documentation "pr-insertion-point")
-  (pr-intensity-color-scheme   :accessor pr-intensity-color-scheme   :initarg :pr-intensity-color-scheme   :initform nil :documentation "pr-intensity-color-scheme")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-length                   :accessor pr-length                   :initarg :pr-length                   :initform nil :documentation "pr-length")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-locked                   :accessor pr-locked                   :initarg :pr-locked                   :initform nil :documentation "pr-locked")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-path                     :accessor pr-path                     :initarg :pr-path                     :initform nil :documentation "pr-path")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-rotation                 :accessor pr-rotation                 :initarg :pr-rotation                 :initform nil :documentation "pr-rotation")
-  (pr-scale                    :accessor pr-scale                    :initarg :pr-scale                    :initform nil :documentation "pr-scale")
-  (pr-show-clipped             :accessor pr-show-clipped             :initarg :pr-show-clipped             :initform nil :documentation "pr-show-clipped")
-  (pr-show-intensity           :accessor pr-show-intensity           :initarg :pr-show-intensity           :initform nil :documentation "pr-show-intensity")
-  (pr-stylization              :accessor pr-stylization              :initarg :pr-stylization              :initform nil :documentation "pr-stylization")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-unit                     :accessor pr-unit                     :initarg :pr-unit                     :initform nil :documentation "pr-unit")
-  (pr-unit-factor              :accessor pr-unit-factor              :initarg :pr-unit-factor              :initform nil :documentation "pr-unit-factor")
-  (pr-use-entity-color         :accessor pr-use-entity-color         :initarg :pr-use-entity-color         :initform nil :documentation "pr-use-entity-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  (pr-width                    :accessor pr-width                    :initarg :pr-width                    :initform nil :documentation "pr-width")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5142F98A-F959-4107-AF76-28813152F04C\"](PointCloud Object (ActiveX))"))
-
-(defparameter *acad-point-cloud-properties* '(pr-application pr-document pr-entity-transparency pr-handle pr-has-extension-dictionary pr-height pr-hyperlinks pr-insertion-point pr-intensity-color-scheme pr-layer pr-length pr-linetype pr-linetype-scale pr-lineweight pr-locked pr-material pr-name pr-object-id pr-object-name pr-owner-id pr-path pr-plot-style-name pr-rotation pr-scale pr-show-clipped pr-show-intensity pr-stylization pr-true-color pr-unit pr-unit-factor pr-use-entity-color pr-visible pr-width))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-point-cloud-properties* *acad-entity-properties*))
+'((:defclass "AcadPointCloud" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5142F98A-F959-4107-AF76-28813152F04C\"](PointCloud Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+   Update")
+  (:properties
+   "Application Document EntityTransparency Handle
+   HasExtensionDictionary Height Hyperlinks InsertionPoint
+   IntensityColorScheme Layer Length Linetype LinetypeScale Lineweight
+   Locked Material Name ObjectID ObjectName OwnerID Path PlotStyleName
+   Rotation Scale ShowClipped ShowIntensity Stylization TrueColor Unit
+   UnitFactor UseEntityColor Visible Width")
+  (:events
+   "Modified"))

@@ -1,56 +1,23 @@
 (in-package :dxf/classes)
 
-(defclass <acad-pviewport> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-arc-smoothness           :accessor pr-arc-smoothness           :initarg :pr-arc-smoothness           :initform nil :documentation "pr-arc-smoothness")
-  (pr-center                   :accessor pr-center                   :initarg :pr-center                   :initform nil :documentation "pr-center")
-  (pr-clipped                  :accessor pr-clipped                  :initarg :pr-clipped                  :initform nil :documentation "pr-clipped")
-  (pr-custom-scale             :accessor pr-custom-scale             :initarg :pr-custom-scale             :initform nil :documentation "pr-custom-scale")
-  (pr-direction                :accessor pr-direction                :initarg :pr-direction                :initform nil :documentation "pr-direction")
-  (pr-display-locked           :accessor pr-display-locked           :initarg :pr-display-locked           :initform nil :documentation "pr-display-locked")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-grid-on                  :accessor pr-grid-on                  :initarg :pr-grid-on                  :initform nil :documentation "pr-grid-on")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-has-sheet-view           :accessor pr-has-sheet-view           :initarg :pr-has-sheet-view           :initform nil :documentation "pr-has-sheet-view")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-label-block-id           :accessor pr-label-block-id           :initarg :pr-label-block-id           :initform nil :documentation "pr-label-block-id")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-layer-property-overrides :accessor pr-layer-property-overrides :initarg :pr-layer-property-overrides :initform nil :documentation "pr-layer-property-overrides")
-  (pr-lens-length              :accessor pr-lens-length              :initarg :pr-lens-length              :initform nil :documentation "pr-lens-length")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-model-view               :accessor pr-model-view               :initarg :pr-model-view               :initform nil :documentation "pr-model-view")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-shade-plot               :accessor pr-shade-plot               :initarg :pr-shade-plot               :initform nil :documentation "pr-shade-plot")
-  (pr-sheet-view               :accessor pr-sheet-view               :initarg :pr-sheet-view               :initform nil :documentation "pr-sheet-view")
-  (pr-snap-base-point          :accessor pr-snap-base-point          :initarg :pr-snap-base-point          :initform nil :documentation "pr-snap-base-point")
-  (pr-snap-on                  :accessor pr-snap-on                  :initarg :pr-snap-on                  :initform nil :documentation "pr-snap-on")
-  (pr-snap-rotation-angle      :accessor pr-snap-rotation-angle      :initarg :pr-snap-rotation-angle      :initform nil :documentation "pr-snap-rotation-angle")
-  (pr-standard-scale           :accessor pr-standard-scale           :initarg :pr-standard-scale           :initform nil :documentation "pr-standard-scale")
-  (pr-standard-scale2          :accessor pr-standard-scale2          :initarg :pr-standard-scale2          :initform nil :documentation "pr-standard-scale2")
-  (pr-target                   :accessor pr-target                   :initarg :pr-target                   :initform nil :documentation "pr-target")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-twist-angle              :accessor pr-twist-angle              :initarg :pr-twist-angle              :initform nil :documentation "pr-twist-angle")
-  (pr-ucs-icon-at-origin       :accessor pr-ucs-icon-at-origin       :initarg :pr-ucs-icon-at-origin       :initform nil :documentation "pr-ucs-icon-at-origin")
-  (pr-ucs-icon-on              :accessor pr-ucs-icon-on              :initarg :pr-ucs-icon-on              :initform nil :documentation "pr-ucs-icon-on")
-  (pr-ucs-per-viewport         :accessor pr-ucs-per-viewport         :initarg :pr-ucs-per-viewport         :initform nil :documentation "pr-ucs-per-viewport")
-  (pr-viewport-on              :accessor pr-viewport-on              :initarg :pr-viewport-on              :initform nil :documentation "pr-viewport-on")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  (pr-visual-style             :accessor pr-visual-style             :initarg :pr-visual-style             :initform nil :documentation "pr-visual-style")
-  (pr-width                    :accessor pr-width                    :initarg :pr-width                    :initform nil :documentation "pr-width")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-63DF4686-8A79-4A39-8247-4A3565F31FAA\"](PViewport object (ActiveX))"))
-
-(defparameter *acad-p-viewport-properties* '(pr-application pr-arc-smoothness pr-center pr-clipped pr-custom-scale pr-direction pr-display-locked pr-document pr-entity-transparency pr-grid-on pr-handle pr-has-extension-dictionary pr-has-sheet-view pr-height pr-hyperlinks pr-label-block-id pr-layer pr-layer-property-overrides pr-lens-length pr-linetype pr-linetype-scale pr-lineweight pr-material pr-model-view pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-shade-plot pr-sheet-view pr-snap-base-point pr-snap-on pr-snap-rotation-angle pr-standard-scale pr-standard-scale2 pr-target pr-true-color pr-twist-angle pr-ucs-icon-at-origin pr-ucs-icon-on pr-ucs-per-viewport pr-viewport-on pr-visible pr-visual-style pr-width))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-p-viewport-properties* *acad-entity-properties*))
+'((:defclass "AcadPViewport" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-63DF4686-8A79-4A39-8247-4A3565F31FAA\"](PViewport object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete Display GetBoundingBox
+   GetExtensionDictionary GetGridSpacing GetSnapSpacing GetXData
+   Highlight IntersectWith Mirror Mirror3D Move Rotate Rotate3D
+   ScaleEntity SetGridSpacing SetSnapSpacing SetXData SyncModelView
+   TransformBy Update")
+  (:properties
+   "Application ArcSmoothness Center Clipped CustomScale Direction
+   DisplayLocked Document EntityTransparency GridOn Handle
+   HasExtensionDictionary HasSheetView Height Hyperlinks LabelBlockId
+   Layer LayerPropertyOverrides LensLength Linetype LinetypeScale
+   Lineweight Material ModelView ObjectID ObjectName OwnerID
+   PlotStyleName ShadePlot SheetView SnapBasePoint SnapOn
+   SnapRotationAngle StandardScale StandardScale2 Target TrueColor
+   TwistAngle UCSIconAtOrigin UCSIconOn UCSPerViewport ViewportOn
+   Visible VisualStyle Width")
+  (:events
+   "Modified"))

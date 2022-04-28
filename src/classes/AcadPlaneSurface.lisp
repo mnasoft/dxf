@@ -1,36 +1,19 @@
 (in-package :dxf/classes)
 
-(defclass <acad-plane-surface> (<acad-surface>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-edge-extension-distances :accessor pr-edge-extension-distances :initarg :pr-edge-extension-distances :initform nil :documentation "pr-edge-extension-distances")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-maintain-associativity   :accessor pr-maintain-associativity   :initarg :pr-maintain-associativity   :initform nil :documentation "pr-maintain-associativity")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-show-associativity       :accessor pr-show-associativity       :initarg :pr-show-associativity       :initform nil :documentation "pr-show-associativity")
-  (pr-surface-type             :accessor pr-surface-type             :initarg :pr-surface-type             :initform nil :documentation "pr-surface-type")
-  (pr-surf-trim-associativity  :accessor pr-surf-trim-associativity  :initarg :pr-surf-trim-associativity  :initform nil :documentation "pr-surf-trim-associativity")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-u-isoline-density        :accessor pr-u-isoline-density        :initarg :pr-u-isoline-density        :initform nil :documentation "pr-u-isoline-density")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  (pr-v-isoline-density        :accessor pr-v-isoline-density        :initarg :pr-v-isoline-density        :initform nil :documentation "pr-v-isoline-density")
-  (pr-wireframe-type           :accessor pr-wireframe-type           :initarg :pr-wireframe-type           :initform nil :documentation "pr-wireframe-type")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8979D4B7-F581-4623-B66F-1FC24BA2CDC3\"](PlaneSurface Object (ActiveX))"))
-
-(defparameter *acad-plane-surface-properties* '(pr-application pr-document pr-edge-extension-distances pr-entity-transparency pr-handle pr-has-extension-dictionary pr-hyperlinks pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-maintain-associativity pr-material pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-show-associativity pr-surface-type pr-surf-trim-associativity pr-true-color pr-u-isoline-density pr-visible pr-v-isoline-density pr-wireframe-type))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-plane-surface-properties* *acad-surface-properties*))
+'((:defclass "AcadPlaneSurface" )
+  (:parents "AcadSurface")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8979D4B7-F581-4623-B66F-1FC24BA2CDC3\"](PlaneSurface Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+   Update")
+  (:properties
+   "Application Document EdgeExtensionDistances EntityTransparency
+   Handle HasExtensionDictionary Hyperlinks Layer Linetype
+   LinetypeScale Lineweight MaintainAssociativity Material ObjectID
+   ObjectName OwnerID PlotStyleName ShowAssociativity SurfaceType
+   SurfTrimAssociativity TrueColor UIsolineDensity Visible
+   VIsolineDensity WireframeType")
+  (:events
+   "Modified"))

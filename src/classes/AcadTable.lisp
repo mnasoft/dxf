@@ -1,56 +1,67 @@
 (in-package :dxf/classes)
 
-(defclass <acad-table> (<acad-entity>)
-  (
-  (pr-allow-manual-heights     :accessor pr-allow-manual-heights     :initarg :pr-allow-manual-heights     :initform nil :documentation "pr-allow-manual-heights")
-  (pr-allow-manual-positions   :accessor pr-allow-manual-positions   :initarg :pr-allow-manual-positions   :initform nil :documentation "pr-allow-manual-positions")
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-breaks-enabled           :accessor pr-breaks-enabled           :initarg :pr-breaks-enabled           :initform nil :documentation "pr-breaks-enabled")
-  (pr-break-spacing            :accessor pr-break-spacing            :initarg :pr-break-spacing            :initform nil :documentation "pr-break-spacing")
-  (pr-columns                  :accessor pr-columns                  :initarg :pr-columns                  :initform nil :documentation "pr-columns")
-  (pr-column-width             :accessor pr-column-width             :initarg :pr-column-width             :initform nil :documentation "pr-column-width")
-  (pr-direction                :accessor pr-direction                :initarg :pr-direction                :initform nil :documentation "pr-direction")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-enable-break             :accessor pr-enable-break             :initarg :pr-enable-break             :initform nil :documentation "pr-enable-break")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-flow-direction           :accessor pr-flow-direction           :initarg :pr-flow-direction           :initform nil :documentation "pr-flow-direction")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-has-sub-selection        :accessor pr-has-sub-selection        :initarg :pr-has-sub-selection        :initform nil :documentation "pr-has-sub-selection")
-  (pr-header-suppressed        :accessor pr-header-suppressed        :initarg :pr-header-suppressed        :initform nil :documentation "pr-header-suppressed")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-horz-cell-margin         :accessor pr-horz-cell-margin         :initarg :pr-horz-cell-margin         :initform nil :documentation "pr-horz-cell-margin")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-insertion-point          :accessor pr-insertion-point          :initarg :pr-insertion-point          :initform nil :documentation "pr-insertion-point")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-minimum-table-height     :accessor pr-minimum-table-height     :initarg :pr-minimum-table-height     :initform nil :documentation "pr-minimum-table-height")
-  (pr-minimum-table-width      :accessor pr-minimum-table-width      :initarg :pr-minimum-table-width      :initform nil :documentation "pr-minimum-table-width")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-regenerate-table-suppressed :accessor pr-regenerate-table-suppressed :initarg :pr-regenerate-table-suppressed :initform nil :documentation "pr-regenerate-table-suppressed")
-  (pr-repeat-bottom-labels     :accessor pr-repeat-bottom-labels     :initarg :pr-repeat-bottom-labels     :initform nil :documentation "pr-repeat-bottom-labels")
-  (pr-repeat-top-labels        :accessor pr-repeat-top-labels        :initarg :pr-repeat-top-labels        :initform nil :documentation "pr-repeat-top-labels")
-  (pr-row-height               :accessor pr-row-height               :initarg :pr-row-height               :initform nil :documentation "pr-row-height")
-  (pr-rows                     :accessor pr-rows                     :initarg :pr-rows                     :initform nil :documentation "pr-rows")
-  (pr-style-name               :accessor pr-style-name               :initarg :pr-style-name               :initform nil :documentation "pr-style-name")
-  (pr-table-break-flow-direction :accessor pr-table-break-flow-direction :initarg :pr-table-break-flow-direction :initform nil :documentation "pr-table-break-flow-direction")
-  (pr-table-break-height       :accessor pr-table-break-height       :initarg :pr-table-break-height       :initform nil :documentation "pr-table-break-height")
-  (pr-table-style-overrides    :accessor pr-table-style-overrides    :initarg :pr-table-style-overrides    :initform nil :documentation "pr-table-style-overrides")
-  (pr-title-suppressed         :accessor pr-title-suppressed         :initarg :pr-title-suppressed         :initform nil :documentation "pr-title-suppressed")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-vert-cell-margin         :accessor pr-vert-cell-margin         :initarg :pr-vert-cell-margin         :initform nil :documentation "pr-vert-cell-margin")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  (pr-width                    :accessor pr-width                    :initarg :pr-width                    :initform nil :documentation "pr-width")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7B82400C-53D0-4D1A-94FA-66BB3040F0AA\"](Table Object (ActiveX))"))
-
-(defparameter *acad-table-properties* '(pr-allow-manual-heights pr-allow-manual-positions pr-application pr-breaks-enabled pr-break-spacing pr-columns pr-column-width pr-direction pr-document pr-enable-break pr-entity-transparency pr-flow-direction pr-handle pr-has-extension-dictionary pr-has-sub-selection pr-header-suppressed pr-height pr-horz-cell-margin pr-hyperlinks pr-insertion-point pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-minimum-table-height pr-minimum-table-width pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-regenerate-table-suppressed pr-repeat-bottom-labels pr-repeat-top-labels pr-row-height pr-rows pr-style-name pr-table-break-flow-direction pr-table-break-height pr-table-style-overrides pr-title-suppressed pr-true-color pr-vert-cell-margin pr-visible pr-width))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-table-properties* *acad-entity-properties*))
+'((:defclass "AcadTable" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7B82400C-53D0-4D1A-94FA-66BB3040F0AA\"](Table Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular ClearSubSelection
+   ClearTableStyleOverrides Copy CreateContent Delete
+   DeleteCellContent DeleteColumns DeleteContent DeleteRows
+   EnableMergeAll FormatValue GenerateLayout GetAlignment
+   GetAttachmentPoint GetAutoScale GetAutoScale2 GetBackgroundColor
+   GetBackgroundColorNone GetBlockAttributeValue
+   GetBlockAttributeValue2 GetBlockRotation GetBlockScale
+   GetBlockTableRecordId GetBlockTableRecordId2 GetBoundingBox
+   GetBreakHeight GetCellAlignment GetCellBackgroundColor
+   GetCellBackgroundColorNone GetCellContentColor GetCellDataType
+   GetCellExtents GetCellFormat GetCellGridColor GetCellGridLineWeight
+   GetCellGridVisibility GetCellState GetCellStyle
+   GetCellStyleOverrides GetCellTextHeight GetCellTextStyle
+   GetCellType GetCellValue GetColumnName GetColumnWidth
+   GetContentColor GetContentColor2 GetContentLayout GetContentType
+   GetCustomData GetDataFormat GetDataType GetDataType2
+   GetExtensionDictionary GetFieldId GetFieldId2 GetFormat GetFormula
+   GetGridColor GetGridColor2 GetGridDoubleLineSpacing
+   GetGridLineStyle GetGridLinetype GetGridLineWeight
+   GetGridLineWeight2 GetGridVisibility GetGridVisibility2
+   GetHasFormula GetMargin GetMinimumColumnWidth GetMinimumRowHeight
+   GetOverride GetRotation GetRowHeight GetRowType GetScale
+   GetSubSelection GetText GetTextHeight GetTextHeight2
+   GetTextRotation GetTextString GetTextStyle GetTextStyle2 GetValue
+   GetXData Highlight HitTest InsertColumns InsertColumnsAndInherit
+   InsertRows InsertRowsAndInherit IntersectWith IsContentEditable
+   IsEmpty IsFormatEditable IsMergeAllEnabled IsMergedCell MergeCells
+   Mirror Mirror3D Move MoveContent RecomputeTableBlock
+   RemoveAllOverrides ReselectSubRegion ResetCellValue Rotate Rotate3D
+   ScaleEntity Select SelectSubRegion SetAlignment SetAutoScale
+   SetAutoScale2 SetBackgroundColor SetBackgroundColorNone
+   SetBlockAttributeValue SetBlockAttributeValue2 SetBlockRotation
+   SetBlockScale SetBlockTableRecordId SetBlockTableRecordId2
+   SetBreakHeight SetCellAlignment SetCellBackgroundColor
+   SetCellBackgroundColorNone SetCellContentColor SetCellDataType
+   SetCellFormat SetCellGridColor SetCellGridLineWeight
+   SetCellGridVisibility SetCellState SetCellStyle SetCellTextHeight
+   SetCellTextStyle SetCellType SetCellValue SetCellValueFromText
+   SetColumnName SetColumnWidth SetContentColor SetContentColor2
+   SetContentLayout SetCustomData SetDataFormat SetDataType
+   SetDataType2 SetFieldId SetFieldId2 SetFormat SetFormula
+   SetGridColor SetGridColor2 SetGridDoubleLineSpacing
+   SetGridLineStyle SetGridLinetype SetGridLineWeight
+   SetGridLineWeight2 SetGridVisibility SetGridVisibility2 SetMargin
+   SetOverride SetRotation SetRowHeight SetScale SetSubSelection
+   SetText SetTextHeight SetTextHeight2 SetTextRotation SetTextString
+   SetTextStyle SetTextStyle2 SetToolTip SetValue SetValueFromText
+   SetXData TransformBy UnmergeCells Update")
+  (:properties
+   "AllowManualHeights AllowManualPositions Application BreaksEnabled
+   BreakSpacing Columns ColumnWidth Direction Document EnableBreak
+   EntityTransparency FlowDirection Handle HasExtensionDictionary
+   HasSubSelection HeaderSuppressed Height HorzCellMargin Hyperlinks
+   InsertionPoint Layer Linetype LinetypeScale Lineweight Material
+   MinimumTableHeight MinimumTableWidth ObjectID ObjectName OwnerID
+   PlotStyleName RegenerateTableSuppressed RepeatBottomLabels
+   RepeatTopLabels RowHeight Rows StyleName TableBreakFlowDirection
+   TableBreakHeight TableStyleOverrides TitleSuppressed TrueColor
+   VertCellMargin Visible Width")
+  (:events
+   "Modified"))

@@ -1,34 +1,15 @@
 (in-package :dxf/classes)
 
-(defclass <acad-viewport> (<acad-object>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-arc-smoothness           :accessor pr-arc-smoothness           :initarg :pr-arc-smoothness           :initform nil :documentation "pr-arc-smoothness")
-  (pr-center                   :accessor pr-center                   :initarg :pr-center                   :initform nil :documentation "pr-center")
-  (pr-direction                :accessor pr-direction                :initarg :pr-direction                :initform nil :documentation "pr-direction")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-grid-on                  :accessor pr-grid-on                  :initarg :pr-grid-on                  :initform nil :documentation "pr-grid-on")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-height                   :accessor pr-height                   :initarg :pr-height                   :initform nil :documentation "pr-height")
-  (pr-lower-left-corner        :accessor pr-lower-left-corner        :initarg :pr-lower-left-corner        :initform nil :documentation "pr-lower-left-corner")
-  (pr-name                     :accessor pr-name                     :initarg :pr-name                     :initform nil :documentation "pr-name")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-ortho-on                 :accessor pr-ortho-on                 :initarg :pr-ortho-on                 :initform nil :documentation "pr-ortho-on")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-snap-base-point          :accessor pr-snap-base-point          :initarg :pr-snap-base-point          :initform nil :documentation "pr-snap-base-point")
-  (pr-snap-on                  :accessor pr-snap-on                  :initarg :pr-snap-on                  :initform nil :documentation "pr-snap-on")
-  (pr-snap-rotation-angle      :accessor pr-snap-rotation-angle      :initarg :pr-snap-rotation-angle      :initform nil :documentation "pr-snap-rotation-angle")
-  (pr-target                   :accessor pr-target                   :initarg :pr-target                   :initform nil :documentation "pr-target")
-  (pr-ucs-icon-at-origin       :accessor pr-ucs-icon-at-origin       :initarg :pr-ucs-icon-at-origin       :initform nil :documentation "pr-ucs-icon-at-origin")
-  (pr-ucs-icon-on              :accessor pr-ucs-icon-on              :initarg :pr-ucs-icon-on              :initform nil :documentation "pr-ucs-icon-on")
-  (pr-upper-right-corner       :accessor pr-upper-right-corner       :initarg :pr-upper-right-corner       :initform nil :documentation "pr-upper-right-corner")
-  (pr-width                    :accessor pr-width                    :initarg :pr-width                    :initform nil :documentation "pr-width")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2B609059-6B70-4C66-A442-F5917363462A\"](Viewport Object (ActiveX))"))
-
-(defparameter *acad-viewport-properties* '(pr-application pr-arc-smoothness pr-center pr-direction pr-document pr-grid-on pr-handle pr-has-extension-dictionary pr-height pr-lower-left-corner pr-name pr-object-id pr-object-name pr-ortho-on pr-owner-id pr-snap-base-point pr-snap-on pr-snap-rotation-angle pr-target pr-ucs-icon-at-origin pr-ucs-icon-on pr-upper-right-corner pr-width))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-viewport-properties* *acad-object-properties*))
+'((:defclass "AcadViewport" )
+  (:parents "AcadObject")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2B609059-6B70-4C66-A442-F5917363462A\"](Viewport Object (ActiveX))")
+  (:methods
+   "Delete GetExtensionDictionary GetGridSpacing GetSnapSpacing
+   GetXData SetGridSpacing SetSnapSpacing SetView SetXData Split")
+  (:properties
+   "Application ArcSmoothness Center Direction Document GridOn Handle
+   HasExtensionDictionary Height LowerLeftCorner Name ObjectID
+   ObjectName OrthoOn OwnerID SnapBasePoint SnapOn SnapRotationAngle
+   Target UCSIconAtOrigin UCSIconOn UpperRightCorner Width")
+  (:events
+   "Modified"))

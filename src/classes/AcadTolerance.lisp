@@ -1,38 +1,19 @@
 (in-package :dxf/classes)
 
-(defclass <acad-tolerance> (<acad-entity>)
-  (
-  (pr-application              :accessor pr-application              :initarg :pr-application              :initform nil :documentation "pr-application")
-  (pr-dimension-line-color     :accessor pr-dimension-line-color     :initarg :pr-dimension-line-color     :initform nil :documentation "pr-dimension-line-color")
-  (pr-direction-vector         :accessor pr-direction-vector         :initarg :pr-direction-vector         :initform nil :documentation "pr-direction-vector")
-  (pr-document                 :accessor pr-document                 :initarg :pr-document                 :initform nil :documentation "pr-document")
-  (pr-entity-transparency      :accessor pr-entity-transparency      :initarg :pr-entity-transparency      :initform nil :documentation "pr-entity-transparency")
-  (pr-handle                   :accessor pr-handle                   :initarg :pr-handle                   :initform nil :documentation "pr-handle")
-  (pr-has-extension-dictionary :accessor pr-has-extension-dictionary :initarg :pr-has-extension-dictionary :initform nil :documentation "pr-has-extension-dictionary")
-  (pr-hyperlinks               :accessor pr-hyperlinks               :initarg :pr-hyperlinks               :initform nil :documentation "pr-hyperlinks")
-  (pr-insertion-point          :accessor pr-insertion-point          :initarg :pr-insertion-point          :initform nil :documentation "pr-insertion-point")
-  (pr-layer                    :accessor pr-layer                    :initarg :pr-layer                    :initform nil :documentation "pr-layer")
-  (pr-linetype                 :accessor pr-linetype                 :initarg :pr-linetype                 :initform nil :documentation "pr-linetype")
-  (pr-linetype-scale           :accessor pr-linetype-scale           :initarg :pr-linetype-scale           :initform nil :documentation "pr-linetype-scale")
-  (pr-lineweight               :accessor pr-lineweight               :initarg :pr-lineweight               :initform nil :documentation "pr-lineweight")
-  (pr-material                 :accessor pr-material                 :initarg :pr-material                 :initform nil :documentation "pr-material")
-  (pr-normal                   :accessor pr-normal                   :initarg :pr-normal                   :initform nil :documentation "pr-normal")
-  (pr-object-id                :accessor pr-object-id                :initarg :pr-object-id                :initform nil :documentation "pr-object-id")
-  (pr-object-name              :accessor pr-object-name              :initarg :pr-object-name              :initform nil :documentation "pr-object-name")
-  (pr-owner-id                 :accessor pr-owner-id                 :initarg :pr-owner-id                 :initform nil :documentation "pr-owner-id")
-  (pr-plot-style-name          :accessor pr-plot-style-name          :initarg :pr-plot-style-name          :initform nil :documentation "pr-plot-style-name")
-  (pr-scale-factor             :accessor pr-scale-factor             :initarg :pr-scale-factor             :initform nil :documentation "pr-scale-factor")
-  (pr-style-name               :accessor pr-style-name               :initarg :pr-style-name               :initform nil :documentation "pr-style-name")
-  (pr-text-color               :accessor pr-text-color               :initarg :pr-text-color               :initform nil :documentation "pr-text-color")
-  (pr-text-height              :accessor pr-text-height              :initarg :pr-text-height              :initform nil :documentation "pr-text-height")
-  (pr-text-string              :accessor pr-text-string              :initarg :pr-text-string              :initform nil :documentation "pr-text-string")
-  (pr-text-style               :accessor pr-text-style               :initarg :pr-text-style               :initform nil :documentation "pr-text-style")
-  (pr-true-color               :accessor pr-true-color               :initarg :pr-true-color               :initform nil :documentation "pr-true-color")
-  (pr-visible                  :accessor pr-visible                  :initarg :pr-visible                  :initform nil :documentation "pr-visible")
-  )
-  (:documentation "
-@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-89AF1685-5ACA-44F2-B741-D4C957C887F0\"](Tolerance Object (ActiveX))"))
-
-(defparameter *acad-tolerance-properties* '(pr-application pr-dimension-line-color pr-direction-vector pr-document pr-entity-transparency pr-handle pr-has-extension-dictionary pr-hyperlinks pr-insertion-point pr-layer pr-linetype pr-linetype-scale pr-lineweight pr-material pr-normal pr-object-id pr-object-name pr-owner-id pr-plot-style-name pr-scale-factor pr-style-name pr-text-color pr-text-height pr-text-string pr-text-style pr-true-color pr-visible))
-
-(mapcar #'dxf/utils:make-slot (set-difference *acad-tolerance-properties* *acad-entity-properties*))
+'((:defclass "AcadTolerance" )
+  (:parents "AcadEntity")
+  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-89AF1685-5ACA-44F2-B741-D4C957C887F0\"](Tolerance Object (ActiveX))")
+  (:methods
+   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+   Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+   Update")
+  (:properties
+   "Application DimensionLineColor DirectionVector Document
+   EntityTransparency Handle HasExtensionDictionary Hyperlinks
+   InsertionPoint Layer Linetype LinetypeScale Lineweight Material
+   Normal ObjectID ObjectName OwnerID PlotStyleName ScaleFactor
+   StyleName TextColor TextHeight TextString TextStyle TrueColor
+   Visible")
+  (:events
+   "Modified"))
