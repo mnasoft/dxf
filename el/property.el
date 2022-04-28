@@ -278,6 +278,26 @@
   )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun get-yank ()
+  "Возвращает содержимое буфера обмена."
+  (substring-no-properties (car kill-ring)))
+
+(defun b-b-point ()
+  "Возвращает точку начала буфера."
+  (beginning-of-buffer)
+  (point))
+
+(defun b-e-point ()
+  "Возвращает точку конца буфера."
+  (end-of-buffer)
+  (point))
+
+(defun get-buffer ()
+  "Записывает содержимое текущего буфера в буфер обмена."
+  (let ((beg (b-b-point))
+        (end (b-e-point)))
+  (kill-ring-save beg end)))
+
 (defun kill-seached-line (str)
   (beginning-of-buffer)
   (search-forward str nil t)
@@ -335,6 +355,16 @@
     (insert-end "))")
     ))
 
+(defun yank-from-below (from-str below-str)
+  "Записывает в буфер обмена строку, начинающуюся с конца from-str
+   и заканчивающуюся началом below-str."
+  (let ((beg)(end))
+    (search-forward from-str nil t)
+    (setq beg (point))
+    (search-forward below-str nil t)
+    (setq end (- (point) (length below-str)))
+    (kill-ring-save beg end)))
+
 (defun defclass-doc-uri ()
   (interactive)
   (let ((start-point)(end-point))
@@ -343,27 +373,11 @@
     (search-forward "defclass" nil t)
     (forward-sexp 2)
     (search-forward ":documentation" nil t)
-    (search-forward "@link[uri=\\\"" nil t)
-    (setq start-point (point))
-    (search-forward "\\\"" nil t)
-    (setq end-point (point))
-    (kill-ring-save start-point (- end-point 2))
-    (browse-url (substring-no-properties (car kill-ring)))
+    (yank-from-below "@link[uri=\\\"" "\\\"")
+    (browse-url (get-yank))
     ))
 
 (defun go-back ()
   (switch-to-buffer b-name))
-
-(defun b-b ()
-  (beginning-of-buffer)
-  (point))
-
-(defun b-e ()
-  (end-of-buffer)
-  (point))
-
-(defun get-buffer ()
-  (interactive)
-  (kill-ring-save (b-b) (b-e)))
 
 (get-buffer)
