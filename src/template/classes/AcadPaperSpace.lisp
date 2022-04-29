@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadPaperSpace")
+((:defclass "AcadPaperSpace")
   (:parents "AcadBlock")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C5E998B5-6EB1-459A-98B1-444C74DB4516\"](PaperSpace Collection (ActiveX))")
   (:methods

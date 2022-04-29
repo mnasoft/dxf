@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadDim3PointAngular")
+((:defclass "AcadDim3PointAngular")
   (:parents "AcadDimension")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1EF38BC6-8057-4F4A-95BC-0624544A248F\"](Dim3PointAngular Object (ActiveX))")
   (:methods

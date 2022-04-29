@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadDocument")
+((:defclass "AcadDocument")
   (:parents "AcadDatabase")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9216BFCD-D358-4FC6-B631-B52E6693D242\"](Document Object (ActiveX))")
   (:methods

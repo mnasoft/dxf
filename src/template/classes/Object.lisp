@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "Object")
+((:defclass "Object")
   (:parents "")
   (:documentation
    "Базовый класс.")

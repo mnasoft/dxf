@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadLayer")
+((:defclass "AcadLayer")
   (:parents "AcadObject")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-14F28A52-81E5-4CD0-AA79-ADC09E91BB8C\"](Layer Object (ActiveX))")
   (:methods

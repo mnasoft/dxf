@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadPolyfaceMesh")
+((:defclass "AcadPolyfaceMesh")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-679AA72F-7A2F-468D-A2D5-E3F28425C35A\"](PolyfaceMesh Object (ActiveX))")
   (:methods

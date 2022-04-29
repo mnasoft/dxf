@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadRegion")
+((:defclass "AcadRegion")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-DFE47717-F7AF-443B-AD78-4E0BB60121C7\"](Region object (ActiveX))")
   (:methods

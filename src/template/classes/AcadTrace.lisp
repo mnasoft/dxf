@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadTrace")
+((:defclass "AcadTrace")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7113C9E5-6875-4ABB-A4DC-68F6C09C4D7D\"](Trace Object (ActiveX))")
   (:methods

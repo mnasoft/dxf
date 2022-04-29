@@ -10,8 +10,22 @@
         :collect
         (with-open-file (stream file)
           (read stream)
-          (read stream)
-          )))
+          (read stream))))
 
-(length *classes-db* )
+(defparameter *g*
+ (mnas-graph:make-graph
+  (set-difference
+   (loop :for i :in *classes-db*
+         :collect
+         (list (cadr (assoc :parents i))
+               (cadr (assoc :defclass i))
+               ))
+   '((""))
+   :key #'first :test  #'equal)))
 
+(mnas-graph/view:view-graph *g*)
+      
+(ql:quickload :mnas-graph)
+
+(mnas-graph:connected-nodes 
+ (mnas-graph:find-node *g* "AcadObject"))

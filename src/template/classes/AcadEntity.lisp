@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadEntity")
+((:defclass "AcadEntity")
   (:parents "AcadObject")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-FCA7867D-E354-4F48-9C47-DB22C53A3460\"](IAcadEntity Interface (ActiveX))")
   (:methods

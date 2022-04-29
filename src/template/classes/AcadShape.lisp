@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadShape")
+((:defclass "AcadShape")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-14883954-9C4B-4B8F-AC0C-4B44940B5932\"](Shape Object (ActiveX))")
   (:methods

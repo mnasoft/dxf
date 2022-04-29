@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadMLeaderStyle")
+((:defclass "AcadMLeaderStyle")
   (:parents "AcadObject")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-14AC2D0B-EBFC-44B9-982D-9112539F8DE8\"](MLeaderStyle Object (ActiveX))")
   (:methods

@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "Acad3DSolid")
+((:defclass "Acad3DSolid")
   (:parents "AcadEntity")
   (:documentation
    "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-4EC0355F-A91B-4ADA-A346-05CCCD22259B\"](3DSolid Object (ActiveX))")

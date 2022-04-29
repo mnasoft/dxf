@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadUCS")
+((:defclass "AcadUCS")
   (:parents "AcadObject")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-42778889-C568-4ABF-9CFA-63CC0D781794\"](UCS Object (ActiveX))")
   (:methods

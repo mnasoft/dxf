@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "Acad3DFace")
+((:defclass "Acad3DFace")
   (:parents "AcadEntity")
   (:documentation
    "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1DAB32FC-8C8A-4116-BD3A-CF733740DF8F\"](3DFace Object (ActiveX))")
