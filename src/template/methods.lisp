@@ -711,7 +711,7 @@
   ("GetBulge" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-6AC9CF99-7230-4333-859A-1CBACB57B5BA")
   ("GetCanonicalMediaNames" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-BDFDA2F3-63E6-47CD-8185-1793BEEDBCB1")
   ("GetCellAlignment" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8C162420-98EC-4A0C-AED5-429685ABEB7E")
-  "GetCellBackgroundColor"
+  ("GetCellBackgroundColor" "")
   "GetCellBackgroundColorNone"
   "GetCellClass" 
   "GetCellContentColor"
