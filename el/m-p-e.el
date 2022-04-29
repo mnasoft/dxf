@@ -107,3 +107,25 @@
 
 (defun go-back ()
   (switch-to-buffer b-name))
+
+(defun foo ()
+  (interactive)
+  (move-beginning-of-line 1)
+  (yank-from-below "\"" "\"")
+  (move-beginning-of-line 1))
+
+(defun bar ()
+  (interactive)
+  (move-beginning-of-line 1)
+  (right-word 1)
+  (left-word 1)
+  (left-char 1)
+  (insert "(")
+  (right-word 1)
+  (right-char 1)
+  (insert " \"\")")
+  (left-char 2)
+  (yank)
+  (move-beginning-of-line 2)
+)
+

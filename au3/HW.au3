@@ -1,32 +1,51 @@
 #include <AutoItConstants.au3>
-;;;Дерево Emacs
-MouseClick($MOUSE_CLICK_LEFT, 850, 565, 20)
-;
-;;;methods.lisp
-Send ("^x")
-Send ("o")
-;
-;;;Запуск скрипта Emacs для копирования строки поиска
-Send ("^x")
-Send ("^k")
-Send ("^k")
-;
-;;;Acad help search
-MouseClick($MOUSE_CLICK_LEFT, 700, 165, 20) ;; MouseClick($MOUSE_CLICK_LEFT, 800, 165, 20)
-Send ( "^a" )
-Send ( "^v" )
-Send ( " Method (ActiveX)")
-Send ("{ENTER}")
-;;;Acad help search rez click
-MouseClick($MOUSE_CLICK_LEFT, 100, 285, 20)
 
-;MouseClick($MOUSE_CLICK_LEFT, 500, 60, 20)
-;Send ("^a")
-;Send ("^c")
-;MouseClick($MOUSE_CLICK_LEFT, 1100, 500,   2)
-;;;
-;;Send ("^x")
-;;Send ("o")
-;;;
+Func _Test()
+    ;;;Дерево Emacs
+    MouseClick($MOUSE_CLICK_LEFT, 1100, 565, 20) ;; MouseClick($MOUSE_CLICK_LEFT, 850, 565, 20)
+    ;
+    ;;;methods.lisp
+    Send ("^x")
+    Send ("o")
+    ;;
+    ;;;;Запуск скрипта Emacs для копирования строки поиска
+    Send ("!x")
+    Send ("foo")
+    Send ("{ENTER}")
+    ;;
+    ;;;;Acad help search
+    MouseClick($MOUSE_CLICK_LEFT, 800, 165, 20) ;; MouseClick($MOUSE_CLICK_LEFT, 700, 165, 20) 
+    Send ( "^a" )
+    Send ( "^v" )
+    Send ( " Method (ActiveX)")
+    Send ("{ENTER}")
+    ;
+    ;;;;Acad help search rez click
+    MouseClick($MOUSE_CLICK_LEFT, 100, 285, 20)
+    ;
+    ;;;Acad help address
+    MouseClick($MOUSE_CLICK_LEFT, 600, 65, 20)
+    Send ("^a")
+    Send ("^c")
+    ;
+    ;;;Дерево Emacs
+    MouseClick($MOUSE_CLICK_LEFT, 1100, 565, 20) ;; MouseClick($MOUSE_CLICK_LEFT, 850, 565, 20)
+    ;
+    ;;;methods.lisp
+    Send ("^x")
+    Send ("o")
+    ;
+    Send ("!x")
+    Send ("bar")
+    Send ("{ENTER}")
+    ;
+    ;Send ("^y")
+    ;Send ("{DOWN}")
+    ;;;
+    
+    ;;; GetCellAlignment Method (ActiveX)
+EndFunc
 
-;;; GetCellAlignment Method (ActiveX)
+For $i = 1 To 4 Step 1
+    Call(_Test)
+Next
