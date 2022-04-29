@@ -1,5 +1,7 @@
 #include <AutoItConstants.au3>
 
+;; C:\Program Files (x86)\AutoIt3
+
 Func _Test()
     ;;;Дерево Emacs
     MouseClick($MOUSE_CLICK_LEFT, 1100, 565, 20) ;; MouseClick($MOUSE_CLICK_LEFT, 850, 565, 20)

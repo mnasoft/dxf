@@ -49,9 +49,7 @@
  (make-path-relative-to-system :dxf \"dxf/txt/2018.dxf\")
  => \"D:/PRG/msys64/home/namatv/quicklisp/local-projects/acad/dxf/dxf/txt/2018.dxf\"
 @end(code)"
-  (concatenate 'string
-               (namestring (asdf:system-source-directory system))
-               namestring))
+  (namestring (asdf:system-relative-pathname system namestring)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; for dxf/tests
