@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadUnderlay" )
+'((:defclass "AcadUnderlay")
   (:parents "AcadEntity")
   (:documentation "AcadUnderlay")
   (:methods

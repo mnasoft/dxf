@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadSpline" )
+'((:defclass "AcadSpline")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B8FC11E4-3F6B-40CE-8AEC-D4CF669086A3\"](Spline Object (ActiveX))")
   (:methods

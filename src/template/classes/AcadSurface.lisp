@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadSurface" )
+'((:defclass "AcadSurface")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-98BC3DD3-F913-494C-8559-EAFA0DDEFE3E\"](Surface Object (ActiveX))")
   (:methods

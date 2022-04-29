@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadAttributeReference" )
+'((:defclass "AcadAttributeReference")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0630EFF2-51A2-46E4-A5A1-0377FB7E38E8\"](AttributeReference Object (ActiveX))")
   (:methods

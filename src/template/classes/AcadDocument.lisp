@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadDocument" )
+'((:defclass "AcadDocument")
   (:parents "AcadDatabase")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9216BFCD-D358-4FC6-B631-B52E6693D242\"](Document Object (ActiveX))")
   (:methods
@@ -21,10 +21,10 @@
    Viewports Views Width WindowState WindowTitle")
   (:events
    "Activate BeginClose BeginCommand BeginDocClose BeginDoubleClick
-   BeginLISP BeginPlot BeginRightClick BeginSave
+   BeginLisp BeginPlot BeginRightClick BeginSave
    BeginShortcutMenuCommand BeginShortcutMenuDefault
    BeginShortcutMenuEdit BeginShortcutMenuGrip BeginShortcutMenuOSnap
-   Deactivate EndCommand EndLISP EndPlot EndSave EndShortcutMenu
-   LayoutSwitched LISPCancelled ObjectAdded ObjectErased
+   Deactivate EndCommand EndLisp EndPlot EndSave EndShortcutMenu
+   LayoutSwitched LispCancelled ObjectAdded ObjectErased
    ObjectModified SelectionChanged WindowChanged
    WindowMovedOrResized"))

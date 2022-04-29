@@ -17,7 +17,12 @@ Func _Test()
     MouseClick($MOUSE_CLICK_LEFT, 800, 165, 20) ;; MouseClick($MOUSE_CLICK_LEFT, 700, 165, 20) 
     Send ( "^a" )
     Send ( "^v" )
-    Send ( " Method (ActiveX)")
+    ;
+    ;; Send ( " Method")
+    ;; Send ( " Property")
+    Send ( " Event")
+    ;
+    Send ( " (ActiveX)")
     Send ("{ENTER}")
     ;
     ;;;;Acad help search rez click
@@ -46,6 +51,6 @@ Func _Test()
     ;;; GetCellAlignment Method (ActiveX)
 EndFunc
 
-For $i = 1 To 4 Step 1
+For $i = 1 To 44 Step 1
     Call(_Test)
 Next

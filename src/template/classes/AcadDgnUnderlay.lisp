@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadDgnUnderlay" )
+'((:defclass "AcadDgnUnderlay")
   (:parents "AcadUnderlay")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-70DBB31B-E1D1-4D8C-928C-B274E0D63E66\"](DgnUnderlay Object (ActiveX))")
   (:methods

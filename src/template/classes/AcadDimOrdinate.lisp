@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadDimOrdinate" )
+'((:defclass "AcadDimOrdinate")
   (:parents "AcadDimension")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-35CE0F15-A136-4878-AEDC-FADC193E7ED2\"](DimOrdinate Object (ActiveX))")
   (:methods

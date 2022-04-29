@@ -127,5 +127,4 @@
   (left-char 2)
   (yank)
   (move-beginning-of-line 2)
-)
-
+  )

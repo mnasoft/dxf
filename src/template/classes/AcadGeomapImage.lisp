@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadGeomapImage" )
+'((:defclass "AcadGeomapImage")
   (:parents "AcadRasterImage")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-97E4C257-86DC-4B0A-BE49-8EDC5864AABD\"](GeomapImage Object (ActiveX))")
   (:methods

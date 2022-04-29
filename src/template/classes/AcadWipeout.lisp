@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadWipeout" )
+'((:defclass "AcadWipeout")
   (:parents "AcadRasterImage")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C978B807-6636-4DE4-AC63-7ACFF232B9EB\"](Wipeout Object (ActiveX))")
   (:methods

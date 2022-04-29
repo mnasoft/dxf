@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadSection" )
+'((:defclass "AcadSection")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5242921B-1A1B-47DF-B9B7-2932DB5227AA\"](Section Object (ActiveX))")
   (:methods

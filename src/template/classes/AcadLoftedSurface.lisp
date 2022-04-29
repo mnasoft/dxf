@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadLoftedSurface" )
+'((:defclass "AcadLoftedSurface")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-D56F5C92-731E-4FA3-9FAE-82E97E388901\"](LoftedSurface Object (ActiveX))")
   (:methods

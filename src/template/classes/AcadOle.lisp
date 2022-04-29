@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadOle" )
+'((:defclass "AcadOle")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-F22B8915-FE51-4650-A738-95C81019064E\"](OLE Object (ActiveX))")
   (:methods

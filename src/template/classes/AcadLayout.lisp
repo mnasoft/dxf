@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadLayout" )
+'((:defclass "AcadLayout")
   (:parents "AcadPlotConfiguration")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-EFC848F1-26BE-4EFA-BC0E-11F874D73842\"](Layout Object (ActiveX))")
   (:methods

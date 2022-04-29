@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadSweptSurface" )
+'((:defclass "AcadSweptSurface")
   (:parents "AcadSurface")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2E70AE24-0C8F-4124-84F2-F20A94EA6AF2\"](SweptSurface Object (ActiveX))")
   (:methods

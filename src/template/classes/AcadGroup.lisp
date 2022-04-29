@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadGroup" )
+'((:defclass "AcadGroup")
   (:parents "AcadObject")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1CA2C9D1-F8F7-4C11-B361-2998C4869119\"](Group Object (ActiveX))")
   (:methods

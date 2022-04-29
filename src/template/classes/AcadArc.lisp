@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadArc" )
+'((:defclass "AcadArc")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3D31C05F-BFF7-41E3-8ACE-0F807731C913\"](Arc Object (ActiveX))")
   (:methods

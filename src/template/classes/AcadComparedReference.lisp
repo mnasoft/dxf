@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadComparedReference" )
+'((:defclass "AcadComparedReference")
   (:parents "AcadExternalReference")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-DEB63F31-D8E9-41E3-B35B-12D832F5BF16\"](ComparedReference Object (ActiveX))")
   (:methods

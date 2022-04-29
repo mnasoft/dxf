@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadPointCloudEx" )
+'((:defclass "AcadPointCloudEx")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9EC2395E-F5CC-4272-B535-3D0C905B8C71\"](PointCloudEx Object (ActiveX))")
   (:methods

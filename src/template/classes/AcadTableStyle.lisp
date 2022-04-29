@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadTableStyle" )
+'((:defclass "AcadTableStyle")
   (:parents "AcadObject")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-409A6709-D3D9-4D7D-AC60-163444D58FBA\"](TableStyle Object (ActiveX))")
   (:methods

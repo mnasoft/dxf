@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadExternalReference" )
+'((:defclass "AcadExternalReference")
   (:parents "AcadBlockReference")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-63129986-F84E-4674-8C90-EC1E0E627845\"](ExternalReference Object (ActiveX))")
   (:methods

@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadRasterImage" )
+'((:defclass "AcadRasterImage")
   (:parents "AcadEntity")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3613CF3F-EFC6-4E20-B875-D66B0494B94F\"](RasterImage Object (ActiveX))")
   (:methods

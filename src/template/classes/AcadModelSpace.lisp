@@ -1,7 +1,7 @@
 !(in-package :dxf/classes)
 (in-package :dxf/classes)
 
-'((:defclass "AcadModelSpace" )
+'((:defclass "AcadModelSpace")
   (:parents "AcadBlock")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C541B6F2-1279-4D1C-8DC0-788F27F644EF\"](ModelSpace Collection (ActiveX))")
   (:methods

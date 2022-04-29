@@ -1,6 +1,6 @@
 (in-package :dxf/classes)
 
-'((:defclass "AcadPdfUnderlay" )
+'((:defclass "AcadPdfUnderlay")
   (:parents "AcadUnderlay")
   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-54DEC47A-5FBB-4E9F-B206-502785568E91\"](PdfUnderlay Object (ActiveX))")
   (:methods
