@@ -713,7 +713,7 @@
   ("GetCellAlignment" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8C162420-98EC-4A0C-AED5-429685ABEB7E")
   "GetCellBackgroundColor"
   "GetCellBackgroundColorNone"
-  "GetCellClass" "")
+  "GetCellClass" 
   "GetCellContentColor"
   "GetCellDataType"
   "GetCellExtents"
