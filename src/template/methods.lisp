@@ -691,29 +691,29 @@
   ("GenerateUsageData" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-20DA963E-06EE-422E-A687-C90311796892")
   ("GetAcadState" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-820F93B4-7B83-4708-8E21-0D43D7D1C828")
   ("GetAlignment" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-ED26F9AB-CE3C-4832-9A94-EC73A0588698")
-  "GetAlignment2"
-  "GetAngle"
-  "GetAttachmentPoint"
-  "GetAttributes"
-  "GetAutoScale"
-  "GetAutoScale2"
-  "GetBackgroundColor"
-  "GetBackgroundColor2"
-  "GetBackgroundColorNone"
-  "GetBlockAttributeValue"
-  "GetBlockAttributeValue2"
-  "GetBlockRotation"
-  "GetBlockScale"
-  "GetBlockTableRecordId"
-  "GetBlockTableRecordId2"
-  "GetBoundingBox"
-  "GetBreakHeight"
-  "GetBulge"
-  "GetCanonicalMediaNames"
-  "GetCellAlignment"
+  ("GetAlignment2" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-892800F1-3070-4EC1-B500-902932C98D22")
+  ("GetAngle" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-595BBC6E-5E87-46FA-8721-E90E54CB5CD5")
+  ("GetAttachmentPoint" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-AFFD6C90-2BFA-4814-AF76-AB9807BC3442")
+  ("GetAttributes" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-3E8E1756-F45D-4CCE-838B-00FBC0374278")
+  ("GetAutoScale" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-24B7F8D9-BFE3-4EF8-A506-7CF00139E169")
+  ("GetAutoScale2" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-24E9048E-CF74-4441-8C7F-7E9402BD1BB1")
+  ("GetBackgroundColor" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-D6A279BA-8792-4DB6-AA66-7E25E16BCC86")
+  ("GetBackgroundColor2" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-CCFBEC3F-F228-4429-924F-38ABE9E89352")
+  ("GetBackgroundColorNone" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0B39A4D5-BA9C-45AA-8CCC-C11F42DF8A2A")
+  ("GetBlockAttributeValue" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9422DC8E-FB16-46C7-B9E9-ECE703C814D2")
+  ("GetBlockAttributeValue2" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7F2C0954-E1CF-4E08-B9AD-585957BD96E4")
+  ("GetBlockRotation" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-DD96909E-C5C9-41BC-BAA2-1EB19F0BADFB")
+  ("GetBlockScale" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-6BECF6F6-93F5-47C1-9570-F31EF25243C9")
+  ("GetBlockTableRecordId" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9E3340A8-F672-4845-A55A-ABAD3372D79E")
+  ("GetBlockTableRecordId2" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-DF3B3FCA-787B-45C3-9881-631F12DA05B6")
+  ("GetBoundingBox" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A20C361C-BBF0-4EAB-8BE7-709154CEEE09")
+  ("GetBreakHeight" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-AFC1C151-4A92-4393-A586-B417F1862D3E")
+  ("GetBulge" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-6AC9CF99-7230-4333-859A-1CBACB57B5BA")
+  ("GetCanonicalMediaNames" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-BDFDA2F3-63E6-47CD-8185-1793BEEDBCB1")
+  ("GetCellAlignment" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-8C162420-98EC-4A0C-AED5-429685ABEB7E")
   "GetCellBackgroundColor"
   "GetCellBackgroundColorNone"
-  "GetCellClass"
+  "GetCellClass" "")
   "GetCellContentColor"
   "GetCellDataType"
   "GetCellExtents"
