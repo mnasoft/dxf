@@ -26,11 +26,11 @@
                  ;; (:file "test-dxf")
                  ;; (:file "test")
                  
-                  (:module "methods"
-                   :depends-on ("dxf")
-                   :serial t
-                   :components ((:file "ac-open")
-                                (:file "ac-save-as")))))))
+                 (:module "methods"
+                  :depends-on ("dxf")
+                  :serial t
+                  :components ((:file "ac-open")
+                               (:file "ac-save-as")))))))
 
 (defsystem "dxf/in/txt"
   :description
