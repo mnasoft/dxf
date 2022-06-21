@@ -1,0 +1,141 @@
+* Структура каталога scr
+- [-] src
+  - [ ] b-arr
+  - [ ] color
+  - [ ] const
+  - [ ] docs
+  - [ ] dxf.lisp
+  - [ ] in
+  - [ ] methods
+  - [ ] out
+  - [ ] sec
+  - [ ] split
+  - [-] template - содержит методы построения
+    - [X] classes - содержит базу данных шаблонов классов;
+      - [X] Acad3DFace.lisp
+      - [X] Acad3DPolyline.lisp
+      - [X] Acad3DSolid.lisp
+      - [X] AcadAcCmColor.lisp
+      - [X] AcadApplication.lisp
+      - [X] AcadArc.lisp
+      - [X] AcadAttribute.lisp
+      - [X] AcadAttributeReference.lisp
+      - [X] AcadBlock.lisp
+      - [X] AcadBlockReference.lisp
+      - [X] AcadBlocks.lisp
+      - [X] AcadCircle.lisp
+      - [X] AcadComparedReference.lisp
+      - [X] AcadDatabase.lisp
+      - [X] AcadDatabasePreferences.lisp
+      - [X] AcadDgnUnderlay.lisp
+      - [X] AcadDictionaries.lisp
+      - [X] AcadDictionary.lisp
+      - [X] AcadDim3PointAngular.lisp
+      - [X] AcadDimAligned.lisp
+      - [X] AcadDimAngular.lisp
+      - [X] AcadDimArcLength.lisp
+      - [X] AcadDimDiametric.lisp
+      - [X] AcadDimension.lisp
+      - [X] AcadDimOrdinate.lisp
+      - [X] AcadDimRadial.lisp
+      - [X] AcadDimRadialLarge.lisp
+      - [X] AcadDimRotated.lisp
+      - [X] AcadDimStyle.lisp
+      - [X] AcadDimStyles.lisp
+      - [X] AcadDocument.lisp
+      - [X] AcadDocuments.lisp
+      - [X] AcadDwfUnderlay.lisp
+      - [X] AcadDynamicBlockReferenceProperty.lisp
+      - [X] AcadEllipse.lisp
+      - [X] AcadEntity.lisp
+      - [X] AcadExternalReference.lisp
+      - [X] AcadExtrudedSurface.lisp
+      - [X] AcadGeomapImage.lisp
+      - [X] AcadGeoPositionMarker.lisp
+      - [X] AcadGroup.lisp
+      - [X] AcadGroups.lisp
+      - [X] AcadHatch.lisp
+      - [X] AcadHelix.lisp
+      - [X] AcadLayer.lisp
+      - [X] AcadLayers.lisp
+      - [X] AcadLayout.lisp
+      - [X] AcadLayouts.lisp
+      - [X] AcadLeader.lisp
+      - [X] AcadLinetype.lisp
+      - [X] AcadLineTypes.lisp
+      - [X] AcadLoftedSurface.lisp
+      - [X] AcadLWPolyline.lisp
+      - [X] AcadMaterial.lisp
+      - [X] AcadMaterials.lisp
+      - [X] AcadMInsertBlock.lisp
+      - [X] AcadMLeader.lisp
+      - [X] AcadMLeaderStyle.lisp
+      - [X] AcadMLine.lisp
+      - [X] AcadModelSpace.lisp
+      - [X] AcadMtext.lisp
+      - [X] AcadNurbSurface.lisp
+      - [X] AcadObject.lisp
+      - [X] AcadOle.lisp
+      - [X] AcadPaperSpace.lisp
+      - [X] AcadPdfUnderlay.lisp
+      - [X] AcadPlaneSurface.lisp
+      - [X] AcadPlot.lisp
+      - [X] AcadPlotConfiguration.lisp
+      - [X] AcadPlotConfigurations.lisp
+      - [X] AcadPoint.lisp
+      - [X] AcadPointCloud.lisp
+      - [X] AcadPointCloudEx.lisp
+      - [X] AcadPolyfaceMesh.lisp
+      - [X] AcadPolyline.lisp
+      - [X] AcadPViewport.lisp
+      - [X] AcadRasterImage.lisp
+      - [X] AcadRay.lisp
+      - [X] AcadRegion.lisp
+      - [X] AcadRegisteredApplication.lisp
+      - [X] AcadRegisteredApplications.lisp
+      - [X] AcadRevolvedSurface.lisp
+      - [X] AcadSection.lisp
+      - [X] AcadSectionManager.lisp
+      - [X] AcadSectionSettings.lisp
+      - [X] AcadSelectionSet.lisp
+      - [X] AcadSelectionSets.lisp
+      - [X] AcadShape.lisp
+      - [X] AcadSolid.lisp
+      - [X] AcadSortentsTable.lisp
+      - [X] AcadSpline.lisp
+      - [X] AcadSummaryInfo.lisp
+      - [X] AcadSurface.lisp
+      - [X] AcadSweptSurface.lisp
+      - [X] AcadTable.lisp
+      - [X] AcadTableStyle.lisp
+      - [X] AcadText.lisp
+      - [X] AcadTextStyle.lisp
+      - [X] AcadTextStyles.lisp
+      - [X] AcadTolerance.lisp
+      - [X] AcadTrace.lisp
+      - [X] AcadUCS.lisp
+      - [X] AcadUCSs.lisp
+      - [X] AcadUnderlay.lisp
+      - [X] AcadUtility.lisp
+      - [X] AcadView.lisp
+      - [X] AcadViewport.lisp
+      - [X] AcadViewports.lisp
+      - [X] AcadViews.lisp
+      - [X] AcadWipeout.lisp
+      - [X] AcadXline.lisp
+      - [X] AcadXRecord.lisp
+      - [X] Object.lisp            
+    - [ ] classes.lisp - шаблонов классов
+    - [ ] events.lisp - событий;
+    - [ ] methods.lisp - методов;
+    - [ ] properties.lisp - свойств;
+  - [ ] README.org
+  - [ ] test.lisp
+  - [ ] test-color.lisp
+  - [ ] test-dxf.lisp
+  - [ ] tests
+  - [ ] utils
+  - [ ] vars
+  - [ ] vla.lisp
+
+
