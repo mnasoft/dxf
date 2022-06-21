@@ -2,7 +2,7 @@
    :scriba
    :systems (:DXF :DXF/DOCS)
    :documents ((:title "Dxf"
-	        :authors ("Nick Matvyeyev")
+	        :authors ("Mykola Matvyeyev")
 	        :output-format (:TYPE :MULTI-HTML :TEMPLATE :MINIMA) 
                 :sources ("dxf-tests.scr" "dxf.scr" "dxf-vars.scr"
                           "dxf-utils.scr" "dxf-split.scr" "dxf-sec.scr"

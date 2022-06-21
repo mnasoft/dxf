@@ -73,7 +73,7 @@
   (mnas-package:make-mainfest-lisp
    '(:dxf :dxf/docs)
    "Dxf"
-   '("Nick Matvyeyev")
+   '("Mykola Matvyeyev")
    (mnas-package:find-sources "dxf")
    :output-format of)
   (codex:document :dxf)
