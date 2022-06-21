@@ -8,6 +8,9 @@
      - [X] свойств dxf/utils:make-proprety-name;
      - [X] методов dxf/utils:make-method-name;
      - [X] событий make-event-name.
+   - [X] Написать функцию для преобразованиязаписи БД в правильный
+     формат: с разделением имен на отдельные слова и исключением None
+     методов полей родителей и событий - convert-db [[./src/template/classes.lisp]];
    - [ ] создать функции для генерирования
      - [ ] классов  [[file:src/template/classes.lisp]];
      - [ ] свойств;

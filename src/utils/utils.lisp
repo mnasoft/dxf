@@ -15,6 +15,7 @@
   (:export make-class-name
            make-proprety-name
            make-method-name
+           make-event-name
            )
   (:export make-proprety-symbol))
 
@@ -148,12 +149,20 @@
     'string "pr-"
     (dxf/utils:split-from->to string))))
 
-(defun make-proprety-symbol (string)
-  (read-from-string (make-proprety-name string)))
-
-
 (defun make-method-name (string)
   (string-downcase
    (concatenate
     'string "md-"
     (dxf/utils:split-from->to string))))
+
+(defun make-event-name (string)
+  (string-downcase
+   (concatenate
+    'string "ev-"
+    (dxf/utils:split-from->to string))))
+
+
+(defun make-proprety-symbol (string)
+  (read-from-string (make-proprety-name string)))
+
+
