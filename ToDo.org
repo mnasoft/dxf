@@ -10,10 +10,14 @@
      - [X] событий make-event-name.
    - [X] Написать функцию для преобразованиязаписи БД в правильный
      формат: с разделением имен на отдельные слова и исключением None
-     методов полей родителей и событий - convert-db [[./src/template/classes.lisp]];
-   - [ ] отделить систему для генерирования кода шаблонов - dxf/template;
+     методов полей родителей и событий - convert-db [[./src/template/template.lisp]];
+     - [X] Решить проблеммы для записи ((:DEFCLASS "<object>")
+       (:PARENTS "<>") (:DOCUMENTATION "Базовый класс."), где
+       (:PARENTS "<>"), что неправильно, а должно быть (:PARENTS NIL).
+   (:METHODS NIL) (:PROPERTIES NIL) (:EVENTS NIL))
+   - [X] отделить систему для генерирования кода шаблонов - dxf/template;
    - [ ] создать функции для генерирования
-     - [ ] классов  [[file:src/template/classes.lisp]];
+     - [ ] классов  [[./src/template/template.lisp]];
      - [ ] свойств;
      - [ ] методов;
      - [ ] событий;

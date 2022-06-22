@@ -149,9 +149,10 @@
 (defsystem "dxf/utils"
   :description
   "@b(Описание:) система @b(dxf/utils) содержит вспомогательные 
- функции для построения кода."
+  функции для построения кода."
   :author "Mykola Matvyeyev <mnasoft@gmail.com>"
-  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"  
+  :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
+  :depends-on ("dxf/in/txt" "dxf/in/bin" "dxf/out/txt" "dxf/out/bin")
   :components ((:module "src/utils"
 		:serial t
 		:components ((:file "utils")))))
@@ -170,14 +171,15 @@
 
 (defsystem "dxf/template"
   :description
-  "@b(Описание:) система @b(dxf/template) содержит методы и базу данных
-   ActiveX объектов AutoCAD."
+  "@b(Описание:) система @b(dxf/template) содержит методы для построения
+   шаблонов классов, методов, свойств и событий, получение которых
+   ведется на основе базы данных ActiveX объектов AutoCAD."
   :author "Mykola Matvyeyev <mnasoft@gmail.com>"
   :license "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 or later"
-  :depends-on ("dxf/split" "mnas-string")
-  :components ((:module "src/in/txt"
+  :depends-on ("mnas-string" "mnas-graph" "dxf/utils")
+  :components ((:module "src/template"
 		:serial t
-		:components ((:file "txt")))))
+		:components ((:file "template")))))
 
 (defsystem "dxf/docs"
   :description "Зависимости для сборки документации"
