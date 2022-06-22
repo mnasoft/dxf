@@ -1,41 +1,5 @@
 (in-package :dxf)
 
-(ql:quickload :mnas-graph)
-
-(defparameter *g*
- (mnas-graph:make-graph
-  (set-difference
-   (loop :for i :in *classes-db*
-         :collect
-         (list (cadr (assoc :parents i))
-               (cadr (assoc :defclass i))
-               ))
-   '((""))
-   :key #'first :test  #'equal)))
-
-(mnas-graph/view:view-graph *g*)
-      
-(mnas-graph:connected-nodes 
- (mnas-graph:find-node *g* "AcadObject"))
-
-(dxf/utils:make-class-name "AcadObjectID")
-(dxf/utils:make-method-name "AcadObjectID")
-(dxf/utils:make-proprety-name "AcadObjectID")
-(dxf/utils:make-e-name "AcadObjectID")
-
-((:DEFCLASS "Acad3DFace") (:PARENTS "AcadEntity")
-  (:DOCUMENTATION
-   "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1DAB32FC-8C8A-4116-BD3A-CF733740DF8F\"](3DFace Object (ActiveX))")
-  (:METHODS "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
-   GetExtensionDictionary GetInvisibleEdge GetXData Highlight
-   IntersectWith Mirror Mirror3D Move Rotate Rotate3D ScaleEntity
-   SetInvisibleEdge SetXData TransformBy Update")
-  (:PROPERTIES "Application Coordinate Coordinates Document EntityTransparency
-   Handle HasExtensionDictionary Hyperlinks Layer Linetype
-   LinetypeScale Lineweight Material ObjectID ObjectName OwnerID
-   PlotStyleName TrueColor VisibilityEdge1 VisibilityEdge2
-   VisibilityEdge3 VisibilityEdge4 Visible")
-  (:EVENTS "Modified"))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defparameter *e*
