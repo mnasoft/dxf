@@ -615,21 +615,3 @@
     ("YVector" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B68D37F9-1136-4A37-9919-EE4BD9AFA936")
     ("ZEffectiveScaleFactor" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E7A14E18-0AD7-41E9-A4D8-DA4264D2F499")
     ("ZScaleFactor" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9A22CC37-F59D-4CF6-99AD-9FA28058AB87")))
-
-
-(defun absend-properties ()
-  (set-difference
-   (remove-duplicates
-    (apply #'append
-           (loop :for i :in *classes-db-rought*
-                 :collect
-                 (find-rou-properties (second (assoc :DEFCLASS i)))))
-    :test #'equal)
-   *properties-db-rought*
-   :key #'(lambda (el)
-            (cond
-              ((stringp el) el)
-              (t (first el))))
-   :test #'equal))
-
-(absend-properties)

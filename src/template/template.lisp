@@ -294,6 +294,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (absend-methods)
-(absend-properties)
+(absend-properties) ; => ("Delta" "Angle")
 (absend-events)
 
