@@ -1,14 +1,21 @@
 (defpackage #:dxf/template
   (:use #:cl)
-  (:export between
-           after)
-  (:export select-section)
-  (:export split-by-sections
-           split-section
-           split-entities
-           split-blocks
-           split-objects
-           split-acdsdata
+  (:export *classes-db-rought*
+           *classes-db*
+           *active-x-object-graph*)
+  (:export find-parents
+           find-properties
+           find-methods
+           find-events
+           find-documentation
+           )
+  (:export find-rou-methods
+           find-rou-properties
+           find-rou-events
+           )
+  (:export absend-methods
+           absend-properties
+           absend-events
            )
   (:documentation
    "@b(Описание:) пакет @b(dxf/template) содержит методы для построения
@@ -17,6 +24,11 @@
 "))
 
 (in-package :dxf/template)
+
+(defparameter *m-renaming*
+  '(("ARX" "Arx")
+    ("DVB" "Dvb")))
+
 
 (defun class-files ()
   "@b(Описание:) функция @b(class-files) возвращает список путей к
@@ -139,18 +151,6 @@
    граф дерева наследования объектов ActiveX системы AutoCAD.")
 
 (mnas-graph/view:view-graph *active-x-object-graph*)
-      
-#+nil
-(mnas-graph:connected-nodes 
- (mnas-graph:find-node "<acad-xline>" *active-x-object-graph*)
- *active-x-object-graph* :direction :backward )
-
-#+nil
-(mnas-graph/alg:path 
- (mnas-graph:find-node "<acad-xline>" *active-x-object-graph*)
- (mnas-graph:find-node "<object>" *active-x-object-graph*)
- *active-x-object-graph*
- :direction :backward)
 
 (defun find-class-parents ()
   "@b(Описание:) функция @b(find-class-parents) 
@@ -167,8 +167,6 @@
                   :collect
                   (mnas-graph:name i)))))
 
-
-
 (defparameter *class-parents*
   (find-class-parents)
   "@b(Описание:) переменная @b(*class-parents*) содержит список каждым
@@ -180,15 +178,21 @@
   (assoc (list :DEFCLASS class-name)
          *classes-db* :test #'equal))
 
-(defun find-parents (class-name)
-  (cdr (assoc class-name *class-parents* :test #'equal)))
-
+(defun find-rou-defclass (class-name)
+  (assoc (list :DEFCLASS class-name)
+         *classes-db-rought* :test #'equal))
 
 (defun find-class-data (class-name data)
   (assert
    (member data
            '(:DEFCLASS :PARENTS :DOCUMENTATION :METHODS :PROPERTIES :EVENTS)))
   (second (assoc data (find-defclass class-name))))
+
+(defun find-rou-class-data (class-name data)
+  (assert
+   (member data
+           '(:DEFCLASS :PARENTS :DOCUMENTATION :METHODS :PROPERTIES :EVENTS)))
+  (second (assoc data (find-rou-defclass class-name))))
 
 (defun find-classes-properties (class-names)
   (remove-duplicates 
@@ -197,30 +201,99 @@
                 :collect (find-class-data i :PROPERTIES)))
    :test #'equal))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun find-parents (class-name)
+  (cdr (assoc class-name *class-parents* :test #'equal)))
+
+(defun find-methods (class-name)
+  (find-class-data class-name :METHODS))
+
 (defun find-properties (class-name)
   (let* ((parents (cdr (assoc class-name *class-parents* :test #'equal))))
     (set-difference (find-classes-properties (list class-name))
                     (find-classes-properties parents)
                     :test #'equal)))
 
+(defun find-events (class-name)
+  (find-class-data class-name :EVENTS))
 
+(defun find-documentation (class-name)
+  (find-class-data class-name :DOCUMENTATION))
 
+;;;;;;;;;;
 
+(defun find-rou-methods (rou-class-name)
+  (remove "None"
+          (mnas-string:split
+           `,(format nil " ~%")
+           (find-rou-class-data rou-class-name :METHODS))
+          :test #'equal))
 
-(find-classes-properties '("<acad-solid>" "<acad-entity>" "<acad-object>"  "<object>"))
-(find-classes-properties (list class-name))
-(length (find-defclass-properties "<acad-line>"))
-(length (find-defclass-properties "<acad-entity>"))
+(defun find-rou-properties (rou-class-name)
+  (remove "None"
+          (mnas-string:split
+           `,(format nil " ~%")
+           (find-rou-class-data rou-class-name :PROPERTIES))
+          :test #'equal))
 
-(length (find-defclass-properties "<acad-line>"))
+(defun find-rou-events (rou-class-name)
+  (remove "None"
+          (mnas-string:split
+           `,(format nil " ~%")
+           (find-rou-class-data rou-class-name :EVENTS))
+          :test #'equal))
 
-"<acad-solid>"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun absend-properties ()
+  (set-difference
+   (remove-duplicates
+    (apply #'append
+           (loop :for i :in *classes-db-rought*
+                 :collect
+                 (find-rou-properties (second (assoc :DEFCLASS i)))))
+    :test #'equal)
+   *properties-db-rought*
+   :key #'(lambda (el)
+            (cond
+              ((stringp el) el)
+              (t (first el))))
+   :test #'equal))
 
-(find-parents "<acad-solid>")
+(defun absend-methods ()
+  (set-difference
+   (remove-duplicates
+    (apply #'append
+           (loop :for i :in *classes-db-rought*
+                 :collect
+                 (find-rou-methods (second (assoc :DEFCLASS i)))))
+    :test #'equal)
+   *methods-db-rought*
+   :key #'(lambda (el)
+            (cond
+              ((stringp el) el)
+              (t (first el))))
+   :test #'equal))
 
-(find-defclass "<acad-xline>")
+(defun absend-events ()
+  (set-difference
+   (remove-duplicates
+    (apply #'append
+           (loop :for i :in *classes-db-rought*
+                 :collect
+                 (find-rou-events (second (assoc :DEFCLASS i)))))
+    :test #'equal)
+   *events-db-rought*
+   :key #'(lambda (el)
+            (cond
+              ((stringp el) el)
+              (t (first el))))
+   :test #'equal))
 
-(find-class-data "<acad-xline>"  :PROPERTIES )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(find-class-parents)
+(absend-methods)
+(absend-properties)
+(absend-events)
+

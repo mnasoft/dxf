@@ -2,7 +2,11 @@
 1. [ ] Класс db-header переделать так, чтобы вывод заголовка
    осуществлялся не через список *h-vars-list*, а через хеш таблицу
    типа *h-vars*.
-2. Выполнить обработку БД шаблонов классов ActiveX AutoCAD.
+2. [ ] Поправить для класса <acad-line> ссылку на документацию.
+3. [ ] Добавить свойства в таблицу свойств
+   - [ ] "Delta"
+   - [ ] "Angle"
+4. Выполнить обработку БД шаблонов классов ActiveX AutoCAD.
    - [X] Написать функции генерирования имен для:
      - [X] классов dxf/utils:make-class-name;
      - [X] свойств dxf/utils:make-proprety-name;
@@ -16,7 +20,21 @@
        (:PARENTS "<>"), что неправильно, а должно быть (:PARENTS NIL).
    (:METHODS NIL) (:PROPERTIES NIL) (:EVENTS NIL))
    - [X] отделить систему для генерирования кода шаблонов - dxf/template;
-   - [ ] создать функции для генерирования
+   - [X] для классов ActiveX AutoCAD создать функции для поиска:
+     - [X] свойств dxf/template:find-properties;
+     - [X] методов dxf/template:find-methods;
+     - [X] событий dxf/template:find-events;
+     - [X] родителей dxf/template:find-parents;
+     - [X] документации dxf/template:find-documentation;
+   - [X] для классов ActiveX AutoCAD создать функции для поиска черновых:
+     - [X] методов - dxf/template:find-rou-methods;
+     - [X] свойств - dxf/template:find-rou-properties;
+     - [X] событий - dxf/template:find-rou-events;
+   - [ ] проверить БД по количеству:
+     - [ ] методов
+     - [ ] свойств
+     - [ ] событий
+   - [ ] создать функции для поиска генерирования     
      - [ ] классов  [[./src/template/template.lisp]];
      - [ ] свойств;
      - [ ] методов;
