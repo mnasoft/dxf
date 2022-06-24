@@ -145,6 +145,7 @@
  (mnas-graph:find-node "<acad-xline>" *active-x-object-graph*)
  *active-x-object-graph* :direction :backward )
 
+#+nil
 (mnas-graph/alg:path 
  (mnas-graph:find-node "<acad-xline>" *active-x-object-graph*)
  (mnas-graph:find-node "<object>" *active-x-object-graph*)
@@ -157,16 +158,16 @@
   (let ((ht-nodes (mnas-graph:nodes *active-x-object-graph*)))
     (loop :for node :being :the :hash-keys :in ht-nodes
           :collect
-          (let ((class (assoc (list :DEFCLASS (mnas-graph:name node))
-                              *classes-db* :test #'equal)))
-            (loop :for i :in 
+          (loop :for i :in 
                          (mnas-graph/alg:path 
                           node
                           (mnas-graph:find-node "<object>" *active-x-object-graph*)
                           *active-x-object-graph*
                           :direction :backward)
                   :collect
-                  (mnas-graph:name i))))))
+                  (mnas-graph:name i)))))
+
+
 
 (defparameter *class-parents*
   (find-class-parents)
@@ -196,16 +197,26 @@
                 :collect (find-class-data i :PROPERTIES)))
    :test #'equal))
 
-(defun find-defclass-properties (class-name)
-  (let ((parents (assoc class-name *class-parents* :test #'equal)))
-    parents))
+(defun find-properties (class-name)
+  (let* ((parents (cdr (assoc class-name *class-parents* :test #'equal))))
+    (set-difference (find-classes-properties (list class-name))
+                    (find-classes-properties parents)
+                    :test #'equal)))
 
-(defun foo ()
 
-(find-classes-properties '("<acad-object>"  "<object>"))
 
-"<acad-entity>"
+
+
+(find-classes-properties '("<acad-solid>" "<acad-entity>" "<acad-object>"  "<object>"))
+(find-classes-properties (list class-name))
+(length (find-defclass-properties "<acad-line>"))
+(length (find-defclass-properties "<acad-entity>"))
+
+(length (find-defclass-properties "<acad-line>"))
+
 "<acad-solid>"
+
+
 (find-parents "<acad-solid>")
 
 (find-defclass "<acad-xline>")
