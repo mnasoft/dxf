@@ -1,10 +1,4 @@
-(in-package :dxf/template)
-
-(defparameter *e-renameing*
-  '("LISP" "Lisp"))
-
-(defparameter *events-db-rought*
- '(
+'(
    ("ArxLoaded" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-726449E4-E027-4260-BD6F-1C0D4E27D065")
    ("ArxUnloaded" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B30E5068-B18A-4179-B253-23FD4CC01894")
    ("Activate" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-65F892D6-C81F-4CD3-A6F3-A77E65B62309")
@@ -46,6 +40,7 @@
    ("SelectionChanged" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-2C0AED20-1D9A-41F9-B62A-467C6E16E6C7")
    ("SysVarChanged" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-275C46E6-15AA-4086-84F9-D4836E96C049")
    ("WindowChanged" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-EADD41ED-CEB1-4D2D-A7F2-710863289795")
-   ("WindowMovedOrResized" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-24A4303B-C20E-49DB-A552-DC345FAF6B65")))
+   ("WindowMovedOrResized" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-24A4303B-C20E-49DB-A552-DC345FAF6B65"))
 
-
+(defparameter *e-renameing*
+  '("LISP" "Lisp"))

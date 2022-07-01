@@ -1,8 +1,4 @@
-(in-package :dxf/template)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defparameter *properties-db-rought*
-  '(
+'(
     ("Active" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C56733CC-704D-4F9D-9C78-7EA9DFC40799")
     ("ActiveDimStyle" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-06023FAF-A279-443F-88D5-04735E557D95")
     ("ActiveDocument" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-161FD7E5-B739-4E09-8430-BA04A6298703")
@@ -614,4 +610,4 @@
     ("YScaleFactor" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-CA689A80-DC02-4BBE-A67B-97B377159F9D")
     ("YVector" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B68D37F9-1136-4A37-9919-EE4BD9AFA936")
     ("ZEffectiveScaleFactor" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E7A14E18-0AD7-41E9-A4D8-DA4264D2F499")
-    ("ZScaleFactor" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9A22CC37-F59D-4CF6-99AD-9FA28058AB87")))
+    ("ZScaleFactor" "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-9A22CC37-F59D-4CF6-99AD-9FA28058AB87"))

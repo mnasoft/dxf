@@ -179,7 +179,8 @@
   :depends-on ("mnas-string" "mnas-graph" "dxf/utils")
   :components ((:module "src/template"
 		:serial t
-		:components ((:file "template")))))
+		:components ((:file "events")
+                             (:file "template")))))
 
 (defsystem "dxf/docs"
   :description "Зависимости для сборки документации"

@@ -25,11 +25,6 @@
 
 (in-package :dxf/template)
 
-(defparameter *m-renaming*
-  '(("ARX" "Arx")
-    ("DVB" "Dvb")))
-
-
 (defun class-files ()
   "@b(Описание:) функция @b(class-files) возвращает список путей к
  файлам с расшиением *.lisp в подкаталоге src/template/classes системы
@@ -150,8 +145,6 @@
   "@b(Описание:) переменная @b(*active-x-object-graph*) представляет
    граф дерева наследования объектов ActiveX системы AutoCAD.")
 
-(mnas-graph/view:view-graph *active-x-object-graph*)
-
 (defun find-class-parents ()
   "@b(Описание:) функция @b(find-class-parents) 
 "
@@ -243,57 +236,3 @@
            `,(format nil " ~%")
            (find-rou-class-data rou-class-name :EVENTS))
           :test #'equal))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun absend-properties ()
-  (set-difference
-   (remove-duplicates
-    (apply #'append
-           (loop :for i :in *classes-db-rought*
-                 :collect
-                 (find-rou-properties (second (assoc :DEFCLASS i)))))
-    :test #'equal)
-   *properties-db-rought*
-   :key #'(lambda (el)
-            (cond
-              ((stringp el) el)
-              (t (first el))))
-   :test #'equal))
-
-(defun absend-methods ()
-  (set-difference
-   (remove-duplicates
-    (apply #'append
-           (loop :for i :in *classes-db-rought*
-                 :collect
-                 (find-rou-methods (second (assoc :DEFCLASS i)))))
-    :test #'equal)
-   *methods-db-rought*
-   :key #'(lambda (el)
-            (cond
-              ((stringp el) el)
-              (t (first el))))
-   :test #'equal))
-
-(defun absend-events ()
-  (set-difference
-   (remove-duplicates
-    (apply #'append
-           (loop :for i :in *classes-db-rought*
-                 :collect
-                 (find-rou-events (second (assoc :DEFCLASS i)))))
-    :test #'equal)
-   *events-db-rought*
-   :key #'(lambda (el)
-            (cond
-              ((stringp el) el)
-              (t (first el))))
-   :test #'equal))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(absend-methods)
-(absend-properties) ; => ("Delta" "Angle")
-(absend-events)
-
