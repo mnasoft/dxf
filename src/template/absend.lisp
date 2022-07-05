@@ -1,4 +1,24 @@
+;;;; ./src/template/absend.lisp
+
 (in-package :dxf/template)
+
+(defun load-data (system sub-pathname)
+  (eval (apply #'append
+               (loop :for file :in (uiop:directory-files
+                                    (asdf:system-relative-pathname system sub-pathname)
+                                    "*.lisp")
+                     :collect
+                     (with-open-file (stream file)
+                       (read stream))))))
+
+(defparameter *methods-db-rought*
+  (load-data :dxf "src/template/methods/"))
+
+(defparameter *properties-db-rought*
+    (load-data :dxf "src/template/properties/"))
+
+(defparameter *events-db-rought*
+      (load-data :dxf "src/template/events/"))
 
 (defun absend-properties ()
   (set-difference
@@ -45,6 +65,9 @@
               (t (first el))))
    :test #'equal))
 
+(loop :for (met doc) :in *events-db-rought*
+      :collect met)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (absend-methods)
@@ -53,20 +76,4 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun load-data (system sub-pathname)
-  (apply #'append
-         (loop :for file :in (uiop:directory-files
-                              (asdf:system-relative-pathname system sub-pathname)
-                              "*.lisp")
-               :collect
-               (with-open-file (stream file)
-                 (read stream)))))
 
-(defparameter *methods-db-rought*
-  (load-data :dxf "src/template/methods/"))
-
-(defparameter *properties-db-rought*
-    (load-data :dxf "src/template/properties/"))
-
-(defparameter *events-db-rought*
-      (load-data :dxf "src/template/events/"))
