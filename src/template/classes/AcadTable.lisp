@@ -1,10 +1,8 @@
-(in-package :dxf/classes)
-
-((:defclass "AcadTable")
-  (:parents "AcadEntity")
-  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7B82400C-53D0-4D1A-94FA-66BB3040F0AA\"](Table Object (ActiveX))")
-  (:methods
-   "ArrayPolar ArrayRectangular ClearSubSelection
+'(((:defclass "AcadTable")
+   (:parents "AcadEntity")
+   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7B82400C-53D0-4D1A-94FA-66BB3040F0AA\"](Table Object (ActiveX))")
+   (:methods
+    "ArrayPolar ArrayRectangular ClearSubSelection
    ClearTableStyleOverrides Copy CreateContent Delete
    DeleteCellContent DeleteColumns DeleteContent DeleteRows
    EnableMergeAll FormatValue GenerateLayout GetAlignment
@@ -52,8 +50,8 @@
    SetText SetTextHeight SetTextHeight2 SetTextRotation SetTextString
    SetTextStyle SetTextStyle2 SetToolTip SetValue SetValueFromText
    SetXData TransformBy UnmergeCells Update")
-  (:properties
-   "AllowManualHeights AllowManualPositions Application BreaksEnabled
+   (:properties
+    "AllowManualHeights AllowManualPositions Application BreaksEnabled
    BreakSpacing Columns ColumnWidth Direction Document EnableBreak
    EntityTransparency FlowDirection Handle HasExtensionDictionary
    HasSubSelection HeaderSuppressed Height HorzCellMargin Hyperlinks
@@ -63,5 +61,5 @@
    RepeatTopLabels RowHeight Rows StyleName TableBreakFlowDirection
    TableBreakHeight TableStyleOverrides TitleSuppressed TrueColor
    VertCellMargin Visible Width")
-  (:events
-   "Modified"))
+   (:events
+    "Modified")))

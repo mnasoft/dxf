@@ -1,15 +1,13 @@
-(in-package :dxf/classes)
-
-((:defclass "AcadDimOrdinate")
-  (:parents "AcadDimension")
-  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-35CE0F15-A136-4878-AEDC-FADC193E7ED2\"](DimOrdinate Object (ActiveX))")
-  (:methods
-   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+'(((:defclass "AcadDimOrdinate")
+   (:parents "AcadDimension")
+   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-35CE0F15-A136-4878-AEDC-FADC193E7ED2\"](DimOrdinate Object (ActiveX))")
+   (:methods
+    "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
    GetExtensionDictionary GetXData Highlight IntersectWith Mirror
    Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
    Update")
-  (:properties
-   "AltRoundDistance AltSubUnitsFactor AltSubUnitsSuffix
+   (:properties
+    "AltRoundDistance AltSubUnitsFactor AltSubUnitsSuffix
    AltSuppressLeadingZeros AltSuppressTrailingZeros
    AltSuppressZeroFeet AltSuppressZeroInches AltTextPrefix
    AltTextSuffix AltTolerancePrecision
@@ -33,5 +31,5 @@
    ToleranceSuppressZeroFeet ToleranceSuppressZeroInches
    ToleranceUpperLimit TrueColor UnitsFormat VerticalTextPosition
    Visible")
-  (:events
-   "Modified"))
+   (:events
+    "Modified")))

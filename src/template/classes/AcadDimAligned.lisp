@@ -1,16 +1,14 @@
-(in-package :dxf/classes)
-
-((:defclass "AcadDimAligned")
-  (:parents "AcadDimension")
-  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-38EB1E39-B67A-4B90-A394-5C3FA260F9F3\"](DimAligned Object (ActiveX))
+'(((:defclass "AcadDimAligned")
+   (:parents "AcadDimension")
+   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-38EB1E39-B67A-4B90-A394-5C3FA260F9F3\"](DimAligned Object (ActiveX))
 ")
-  (:methods
-   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+   (:methods
+    "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
    GetExtensionDictionary GetXData Highlight IntersectWith Mirror
    Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
    Update")
-  (:properties
-   "AltRoundDistance AltSubUnitsFactor AltSubUnitsSuffix
+   (:properties
+    "AltRoundDistance AltSubUnitsFactor AltSubUnitsSuffix
    AltSuppressLeadingZeros AltSuppressTrailingZeros
    AltSuppressZeroFeet AltSuppressZeroInches AltTextPrefix
    AltTextSuffix AltTolerancePrecision
@@ -42,5 +40,5 @@
    ToleranceSuppressZeroFeet ToleranceSuppressZeroInches
    ToleranceUpperLimit TrueColor UnitsFormat VerticalTextPosition
    Visible")
-  (:events
-   "Modified"))
+   (:events
+    "Modified")))

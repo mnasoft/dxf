@@ -1,15 +1,13 @@
-(in-package :dxf/classes)
-
-((:defclass "AcadDimRadial")
-  (:parents "AcadDimension")
-  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-037CC1EC-8183-49B3-9F51-69AE8B282CC4\"](DimRadial Object (ActiveX))")
-  (:methods
-   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+'(((:defclass "AcadDimRadial")
+   (:parents "AcadDimension")
+   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-037CC1EC-8183-49B3-9F51-69AE8B282CC4\"](DimRadial Object (ActiveX))")
+   (:methods
+    "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
    GetExtensionDictionary GetXData Highlight IntersectWith Mirror
    Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
    Update")
-  (:properties
-   "AltRoundDistance AltSuppressLeadingZeros AltSuppressTrailingZeros
+   (:properties
+    "AltRoundDistance AltSuppressLeadingZeros AltSuppressTrailingZeros
    AltSuppressZeroFeet AltSuppressZeroInches AltTextPrefix
    AltTextSuffix AltTolerancePrecision
    AltToleranceSuppressLeadingZeros AltToleranceSuppressTrailingZeros
@@ -35,5 +33,5 @@
    ToleranceSuppressZeroFeet ToleranceSuppressZeroInches
    ToleranceUpperLimit TrueColor UnitsFormat VerticalTextPosition
    Visible")
-  (:events
-   "Modified"))
+   (:events
+    "Modified")))

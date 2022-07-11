@@ -1,15 +1,13 @@
-(in-package :dxf/classes)
-
-((:defclass "AcadDim3PointAngular")
-  (:parents "AcadDimension")
-  (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1EF38BC6-8057-4F4A-95BC-0624544A248F\"](Dim3PointAngular Object (ActiveX))")
-  (:methods
-   "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+'(((:defclass "AcadDim3PointAngular")
+   (:parents "AcadDimension")
+   (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1EF38BC6-8057-4F4A-95BC-0624544A248F\"](Dim3PointAngular Object (ActiveX))")
+   (:methods
+    "ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
    GetExtensionDictionary GetXData Highlight IntersectWith Mirror
    Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
    Update")
-  (:properties
-   "AngleFormat AngleVertex Application Arrowhead1Block Arrowhead1Type
+   (:properties
+    "AngleFormat AngleVertex Application Arrowhead1Block Arrowhead1Type
    Arrowhead2Block Arrowhead2Type ArrowheadSize DecimalSeparator
    DimConstrDesc DimConstrExpression DimConstrForm DimConstrName
    DimConstrReference DimConstrValue DimensionLineColor
@@ -30,5 +28,5 @@
    ToleranceJustification ToleranceLowerLimit TolerancePrecision
    ToleranceSuppressLeadingZeros ToleranceSuppressTrailingZeros
    ToleranceUpperLimit TrueColor VerticalTextPosition Visible")
-  (:events
-   "Modified"))
+   (:events
+    "Modified")))
