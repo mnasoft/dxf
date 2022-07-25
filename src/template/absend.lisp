@@ -32,7 +32,7 @@
               ((stringp el) el)
               (t (first el))))
    :test #'equal))
-
+ 
 (defun absend-events ()
   (set-difference
    (remove-duplicates
