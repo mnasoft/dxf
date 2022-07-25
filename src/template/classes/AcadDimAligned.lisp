@@ -1,4 +1,4 @@
-'(((:defclass "AcadDimAligned")
+((:defclass "AcadDimAligned")
    (:parents "AcadDimension")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-38EB1E39-B67A-4B90-A394-5C3FA260F9F3\"](DimAligned Object (ActiveX))
 ")
@@ -41,4 +41,4 @@
    ToleranceUpperLimit TrueColor UnitsFormat VerticalTextPosition
    Visible")
    (:events
-    "Modified")))
+    "Modified"))

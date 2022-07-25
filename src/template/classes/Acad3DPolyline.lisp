@@ -1,4 +1,4 @@
-'(((:defclass "Acad3DPolyline")
+((:defclass "Acad3DPolyline")
    (:parents "AcadEntity")
    (:documentation
     "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-35D9E28C-38A8-477A-AFCE-F21952092190\"](Polyline Object (ActiveX))")
@@ -14,4 +14,4 @@
    Lineweight Material Normal ObjectID ObjectName OwnerID
    PlotStyleName Thickness TrueColor Type Visible")
    (:events
-    "Modified")))
+    "Modified"))

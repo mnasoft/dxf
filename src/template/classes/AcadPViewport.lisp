@@ -1,4 +1,4 @@
-'(((:defclass "AcadPViewport")
+((:defclass "AcadPViewport")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-63DF4686-8A79-4A39-8247-4A3565F31FAA\"](PViewport object (ActiveX))")
    (:methods
@@ -18,4 +18,4 @@
    TwistAngle UCSIconAtOrigin UCSIconOn UCSPerViewport ViewportOn
    Visible VisualStyle Width")
    (:events
-    "Modified")))
+    "Modified"))

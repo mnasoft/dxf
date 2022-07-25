@@ -1,4 +1,4 @@
-'(((:defclass "AcadNurbSurface")
+((:defclass "AcadNurbSurface")
    (:parents "AcadSurface")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5F16F644-F61B-45AC-BB3D-AF8221336072\"](NurbSurface Object (ActiveX))")
    (:methods
@@ -14,4 +14,4 @@
    ShowAssociativity SurfaceType SurfTrimAssociativity TrueColor
    UIsolineDensity Visible VIsolineDensity WireframeType")
    (:events
-    "Modified")))
+    "Modified"))

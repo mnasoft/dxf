@@ -1,4 +1,4 @@
-'(((:defclass "AcadApplication")
+((:defclass "AcadApplication")
    (:parents "Object")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0225808C-8C91-407B-990C-15AB966FFFA8\"](Application Object (ActiveX))")
    (:methods
@@ -14,4 +14,4 @@
    BeginFileDrop BeginLisp BeginModal BeginOpen BeginPlot BeginQuit
    BeginSave EndCommand EndLisp EndModal EndOpen EndPlot EndSave
    LispCancelled NewDrawing SysVarChanged WindowChanged
-   WindowMovedOrResized")))
+   WindowMovedOrResized"))

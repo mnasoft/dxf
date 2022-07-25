@@ -1,4 +1,4 @@
-'(((:defclass "AcadMInsertBlock")
+((:defclass "AcadMInsertBlock")
    (:parents "AcadBlockReference")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-0F4669CB-6769-4F40-A24F-7658FBD41518\"](MInsertBlock Object (ActiveX))")
    (:methods
@@ -18,4 +18,4 @@
    YEffectiveScaleFactor YScaleFactor ZEffectiveScaleFactor
    ZScaleFactor")
    (:events
-    "Modified")))
+    "Modified"))

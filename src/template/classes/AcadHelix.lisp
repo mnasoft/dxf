@@ -1,4 +1,4 @@
-'(((:defclass "AcadHelix")
+((:defclass "AcadHelix")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-A8B144D8-EFC1-4D2D-B6F8-73C541906646\"](Helix Object (ActiveX))")
    (:methods
@@ -13,4 +13,4 @@
    PlotStyleName Position TopRadius TotalLength TrueColor TurnHeight
    Turns TurnSlope Twist Visible")
    (:events
-    "Modified")))
+    "Modified"))

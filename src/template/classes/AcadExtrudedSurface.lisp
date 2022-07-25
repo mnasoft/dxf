@@ -1,4 +1,4 @@
-'(((:defclass "AcadExtrudedSurface")
+((:defclass "AcadExtrudedSurface")
    (:parents "AcadSurface")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-03E55664-0EBE-4EF5-A51C-B0806FA5DC3C\"](ExtrudedSurface Object (ActiveX))")
    (:methods
@@ -14,4 +14,4 @@
    ShowAssociativity SurfaceType SurfTrimAssociativity TaperAngle
    TrueColor UIsolineDensity Visible VIsolineDensity WireframeType")
    (:events
-    "Modified")))
+    "Modified"))

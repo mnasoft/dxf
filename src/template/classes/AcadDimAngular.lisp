@@ -1,4 +1,4 @@
-'(((:defclass "AcadDimAngular")
+((:defclass "AcadDimAngular")
    (:parents "AcadDimension")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-C832CDC5-59AA-466F-B4BA-EFC133834A1E\"](DimAngular Object (ActiveX))")
    (:methods
@@ -30,4 +30,4 @@
    ToleranceSuppressLeadingZeros ToleranceSuppressTrailingZeros
    ToleranceUpperLimit TrueColor VerticalTextPosition Visible")
    (:events
-    "Modified")))
+    "Modified"))

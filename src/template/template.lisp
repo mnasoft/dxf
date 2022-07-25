@@ -1,9 +1,8 @@
 (defpackage #:dxf/template
   (:use #:cl)
   (:intern load-data
-           class-files
            )
-  (:export *classes-db-rought*
+  (:export *table-classes-rought*
            *classes-db*
            *active-x-object-graph*
            )
@@ -34,20 +33,21 @@
 
 (in-package :dxf/template)
 
-(defun load-data (system sub-pathname)
-  (eval (apply #'append
-               (loop :for file :in (uiop:directory-files
-                                    (asdf:system-relative-pathname system sub-pathname)
-                                    "*.lisp")
-                     :collect
-                     (with-open-file (stream file)
-                       (read stream))))))
+(defun load-data (sys sub-pathname)
+  (let ((system sys )
+        (sub-pathname sub-pathname))
+    (loop :for file :in (uiop:directory-files
+                         (asdf:system-relative-pathname system sub-pathname)
+                         "*.lisp")
+          :collect
+          (with-open-file (stream file)
+            (read stream)))))
 
 (defparameter *table-methods-rought*
   (load-data :dxf "src/template/methods/"))
 
 (defparameter *table-methods*
-  (loop :for (name doc) :in *table-methods-rought*
+  (loop :for (name doc) :in (apply #'append *table-methods-rought*)
         :collect
         (list  (dxf/utils:make-method-name name) doc)))
 
@@ -55,37 +55,56 @@
   (load-data :dxf "src/template/properties/"))
 
 (defparameter *table-properties*
-  (loop :for (name doc) :in *table-properties-rought*
+  (loop :for (name doc) :in (apply #'append *table-properties-rought*)
         :collect
         (list  (dxf/utils:make-proprety-name name) doc)))
-
 
 (defparameter *table-events-rought*
   (load-data :dxf "src/template/events/"))
 
 (defparameter *table-events*
-  (loop :for (name doc) :in *table-properties-rought*
+  (loop :for (name doc) :in (apply #'append *table-properties-rought*)
         :collect
         (list  (dxf/utils:make-event-name name) doc)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defparameter *table-classes-rought*
+  (load-data :dxf "src/template/classes/")
+  "@b(Описание:) переменная @b(*table-classes-rought*) содержит базу данных
+ классов объектов ActiveX системы AutoCAD.
 
-(defun class-files ()
-  "@b(Описание:) функция @b(class-files) возвращает список путей к
- файлам с расшиением *.lisp в подкаталоге src/template/classes системы
- dxf.
-
- @b(Пример использования:)
+ @b(Пример записи БД:)
 @begin[lang=lisp](code)
- (class-files) 
+  ((:DEFCLASS \"AcadEntity\")
+   (:PARENTS \"AcadObject\")
+   (:DOCUMENTATION \"@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-FCA7867D-E354-4F48-9C47-DB22C53A3460\"](IAcadEntity Interface (ActiveX))\")
+   (:METHODS \"ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
+  GetExtensionDictionary GetXData Highlight IntersectWith Mirror
+  Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
+  Update\")
+   (:PROPERTIES \"Application Document EntityTransparency Handle
+  HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale
+  Lineweight Material ObjectID ObjectName OwnerID PlotStyleName
+  TrueColor Visible\")
+   (:EVENTS \"Modified\"))
 @end(code)
 
-"
-  (uiop:directory-files
-   (asdf:system-relative-pathname :dxf "src/template/classes/")
-   "*.lisp"))
+ @b(Поля БД)
+@begin(enum)
+@item(DEFCLASS - имя класса. Подлежит разделению на слова: из
+      AcadEntity в acad-entity;)
+@item(PARENTS - имя родительск(ого)(их) класс(а)(ов). Подлежит
+      разделению на слова.)
+@item(DOCUMENTATION - ссылка на документацию;)
+@item(METHODS - список методов;)
+@item(PROPERTIES - список свойств. Для конкретного класса необходимо
+      исключить свойства, относящиеся к его родителям. Имена свойств
+      подлежит разделению на слова.)
+@item(EVENTS - список событий, обрабарываемых системой.)
+@end(enum)
 
-(load-data :dxf "src/template/classes/")
+ Если поле PARENTS, METHODS, PROPERTIES или EVENTS содержит None, то
+это поле считается пустым.
+")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -130,51 +149,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *classes-db-rought* 
-  (loop :for file :in (class-files)
-        :collect
-        (with-open-file (stream file)
-          (read stream)
-          (read stream)))
-  "@b(Описание:) переменная @b(*classes-db-rought*) содержит базу данных
- классов объектов ActiveX системы AutoCAD.
-
- @b(Пример записи БД:)
-@begin[lang=lisp](code)
-  ((:DEFCLASS \"AcadEntity\")
-   (:PARENTS \"AcadObject\")
-   (:DOCUMENTATION \"@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-FCA7867D-E354-4F48-9C47-DB22C53A3460\"](IAcadEntity Interface (ActiveX))\")
-   (:METHODS \"ArrayPolar ArrayRectangular Copy Delete GetBoundingBox
-  GetExtensionDictionary GetXData Highlight IntersectWith Mirror
-  Mirror3D Move Rotate Rotate3D ScaleEntity SetXData TransformBy
-  Update\")
-   (:PROPERTIES \"Application Document EntityTransparency Handle
-  HasExtensionDictionary Hyperlinks Layer Linetype LinetypeScale
-  Lineweight Material ObjectID ObjectName OwnerID PlotStyleName
-  TrueColor Visible\")
-   (:EVENTS \"Modified\"))
-@end(code)
-
- @b(Поля БД)
-@begin(enum)
-@item(DEFCLASS - имя класса. Подлежит разделению на слова: из
-      AcadEntity в acad-entity;)
-@item(PARENTS - имя родительск(ого)(их) класс(а)(ов). Подлежит
-      разделению на слова.)
-@item(DOCUMENTATION - ссылка на документацию;)
-@item(METHODS - список методов;)
-@item(PROPERTIES - список свойств. Для конкретного класса необходимо
-      исключить свойства, относящиеся к его родителям. Имена свойств
-      подлежит разделению на слова.)
-@item(EVENTS - список событий, обрабарываемых системой.)
-@end(enum)
-
- Если поле PARENTS, METHODS, PROPERTIES или EVENTS содержит None, то
-это поле считается пустым.
-")
-
 (defparameter *classes-db*
-    (loop :for i :in *classes-db-rought* 
+    (loop :for i :in *table-classes-rought* 
         :collect
         (convert-db i))
   "@b(Описание:) переменная @b(*classes-db*) содержит базу данных
@@ -222,7 +198,7 @@
 
 (defun find-rou-defclass (class-name)
   (assoc (list :DEFCLASS class-name)
-         *classes-db-rought* :test #'equal))
+         *table-classes-rought* :test #'equal))
 
 (defun find-class-data (class-name data)
   (assert

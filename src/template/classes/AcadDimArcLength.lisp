@@ -1,4 +1,4 @@
-'(((:defclass "AcadDimArcLength")
+((:defclass "AcadDimArcLength")
    (:parents "AcadDimension")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-BAB6D518-BE01-494A-A8AC-8645A99369CE\"](DimArcLength Object (ActiveX))")
    (:methods
@@ -40,4 +40,4 @@
    ToleranceUpperLimit TrueColor UnitsFormat VerticalTextPosition
    Visible")
    (:events
-    "Modified")))
+    "Modified"))

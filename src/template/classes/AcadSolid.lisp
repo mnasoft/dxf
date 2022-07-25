@@ -1,4 +1,4 @@
-'(((:defclass "AcadSolid")
+((:defclass "AcadSolid")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1B207FF4-E441-4B3B-A677-BD5FE8CC479D\"](Solid Object (ActiveX))")
    (:methods
@@ -12,4 +12,4 @@
    LinetypeScale Lineweight Material Normal ObjectID ObjectName
    OwnerID PlotStyleName Thickness TrueColor Visible")
    (:events
-    "Modified")))
+    "Modified"))

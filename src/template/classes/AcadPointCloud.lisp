@@ -1,4 +1,4 @@
-'(((:defclass "AcadPointCloud")
+((:defclass "AcadPointCloud")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5142F98A-F959-4107-AF76-28813152F04C\"](PointCloud Object (ActiveX))")
    (:methods
@@ -14,4 +14,4 @@
    Rotation Scale ShowClipped ShowIntensity Stylization TrueColor Unit
    UnitFactor UseEntityColor Visible Width")
    (:events
-    "Modified")))
+    "Modified"))

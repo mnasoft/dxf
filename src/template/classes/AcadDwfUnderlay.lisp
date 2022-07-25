@@ -1,4 +1,4 @@
-'(((:defclass "AcadDwfUnderlay")
+((:defclass "AcadDwfUnderlay")
    (:parents "AcadUnderlay")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-1205069A-A64A-4E21-9B9A-3EAF58F2EF26\"](DwfUnderlay Object (ActiveX))")
    (:methods
@@ -15,4 +15,4 @@
    UnderlayLayerOverrideApplied UnderlayName UnderlayVisibility
    Visible Width")
    (:events
-    "Modified")))
+    "Modified"))
