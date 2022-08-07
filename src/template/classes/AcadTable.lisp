@@ -1,4 +1,4 @@
-'(((:defclass "AcadTable")
+((:defclass "AcadTable")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-7B82400C-53D0-4D1A-94FA-66BB3040F0AA\"](Table Object (ActiveX))")
    (:methods
@@ -62,4 +62,4 @@
    TableBreakHeight TableStyleOverrides TitleSuppressed TrueColor
    VertCellMargin Visible Width")
    (:events
-    "Modified")))
+    "Modified"))

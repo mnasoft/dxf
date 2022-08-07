@@ -1,4 +1,4 @@
-'(((:defclass "AcadPlotConfiguration")
+((:defclass "AcadPlotConfiguration")
    (:parents "AcadObject")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-AF404266-C40A-4FB4-B4E0-1D1C83052B6D\"](PlotConfiguration Object (ActiveX))")
    (:methods
@@ -15,4 +15,4 @@
    PlotWithPlotStyles ScaleLineweights ShowPlotStyles StandardScale
    StyleSheet UseStandardScale ViewToPlot")
    (:events
-    "Modified")))
+    "Modified"))

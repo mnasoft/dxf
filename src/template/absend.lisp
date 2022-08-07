@@ -7,7 +7,7 @@
   (set-difference
    (remove-duplicates
     (apply #'append
-           (loop :for i :in *classes-db-rought*
+           (loop :for i :in *table-classes-rought*
                  :collect
                  (find-rou-properties (second (assoc :DEFCLASS i)))))
     :test #'equal)
@@ -22,7 +22,7 @@
   (set-difference
    (remove-duplicates
     (apply #'append
-           (loop :for i :in *classes-db-rought*
+           (loop :for i :in *table-classes-rought*
                  :collect
                  (find-rou-methods (second (assoc :DEFCLASS i)))))
     :test #'equal)
@@ -37,7 +37,7 @@
   (set-difference
    (remove-duplicates
     (apply #'append
-           (loop :for i :in *classes-db-rought*
+           (loop :for i :in *table-classes-rought*
                  :collect
                  (find-rou-events (second (assoc :DEFCLASS i)))))
     :test #'equal)

@@ -1,4 +1,4 @@
-'(((:defclass "AcadHatch")
+((:defclass "AcadHatch")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-92A2B30F-1B74-4894-850A-5505F3B5944B\"](Hatch Object (ActiveX))")
    (:methods
@@ -17,4 +17,4 @@
    PatternDouble PatternName PatternScale PatternSpace PatternType
    PlotStyleName TrueColor Visible")
    (:events
-    "Modified")))
+    "Modified"))

@@ -1,4 +1,4 @@
-'(((:defclass "AcadPoint")
+((:defclass "AcadPoint")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-B7F38E33-911A-4285-BCFC-EFB5F8EE260D\"](Point Object (ActiveX))")
    (:methods
@@ -12,4 +12,4 @@
    Lineweight Material Normal ObjectID ObjectName OwnerID
    PlotStyleName Thickness TrueColor Visible")
    (:events
-    "Modified")))
+    "Modified"))

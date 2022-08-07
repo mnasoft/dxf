@@ -1,4 +1,4 @@
-'(((:defclass "Object")
+((:defclass "Object")
    (:parents "")
    (:documentation
     "Базовый класс.")
@@ -7,4 +7,4 @@
    (:properties
     "")
    (:events
-    "")))
+    ""))

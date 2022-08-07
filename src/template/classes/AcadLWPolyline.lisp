@@ -1,4 +1,4 @@
-'(((:defclass "AcadLWPolyline")
+((:defclass "AcadLWPolyline")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5A604B98-B6DE-42C3-97D9-98B8CAEBB507\"](LWPolyline Object (ActiveX))")
    (:methods
@@ -13,4 +13,4 @@
    Lineweight Material Normal ObjectID ObjectName OwnerID
    PlotStyleName Thickness TrueColor Visible")
    (:events
-    "Modified")))
+    "Modified"))

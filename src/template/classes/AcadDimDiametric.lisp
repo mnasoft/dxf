@@ -1,4 +1,4 @@
-'(((:defclass "AcadDimDiametric")
+((:defclass "AcadDimDiametric")
    (:parents "AcadDimension")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-181A4644-B053-49D6-BB3C-35158B8794C3\"](DimDiametric Object (ActiveX))")
    (:methods
@@ -35,4 +35,4 @@
    ToleranceUpperLimit TrueColor UnitsFormat VerticalTextPosition
    Visible")
    (:events
-    "Modified")))
+    "Modified"))

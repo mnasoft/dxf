@@ -1,4 +1,4 @@
-'(((:defclass "AcadBlockReference")
+((:defclass "AcadBlockReference")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-88EEBCA3-8AF5-4776-9D54-520B05AB9129\"](BlockReference Object (ActiveX))")
    (:methods
@@ -17,4 +17,4 @@
    XScaleFactor YEffectiveScaleFactor YScaleFactor
    ZEffectiveScaleFactor ZScaleFactor")
    (:events
-    "Modified")))
+    "Modified"))

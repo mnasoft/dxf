@@ -1,4 +1,4 @@
-'(((:defclass "AcadText")
+((:defclass "AcadText")
    (:parents "AcadEntity")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-ED298AC7-19E0-4E54-8983-48439EF70116\"](Text Object (ActiveX))")
    (:methods
@@ -14,4 +14,4 @@
    StyleName TextAlignmentPoint TextGenerationFlag TextString
    Thickness TrueColor UpsideDown Visible")
    (:events
-    "Modified")))
+    "Modified"))

@@ -1,4 +1,4 @@
-'(((:defclass "AcadDimRadial")
+((:defclass "AcadDimRadial")
    (:parents "AcadDimension")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-037CC1EC-8183-49B3-9F51-69AE8B282CC4\"](DimRadial Object (ActiveX))")
    (:methods
@@ -34,4 +34,4 @@
    ToleranceUpperLimit TrueColor UnitsFormat VerticalTextPosition
    Visible")
    (:events
-    "Modified")))
+    "Modified"))

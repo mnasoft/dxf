@@ -1,4 +1,4 @@
-'(((:defclass "AcadDimRotated")
+((:defclass "AcadDimRotated")
    (:parents "AcadDimension")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-93D19CB2-9A1F-4324-BD49-D241FD009C3C\"](DimRotated Object (ActiveX))")
    (:methods
@@ -39,4 +39,4 @@
    ToleranceUpperLimit TrueColor UnitsFormat VerticalTextPosition
    Visible")
    (:events
-    "Modified")))
+    "Modified"))

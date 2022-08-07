@@ -1,4 +1,4 @@
-'(((:defclass "AcadBlock")
+((:defclass "AcadBlock")
    (:parents "AcadObject")
    (:documentation "@link[uri=\"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-E6F7B03B-F5CC-4A18-9C48-BBF1D32A31FD\"](Block Object (ActiveX))")
    (:methods
@@ -20,4 +20,4 @@
    Material Name ObjectID ObjectName Origin OwnerID Path Units
    XRefDatabase")
    (:events
-    "Modified")))
+    "Modified"))
