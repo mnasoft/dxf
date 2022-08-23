@@ -1,12 +1,16 @@
+
+
 * ToDo
-1. [ ] Класс db-header переделать так, чтобы вывод заголовка
+1. [ ] Попробовать выделить участок кода, при выполнении
+   которого происходит зависание сборки, если sbcl имеет версию выше 2.2.3.
+   SBCL ставится при помощи команды:
+   #+begin_src cmd
+        choco install sbcl --version=2.2.4 -ia INSTALLDIR="D:\PRG\SBCL\2.2.4-msi"
+   #+end_src
+2. [ ] Класс db-header переделать так, чтобы вывод заголовка
    осуществлялся не через список *h-vars-list*, а через хеш таблицу
    типа *h-vars*.
-2. [ ] Поправить для класса <acad-line> ссылку на документацию.
-3. [ ] Добавить свойства в таблицу свойств
-   - [ ] "Delta"
-   - [ ] "Angle"
-4. Выполнить обработку БД шаблонов классов ActiveX AutoCAD.
+3. Выполнить обработку БД шаблонов классов ActiveX AutoCAD.
    - [X] Написать функции генерирования имен для:
      - [X] классов dxf/utils:make-class-name;
      - [X] свойств dxf/utils:make-proprety-name;
@@ -43,12 +47,15 @@
          - DOCUMENTATION - документация.
      - [ ] событий;
 
-
-* DoNe 
-1. [X] Объединнить файлы системы dxf.
-2. [X] Выполнить переименование классов, обрамляя их угловыми
+* DoNe
+1. [X] Добавить свойства в таблицу свойств
+   - [X] "Delta"
+   - [X] "Angle"
+2. [X] Поправить для класса <acad-line> ссылку на документацию.
+3. [X] Объединнить файлы системы dxf.
+4. [X] Выполнить переименование классов, обрамляя их угловыми
    скобками.
-3. [6/6] Выделить в отдельную подсистему низкоуровневые функции. Созданы
+5. [6/6] Выделить в отдельную подсистему низкоуровневые функции. Созданы
    подсистемы:
    - [X] b-arr;
    - [X] out;
@@ -56,7 +63,7 @@
    - [X] vars;
    - [X] docs
    - [X] sec.
-4. [2/2] Выполнить отладку модуля scr/out/test.lisp
+6. [2/2] Выполнить отладку модуля scr/out/test.lisp
    - [X] по количеству строк;
      - [X] по коду 310;
      - [X] по коду 311;
@@ -67,9 +74,9 @@
        цифр равным 16. (выполнено. В текстовом представлении после
        операций считвания и записи (см. файл [[./src/out/test.lisp]])
        остались отличия в последней значащей цифре;
-5. [X] Секцию header-section-group-codes.lisp предположительно можно
+7. [X] Секцию header-section-group-codes.lisp предположительно можно
    исключить - исключена.
-6. [12/12] Дать хорошее имя:
+8. [12/12] Дать хорошее имя:
    - [X] dxf-in-txt:dxf-in-t-fname             -> read-file
    - [X] dxf/in/txt:read-from-string-string    -> read-string
    - [X] dxf/in/txt:read-from-string-int16     -> read-int16
@@ -82,68 +89,68 @@
    - [X] dxf/in/txt:dxf-in-t-pair              -> read-pair
    - [X] dxf/in/txt:dxf-in-t-pairs             -> read-pairs
    - [X] dxf/in/txt:dxf-in-t-split-by-sections -> split-by-sections
-7. [2/2] Разделить систему dxf/out на:         
+9. [2/2] Разделить систему dxf/out на:         
    - [X] dxf/out/txt - вывод в текстовом формате;
    - [X] dxf/out/bin - вывод в бинарном формате.
-8. [2/2] Гармонизировать имена функций в системах:
-   - [X] dxf/out/txt
-     - [X] txt            -> pair
-     - [X] txt-string     -> code-string
-     - [X] txt-double     -> code-double
-     - [X] txt-hex        -> code-hex
-     - [X] txt-hex-string -> code-b-chunk
-     - [X] txt-int16      -> code-int16
-     - [X] txt-int32      -> code-int32
-     - [X] txt-int64      -> code-int64
-     - [X] txt-int128     -> code-int128
-     - [X] txt-point-2d   -> 2d-point
-     - [X] txt-point-3d   -> 3d-point
-     - [X] txt-point      -> nd-point
-     - [X] txt-sections   -> sections                     ; 
-   - [X] dxf/out/bin
-     - [X] bin -> pair
-     - [X] write-uint16  -> wrt-uint16 
-     - [X] write-uint32  -> wrt-uint32
-     - [X] write-uint64  -> wrt-uint64
-     - [X] write-uint128 -> wrt-uint128
-     - [X] write-int16   -> wrt-int16
-     - [X] write-int32   -> wrt-int32
-     - [X] write-int64   -> wrt-int64
-     - [X] write-int128  -> wrt-int128
-     - [X] write-float   -> wrt-float
-     - [X] write-double  -> wrt-double
-     - [X] write-string  -> wrt-string
-     - [X] bin-string    -> code-string
-     - [X] bin-double    -> code-double
-     - [X] bin-hex       -> code-hex
-     - [X] bin-b-chunk   -> code-b
-     - [X] bin-int16     -> code-int16
-     - [X] bin-int32     -> code-int32
-     - [X] bin-int64     -> code-int64
-     - [X] bin-int128    -> code-int128
-     - [X] bin-point-2d  -> 2d-point
-     - [X] bin-point-3d  -> 3d-point
-     - [X] bin-point     -> nd-point
-     - [X] bin-sections  -> sections    
-9. [1/1] Добавить функции тестирования:
-   - [X] посекционного чтения - записи текстового dxf - файла:
-     [[./src/tests/suites/core.lisp]] section-read-write-in-txt-mode.
-10. [X] Определить функцию для чтения бинарных данных по кодам
+10. [2/2] Гармонизировать имена функций в системах:
+    - [X] dxf/out/txt
+      - [X] txt            -> pair
+      - [X] txt-string     -> code-string
+      - [X] txt-double     -> code-double
+      - [X] txt-hex        -> code-hex
+      - [X] txt-hex-string -> code-b-chunk
+      - [X] txt-int16      -> code-int16
+      - [X] txt-int32      -> code-int32
+      - [X] txt-int64      -> code-int64
+      - [X] txt-int128     -> code-int128
+      - [X] txt-point-2d   -> 2d-point
+      - [X] txt-point-3d   -> 3d-point
+      - [X] txt-point      -> nd-point
+      - [X] txt-sections   -> sections                     ; 
+    - [X] dxf/out/bin
+      - [X] bin -> pair
+      - [X] write-uint16  -> wrt-uint16 
+      - [X] write-uint32  -> wrt-uint32
+      - [X] write-uint64  -> wrt-uint64
+      - [X] write-uint128 -> wrt-uint128
+      - [X] write-int16   -> wrt-int16
+      - [X] write-int32   -> wrt-int32
+      - [X] write-int64   -> wrt-int64
+      - [X] write-int128  -> wrt-int128
+      - [X] write-float   -> wrt-float
+      - [X] write-double  -> wrt-double
+      - [X] write-string  -> wrt-string
+      - [X] bin-string    -> code-string
+      - [X] bin-double    -> code-double
+      - [X] bin-hex       -> code-hex
+      - [X] bin-b-chunk   -> code-b
+      - [X] bin-int16     -> code-int16
+      - [X] bin-int32     -> code-int32
+      - [X] bin-int64     -> code-int64
+      - [X] bin-int128    -> code-int128
+      - [X] bin-point-2d  -> 2d-point
+      - [X] bin-point-3d  -> 3d-point
+      - [X] bin-point     -> nd-point
+      - [X] bin-sections  -> sections    
+11. [1/1] Добавить функции тестирования:
+    - [X] посекционного чтения - записи текстового dxf - файла:
+      [[./src/tests/suites/core.lisp]] section-read-write-in-txt-mode.
+12. [X] Определить функцию для чтения бинарных данных по кодам
       с 310 по 319: код - (2 байта), количество байт для
       считывания (1 байт), собственно считанные байты -
       dxf/in/bin:read-b-chunk;
-11. [X] Определить функцию бинарной записи dxf/in/bin:wrt-b-chunk,
+13. [X] Определить функцию бинарной записи dxf/in/bin:wrt-b-chunk,
     записывающую данные в формате, который читает
     dxf/in/bin:read-b-chunk
-12. [X] Выполнить отладку по кодам от 290 по 299 (запись boolean) - добавлены функции:
+14. [X] Выполнить отладку по кодам от 290 по 299 (запись boolean) - добавлены функции:
     - [X] dxf/out/bin:wrt-int8;
     - [X] и dxf/out/bin:code-int8.
-13. [X] Выполнить отладку по кодам от 390 по 299 (запись boolean) - добавлены функции:
+15. [X] Выполнить отладку по кодам от 390 по 299 (запись boolean) - добавлены функции:
     - [X] dxf/out/bin:wrt-int8;
     - [X] и dxf/out/bin:code-int8.      
-14. [1/1] Добавить функции тестирования:
+16. [1/1] Добавить функции тестирования:
     - [X] посекционного чтения - записи бинарное dxf - файла.
-15. [4/4] Черновая документация:
+17. [4/4] Черновая документация:
     - [X] К классам:
       - [X] Добавить документацию к классам;
       - [X] Исключть данные в формате org, дублирующие документацию от
@@ -152,7 +159,7 @@
     - [X] Добавить документацию к обобщенным функциям;
     - [X] Добавить документацию к системам;
     - [X] Добавить документацию к пакетам.
-16. [X] Подготовить данные для базы данных классов ActiveX
+18. [X] Подготовить данные для базы данных классов ActiveX
     - [X] переформатировать файлы классов в формат для БД;
       - [X] добавить ссылки на документацию о классах из ActiveX;
       - [X] добавить информацию о предках;
