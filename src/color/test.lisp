@@ -44,7 +44,7 @@
 
 (ql:quickload :math/ls-gauss)
 
-(math/ls-gauss:solve-linear-system-gauss
+(math/ls-gauss:solve-x
  (make-instance 'math/ls-gauss::<matrix> 
 		:initial-contents '(( 10  17  19 1 -1039527661)
 				    ( 26  39 241 1 -1038473231)
