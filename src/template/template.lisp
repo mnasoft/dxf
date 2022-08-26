@@ -2,12 +2,15 @@
   (:use #:cl)
   (:intern load-data
            )
-  (:export *table-classes-rought*
-           *table-classes*
+  (:export *table-classes*
+           *table-methods*
+           *table-properties*
+           *table-events*
            *active-x-object-graph*
            *class-parents*
            )
-  (:export *table-methods-rought*
+  (:export *table-classes-rought*
+           *table-methods-rought*
            *table-properties-rought*
            *table-events-rought*
            )
@@ -25,6 +28,14 @@
   (:export absend-methods
            absend-properties
            absend-events
+           )
+  (:export make-generic-property
+           make-generic-properties
+           make-generic-method
+           make-generic-methods
+           make-generic-event
+           make-generic-events
+           make-generic-all
            )
   (:documentation
    "@b(Описание:) пакет @b(dxf/template) содержит методы для построения
@@ -84,7 +95,7 @@
  виде (как это есть в ActiveX).")
 
 (defparameter *table-events*
-  (loop :for (name doc) :in (apply #'append *table-properties-rought*)
+  (loop :for (name doc) :in (apply #'append *table-events-rought*)
         :collect
         (list  (dxf/utils:make-event-name name) doc))
     "@b(Описание:) переменная @b(*table-events*) содержт список
@@ -262,7 +273,7 @@
 (defun find-parent (class-name)
   "@b(Описание:) функция @b(find-parent) возвращает  ближайшего предка класса.
 "
-  (second (find-parents class-name)))
+  (first (find-parents class-name)))
 
 (defun find-methods (class-name)
   (find-class-data class-name :METHODS))
@@ -299,3 +310,34 @@
            `,(format nil " ~%")
            (find-rou-class-data rou-class-name :EVENTS))
           :test #'equal))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun make-generic-property (property-record)
+  (format t "(defgeneric ~A (obj)
+  (:documentation ~S))~2%" (first property-record) (second property-record)))
+
+(defun make-generic-properties ()
+  (loop :for i :in *table-properties* :do
+    (make-generic-property i)))
+
+(defun make-generic-method (method-record)
+  (format t "(defgeneric ~A (obj &rest args)
+  (:documentation ~S))~2%" (first method-record) (second method-record)))
+
+(defun make-generic-methods ()
+  (loop :for i :in *table-methods* :do
+    (make-generic-method i)))
+
+(defun make-generic-event (event-record)
+  (format t "(defgeneric ~A (obj &rest args)
+  (:documentation ~S))~2%" (first event-record) (second event-record)))
+
+(defun make-generic-events ()
+  (loop :for i :in *table-events* :do
+    (make-generic-method i)))
+
+(defun make-generic-all ()
+  (make-generic-properties)
+  (make-generic-methods)
+  (make-generic-events))
