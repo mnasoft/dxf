@@ -37,6 +37,9 @@
            make-generic-events
            make-generic-all
            )
+  (:export make-class
+           make-classes
+           )
   (:documentation
    "@b(Описание:) пакет @b(dxf/template) содержит методы для построения
    шаблонов классов, методов, свойств и событий, получение которых
@@ -341,3 +344,39 @@
   (make-generic-properties)
   (make-generic-methods)
   (make-generic-events))
+
+(defun make-class (class-name)
+  (let ((md (find-methods        class-name))
+        (pr (find-properties     class-name))
+        (ev (find-events         class-name))
+        (doc (find-documentation class-name))
+        (pars (let ((par
+                      (find-parent class-name)))
+                (if par (list par ) par))))
+    (format t ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; defclass ~A
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
+            class-name) 
+    (format t "(defclass ~A ~A~%" class-name pars) 
+    (format t "  ()~%")
+    (format t "(:documentation ~S))~%~%" doc)
+    (format t ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;~%" )
+    (format t ";;;; properties~%")
+    (loop :for i :in pr :do
+      (format t "(defmethod ~A ((~A ~A)))~1%" i (string-trim "<>" class-name) class-name)
+      (format t "(defmethod (setf ~A) (value (~A ~A)))~2%" i (string-trim "<>" class-name) class-name))
+    (format t ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;~%" )
+    (format t ";;;; methods~%")
+    (loop :for i :in md :do
+      (format t "(defmethod ~A ((~A ~A) &rest args))~1%" i (string-trim "<>" class-name) class-name))
+    (format t ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;~%" )
+    (format t ";;;; events~%" )
+    (loop :for i :in ev :do
+      (format t "(defmethod ~A ((~A ~A) &rest args))~1%" i (string-trim "<>" class-name) class-name))
+    (format t "~%")))
+
+(defun make-classes ()
+  (loop :for class-name
+          :in (mnas-graph:hierarchy-node-names *active-x-object-graph*)
+        :do 
+           (make-class class-name)))

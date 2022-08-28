@@ -1,67 +1,7 @@
 (in-package :dxf/template)
 
-(loop :for i :in *table-classes* :do
-  (let ((class-name (cadr (assoc :DEFCLASS i))))
-    (let ((md (find-methods        class-name))
-          (pr (find-properties     class-name))
-          (ev (find-events         class-name))
-          (doc (find-documentation class-name))
-          (pars (let ((par
-                        (find-parent class-name)))
-                  (if par (list par ) par))))
-      (format t "(defclass ~A ~A~%" class-name pars doc)
-      (format t "()~%")
-      (format t "(:documentation ~S)~%~%" doc)
-      )))
-
-(let ((rez nil))
-  (defun foo (graph)
-    (let ((lst (mnas-hash-table:keys
-                (mnas-graph:outlet-nodes graph))))
-      (map nil
-           #'(lambda (el)
-               (mnas-graph:remove-from el graph))
-           lst)
-      (setf rez (append rez lst))
-      rez)))
-
-(hash-table-count (mnas-graph:outlet-nodes *active-x-object-graph*))
-
-(let ((graph *active-x-object-graph*))
-  (foo graph))
-
-(mnas-graph:inlet-edges
- (mnas-graph:find-node "<acad-object>" *active-x-object-graph* )
- *active-x-object-graph*)
-
-(mnas-graph/view:view-graph *active-x-object-graph*)
-  
-(let ((class-name "<acad-line>"))
-  (let ((md (find-methods        class-name))
-        (pr (find-properties     class-name))
-        (ev (find-events         class-name))
-        (doc (find-documentation class-name))
-        (pars (let ((par
-                      (find-parent class-name)))
-                (if par (list par ) par))))
-    (format t "(defclass ~A ~A~%" class-name pars doc)
-    (format t "()~%")
-    (format t "(:documentation ~S))~%~%" doc)
-    (format t ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;~%" )
-    (format t ";;;; properties~%")
-    (loop :for i :in pr :do
-      (format t "(defmethod ~A ((~A ~A)))~1%" i (string-trim "<>" class-name) class-name)
-      (format t "(defmethod (setf ~A) (value (~A ~A)))~2%" i (string-trim "<>" class-name) class-name))
-    (format t ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;~%" )
-    (format t ";;;; methods~%")
-    (loop :for i :in md :do
-      (format t "(defmethod ~A ((~A ~A) &rest args))~1%" i (string-trim "<>" class-name) class-name))
-    (format t ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;~%" )
-    (format t ";;;; events~%" )
-    (loop :for i :in ev :do
-      (format t "(defmethod ~A ((~A ~A) &rest args))~1%" i (string-trim "<>" class-name) class-name))))
-
 (make-generic-all)
+(make-classes)
 
 
 (defclass <acad-line> (<acad-entity>)
