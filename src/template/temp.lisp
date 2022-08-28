@@ -14,8 +14,28 @@
       (format t "(:documentation ~S)~%~%" doc)
       )))
 
+(let ((rez nil))
+  (defun foo (graph)
+    (let ((lst (mnas-hash-table:keys
+                (mnas-graph:outlet-nodes graph))))
+      (map nil
+           #'(lambda (el)
+               (mnas-graph:remove-from el graph))
+           lst)
+      (setf rez (append rez lst))
+      rez)))
 
+(hash-table-count (mnas-graph:outlet-nodes *active-x-object-graph*))
 
+(let ((graph *active-x-object-graph*))
+  (foo graph))
+
+(mnas-graph:inlet-edges
+ (mnas-graph:find-node "<acad-object>" *active-x-object-graph* )
+ *active-x-object-graph*)
+
+(mnas-graph/view:view-graph *active-x-object-graph*)
+  
 (let ((class-name "<acad-line>"))
   (let ((md (find-methods        class-name))
         (pr (find-properties     class-name))
