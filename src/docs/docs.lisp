@@ -10,7 +10,7 @@
 
 (defun make-document ()
   (loop
-    :for j :in
+    :for j :from 1
     :for i :in
     '((:dxf          :dxf)
       
