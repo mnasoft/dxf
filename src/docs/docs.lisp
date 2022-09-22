@@ -2,7 +2,6 @@
 
 (defpackage #:dxf/docs
   (:use #:cl ) 
-  (:nicknames "MSTR/DOCS")
   (:export make-all)
   (:documentation "Пакет @b(dxf/docs) содержит функции
   генерирования и публикации документации."))
@@ -59,26 +58,22 @@
 (defun make-all (&aux
                    (of (if (find (uiop:hostname)
                                  mnas-package:*intranet-hosts*
-                                 :test #'string=)
+                                 :test #'string= :key #'first)
                            '(:type :multi-html :template :gamma)
                            '(:type :multi-html :template :minima))))
-  "@b(Описание:) функция @b(make-all) служит для создания документации.
-
- Пакет документации формируется в каталоге
-~/public_html/Common-Lisp-Programs/dxf.
-"
-  (mnas-package:make-html-path :dxf)
-  (make-document)
-  (make-graphs)
-  (mnas-package:make-mainfest-lisp
-   '(:dxf :dxf/docs)
-   "Dxf"
-   '("Mykola Matvyeyev")
-   (mnas-package:find-sources "dxf")
-   :output-format of)
-  (codex:document :dxf)
-  (make-graphs)
-  (mnas-package:copy-doc->public-html "dxf")
-  (mnas-package:rsync-doc "dxf"))
+  (let* ((sys-symbol :dxf)
+         (sys-string (string-downcase (format nil "~a" sys-symbol))))
+    (mnas-package:make-html-path sys-symbol)
+    (make-document)
+    (mnas-package:make-mainfest-lisp `(,sys-symbol)
+                                     (string-capitalize sys-string)
+                                     '("Mykola Matvyeyev")
+                                     (mnas-package:find-sources sys-symbol)
+                                     :output-format of)
+    (codex:document sys-symbol)
+    (make-graphs)
+    (mnas-package:copy-doc->public-html sys-string)
+    (mnas-package:rsync-doc sys-string) 
+    :make-all-finish))
 
 ;;;; (make-all)
