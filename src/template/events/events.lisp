@@ -43,3 +43,138 @@
 
 (defparameter *e-renameing*
   '("LISP" "Lisp"))
+
+"
+A Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'A'.
+Events
+Activate
+Triggered when a document window is activated.
+AppActivate
+Triggered just before the main application window is activated.
+AppDeactivate
+Triggered just before the main application window is activated.
+ARXLoaded
+Triggered just before the main application window is activated.
+ARXUnloaded
+Triggered when an ObjectARX application has been unloaded.
+
+B Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'B'.
+Events
+BeginClose
+Triggered immediately after AutoCAD receives a request to close a drawing.
+BeginCommand
+Triggered immediately after a command is issued, but before it completes.
+BeginDocClose
+Triggered immediately after AutoCAD receives a request to close a drawing.
+BeginDoubleClick
+Triggered after the user double-clicks an object in the drawing.
+BeginFileDrop
+Triggered when a file is dropped on the main application window.
+BeginLISP
+Triggered immediately after AutoCAD receives a request to evaluate a LISP expression.
+BeginModal
+Triggered just before a modal dialog is displayed.
+BeginOpen
+Triggered immediately after AutoCAD receives a request to open an existing drawing.
+BeginPlot
+Triggered immediately after AutoCAD receives a request to print a drawing.
+BeginQuit
+Triggered just before an AutoCAD session ends or a document closes.
+BeginRightClick
+Triggered after the user right-clicks on the drawing window.
+BeginSave
+Triggered immediately after AutoCAD receives a request to save the drawing.
+BeginShortcutMenuCommand
+Triggered after the user right-clicks on the drawing window, and before the shortcut menu appears in command mode.
+BeginShortcutMenuDefault
+Triggered after the user right-clicks on the drawing window, and before the shortcut menu appears in default mode.
+BeginShortcutMenuEdit
+Triggered after the user right-clicks on the drawing window, and before the shortcut menu appears in edit mode.
+BeginShortcutMenuGrip
+Triggered after the user right-clicks on the drawing window, and before the shortcut menu appears in grip mode.
+BeginShortcutMenuOSnap
+Triggered after the user right-clicks on the drawing window, and before the shortcut menu appears in object snap mode.
+
+D Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'D'.
+Events
+Deactivate
+Triggered when the drawing window is deactivated.
+
+E Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'E'.
+Events
+EndCommand
+Triggered immediately after a command completes.
+EndLISP
+Triggered upon completion of evaluating a LISP expression.
+EndModal
+Triggered just after a modal dialog is dismissed.
+EndOpen
+Triggered immediately after AutoCAD finishes opening an existing drawing.
+EndPlot
+Triggered after a document has been sent to the printer.
+EndSave
+Triggered when AutoCAD has finished saving the drawing.
+EndShortcutMenu
+Triggered after the shortcut menu appears.
+
+L Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'L'.
+Events
+LayoutSwitched
+Triggered after the user switches to a different layout.
+LISPCancelled
+Triggered when the evaluation of a LISP expression is cancelled.
+
+M Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'M'.
+Events
+Modified
+Triggered when an object or collection in the drawing has been modified.
+
+N Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'N'.
+Events
+NewDrawing
+Triggered just before a new drawing is created.
+
+O Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'O'.
+Events
+ObjectAdded
+Triggered when an object has been added to the drawing.
+ObjectErased
+Triggered when an object has been erased from the drawing.
+ObjectModified
+Triggered when an object in the drawing has been modified.
+
+S Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'S'.
+Events
+SelectionChanged
+Triggered when the current pickfirst selection set changes.
+SysVarChanged
+Triggered when the value of a system variable is changed.
+
+W Events Reference (ActiveX)
+
+These ActiveX event procedures all start with 'W'.
+Events
+WindowChanged
+Triggered when there is a change to the application or document windows.
+WindowMovedOrResized
+Triggered just after the application or drawing window has been moved or resized.
+
+"

@@ -345,6 +345,9 @@
   (make-generic-methods)
   (make-generic-events))
 
+(defparameter *dot-coma*
+  ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;~%")
+
 (defun make-class (class-name)
   (let ((md (find-methods        class-name))
         (pr (find-properties     class-name))
@@ -353,10 +356,7 @@
         (pars (let ((par
                       (find-parent class-name)))
                 (if par (list par ) par))))
-    (format t ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; defclass ~A
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;"
-            class-name) 
+    (format t (concatenate 'string *dot-coma*  ";;;; defclass ~A" *dot-coma*) class-name) 
     (format t "(defclass ~A ~A~%" class-name pars) 
     (format t "  ()~%")
     (format t "(:documentation ~S))~%~%" doc)
@@ -380,3 +380,4 @@
           :in (mnas-graph:hierarchy-node-names *active-x-object-graph*)
         :do 
            (make-class class-name)))
+
