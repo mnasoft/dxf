@@ -9,7 +9,7 @@
 
 (mnas-graph/view:view-graph *active-x-object-graph*)
 
-(defparameter *objects-activex*
+(defparameter *Objects-ActiveX*
   '(("AcadState"
      "A special object to use in monitoring the state of AutoCAD from out-of-process applications.")
     ("AcCmColor"
