@@ -1,3 +1,5 @@
+(in-package :dxf/template)
+
 "
 Reference Guide (ActiveX)
 
@@ -3199,86 +3201,128 @@ All Drawing Objects
      "This object manages the collection of section planes in the DWG database."
      "AcadSectionManager")
     ("SectionSettings"
-     "A container for section geometry settings.")
+     "A container for section geometry settings."
+     "AcadSectionSettings")
     ("SectionTypeSettings"
-     "The settings that apply to the various types of sections.")
+     "The settings that apply to the various types of sections."
+     "AcadSectionTypeSettings")
     ("SecurityParams"
-     "Supplies information necessary for performing security operations on drawing files.")
+     "Supplies information necessary for performing security operations on drawing files."
+     "AcadSecurityParams")
     ("SelectionSet"
-     "A group of one or more AutoCAD objects specified for processing as a single unit.")
+     "A group of one or more AutoCAD objects specified for processing as a single unit."
+     "AcadSelectionSet")
     ("SelectionSets Collection"
-     "The collection of all selection sets in the drawing.")
+     "The collection of all selection sets in the drawing."
+     "AcadSelectionSets")
     ("ShadowDisplay Interface"
-     "Interface for AutoCAD entities with shadows.")
+     "Interface for AutoCAD entities with shadows."
+     "AcadShadowDisplay")
     ("Shape"
-     "An object comprising lines, arcs, and circles defined in an SHX file.")
+     "An object comprising lines, arcs, and circles defined in an SHX file."
+     "AcadShape")
     ("Solid"
-     "A solid-filled polygon.")
+     "A solid-filled polygon."
+     "AcadSolid")
     ("SortentsTable"
-     "Contains and manipulates draw order information.")
+     "Contains and manipulates draw order information."
+     "AcadSortentsTable")
     ("Spline"
-     "A quadratic or cubic NURBS (nonuniform rational B-spline) curve.")
+     "A quadratic or cubic NURBS (nonuniform rational B-spline) curve."
+     "AcadSpline")
     ("SubDMesh"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubDMesh")
     ("SubDMeshEdge"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubDMeshEdge")
     ("SubDMeshFace"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubDMeshFace")
     ("SubDMeshVertex"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubDMeshVertex")
     ("SubEntity"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubEntity")
     ("SubEntSolidEdge"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubEntSolidEdge")
     ("SubEntSolidFace"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubEntSolidFace")
     ("SubEntSolidNode"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubEntSolidNode")
     ("SubEntSolidVertex"
-     "For internal use only.")
+     "For internal use only."
+     "AcadSubEntSolidVertex")
     ("SummaryInfo"
-     "Accesses drawing properties such as the Title, Subject, Author, and Keywords properties.")
+     "Accesses drawing properties such as the Title, Subject, Author, and Keywords properties."
+     "AcadSummaryInfo")
     ("Surface"
-     "A surface entity.")
+     "A surface entity."
+     "AcadSurface")
     ("SweptSurface"
-     "A surface created by sweeping a 2D curve along a path.")
+     "A surface created by sweeping a 2D curve along a path."
+     "AcadSweptSurface")
     ("Table"
-     "AutoCAD table object.")
+     "AutoCAD table object."
+     "AcadTable")
     ("TableStyle"
-     "Adds, modifies, and deletes table styles.")
+     "Adds, modifies, and deletes table styles."
+     "AcadTableStyle")
     ("Text"
-     "A single line of alphanumeric characters.")
+     "A single line of alphanumeric characters."
+     "AcadText")
     ("TextStyle"
-     "A named, saved collection of settings that determines the appearance of text characters.")
+     "A named, saved collection of settings that determines the appearance of text characters."
+     "AcadTextStyle")
     ("TextStyles Collection"
-     "The collection of all text styles in the drawing.")
+     "The collection of all text styles in the drawing."
+     "AcadTextStyles")
     ("Tolerance"
-     "A geometric tolerance contained in a feature control frame.")
+     "A geometric tolerance contained in a feature control frame."
+     "AcadTolerance")
     ("Toolbar"
-     "An AutoCAD toolbar.")
+     "An AutoCAD toolbar."
+     "AcadToolbar")
     ("ToolbarItem"
-     "A single button item on an AutoCAD toolbar.")
+     "A single button item on an AutoCAD toolbar."
+     "AcadToolbarItem")
     ("Toolbars Collection"
-     "A collection of Toolbar objects representing all the toolbars loaded in the current AutoCAD session.")
+     "A collection of Toolbar objects representing all the toolbars loaded in the current AutoCAD session."
+     "AcadToolbars")
     ("Trace"
-     "A 2D solid line of specified width.")
+     "A 2D solid line of specified width."
+     "AcadTrace")
     ("UCS"
-     "A user-defined coordinate system that determines the orientation of the X, Y, and Z axes in 3D space.")
+     "A user-defined coordinate system that determines the orientation of the X, Y, and Z axes in 3D space."
+     "AcadUCS")
     ("UCSs Collection"
-     "The collection of all user coordinate systems (UCSs) in the drawing.")
+     "The collection of all user coordinate systems (UCSs) in the drawing."
+     "AcadUCSs")
     ("Utility"
-     "A series of methods provided for utility purposes.")
+     "A series of methods provided for utility purposes."
+     "AcadUtility")
     ("View"
-     "A graphical representation of a 2D drawing or 3D model from a specific location (viewpoint) in space.")
+     "A graphical representation of a 2D drawing or 3D model from a specific location (viewpoint) in space."
+     "AcadView")
     ("Viewport"
-     "A bounded area that displays some portion of a drawing's model space.")
+     "A bounded area that displays some portion of a drawing's model space."
+     "AcadViewport")
     ("Viewports Collection"
-     "The collection of all viewports in the drawing.")
+     "The collection of all viewports in the drawing."
+     "AcadViewports")
     ("Views Collection"
-     "The collection of all views in the drawing.")
+     "The collection of all views in the drawing."
+     "AcadViews")
     ("Wipeout"
-     "Masking object that hides the objects below it in the current draw order.")
+     "Masking object that hides the objects below it in the current draw order."
+     "AcadWipeout")
     ("XLine"
-     "A construction line that is infinite in both directions.")
+     "A construction line that is infinite in both directions."
+     "AcadXline")
     ("XRecord"
-     "XRecord objects are used to store and manage arbitrary data.")))
+     "XRecord objects are used to store and manage arbitrary data."
+     "AcadXRecord")))

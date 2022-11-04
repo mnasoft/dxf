@@ -40,6 +40,11 @@
   (:export make-class
            make-classes
            )
+  (:export *properties-activex*
+           *methods-activex*
+           *events--activex*
+           *objects-activex*
+           )
   (:documentation
    "@b(Описание:) пакет @b(dxf/template) содержит методы для построения
    шаблонов классов, методов, свойств и событий, получение которых
