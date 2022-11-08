@@ -18,6 +18,7 @@ Objects
 # A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 All Drawing Objects
 "
+"https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5D302758-ED3F-4062-A254-FB57BAB01C44"
 
 (defparameter *Properties-ActiveX*
   '(("Action"
@@ -2876,7 +2877,23 @@ All Drawing Objects
      "Triggered just after the application or drawing window has been moved or resized.")))
 
 (defparameter *Objects-ActiveX*
-  '(("AcadState"
+  '(("_DAcadApplicationEvents Interface"
+     "The event interface for the AutoCAD application."
+     "_DAcadApplicationEvents")
+    ("_DAcadDocumentEvents Interface"
+     "The event interface for the AutoCAD document."
+     "_DAcadDocumentEvents")
+    ("3DFace"
+     "A 3D triangle or quadrilateral plane section."
+     "Acad3DFace")
+    ("3DPolyline"
+     "A 3D polyline of straight line segments."
+     "Acad3DPolyline")
+    ("3DSolid"
+     "A solid object with free-form surface support."
+     "Acad3DSolid")
+     )
+    ("AcadState"
      "A special object to use in monitoring the state of AutoCAD from out-of-process applications."
      "AcadState")
     ("AcCmColor"
