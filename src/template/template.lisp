@@ -2,17 +2,18 @@
   (:use #:cl)
   (:intern load-data
            )
-  (:export *table-classes*
-           *table-methods*
-           *table-properties*
-           *table-events*
-           *active-x-object-graph*
-           *class-parents*
-           )
   (:export *table-classes-rought*
            *table-methods-rought*
            *table-properties-rought*
            *table-events-rought*
+           )
+  (:export *table-classes*
+           *table-methods*
+           *table-properties*
+           *table-events*
+           )
+  (:export *active-x-object-graph*
+           *class-parents*
            )
   (:export find-parents
            find-parent
@@ -42,7 +43,7 @@
            )
   (:export *properties-activex*
            *methods-activex*
-           *events--activex*
+           *events-activex*
            *objects-activex*
            )
   (:documentation
@@ -53,63 +54,67 @@
 
 (in-package :dxf/template)
 
-(defun load-data (sys sub-pathname)
-  (let ((system sys )
-        (sub-pathname sub-pathname))
-    (loop :for file :in (uiop:directory-files
-                         (asdf:system-relative-pathname system sub-pathname)
-                         "*.lisp")
-          :collect
-          (with-open-file (stream file)
-            (read stream)))))
+(defun load-data (system sub-pathname &optional (ext "*.lisp"))
+  "@b(Описание:) функция @b(load-data) возвращает список, явлющийся
+результатом последовательного чтения и помещения в список информации
+помещенной в файлы с расширением @b(ext) из подкаталога @b(sub-pathname)
+системы @b(system).
+
+ @b(Пример использования:)
+@begin[lang=lisp](code)
+ (load-data :dxf \"src/template/methods/\")
+@end(code)
+"
+  (apply #'append
+         (loop :for file :in (uiop:directory-files
+                              (asdf:system-relative-pathname system sub-pathname)
+                              ext)
+               :collect
+               (with-open-file (stream file)
+                 (loop :for form = (read stream nil)
+                       :while form
+                       :collect form)))))
 
 (defparameter *table-methods-rought*
   (load-data :dxf "src/template/methods/")
   "@b(Описание:) переменная @b(*table-methods-rought*) содержт список
- методов системы AutoCAD.  Каждый элемент состоит из имени метода и
- ссылки на его описание.  Имена методов здесь находятся в первозданном
- виде (как это есть в ActiveX).")
+ методов системы AutoCAD.
 
-(defparameter *table-methods*
-  (loop :for (name doc) :in (apply #'append *table-methods-rought*)
-        :collect
-        (list  (dxf/utils:make-method-name name) doc))
-  "@b(Описание:) переменная @b(*table-methods-rought*) содержт список
- методов системы AutoCAD.  Каждый элемент состоит из имени метода и
- ссылки на его описание.  Имена методов здесь находятся в
- преобразованном виде (согласно традиций Common Lisp).")
+ Каждый элемент состоит из:
+@begin(list)
+
+ @item(имени метода, представленного в первозданном виде (как это есть
+       в ActiveX);)
+ @item(ссылки на его описание;)
+ @item(сигнатуры - списка параметров, используемых при его вызове.)
+@end(list)
+")
 
 (defparameter *table-properties-rought*
-  (load-data :dxf "src/template/properties/")
+  (load-data :dxf "src/template/properties/" "properties.lisp")
   "@b(Описание:) переменная @b(*table-properties-rought*) содержт список
- свойств системы AutoCAD.  Каждый элемент состоит из имени свойства и
- ссылки на его описание.  Имена свойств здесь находятся в первозданном
- виде (как это есть в ActiveX).")
+ свойств системы AutoCAD.
 
-(defparameter *table-properties*
-  (loop :for (name doc) :in (apply #'append *table-properties-rought*)
-        :collect
-        (list  (dxf/utils:make-proprety-name name) doc))
-    "@b(Описание:) переменная @b(*table-properties*) содержт
- список свойств системы AutoCAD.  Каждый элемент состоит из имени
- свойства и ссылки на его описание.  Имена свойств здесь находятся в
- преобразованном виде (согласно традиций Common Lisp).")
+ Каждый элемент состоит из:
+@begin(list)
+ @item(имени свойства, представленного в первозданном виде (как это есть
+       в ActiveX);)
+ @item(ссылки на его описание.)
+@end(list)
+")
 
 (defparameter *table-events-rought*
   (load-data :dxf "src/template/events/")
   "@b(Описание:) переменная @b(*table-events-rought*) содержт список
- событий системы AutoCAD.  Каждый элемент состоит из имени события и
- ссылки на его описание.  Имена событий здесь находятся в первозданном
- виде (как это есть в ActiveX).")
+ событий системы AutoCAD.
 
-(defparameter *table-events*
-  (loop :for (name doc) :in (apply #'append *table-events-rought*)
-        :collect
-        (list  (dxf/utils:make-event-name name) doc))
-    "@b(Описание:) переменная @b(*table-events*) содержт список
- событий системы AutoCAD.  Каждый элемент состоит из имени события и
- ссылки на его описание.  Имена событий здесь находятся в первозданном
- виде (как это есть в ActiveX).")
+ Каждый элемент состоит из:
+@begin(list)
+ @item(имени события, представленного в первозданном виде (как это есть
+       в ActiveX);)
+ @item(ссылки на его описание.)
+@end(list)
+")
 
 (defparameter *table-classes-rought*
   (load-data :dxf "src/template/classes/")
@@ -149,6 +154,39 @@
  Если поле PARENTS, METHODS, PROPERTIES или EVENTS содержит None, то
 это поле считается пустым.
 ")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defparameter *table-methods*
+  (loop :for (name doc syngature) :in *table-methods-rought*
+        :collect
+        (list  (dxf/utils:make-method-name name) doc))
+  "@b(Описание:) переменная @b(*table-methods-rought*) содержт список
+ методов системы AutoCAD.  Каждый элемент состоит из имени метода и
+ ссылки на его описание.  Имена методов здесь находятся в
+ преобразованном виде (согласно традиций Common Lisp).")
+
+
+
+(defparameter *table-properties*
+  (loop :for (name doc) :in *table-properties-rought*
+        :collect
+        (list  (dxf/utils:make-proprety-name name) doc))
+    "@b(Описание:) переменная @b(*table-properties*) содержт
+ список свойств системы AutoCAD.  Каждый элемент состоит из имени
+ свойства и ссылки на его описание.  Имена свойств здесь находятся в
+ преобразованном виде (согласно традиций Common Lisp).")
+
+(defparameter *table-events*
+  (loop :for (name doc) :in *table-events-rought*
+        :collect
+        (list  (dxf/utils:make-event-name name) doc))
+    "@b(Описание:) переменная @b(*table-events*) содержт список
+ событий системы AutoCAD.  Каждый элемент состоит из имени события и
+ ссылки на его описание.  Имена событий здесь находятся в первозданном
+ виде (как это есть в ActiveX).")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun convert-db (a-lst)
   "@b(Описание:) функция @b(convert-db) возвращает список,

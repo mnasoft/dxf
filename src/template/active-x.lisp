@@ -20,7 +20,7 @@ All Drawing Objects
 "
 "https://help.autodesk.com/view/ACD/2022/RUS/?guid=GUID-5D302758-ED3F-4062-A254-FB57BAB01C44"
 
-(defparameter *Properties-ActiveX*
+(defparameter *properties-activex*
   '(("Action"
      "Specifies the security-related operations to be performed on a drawing.")
     ("Active"
@@ -1770,7 +1770,8 @@ All Drawing Objects
     ("ZEffectiveScaleFactor"
      "Specifies the effective ZScale factor of the block.")
     ("ZScaleFactor"
-     "Specifies the Z scale factor for the block or external reference (xref).")))
+     "Specifies the Z scale factor for the block or external reference (xref)."))
+  "")
 
 (defparameter *Methods-ActiveX*
   '(("Activate"
@@ -2792,7 +2793,7 @@ All Drawing Objects
     ("ZoomWindow"
      "Zooms the current viewport to the area specified by two opposite corners of a rectangle.")))
 
-(defparameter *Events--ActiveX*
+(defparameter *Events-ActiveX*
   '(("Activate"
      "Triggered when a document window is activated.")
     ("AppActivate"
@@ -2892,7 +2893,6 @@ All Drawing Objects
     ("3DSolid"
      "A solid object with free-form surface support."
      "Acad3DSolid")
-     )
     ("AcadState"
      "A special object to use in monitoring the state of AutoCAD from out-of-process applications."
      "AcadState")

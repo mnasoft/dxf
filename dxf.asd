@@ -180,8 +180,8 @@
   :components ((:module "src/template"
 		:serial t
 		:components ((:file "template")
-                             (:file "absend")
-                             (:file "active-x")))))
+                             (:file "active-x")
+                             (:file "absend")))))
 
 (defsystem "dxf/docs"
   :description "Зависимости для сборки документации"
