@@ -1,6 +1,6 @@
 ;;;; ./src/out/bin/bin.lisp
 
-(defpackage #:dxf/out/bin
+(defpackage :dxf/out/bin
   (:use #:cl #+nil #:mnas-string)
   (:export wrt-int8
            wrt-int16

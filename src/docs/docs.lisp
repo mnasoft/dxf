@@ -1,6 +1,6 @@
 ;;;; ./src/docs/docs.lisp
 
-(defpackage #:dxf/docs
+(defpackage :dxf/docs
   (:use #:cl ) 
   (:export make-all)
   (:documentation "Пакет @b(dxf/docs) содержит функции

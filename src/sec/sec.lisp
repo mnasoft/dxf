@@ -1,6 +1,6 @@
 ;;;; ./src/sec/sec.lisp
 
-(defpackage #:dxf/sec
+(defpackage :dxf/sec
   (:use #:cl)
   (:export *eof*
            )

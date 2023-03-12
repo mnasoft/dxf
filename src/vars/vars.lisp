@@ -1,6 +1,6 @@
 ;;;; ./src/vars/vars.lisp
 
-(defpackage #:dxf/vars
+(defpackage :dxf/vars
   (:use #:cl )
 ;;;; header-section-group-codes.lisp
   (:export *$ACADMAINTVER*

@@ -1,6 +1,6 @@
 ;;;; ./src/out/txt/txt.lisp
 
-(defpackage #:dxf/out/txt
+(defpackage :dxf/out/txt
   (:use #:cl)
   (:intern order
            print-number

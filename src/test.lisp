@@ -1,6 +1,6 @@
 ;;;; test.lisp
 
-(in-package #:dxf)
+(in-package :dxf)
 
 "dxf"
 "dxf/in/txt"

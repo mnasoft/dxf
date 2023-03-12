@@ -1,4 +1,4 @@
-(defpackage #:dxf/template
+(defpackage :dxf/template
   (:use #:cl)
   (:intern load-data
            )

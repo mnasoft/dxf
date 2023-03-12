@@ -1,6 +1,6 @@
 ;;;; ./src/b-arr/b-arr.lisp
 
-(defpackage #:dxf/b-arr
+(defpackage :dxf/b-arr
   (:use #:cl)
   (:export *byte-aray-2*
            *byte-aray-4*

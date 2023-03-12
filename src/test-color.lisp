@@ -1,6 +1,6 @@
 ;;;; test.lisp
 
-(in-package #:dxf)
+(in-package :dxf)
 
 (defparameter *color-index-to-rgb*
   '((1  (255 0 0))

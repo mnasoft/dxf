@@ -1,6 +1,6 @@
 ;;;; ./src/dxf.lisp
 
-(defpackage #:dxf
+(defpackage :dxf
   (:use #:cl #:mnas-string)
   (:export dxf-out-text
 	   dxf-in-text
@@ -145,7 +145,7 @@
  "))
 
 
-(in-package #:dxf)
+(in-package :dxf)
 
 "@begin(enum)
   @item(

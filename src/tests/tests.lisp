@@ -1,6 +1,6 @@
 ;;;; .src/tests/tests.lisp
 
-(defpackage #:dxf/tests
+(defpackage :dxf/tests
   (:use #:cl #:fiveam)
   (:export #:run-tests)
   )

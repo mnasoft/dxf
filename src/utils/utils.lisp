@@ -1,6 +1,6 @@
 ;;;; ./src/utils/utils.lisp
 
-(defpackage #:dxf/utils
+(defpackage :dxf/utils
   (:use #:cl)
   (:export make-slot
            diff

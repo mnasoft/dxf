@@ -1,6 +1,6 @@
 ;;;; ./src/color/color.lisp
 
-(defpackage #:dxf/color
+(defpackage :dxf/color
   (:use #:cl)
   (:export +ac-Color-Method-ByLayer+
            +ac-Color-Method-ByBlock+

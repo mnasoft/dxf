@@ -1,5 +1,5 @@
 ;;;; tests/main-run.lisp
 
-(in-package #:dxf/tests)
+(in-package :dxf/tests)
 
 (tests)

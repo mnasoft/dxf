@@ -1,6 +1,6 @@
 ;;;; ./src/const/const.lisp
 
-(defpackage #:dxf/const
+(defpackage :dxf/const
   (:use #:cl)
   (:export *AutoCAD-Binary-DXF-18*
            *AutoCAD-Binary-DXF-21*

@@ -1,6 +1,6 @@
 ;;;; ./dxf/tests/dxf-text.lisp
 
-(in-package #:dxf/tests)
+(in-package :dxf/tests)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Тестирование dxf-in-t-sections.lisp

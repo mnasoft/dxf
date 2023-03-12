@@ -1,6 +1,6 @@
 ;;;; ./src/in/bin/bin.lisp
 
-(defpackage #:dxf/in/bin
+(defpackage :dxf/in/bin
   (:use #:cl ) ;;#:mnas-string)
   (:export read-string
            read-hex
@@ -35,7 +35,7 @@
  Главная функция проекта - @b(read-file).
 "))
 
-(in-package #:dxf/in/bin)
+(in-package :dxf/in/bin)
 
 (defun read-string (stream)
   "@b(Описание:) функция @b(read-string) возвращает строку, считывамую

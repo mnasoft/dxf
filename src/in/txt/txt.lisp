@@ -1,6 +1,6 @@
 ;;;; ./src/in/txt/txt.lisp
 
-(defpackage #:dxf/in/txt
+(defpackage :dxf/in/txt
   (:use #:cl)
   (:intern read-string
            read-int16
@@ -22,7 +22,7 @@
  Главная функция проекта - @b(read-file).
 "))
 
-(in-package #:dxf/in/txt)
+(in-package :dxf/in/txt)
 
 (defun read-string (str)
   str)

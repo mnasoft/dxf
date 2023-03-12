@@ -1,6 +1,6 @@
 ;;;; ./src/split/split.lisp
 
-(defpackage #:dxf/split
+(defpackage :dxf/split
   (:use #:cl)
   (:export between
            after)
