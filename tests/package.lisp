@@ -5,3 +5,5 @@
   (:export #:run!
 	   #:all-tests
 	   #:tests))
+
+(in-package :dxf/tests)

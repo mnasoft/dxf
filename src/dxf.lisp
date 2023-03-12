@@ -144,7 +144,6 @@
  @end(enum)
  "))
 
-
 (in-package :dxf)
 
 "@begin(enum)
